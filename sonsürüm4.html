@@ -1,0 +1,334 @@
+﻿
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sözcüklük Sürüm 3 - Uygulamalı Yapı</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; display: flex; flex-direction: row; height: 100vh; font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; }
+        
+        .sol-bolme { width: 30%; background: #1a252f; color: white; padding: 20px; border-right: 4px solid #27ae60; overflow-y: auto; }
+        .sag-bolme { width: 70%; padding: 20px; overflow-y: auto; background: #ffffff; }
+
+        h2 { border-bottom: 2px solid #27ae60; padding-bottom: 10px; font-size: 1.5em; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        
+        .sonuc-kart { padding: 15px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); line-height: 1.6; }
+        .kume-a { background: #e8f5e9; border-left: 8px solid #27ae60; } /* A'da bulundu */
+        .kume-b { background: #e3f2fd; border-left: 8px solid #2980b9; } /* B'de bulundu */
+        
+        .numara { font-weight: bold; color: #2c3e50; background: #fff; padding: 2px 8px; border-radius: 50%; margin-right: 10px; border: 1px solid #ddd; }
+        .etiket { font-size: 12px; color: #7f8c8d; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sol-bolme, .sag-bolme { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sol-bolme">
+    <h2>SANALYÖRE</h2>
+    <p>• Çevrimiçi Görüş (Blog)</p>
+    <p>• Tanıtım ve Destek</p>
+    <hr>
+    <h4>ÖNERİ VE İLETİ</h4>
+    <input type="email" placeholder="E-İleti Adresiniz">
+    <textarea placeholder="Yeni önerinizi buraya yazın..." rows="4"></textarea>
+    <button style="width:100%; padding:10px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer;">GÖNDER</button>
+</div>
+
+<div class="sag-bolme">
+    <h2 style="color: #27ae60;">SÖZCÜKLÜK SÜRÜM 3</h2>
+    <input type="text" id="arama" placeholder="Sözcük veya Ögecik No giriniz..." onkeyup="ara()">
+    <div id="sonuclar"></div>
+</div>
+
+<script>
+    const havuz = [
+        { a: "Ac (89) - Aktinyum", b: "ÖGECİK89" },
+        { a: "Ag (47) - Gümüş", b: "ÖGECİK47" },
+        { a: "Al (13) - Alüminyum", b: "ÖGECİK13" },
+        { a: "Am (95) - Amerisyum", b: "ÖGECİK95" },
+        { a: "Ar (18) - Argon", b: "ÖGECİK18" },
+        { a: "As (33) - Arsenik", b: "ÖGECİK33" },
+        { a: "At (85) - Astatin", b: "ÖGECİK85" },
+        { a: "Au (79) - Altın", b: "ÖGECİK79" },
+        { a: "B (5) - Bor", b: "ÖGECİK5" },
+        { a: "Ba (56) - Baryum", b: "ÖGECİK56" },
+        { a: "Be (4) - Berilyum", b: "ÖGECİK4" },
+        { a: "Bh (107) - Bohriyum", b: "ÖGECİK107" },
+        { a: "Bi (83) - Bizmut", b: "ÖGECİK83" },
+        { a: "Bk (97) - Berkelyum", b: "ÖGECİK97" },
+        { a: "Br (35) - Brom", b: "ÖGECİK35" },
+        { a: "C (6) - Karbon", b: "ÖGECİK6" },
+        { a: "Ca (20) - Kalsiyum", b: "ÖGECİK20" },
+        { a: "Cd (48) - Kadmiyum", b: "ÖGECİK48" },
+        { a: "Ce (58) - Seryum", b: "ÖGECİK58" },
+        { a: "Cf (98) - Kaliforniyum", b: "ÖGECİK98" },
+        { a: "Cl (17) - Klor", b: "ÖGECİK17" },
+        { a: "Cm (96) - Küriyum", b: "ÖGECİK96" },
+        { a: "Cn (112) - Kopernisyum", b: "ÖGECİK112" },
+        { a: "Co (27) - Kobalt", b: "ÖGECİK27" },
+        { a: "Cr (24) - Krom", b: "ÖGECİK24" },
+        { a: "Cs (55) - Sezyum", b: "ÖGECİK55" },
+        { a: "Cu (29) - Bakır", b: "ÖGECİK29" },
+        { a: "Db (105) - Dubnyum", b: "ÖGECİK105" },
+        { a: "Ds (110) - Darmstadtiyum", b: "ÖGECİK110" },
+        { a: "Dy (66) - Disprosyum", b: "ÖGECİK66" },
+        { a: "Er (68) - Erbiyum", b: "ÖGECİK68" },
+        { a: "Es (99) - Einsteinyum", b: "ÖGECİK99" },
+        { a: "Eu (63) - Evropiyum", b: "ÖGECİK63" },
+        { a: "F (9) - Flor", b: "ÖGECİK9" },
+        { a: "Fe (26) - Demir", b: "ÖGECİK26" },
+        { a: "Fl (114) - Fleroviyum", b: "ÖGECİK114" },
+        { a: "Fm (100) - Fermiyum", b: "ÖGECİK100" },
+        { a: "Fr (87) - Fransiyum", b: "ÖGECİK87" },
+        { a: "Ga (31) - Galyum", b: "ÖGECİK31" },
+        { a: "Gd (64) - Gadolinyum", b: "ÖGECİK64" },
+        { a: "Ge (32) - Germanyum", b: "ÖGECİK32" },
+        { a: "H (1) - Hidrojen", b: "ÖGECİK1" },
+        { a: "He (2) - Helyum", b: "ÖGECİK2" },
+        { a: "Hf (72) - Hafniyum", b: "ÖGECİK72" },
+        { a: "Hg (80) - Civa", b: "ÖGECİK80" },
+        { a: "Ho (67) - Holmiyum", b: "ÖGECİK67" },
+        { a: "Hs (108) - Hassiyum", b: "ÖGECİK108" },
+        { a: "I (53) - İyot", b: "ÖGECİK53" },
+        { a: "In (49) - İndiyum", b: "ÖGECİK49" },
+        { a: "Ir (77) - İrİDYUM", b: "ÖGECİK77" },
+        { a: "K (19) - Potasyum", b: "ÖGECİK19" },
+        { a: "Kr (36) - Kripton", b: "ÖGECİK36" },
+        { a: "La (57) - Lantan", b: "ÖGECİK57" },
+        { a: "Li (3) - Lityum", b: "ÖGECİK3" },
+        { a: "Lr (103) - Lawrensiyum", b: "ÖGECİK103" },
+        { a: "Lu (71) - Lutesyum", b: "ÖGECİK71" },
+        { a: "Lv (116) - Livermoryum", b: "ÖGECİK116" },
+        { a: "Mc (115) - Moskovyum", b: "ÖGECİK115" },
+        { a: "Md (101) - Mendelevyum", b: "ÖGECİK101" },
+        { a: "Mg (12) - Magnezyum", b: "ÖGECİK12" },
+        { a: "Mn (25) - Manganez", b: "ÖGECİK25" },
+        { a: "Mo (42) - Molibden", b: "ÖGECİK42" },
+        { a: "Mt (109) - Meitneriyum", b: "ÖGECİK109" },
+        { a: "N (7) - Azot", b: "ÖGECİK7" },
+        { a: "Na (11) - Sodyum", b: "ÖGECİK11" },
+        { a: "Nb (41) - Niyobiyum", b: "ÖGECİK41" },
+        { a: "Nd (60) - Neodim", b: "ÖGECİK60" },
+        { a: "Ne (10) - Neon", b: "ÖGECİK10" },
+        { a: "Nh (113) - Nihonyum", b: "ÖGECİK113" },
+        { a: "Ni (28) - Nikel", b: "ÖGECİK28" },
+        { a: "No (102) - Nobeliyum", b: "ÖGECİK102" },
+        { a: "Np (93) - Neptünyum", b: "ÖGECİK93" },
+        { a: "O (8) - Oksijen", b: "ÖGECİK8" },
+        { a: "Og (118) - Oganesson", b: "ÖGECİK118" },
+        { a: "Os (76) - Osmiyum", b: "ÖGECİK76" },
+        { a: "P (15) - Fosfor", b: "ÖGECİK15" },
+        { a: "Pa (91) - Protaktinyum", b: "ÖGECİK91" },
+        { a: "Pb (82) - Kurşun", b: "ÖGECİK82" },
+        { a: "Pd (46) - Paladyum", b: "ÖGECİK46" },
+        { a: "Pm (61) - Prometyum", b: "ÖGECİK61" },
+        { a: "Po (84) - Polonyum", b: "ÖGECİK84" },
+        { a: "Pr (59) - Praseodim", b: "ÖGECİK59" },
+        { a: "Pt (78) - Platin", b: "ÖGECİK78" },
+        { a: "Pu (94) - Plütonyum", b: "ÖGECİK94" },
+        { a: "Ra (88) - Radyum", b: "ÖGECİK88" },
+        { a: "Rb (37) - Rubidyum", b: "ÖGECİK37" },
+        { a: "Re (75) - Renyum", b: "ÖGECİK75" },
+        { a: "Rf (104) - Rutherfordiyum", b: "ÖGECİK104" },
+        { a: "Rg (111) - Röntgenyum", b: "ÖGECİK111" },
+        { a: "Rh (45) - Rodyum", b: "ÖGECİK45" },
+        { a: "Rn (86) - Radon", b: "ÖGECİK86" },
+        { a: "Ru (44) - Rutenyum", b: "ÖGECİK44" },
+        { a: "S (16) - Kükürt", b: "ÖGECİK16" },
+        { a: "Sb (51) - Antimon", b: "ÖGECİK51" },
+        { a: "Sc (21) - Skandiyum", b: "ÖGECİK21" },
+        { a: "Se (34) - Selenyum", b: "ÖGECİK34" },
+        { a: "Sg (106) - Seaborgiyum", b: "ÖGECİK106" },
+        { a: "Si (14) - Silisyum", b: "ÖGECİK14" },
+        { a: "Sm (62) - Samaryum", b: "ÖGECİK62" },
+        { a: "Sn (50) - Kalay", b: "ÖGECİK50" },
+        { a: "Sr (38) - Stronsiyum", b: "ÖGECİK38" },
+        { a: "Ta (73) - Tantal", b: "ÖGECİK73" },
+        { a: "Tb (65) - Terbiyum", b: "ÖGECİK65" },
+        { a: "Tc (43) - Teknetyum", b: "ÖGECİK43" },
+        { a: "Te (52) - Tellür", b: "ÖGECİK52" },
+        { a: "Th (90) - Toryum", b: "ÖGECİK90" },
+        { a: "Ti (22) - Titanyum", b: "ÖGECİK22" },
+        { a: "Tl (81) - Talyum", b: "ÖGECİK81" },
+        { a: "Tm (69) - Tuliyum", b: "ÖGECİK69" },
+        { a: "Ts (117) - Tennesin", b: "ÖGECİK117" },
+        { a: "U (92) - Uranyum", b: "ÖGECİK92" },
+        { a: "V (23) - Vanadyum", b: "ÖGECİK23" },
+        { a: "W (74) - Tungsten", b: "ÖGECİK74" },
+        { a: "Xe (54) - Ksenon", b: "ÖGECİK54" },
+        { a: "Y (39) - İtriyum", b: "ÖGECİK39" },
+        { a: "Yb (70) - İterbiyum", b: "ÖGECİK70" },
+        { a: "Zn (30) - Çinko", b: "ÖGECİK30" },
+        { a: "Zr (40) - Zirkonyum", b: "ÖGECİK40" },
+        { a: "Aadet", b: "Gelenek" },
+        { a: "ABILITY", b: "YAPABİLİRLİK" },
+        { a: "Ability", b: "Yapılabilirlik" },
+        { a: "Abort", b: "Geçersiz" },
+        { a: "ABSOLUTE REALITY", b: "KOŞULSUZ GERÇEK" },
+        { a: "Absolute reality", b: "Koşulsuz gerçek" },
+        { a: "Accorate", b: "Doğrula " },
+        { a: "ACCURETE", b: "DOSDOĞRU" },
+        { a: "Aciz", b: "Yapabilemez" },
+        { a: "ACTION", b: "ETKİ" },
+        { a: "Action", b: "Etki" },
+        { a: "Adalet", b: "Gerçeklere bağlılık" },
+        { a: "Adam", b: "Tanımlayabilener" },
+        { a: "Adaptasyon", b: "Uyum" },
+        { a: "Adbloker", b: "anıtım engeller" },
+        { a: "Ademoğlu", b: "Tanımlayabilenoğlu" },
+        { a: "ADENOMA", b: "SALGI BEZESİ BAŞKALAŞMIŞ CANLICIĞI" },
+        { a: "Adenona", b: "Salgı bezesi başkalaşmış canlıcığı" },
+        { a: "ADET", b: "TANE" },
+        { a: "Adet ", b: "Tane" },
+        { a: "Adeta", b: "Sanki" },
+        { a: "ADRENALİIN HORMONU", b: "DÜŞÜNMıE ORGANı  HAREKET SALGıSı" },
+        { a: "Adrenalin hormonu", b: "Düşünme organı hareket salgısı" },
+        { a: "ADRESS BUS", b: "YERİMİ YOLU" },
+        { a: "Adress buss", b: "Yer imi yolu" },
+        { a: "advanced", b: "gelişmiş" },
+        { a: "Advantage", b: "Yararlı" },
+        { a: "Aeresol", b: "Havacözüt" },
+        { a: "AFAROZ", b: "DIŞLAMA" },
+        { a: "Aforoz", b: "Dışlanma" },
+        { a: "Age", b: "Yaş" },
+        { a: "Ahir", b: "Sonraki" },
+        { a: "Ahşap", b: "Odun" },
+        { a: "Aile", b: "Birlikte geçinenler" },
+        { a: "Akademi", b: "Bilikent" },
+        { a: "Aklıselim", b: "Gerçekçi düşünce" },
+        { a: "Akort", b: "Ayar" },
+        { a: "Akustik", b: "Sesbilim" },
+        { a: "Alabros", b: "Fırçamsı saç kesimi" },
+        { a: "Alaşım", b: "Karışım" },
+        { a: "Alem", b: "Evren" },
+        { a: "Alet", b: "Araç" },
+        { a: "Algoritma", b: "Çözüm adımları" },
+        { a: "Allotrop", b: "Ögeciğin farklı biçimleri" },
+        { a: "Alt + TAB", b: "hızlı geçiş" },
+        { a: "alt+ F4", b: "Uyarı pencereyi kaldır" },
+        { a: "alt+ F5", b: "uyarı pencereyi kaldır" },
+        { a: "Alt+;", b: "Yalnız seçili gözenekler" },
+        { a: "Alternatif", b: "Seçenek" },
+        { a: "Altın", b: "Ögecik79" },
+        { a: "Altimetre", b: "Yeryüzünden yükseklik ölçer" },
+        { a: "ALU (ARITMETIC LOGIC UNIT)", b: "TOPLA ÇIKAR İŞLEMLERİ BİRİMİ" },
+        { a: "Amaç", b: "Erim" },
+        { a: "Ambulans", b: "Cankurtaran" },
+        { a: "Amir", b: "Buyuran" },
+        { a: "Amorf", b: "Biçimsiz" },
+        { a: "Amortisör", b: "Darbe emer" },
+        { a: "Amplifikatör", b: "Yürkseltici" },
+        { a: "Anafor", b: "Burgaç" },
+        { a: "Anarşi", b: "Düzensizlik" },
+        { a: "Anatomi", b: "Beden yapısı bilimi" },
+        { a: "Angle", b: "Açı" },
+        { a: "Anormal", b: "Tanımlanmamış" },
+        { a: "Anten", b: "Duyarga" },
+        { a: "Antik", b: "Çokçok eski" },
+        { a: "Antipati", b: "Karşıtduygu" },
+        { a: "Antitez", b: "Karşısav" },
+        { a: "ANTROPOMORFIK", b: "TANIMLAYABİLENBİÇİMCİLİK" },
+        { a: "Antropomorfik", b: "Tanımlayabilen biçimcilik" },
+        { a: "Anyon", b: "Eksi degerlikli ögecik" },
+        { a: "API application interface", b: "UYGULAMA ÖNGÖRÜLEME ARAYÜZÜ" },
+        { a: "API Application Programing İnterface", b: "Uygulama öngörüleme arayüzü" },
+        { a: "Araba", b: "Dört tekerli taşıt" },
+        { a: "Arazi", b: "Yeryüzü parçaları" },
+        { a: "Argüman", b: "Sav" },
+        { a: "Arıza", b: "Bozulma" },
+        { a: "Arif", b: "Aydınlanmıış" },
+        { a: "Ariitmetic Logic Unit", b: "Topla çıkar işlemleri birimi" },
+        { a: "Arkeoloji", b: "Başlangıca yönelen bilim" },
+        { a: "Armağan", b: "Doyumluk" },
+        { a: "Artificial", b: "Yapay  " },
+        { a: "Asansör", b: "Düşey taşıt" },
+        { a: "ASETAT", b: "Yarıgeçirgen ince yüzey" },
+        { a: "Asimilasyon", b: "Benzetme" },
+        { a: "Asistan", b: "Yardımcı" },
+        { a: "Asit", b: "Ekşit" },
+        { a: "Aspect", b: "Yön" },
+        { a: "Assert", b: "ILERI SÜRME" },
+        { a: "Assert ", b: "İleri sürme" },
+        { a: "Assertion", b: "Sav" },
+        { a: "Astral", b: "Yıdızlararası" },
+        { a: "Astroid", b: "Göktaşı" },
+        { a: "ASTROİT", b: "GÖKTAŞI" },
+        { a: "Astronot", b: "Gökbirey" },
+        { a: "Ati", b: "Gelecek" },
+        { a: "ATMOSFER", b: "HAVAYUVAR" },
+        { a: "Atmosfer ", b: "Havayuvar " },
+        { a: "ATMOSFERİK", b: "HAVAYUVARSAL" },
+        { a: "ATOM", b: "ÖGECİK" },
+        { a: "Atom  ", b: "Ögecik" },
+        { a: "Atom enerjisi", b: "Ögecik erkesi" },
+        { a: "atract", b: "Çekici" },
+        { a: "Atrofi", b: "İşlevsizlik" },
+        { a: "Avantaj", b: "Yarar" },
+        { a: "Axle", b: "Eksen" },
+        { a: "Ayet", b: "Tümce" },
+        { a: "Ayna", b: "Yansıtıcı" },
+        { a: "AZIMUTH", b: "KUZEY AÇı" },
+        { a: "Azimuth", b: "Kuzey açı" },
+        { a: "Aziz", b: "Hepönder" },
+        { a: "Azot", b: "Ögecik7" },
+        { a: "BABBITT", b: "YATAK METAL" },
+        { a: "BACK OFFICE", b: "ARKA IŞYERI" },
+        { a: "BACKBONE", b: "OMURGA," },
+        { a: "BACKER", b: "DESTEKÇİ" },
+        { a: "BACKGROUND", b: "ARKAALAN," },
+        { a: "BACKLASH", b: "TEPKI" },
+        { a: "BACKLOG", b: "YEDEK KÜTÜK" },
+        { a: "BACKPLANE", b: "ARKA DÜZLEM" },
+        { a: "BACKUP", b: "YEDEKLEME" },
+        { a: "BACKWARD", b: "GERİYE" },
+        { a: "BAD", b: "KÖTÜ" },
+        { a: "BAFFLE", b: "ŞAŞıRTMAK" },
+        { a: "BAGAJ", b: "YÜKLÜK" },
+        { a: "BAHSEDİLEN", b: "SÖZEDİLEN" },
+        { a: "BAHSİ GEÇEN", b: "SÖZÜEDİLEN" },
+        { a: "BAKIR", b: "ÖGECIK29" },
+        { a: "BAKTERİ", b: "YAYILGAN CANLICIK" },
+        { a: "BALANCE", b: "DENGE" },
+        { a: "BALANCED", b: "LOAD" },
+        { a: "BALANCER", b: "DENGELI" },
+        { a: "BALATA", b: "SAKIZ AĞACI KAVUÇUĞU" }
+    ];
+
+    function ara() {
+        const girdi = document.getElementById('arama').value.toLocaleLowerCase('tr-TR');
+        const cikis = document.getElementById('sonuclar');
+        cikis.innerHTML = "";
+        let sayac = 1;
+
+        if (girdi.length < 1) return;
+
+        havuz.forEach(oge => {
+            const kumeA = oge.a.toLocaleLowerCase('tr-TR');
+            const kumeB = oge.b.toLocaleLowerCase('tr-TR');
+
+            if (kumeA.includes(girdi) || kumeB.includes(girdi)) {
+                const div = document.createElement('div');
+                // B kümesinde bulunduysa mavi taban, aksi halde yeşil taban
+                div.className = kumeB.includes(girdi) ? 'sonuc-kart kume-b' : 'sonuc-kart kume-a';
+                
+                div.innerHTML = `
+                    <span class="numara">${sayac}</span>
+                    <span class="etiket">${kumeB.includes(girdi) ? "Karşılıklı Bulma (B)" : "Yalınlaştırma (A)"}</span>
+                    <strong>Eski Karşılık:</strong> ${oge.a}<br>
+                    <strong>Yalın Türkçe:</strong> <span style="color:#27ae60; font-weight:bold;">${oge.b}</span>
+                `;
+                cikis.appendChild(div);
+                sayac++;
+            }
+        });
+    }
+</script>
+</body>
+</html>
