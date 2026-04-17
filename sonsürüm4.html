@@ -1,54 +1,63 @@
-﻿
-<!DOCTYPE html>
+,<!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sözcüklük Sürüm 3 - Uygulamalı Yapı</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { margin: 0; display: flex; flex-direction: row; height: 100vh; font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; }
-        
-        .sol-bolme { width: 30%; background: #1a252f; color: white; padding: 20px; border-right: 4px solid #27ae60; overflow-y: auto; }
-        .sag-bolme { width: 70%; padding: 20px; overflow-y: auto; background: #ffffff; }
+<meta charset="UTF-8">
+<title>cpakyürek SANAL YÖRESİ & SÖZCÜKLÜK</title>
+<style>
+body { display: flex; height: 100vh; font-family: sans-serif; margin: 0; background-color: #dee2e6; }
 
-        h2 { border-bottom: 2px solid #27ae60; padding-bottom: 10px; font-size: 1.5em; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-        
-        .sonuc-kart { padding: 15px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); line-height: 1.6; }
-        .kume-a { background: #e8f5e9; border-left: 8px solid #27ae60; } /* A'da bulundu */
-        .kume-b { background: #e3f2fd; border-left: 8px solid #2980b9; } /* B'de bulundu */
-        
-        .numara { font-weight: bold; color: #2c3e50; background: #fff; padding: 2px 8px; border-radius: 50%; margin-right: 10px; border: 1px solid #ddd; }
-        .etiket { font-size: 12px; color: #7f8c8d; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sol-bolme, .sag-bolme { width: 100%; height: auto; }
-        }
-    </style>
+/* Sol Bölüm: Sanal Yöre */
+#sanal-yore { width: 70%; padding: 30px; background: white; border-right: 2px solid #333; overflow-y: auto; }
+
+/* Sağ Bölüm: Sözcüklük */
+#sozcukluk { width: 30%; padding: 20px; background: #fff33b; display: flex; flex-direction: column; }
+
+.kategori-dugme { display: block; width: 100%; padding: 12px; margin: 8px 0; background: #eee; border: 1px solid #ccc; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+
+input, button { padding: 12px; margin-top: 5px; width: 100%; box-sizing: border-box; }
+.dugme { background-color: #333; color: white; cursor: pointer; font-weight: bold; }
+.sifirla-dugme { background-color: #7f8c8d; color: white; cursor: pointer; font-weight: bold; }
+
+#sonuc { margin-top: 15px; padding: 15px; border-radius: 5px; font-weight: bold; min-height: 50px; transition: background 0.3s; }
+#yonetici-panel { display: none; margin-top: 20px; border-top: 2px solid #000; padding-top: 10px; }
+</style>
 </head>
 <body>
 
-<div class="sol-bolme">
-    <h2>SANALYÖRE</h2>
-    <p>• Çevrimiçi Görüş (Blog)</p>
-    <p>• Tanıtım ve Destek</p>
-    <hr>
-    <h4>ÖNERİ VE İLETİ</h4>
-    <input type="email" placeholder="E-İleti Adresiniz">
-    <textarea placeholder="Yeni önerinizi buraya yazın..." rows="4"></textarea>
-    <button style="width:100%; padding:10px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer;">GÖNDER</button>
+<div id="sanal-yore">
+<h1>cpakyurek SANAL YÖRESİ</h1>
+<h3>TANITIM (reklam)/ DESTEK (sponsorluk)</h3>
+<p>SİTE GÜNCEL DUYURULARI BURADA YER ALIR.</p>
+
+<h3>ÖZEL KONULAR</h3>
+<button class="kategori-dugme" onclick="alert('Çokluklar Bilimine hoş geldiniz.')">a) Çokluklar Bilimi</button>
+<button class="kategori-dugme" onclick="alert('Ögeciksel İtişime hoş geldiniz.')">b) Ögeciksel İtişim</button>
+<button class="kategori-dugme" onclick="alert('Ögeciksel Birleşime hoş geldiniz.')">c) Ögeciksel Birleşim</button>
+<button class="kategori-dugme" onclick="alert('Sağıltma Bilimine hoş geldiniz.')">d) Sağıltma Bilimi</button>
+<button class="kategori-dugme" onclick="alert('Dönemsel Çizelgeye hoş geldiniz.')">e) Dönemsel Çizelge</button>
 </div>
 
-<div class="sag-bolme">
-    <h2 style="color: #27ae60;">SÖZCÜKLÜK SÜRÜM 3</h2>
-    <input type="text" id="arama" placeholder="Sözcük veya Ögecik No giriniz..." onkeyup="ara()">
-    <div id="sonuclar"></div>
+<div id="sozcukluk">
+<h2>Sözlük değil, SÖZCÜKLÜK</h2>
+<input type="text" id="arama-girdi" placeholder="SÖZCÜK SORUNUZ..." onkeyup="this.value = this.value.toUpperCase()">
+<button class="dugme" onclick="ara()">BUL</button>
+<button class="sifirla-dugme" onclick="sifirla()">BAŞKA SORUNUZ</button>
+
+<div id="sonuc"></div>
+
+<input type="password" id="yonetici-kod" placeholder="YÖNETİCİ KODU (010426)">
+<button class="dugme" onclick="girisYap()">ARKA ODAYA GİR</button>
+
+<div id="yonetici-panel">
+<h3>ARKA ODA (yönetici)</h3>
+<ul id="gorev-listesi"></ul>
+</div>
 </div>
 
 <script>
-    const havuz = [
+const sozcukler = [
+{"sozcuk": "ÖZDEK", "anlam": "MATERYAL", "renk": "#e3f2fd"},
+[
         { a: "Ac (89) - Aktinyum", b: "ÖGECİK89" },
         { a: "Ag (47) - Gümüş", b: "ÖGECİK47" },
         { a: "Al (13) - Alüminyum", b: "ÖGECİK13" },
@@ -300,35 +309,50 @@
         { a: "BALANCER", b: "DENGELI" },
         { a: "BALATA", b: "SAKIZ AĞACI KAVUÇUĞU" }
     ];
+];
+let gorevler = JSON.parse(localStorage.getItem('gorevler')) || [];
 
-    function ara() {
-        const girdi = document.getElementById('arama').value.toLocaleLowerCase('tr-TR');
-        const cikis = document.getElementById('sonuclar');
-        cikis.innerHTML = "";
-        let sayac = 1;
+function ara() {
+let terim = document.getElementById('arama-girdi').value.trim();
+let bul = sozcukler.find(s => s.sozcuk === terim);
+let sonucAlani = document.getElementById('sonuc');
 
-        if (girdi.length < 1) return;
+if (bul) {
+sonucAlani.style.backgroundColor = bul.renk;
+sonucAlani.innerText = "ANLAM: " + bul.anlam;
+} else {
+sonucAlani.style.backgroundColor = "#ffc107";
+sonucAlani.innerText = "BULUNAMADI. GÖREVE EKLENDİ.";
+gorevler.push(terim);
+localStorage.setItem('gorevler', JSON.stringify(gorevler));
+guncellePanel();
+}
+}
 
-        havuz.forEach(oge => {
-            const kumeA = oge.a.toLocaleLowerCase('tr-TR');
-            const kumeB = oge.b.toLocaleLowerCase('tr-TR');
+function sifirla() {
+document.getElementById('arama-girdi').value = "";
+document.getElementById('sonuc').innerText = "";
+document.getElementById('sonuc').style.backgroundColor = "transparent";
+}
 
-            if (kumeA.includes(girdi) || kumeB.includes(girdi)) {
-                const div = document.createElement('div');
-                // B kümesinde bulunduysa mavi taban, aksi halde yeşil taban
-                div.className = kumeB.includes(girdi) ? 'sonuc-kart kume-b' : 'sonuc-kart kume-a';
-                
-                div.innerHTML = `
-                    <span class="numara">${sayac}</span>
-                    <span class="etiket">${kumeB.includes(girdi) ? "Karşılıklı Bulma (B)" : "Yalınlaştırma (A)"}</span>
-                    <strong>Eski Karşılık:</strong> ${oge.a}<br>
-                    <strong>Yalın Türkçe:</strong> <span style="color:#27ae60; font-weight:bold;">${oge.b}</span>
-                `;
-                cikis.appendChild(div);
-                sayac++;
-            }
-        });
-    }
+function girisYap() {
+if(document.getElementById('yonetici-kod').value === "010426") {
+document.getElementById('yonetici-panel').style.display = "block";
+guncellePanel();
+} else {
+alert("GEÇERSİZ KOD!");
+}
+}
+
+function guncellePanel() {
+let liste = document.getElementById('gorev-listesi');
+liste.innerHTML = "";
+gorevler.forEach(g => {
+let li = document.createElement("li");
+li.innerText = g;
+liste.appendChild(li);
+});
+}
 </script>
 </body>
 </html>
