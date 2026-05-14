@@ -1,56 +1,66 @@
-A<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<title>Sanal Yöre - Sözcüklük</title>
-<style>
-body { font-family: sans-serif; padding: 20px; line-height: 1.5; background-color: #f4f4f4; }
-.ana-konteynir { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-.arama-alani { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
-input { padding: 10px; width: 60%; border: 2px solid #ccc; border-radius: 5px; font-size: 16px; }
-button { padding: 10px 20px; cursor: pointer; background-color: #2c3e50; color: white; border: none; border-radius: 5px; }
-button:hover { background-color: #34495e; }
+d/ Veri Tabanımız (Buraya istediğiniz kadar ekleme yapabilirsiniz)
+const sozluk = [
+{ yabanci: "Adisyon", turkce: "Hesap Fişi" },
+{ yabanci: "Data", turkce: "Veri" },
+{ yabanci: "Lansman", turkce: "Tanıtım" },
+{ yabanci: "Objektif", turkce: "Nesnel" },
+{ yabanci: "Full", turkce: "Tam / Dolu" }
+];
 
-.kumeler { display: flex; gap: 20px; margin-top: 20px; }
-.kume { flex: 1; padding: 15px; border: 2px solid #eee; border-radius: 8px; min-height: 100px; text-align: center; transition: 0.3s; }
+function sozcukBul() {
+const girdi = document.getElementById('sozcukGirdisi').value.trim().toLowerCase();
+const sonucAlani = document.getElementById('sonucAlani');
+const kumeA = document.getElementById('kumeA');
+const kumeB = document.getElementById('kumeB');
 
-/* Renkli Göstergeler */
-.aktif-mavi { border-color: blue !important; background-color: #e7f0ff; box-shadow: 0 0 15px blue; }
-.aktif-kirmizi { border-color: red !important; background-color: #ffe7e7; box-shadow: 0 0 15px red; }
+// Sıfırlama
+sonucAlani.innerHTML = "";
+kumeA.classList.remove('aktif-mavi');
+kumeB.classList.remove('aktif-kirmizi');
 
-.sonuclar { margin-top: 20px; padding: 15px; border-top: 2px solid #eee; }
-.liste-item { padding: 5px 0; border-bottom: 1px solid #eee; font-weight: bold; }
-.ovgu { color: green; font-style: italic; margin-top: 10px; }
-</style>
-</head>
-<body>
+if (girdi === "") return;
 
-<div class="ana-konteynir">
-<h2 style="text-align: center;">Sözcüklük Çalışması</h2>
+let bulunanlar = [];
+let kumeTipi = ""; // 'A' veya 'B'
 
-<div class="arama-alani">
-<input type="text" id="sozcukGirdisi" placeholder="Sözcük yazınız..." onkeydown="if(event.key==='Enter') sozcukBul()">
-<button onclick="sozcukBul()">BUL / SOR</button>
-<button onclick="temizle()" style="background-color: #7f8c8d;">Başka Sözcük Sor</button>
-</div>
+// Arama İşlemi
+sozluk.forEach(item => {
+if (item.yabanci.toLowerCase().includes(girdi)) {
+bulunanlar.push(item.yabanci + " -> " + item.turkce);
+kumeTipi = "A";
+} else if (item.turkce.toLowerCase().includes(girdi)) {
+bulunanlar.push(item.turkce + " (Önerilen)");
+kumeTipi = "B";
+}
+});
 
-<div class="kumeler">
-<div id="kumeA" class="kume">
-<h3>A Kümesi</h3>
-<p>(Yabancı Kökenli)</p>
-</div>
-<div id="kumeB" class="kume">
-<h3>B Kümesi</h3>
-<p>(Önerilen Türkçe)</p>
-</div>
-</div>
+// Sonuçları Yazdırma
+if (bulunanlar.length > 0) {
+let htmlContent = "<h4>Bulunan Sonuçlar:</h4>";
+bulunanlar.forEach((s, index) => {
+htmlContent += `<div class="liste-item">${index + 1}. ${s}</div>`;
+});
+sonucAlani.innerHTML = htmlContent;
 
-<div id="sonucAlani" class="sonuclar">
-<p>Sonuçlar burada 1., 2. şeklinde sıralanacak...</p>
-</div>
-</div>
+// Küme Lambalarını Yakma
+if (kumeTipi === "A") kumeA.classList.add('aktif-mavi');
+if (kumeTipi === "B") kumeB.classList.add('aktif-kirmizi');
 
-<script src="ekler.js"></script>
-</body>
-</html>
+} else {
+// Bulamazsa Övgü ve Katkı İsteği
+sonucAlani.innerHTML = `
+<p>Aradığınız sözcüğü henüz haznemize katamadık.</p>
+<p class="ovgu">Sizin bu konuda bir öneriniz var mı? Değerli katkılarınız bizim için çok kıymetlidir.</p>
+`;
+}
+}
 
+function temizle() {
+document.getElementById('sozcukGirdisi').value = "";
+document.getElementById('sonucAlani').innerHTML = "<p>Yeni sözcük sorabilirsiniz...</p>";
+document.getElementById('kumeA').classList.remove('aktif-mavi');
+document.getElementById('kumeB').classList.remove('aktif-kirmizi');
+document.getElementById('sozcukGirdisi').focus();
+}
+
+.
