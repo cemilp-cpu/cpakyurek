@@ -2,58 +2,40 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Sanal Yöre - Sözcüklük</title>
+    <title>Sanal Yöre - SÖZCÜKLÜK</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.25; }
-        .kume-konteynir { display: flex; gap: 20px; }
-        .kume { border: 1px solid #ccc; padding: 15px; width: 50%; }
-        h2 { color: #2c3e50; border-bottom: 2px solid #eee; }
-        .sozcuk-listesi { list-style: none; padding: 0; }
-        .sozcuk-oesi { margin-bottom: 8px; padding: 5px; background: #f9f9f9; }
+        body { font-family: sans-serif; padding: 30px; background-color: #efdfbb; color: #2c3e50; }
+        .ana-konteynir { max-width: 950px; margin: auto; background: #fffef0; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        h1 { text-align: center; font-size: 40px; letter-spacing: 4px; }
+        .arama-alani { display: flex; gap: 15px; margin: 30px 0; justify-content: center; }
+        input { padding: 18px; width: 70%; border: 4px solid #d4c4a1; border-radius: 12px; font-size: 26px; outline: none; }
+        button { padding: 15px 35px; cursor: pointer; font-weight: bold; font-size: 22px; border: none; border-radius: 12px; transition: 0.3s; }
+        .btn-bul { background-color: #2c3e50; color: white; }
+        .btn-yeni { background-color: #7f8c8d; color: white; }
+        .kumeler { display: flex; gap: 30px; margin-top: 35px; }
+        .kume { flex: 1; padding: 30px; border: 6px solid #d4c4a1; border-radius: 18px; text-align: center; font-size: 26px; background: #ffffff; transition: 0.5s ease-in-out; }
+        .aktif-mavi { border-color: #0000FF !important; box-shadow: 0 0 40px #0000FF; background-color: #e6e6ff !important; }
+        .aktif-kirmizi { border-color: #FF0000 !important; box-shadow: 0 0 40px #FF0000; background-color: #ffe6e6 !important; }
+        .sonuc-paneli { margin-top: 35px; padding: 25px; border-radius: 12px; background: #fdfae5; font-size: 30px; min-height: 120px; border-left: 12px solid #2c3e50; }
+        .ovgu { color: #1e8449; font-weight: bold; margin-top: 25px; font-size: 24px; }
     </style>
 </head>
 <body>
 
-    <h1>Sözcüklük Çalışması</h1>
-    
-    <div class="kume-konteynir">
-        <!-- A Kümesi: Yabancı kökenli sözcükler -->
-        <div class="kume" id="kumeA">
-            <h2>A Kümesi (Yabancı Kökenli)</h2>
-            <ul id="listeA" class="sozcuk-listesi"></ul>
-        </div>
-
-        <!-- B Kümesi: Önerilen Türkçe sözcükler -->
-        <div class="kume" id="kumeB">
-            <h2>B Kümesi (Önerilen Türkçe)</h2>
-            <ul id="listeB" class="sozcuk-listesi"></ul>
-        </div>
+<div class="ana-konteynir">
+    <h1>SÖZCÜKLÜK</h1>
+    <div class="arama-alani">
+        <input type="text" id="sozcukGirdisi" placeholder="Sözcük yazınız..." onkeydown="if(event.key==='Enter') sozcukBul()">
+        <button class="btn-bul" onclick="sozcukBul()">BUL / SOR</button>
+        <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
     </div>
+    <div class="kumeler">
+        <div id="kumeA" class="kume"><strong>A KÜMESİ</strong><br><small style="font-size: 16px;">(Yabancı)</small></div>
+        <div id="kumeB" class="kume"><strong>B KÜMESİ</strong><br><small style="font-size: 16px;">(Yalın Türkçe)</small></div>
+    </div>
+    <div id="sonucAlani" class="sonuc-paneli">Sonuçlar burada listelenecek...</div>
+</div>
 
-    <!-- Verileri dış dosyadan çağıran bölüm -->
-    <script src="ekler.js"></script>
-    <script>
-        // Veriler yüklendikten sonra listeleri dolduran işlev
-        function listeleriGuncelle() {
-            const listeA = document.getElementById('listeA');
-            const listeB = document.getElementById('listeB');
-
-            // sozcukVerileri, ekler.js dosyasından gelmektedir
-            sozcukVerileri.forEach(oge => {
-                let liA = document.createElement('li');
-                liA.className = 'sozcuk-oesi';
-                liA.textContent = oge.yabanci;
-                listeA.appendChild(liA);
-
-                let liB = document.createElement('li');
-                liB.className = 'sozcuk-oesi';
-                liB.textContent = oge.turkce;
-                listeB.appendChild(liB);
-            });
-        }
-
-        // Sayfa yüklendiğinde çalıştır
-        window.onload = listeleriGuncelle;
-    </script>
+<script src="ekler.js"></script>
 </body>
 </html>
