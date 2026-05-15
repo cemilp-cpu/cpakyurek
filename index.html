@@ -5,137 +5,124 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sanal Yöre - SÖZCÜKLÜK</title>
 <style>
-/* GENEL YÜZEY AYARLARI */
-* { box-sizing: border-box; }
-
-body {
-font-family: sans-serif;
+/* 1. İSTEK: KESİN SARI YÜZEY */
+html, body {
+background-color: #ffffff !important;
 margin: 0;
 padding: 0;
-background-color: #efdfbb; /* Saten duvar sarısı */
-color: #2c3e50;
 height: 100vh;
+font-family: sans-serif;
 display: flex;
 justify-content: center;
 align-items: center;
-overflow: hidden; /* Kaydırma çubuğu istenmiyor */
+overflow: hidden;
 }
 
 .ana-konteynir {
-width: 95%;
-max-width: 900px;
+width: 90%;
+max-width: 800px;
 background: #ffff00;
-padding: 30px;
-border-radius: 25px;
-box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+padding: 25px;
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 text-align: center;
 }
 
-/* BAŞLIK VE ALT BİLGİ */
-h1 {
-font-size: 38px;
-margin-top: 0;
-margin-bottom: 15px;
-letter-spacing: 5px;
-}
-
-.alt-baslik {
-font-size: 17px;
-background: #fdfae5;
-padding: 12px;
+/* 2. İSTEK: ÜSTTEKİ BAŞLIK KALDIRILDI, KUTU EN ÜSTTE */
+.aciklama-kutusu {
+font-size: 18px;
+background: #add8e6;
+padding: 15px;
 border-radius: 12px;
 margin-bottom: 20px;
 border: 2px solid #d4c4a1;
-line-height: 1.4;
+line-height: 1.5;
+font-weight: bold;
 }
 
-/* GİRDİ ALANI */
 .arama-alani { display: flex; gap: 10px; margin-bottom: 20px; }
 
 input {
 flex: 2;
-padding: 14px;
+padding: 12px;
 border: 3px solid #d4c4a1;
 border-radius: 10px;
-font-size: 22px;
+font-size: 20px;
 outline: none;
-text-transform: uppercase; /* Her zaman BÜYÜK harf */
+text-transform: uppercase;
 }
 
 button {
-padding: 12px 25px;
+padding: 12px 20px;
 cursor: pointer;
 font-weight: bold;
 font-size: 16px;
 border: none;
 border-radius: 10px;
-transition: 0.2s;
 }
 
 .btn-bul { background-color: #2c3e50; color: white; }
 .btn-yeni { background-color: #95a5a6; color: white; }
 
-/* KÜMELER VE OKLAR */
-.kumeler { display: flex; gap: 30px; margin-bottom: 20px; justify-content: center; }
+.kumeler { display: flex; gap: 30px; margin-bottom: 15px; justify-content: center; }
 
 .kume {
 flex: 1;
-padding: 15px;
-border: 4px solid #d4c4a1;
+padding: 12px;
+border: 3px solid #d4c4a1;
 border-radius: 15px;
-font-size: 18px;
 background: #ffffff;
 position: relative;
-opacity: 0.1; /* Başlangıçta görünmez/sönük */
-transition: 0.4s;
+opacity: 0.1; /* Sönük başlangıç */
+transition: 0.3s;
 }
 
 .ok {
-font-size: 40px;
+font-size: 35px;
 display: none;
 position: absolute;
-left: -45px;
+left: -40px;
 top: 50%;
 transform: translateY(-50%);
 }
 
-/* AKTİF DURUM IŞIMALARI */
-.aktif-a { opacity: 1 !important; border-color: #0000FF !important; background-color: #e6e6ff !important; box-shadow: 0 0 25px #0000FF; }
+/* IŞIKLI OKLAR */
+.aktif-a { opacity: 1 !important; border-color: #0000FF !important; background-color: #e6e6ff !important; box-shadow: 0 0 20px #0000FF; }
 .aktif-a .ok { display: block; color: #0000FF; }
 
-.aktif-b { opacity: 1 !important; border-color: #FF0000 !important; background-color: #ffe6e6 !important; box-shadow: 0 0 25px #FF0000; }
+.aktif-b { opacity: 1 !important; border-color: #FF0000 !important; background-color: #ffe6e6 !important; box-shadow: 0 0 20px #FF0000; }
 .aktif-b .ok { display: block; color: #FF0000; }
 
-/* SONUÇ VE ÖNERİ ALANI */
+/* 3. İSTEK: SONUÇ VE ÖNERİ AYNI ALANDA */
 .sonuc-paneli {
 padding: 20px;
 border-radius: 12px;
 background: #fdfae5;
-font-size: 26px; /* Boyutlar eşitlendi */
-min-height: 90px;
+min-height: 120px;
 border-left: 10px solid #2c3e50;
 display: flex;
 flex-direction: column;
 justify-content: center;
-margin-bottom: 10px;
+align-items: center;
 }
 
-.oneri-metni {
-font-size: 24px; /* Üstteki sonuç yazısıyla aynı büyüklükte */
-margin-bottom: 10px;
+.oneri-bolumu {
 display: none;
+width: 100%;
+margin-top: 10px;
 }
 
-.oneri-girdisi {
-display: none;
+.oneri-girdi {
+display: flex;
 gap: 10px;
 justify-content: center;
+margin-top: 10px;
 }
 
 .oneri-input {
 width: 60%;
-padding: 10px;
-font-size: 18px;
+padding: 8px;
+font-size: 16px;
 border: 2px solid #2c3e50;
 border-radius: 8px;
 }
@@ -144,16 +131,14 @@ border-radius: 8px;
 <body>
 
 <div class="ana-konteynir">
-<h1>SÖZCÜKLÜK</h1>
-
-<div class="alt-baslik">
+<div class="aciklama-kutusu">
 Önerilen yalın Türkçe sözcükler öneridir. Farklı sözcük önerilerinde bulunarak siz de katkıda bulunun. <br>
-<strong>Bu bir sözlük değil, SÖZCÜKLÜTÜR.</strong>
+Bu bir sözlük değil, SÖZCÜKLÜTÜR.
 </div>
 
 <div class="arama-alani">
-<input type="text" id="sozcukGirdisi" placeholder="SÖZCÜK YAZINIZ..." onkeydown="if(event.key==='Enter') sozcukBul()">
-<button class="btn-bul" onclick="sozcukBul()">BUL / SOR</button>
+<input type="text" id="girdi" placeholder="SÖZCÜK YAZINIZ..." onkeydown="if(event.key==='Enter') bul()">
+<button class="btn-bul" onclick="bul()">BUL / SOR</button>
 <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
 </div>
 
@@ -161,28 +146,29 @@ border-radius: 8px;
 <div id="kumeA" class="kume">
 <span class="ok">➤</span>
 <strong>A KÜMESİ</strong><br>
-<small id="aciklamaA">Yabancı kökenli sözcük için yanıtlar</small>
+<small>Yabancı kökenli yanıtlar</small>
 </div>
 <div id="kumeB" class="kume">
 <span class="ok">➤</span>
 <strong>B KÜMESİ</strong><br>
-<small id="aciklamaB">Yalın Türkçe olan bu sözcükler kullanılmıştır</small>
+<small>Yalın Türkçe yanıtlar</small>
 </div>
 </div>
 
-<div id="sonucAlani" class="sonuc-paneli">
-Sonuçlar burada listelenecek...
-</div>
+<div class="sonuc-paneli">
+<div id="sonucMetni" style="font-size: 24px;">Sonuçlar burada listelenecek...</div>
 
-<div id="oneriBaslik" class="oneri-metni">Sizin öneriniz var mı?</div>
-<div id="oneriKutusu" class="oneri-girdisi">
-<input type="text" id="yeniOneri" class="oneri-input" placeholder="Buraya yazınız...">
-<button class="btn-bul" onclick="oneriKaydet()">GÖNDER</button>
+<div id="oneriAlani" class="oneri-bolumu">
+<div style="font-size: 24px;">Sizin öneriniz var mı?</div>
+<div class="oneri-girdi">
+<input type="text" id="oneriGirdisi" class="oneri-input" placeholder="Buraya yazınız...">
+<button class="btn-bul" style="padding: 5px 15px;" onclick="alert('Kaydedildi!')">GÖNDER</button>
+</div>
+</div>
 </div>
 </div>
 
 <script>
-// Veri kümesi (İstediğiniz kadar ekleme yapabilirsiniz)
 const sozluk = [
 { A: "ELEKTRON", B: "EKSİCİK" },
 { A: "PROTON", B: "ARTICIK" },
@@ -190,74 +176,120 @@ const sozluk = [
 { A: "ATOM", B: "ÖGECİK" },
 { A: "ELEKTRİK", B: "EKSİCİKLENME" },
 { A: "ELEKTRONİK", B: "EKSİCİKSEL" },
+{ A: "EKONOMİ", B: "YARARCILIK" },
 { A: "İSTATİSTİK", B: "SAYMA BİLİMİ" },
+{ A: "FAKÜLTE", B: "BİLİM DALI" },
+{ A: "DOKTORA", B: "BİLİRKİŞİLİK" },
 { A: "PROFESÖR", B: "BİLGEN" },
+{ A: "TARİH", B: "GELECEĞE IŞIK TUTMA" },
+{ A: "ARİTMETİK", B: "TOPLAMA ÇIKARMA" },
+{ A: "HARF", B: "SESADI" },
+{ A: "CEBİR", B: "SESADLI İŞLEMLER" },
+{ A: "GEOMETRİ", B: "BİÇİM BİLİMİ" },
+{ A: "KESİT GÖSTERİM", B: "TOMOGRAFİ" },
+{ A: "ÜÇBOYUTLU GÖSTERİM", B: "MR" },
+{ A: "ULTRASOUND", B: "DUYUM ÖTESİ SES" },
 { A: "REZONANS", B: "EŞTİTREŞİM" },
-{ A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
-{ A: "TELEVİZYON", B: "SANALALGI" },
+{ A: "KAPASİTE", B: "SIĞAÇ" },
+{ A: "REZİSTANS", B: "DİRENÇ" },
+{ A: "İNDÜKTANS", B: "ETKEÇ" },
+{ A: "EMPEDANS", B: "SANAL DİRENÇ" },
+{ A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" },
+{ A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" },
+{ A: "İNSÜLİN", B: "GEÇİRGENLEŞTİRİCİ" },
+{ A: "GURME", B: "TATBİLİR" },
+{ A: "LOGARİTMA", B: "KÜTÜK SAYI" },
+{ A: "KOMPLEKS SAYI", B: "SANAL SAYI" },
+{ A: "MATRİKS", B: "TABLO SAYI" },
+{ A: "ASİMTOT", B: "KESİŞMEZ" },
+{ A: "PULS", B: "DARBE" },
+{ A: "MEKANİK", B: "DİNAMİKSEL" },
+{ A: "COMPONENT", B: "BİLEŞEN" },
+{ A: "VEKTÖR", B: "YÖNLÜ BÜYÜKLÜK" },
+{ A: "SOLUTION", B: "ÇÖZÜM" },
+{ A: "DİFERANS", B: "FARK" },
+{ A: "STABİLİTE", B: "KARARLILIK" },
+{ A: "FRİCTİON", B: "SÜRTÜNME" },
+{ A: "MOTİON", B: "DEVİNİM" },
+{ A: "NOSYON", B: "SİMGELEŞTİRME" },
+{ A: "AVERAGE", B: "ORTALAMA" },
+{ A: "ACCELERATİON", B: "İVME / HIZ DEĞİŞİMİ" },
+{ A: "GRAVİTASYON", B: "KÜTLE ÇEKİM" },
+{ A: "MAS", B: "KÜTLE" },
+{ A: "ENERJİ", B: "ERKE" },
+{ A: "WORK", B: "İŞ" },
+{ A: "ROTATİON", B: "DÖNDÜRME" },
+{ A: "MOMENT", B: "DÖNDÜRME KUVVETİ" },
+{ A: "LİNEAR", B: "DOĞRUSAL" },
+{ A: "ELASTİSİTE", B: "ESNEKLİK" },
+{ A: "HARMONİK", B: "UYUMLU" },
+{ A: "TRANSFER", B: "TAŞIMA" },
+{ A: "PRES", B: "BASINÇ" },
+{ A: "HİDROSTATİK", B: "SU BASINCI" },
+{ A: "TANSİYON", B: "GERİLİM" },
+{ A: "VİSKOSİTİ", B: "AKIŞKANLIK" },
+{ A: "HEAT", B: "ISI" },
+{ A: "EXPANSİON", B: "GENİŞLEME" },
+{ A: "VİBRATİON", B: "TİTREŞİM" },
+{ A: "AKUSTİK", B: "SES YANSIMASI" },
+{ A: "POTANSİYEL", B: "SAKLI GÜÇ" },
+{ A: "MANYETİZMA", B: "EKSİCİK DOĞURABİLEN" },
+{ A: "DİELEKTRİK", B: "İLETMEMSİZLİK" },
+{ A: "ELEKTROSTATİK", B: "DURGUN ELEKTRİK" },
+{ A: "RECTİFİCATİON", B: "DOĞRULTMA" },
+{ A: "AMPLİTÜT", B: "GENLİK" },
+{ A: "MODULASYON", B: "BİÇİMLENDİRME" },
+{ A: "DEMODULASYON", B: "TERSİNE BİÇİMLENDİRME" },
 { A: "RADYO", B: "ÜNALGILAR" },
-{ A: "FONKSİYON", B: "İŞLEV" },
-{ A: "İNTEGRAL", B: "TOPLAM" }
+{ A: "TELEVİZYON", B: "SANALALGI" },
+{ A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
+{ A: "TRANSFORMATOR", B: "GÜÇ BİLEŞEN DÖNÜŞTÜRÜCÜ" },
+{ A: "İNTERFERENS", B: "GİRİŞİM" },
+{ A: "DİFFRAKTİON", B: "KIRILIM" },
+{ A: "POLARİZATİON", B: "YÖNLENME" },
+{ A: "RADYOAKTİF", B: "IŞIMA" },
+{ A: "NÜKLEER", B: "ÖGECİK ÇEKİRDEĞİ" },
+{ A: "FONKSİYON", B: "İŞLEV / ETKİNLİK" },
+{ A: "İNTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
+{ A: "DİFERANSİYEL DENKLEM", B: "NOKTASALLAŞTIRILMIŞ EŞİTLİK" }
 ];
 
-function sozcukBul() {
-const girdiRaw = document.getElementById('sozcukGirdisi').value.trim();
-const girdi = girdiRaw.toLocaleUpperCase('tr-TR');
-const sonucAlani = document.getElementById('sonucAlani');
-const oneriBaslik = document.getElementById('oneriBaslik');
-const oneriKutusu = document.getElementById('oneriKutusu');
-const kumeA = document.getElementById('kumeA');
-const kumeB = document.getElementById('kumeB');
+function bul() {
+const kelime = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
+const sonucMetni = document.getElementById('sonucMetni');
+const oneriAlani = document.getElementById('oneriAlani');
+const kA = document.getElementById('kumeA');
+const kB = document.getElementById('kumeB');
 
-// Önce her şeyi sıfırla
-sonucAlani.innerHTML = "";
-oneriBaslik.style.display = "none";
-oneriKutusu.style.display = "none";
-kumeA.className = "kume";
-kumeB.className = "kume";
+sonucMetni.innerHTML = "";
+oneriAlani.style.display = "none";
+kA.className = "kume"; kB.className = "kume";
 
-if (!girdi) return;
-
-let bulunanlar = [];
-let hangiKume = "";
-
-sozluk.forEach(kalem => {
-if (kalem.A === girdi) {
-bulunanlar.push(kalem.B);
-hangiKume = "A";
-} else if (kalem.B === girdi) {
-bulunanlar.push(kalem.A);
-hangiKume = "B";
+let found = false;
+sozluk.forEach(k => {
+if (k.A === kelime) {
+sonucMetni.innerHTML = "1. " + k.B;
+kA.classList.add('aktif-a');
+found = true;
+} else if (k.B === kelime) {
+sonucMetni.innerHTML = "1. " + k.A;
+kB.classList.add('aktif-b');
+found = true;
 }
 });
 
-if (bulunanlar.length > 0) {
-sonucAlani.innerHTML = bulunanlar.map((s, i) => `<div>${i + 1}. ${s}</div>`).join("");
-if (hangiKume === "A") kumeA.classList.add('aktif-a');
-else kumeB.classList.add('aktif-b');
-} else {
-sonucAlani.innerHTML = "Biriktiricimizde bulunamadı.";
-oneriBaslik.style.display = "block";
-oneriKutusu.style.display = "flex";
-}
-}
-
-function oneriKaydet() {
-const metin = document.getElementById('yeniOneri').value;
-if(metin) {
-alert("Öneriniz yöneticiye iletilmek üzere kaydedildi. Katkınız için teşekkürler!");
-temizle();
+if (!found && kelime !== "") {
+sonucMetni.innerHTML = "Biriktiricimizde bulunamadı.";
+oneriAlani.style.display = "block";
 }
 }
 
 function temizle() {
-document.getElementById('sozcukGirdisi').value = "";
-document.getElementById('sonucAlani').innerHTML = "Yeni sözcük sorabilirsiniz...";
-document.getElementById('oneriBaslik').style.display = "none";
-document.getElementById('oneriKutusu').style.display = "none";
+document.getElementById('girdi').value = "";
+document.getElementById('sonucMetni').innerHTML = "Yeni sözcük sorabilirsiniz...";
+document.getElementById('oneriAlani').style.display = "none";
 document.getElementById('kumeA').className = "kume";
 document.getElementById('kumeB').className = "kume";
-document.getElementById('sozcukGirdisi').focus();
 }
 </script>
 
