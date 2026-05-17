@@ -265,3 +265,161 @@ Bu bir sözlük değil, SÖZCÜKLÜTÜR.
 <div class="sayac-satiri">Günlük İşlemci Sayısı: <span id="sayacGun" class="sayac-rakam">42</span></div>
 </div>
 </div>
+
+<script>
+// SİZİN ÖZGÜN BİRİKTİRİCİNİZ (HİÇBİR DEĞİŞİKLİK YAPILMADI)
+const sozluk = [
+{ A: "ELEKTRON", B: "EKSİCİK" },
+{ A: "PROTON", B: "ARTICIK" },
+{ A: "NÖTRON", B: "AĞIRCIK" },
+{ A: "ATOM", B: "ÖGECİK" },
+{ A: "ELEKTRİK", B: "EKSİCİKLENME" },
+{ A: "ELEKTRONİK", B: "EKSİCİKSEL" },
+{ A: "EKONOMİ", B: "YARARCILIK" },
+{ A: "İSTATİSTİK", B: "SAYMA BİLİMİ" },
+{ A: "FAKÜLTE", B: "BİLİM DALI" },
+{ A: "DOKTORA", B: "BİLİRKİŞİLİK" },
+{ A: "PROFESÖR", B: "BİLGEN" },
+{ A: "TARİH", B: "GELECEĞE IŞIK TUTMA" },
+{ A: "ARİTMETİK", B: "TOPLAMA ÇIKARMA" },
+{ A: "ALLAH", B: "BİLİNEMEZ" },
+{ A: "HAYVAN", B: "HAYCAN" },
+{ A: "HARF", B: "SESADI" },
+{ A: "GOD", B: "BİLİNEMEZ" },
+{ A: "DİN", B: "İNANÇLAR" },
+{ A: "TANRI", B: "BİLİNEMEZ" },
+{ A: "İNSAN", B: "TANIMLAYABİLEN" },
+{ A: "CEBİR", B: "SESADLI İŞLEMLER" },
+{ A: "GEOMETRİ", B: "BİÇİM BİLİMİ" },
+{ A: "KESİT GÖSTERİM", B: "TOMOGRAFİ" },
+{ A: "ÜÇBOYUTLU GÖSTERİM", B: "MR" },
+{ A: "ULTRASOUND", B: "DUYUM ÖTESİ SES" },
+{ A: "REZONANS", B: "EŞTİTREŞİM" },
+{ A: "KAPASİTE", B: "SIĞAÇ" },
+{ A: "REZİSTANS", B: "DİRENÇ" },
+{ A: "İNDÜKTANS", B: "ETKEÇ" },
+{ A: "EMPEDANS", B: "SANAL DİRENÇ" },
+{ A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" },
+{ A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" },
+{ A: "İNSÜLİN", B: "GEÇİRGENLEŞTİRİCİ" },
+{ A: "GURME", B: "TATBİLİR" },
+{ A: "LOGARİTMA", B: "KÜTÜK SAYI" },
+{ A: "KOMPLEKS SAYI", B: "SANAL SAYI" },
+{ A: "MATRİKS", B: "TABLO SAYI" },
+{ A: "ASİMTOT", B: "KESİŞMEZ" },
+{ A: "PULS", B: "DARBE" },
+{ A: "MEKANİK", B: "DİNAMİKSEL" },
+{ A: "COMPONENT", B: "BİLEŞEN" },
+{ A: "VEKTÖR", B: "YÖNLÜ BÜYÜKLÜK" },
+{ A: "SOLUTION", B: "ÇÖZÜM" },
+{ A: "DİFERANS", B: "FARK" },
+{ A: "STABİLİTE", B: "KARARLILIK" },
+{ A: "FRİCTİON", B: "SÜRTÜNME" },
+{ A: "MOTİON", B: "DEVİNİM" },
+{ A: "NOSYON", B: "SİMGELEŞTİRME" },
+{ A: "AVERAGE", B: "ORTALAMA" },
+{ A: "ACCELERATİON", B: "İVME / HIZ DEĞİŞİMİ" },
+{ A: "GRAVİTASYON", B: "KÜTLE ÇEKİM" },
+{ A: "MAS", B: "KÜTLE" },
+{ A: "ENERJİ", B: "ERKE" },
+{ A: "WORK", B: "İŞ" },
+{ A: "ROTATİON", B: "DÖNDÜRME" },
+{ A: "MOMENT", B: "DÖNDÜRME KUVVETİ" },
+{ A: "LİNEAR", B: "DOĞRUSAL" },
+{ A: "ELASTİSİTE", B: "ESNEKLİK" },
+{ A: "HARMONİK", B: "UYUMLU" },
+{ A: "TRANSFER", B: "TAŞIMA" },
+{ A: "PRES", B: "BASINÇ" },
+{ A: "HİDROSTATİK", B: "SU BASINCI" },
+{ A: "TANSİYON", B: "GERİLİM" },
+{ A: "VİSKOSİTİ", B: "AKIŞKANLIK" },
+{ A: "HEAT", B: "ISI" },
+{ A: "EXPANSİON", B: "GENİŞLEME" },
+{ A: "VİBRATİON", B: "TİTREŞİM" },
+{ A: "AKUSTİK", B: "SES YANSIMASI" },
+{ A: "POTANSİYEL", B: "SAKLI GÜÇ" },
+{ A: "MANYETİZMA", B: "EKSİCİK DOĞURABİLEN" },
+{ A: "DİELEKTRİK", B: "İLETMEMSİZLİK" },
+{ A: "ELEKTROSTATİK", B: "DURGUN ELEKTRİK" },
+{ A: "RECTİFİCATİON", B: "DOĞRULTMA" },
+{ A: "AMPLİTÜT", B: "GENLİK" },
+{ A: "MODULASYON", B: "BİÇİMLENDİRME" },
+{ A: "DEMODULASYON", B: "TERSİNE BİÇİMLENDİRME" },
+{ A: "RADYO", B: "ÜNALGILAR" },
+{ A: "TELEVİZYON", B: "SANALALGI" },
+{ A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
+{ A: "TRANSFORMATOR", B: "GÜÇ BİLEŞEN DÖNÜŞTÜRÜCÜ" },
+{ A: "İNTERFERENS", B: "GİRİŞİM" },
+{ A: "DİFFRAKTİON", B: "KIRILIM" },
+{ A: "POLARİZATİON", B: "YÖNLENME" },
+{ A: "RADYOAKTİF", B: "IŞIMA" },
+{ A: "CEDEL", B: "ÇEKİŞME" },
+{ A: "MÜCADELE", B: "ÇEKİŞEN" },
+{ A: "ECZANE", B: "UMAREVİ" },
+{ A: "ECZACI", B: "UMARCI" },
+{ A: "İLAÇ", B: "UMAR" },
+{ A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" },
+{ A: "TRİGONOMETRİ", B: "AÇILAR BİLİMİ" },
+{ A: "SİNÜS", B: "BOŞLUK" },
+{ A: "KOSİNÜS", B: "KOMŞUBOŞLUK" },
+{ A: "TANJANT", B: "EĞİM" },
+{ A: "NÜKLEER", B: "ÖGECİK ÇEKİRDEĞİ" },
+{ A: "FONKSİYON", B: "DEĞER DÖNÜŞTÜREN" },
+{ A: "İNTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
+{ A: "DİFERANSİYEL DENKLEM", B: "NOKTASALLAŞTIRILMIŞ EŞİTLİK" }
+];
+
+function bul() {
+const kelime = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
+const sonucMetni = document.getElementById('sonucMetni');
+const oneriAlani = document.getElementById('oneriAlani');
+const kA = document.getElementById('kumeA');
+const kB = document.getElementById('kumeB');
+const panel = document.getElementById('sonucPaneli');
+
+sonucMetni.innerHTML = "";
+oneriAlani.style.display = "none";
+kA.className = "kume"; kB.className = "kume";
+panel.className = "sonuc-paneli"; // Panel rengini sıfırla
+
+if (kelime === "") {
+sonucMetni.innerHTML = "Lütfen yabancı kökenli veya Türkçe bir sözcük yazınız.";
+return;
+}
+
+let found = false;
+sozluk.forEach(k => {
+if (k.A === kelime) {
+sonucMetni.innerHTML = `"${kelime}" bulundu.<br>Karşılığı: ${k.B}<br><small>Dilimize yerleşmiş yabancı kökenli bir sözcüktür.</small>`;
+kA.classList.add('aktif-a');
+panel.classList.add('yanit-mavi'); // MAVİ IŞIK
+found = true;
+} else if (k.B === kelime) {
+sonucMetni.innerHTML = `"${kelime}" bulundu.<br>Karşılığı: ${k.A}<br><small>Önerilen bu sözcük, yalın Türkçe bir sözcüktür./Farklı öneriniz varmı?.</small>`;
+kB.classList.add('aktif-b');
+panel.classList.add('yanit-kirmizi'); // KIRMIZI IŞIK
+found = true;
+}
+});
+
+if (!found) {
+panel.classList.add('yanit-bulunamadi');
+sonucMetni.innerHTML = `"${kelime}" biriktiricimizde bulunamadı.`;
+oneriAlani.style.display = "block";
+}
+}
+
+function temizle() {
+const girdiKutusu = document.getElementById('girdi');
+girdiKutusu.value = "";
+document.getElementById('sonucMetni').innerHTML = "Yeni sözcük sorabilirsiniz...";
+document.getElementById('oneriAlani').style.display = "none";
+document.getElementById('kumeA').className = "kume";
+document.getElementById('kumeB').className = "kume";
+document.getElementById('sonucPaneli').className = "sonuc-paneli";
+girdiKutusu.focus(); // İmleci otomatik olarak yazı alanına odaklar
+}
+</script>
+
+</body>
+</html>
