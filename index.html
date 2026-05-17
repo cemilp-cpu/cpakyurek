@@ -10,12 +10,11 @@ html, body {
 background-color: #ffffff !important;
 margin: 0;
 padding: 0;
-height: 100vh;
+min-height: 100vh;
 font-family: sans-serif;
 display: flex;
 justify-content: center;
 align-items: center;
-overflow: hidden;
 }
 
 .ana-konteynir {
@@ -26,6 +25,7 @@ padding: 25px;
 border-radius: 20px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 text-align: center;
+margin: 20px auto;
 }
 
 /* 2. İSTEK: ÜSTTEKİ BAŞLIK KALDIRILDI, KUTU EN ÜSTTE */
@@ -34,16 +34,43 @@ font-size: 18px;
 background: #add8e6;
 padding: 15px;
 border-radius: 12px;
-margin-bottom: 20px;
+margin-bottom: 15px;
 border: 2px solid #d4c4a1;
 line-height: 1.5;
 font-weight: bold;
 }
 
-.arama-alani { display: flex; gap: 10px; margin-bottom: 20px; }
+/* SAYAÇ ALANLARI TASARIMI */
+.sayac-alani {
+display: flex;
+gap: 15px;
+justify-content: center;
+margin-bottom: 20px;
+}
+
+.sayac-kutusu {
+flex: 1;
+background: #ffffff;
+padding: 10px;
+border-radius: 10px;
+border: 2px solid #2c3e50;
+font-weight: bold;
+font-size: 14px;
+color: #2c3e50;
+}
+
+.sayac-rakam {
+font-size: 20px;
+color: #e74c3c;
+display: block;
+margin-top: 5px;
+}
+
+.arama-alani { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
 
 input {
 flex: 2;
+min-width: 200px;
 padding: 12px;
 border: 3px solid #d4c4a1;
 border-radius: 10px;
@@ -61,8 +88,8 @@ border: none;
 border-radius: 10px;
 }
 
-.btn-bul { background-color: #2c3e50; color: white; }
-.btn-yeni { background-color: #95a5a6; color: white; }
+.btn-bul { background-color: #2c3e50; color: white; flex: 1; min-width: 120px; }
+.btn-yeni { background-color: #95a5a6; color: white; flex: 1; min-width: 180px; }
 
 .kumeler { display: flex; gap: 30px; margin-bottom: 15px; justify-content: center; }
 
@@ -107,9 +134,9 @@ align-items: center;
 }
 
 .oneri-bolumu {
-display: none;
 width: 100%;
 margin-top: 10px;
+display: none;
 }
 
 .oneri-girdi {
@@ -117,14 +144,25 @@ display: flex;
 gap: 10px;
 justify-content: center;
 margin-top: 10px;
+flex-wrap: wrap;
 }
 
 .oneri-input {
 width: 60%;
+min-width: 180px;
 padding: 8px;
 font-size: 16px;
 border: 2px solid #2c3e50;
 border-radius: 8px;
+}
+
+/* AVUÇİÇİ İLETİŞİMCİLER (CEP TELEFONLARI) İÇİN ESNEKLİK AYARI */
+@media (max-width: 600px) {
+.arama-alani { flex-direction: column; }
+.kumeler { flex-direction: column; gap: 15px; }
+.sayac-alani { flex-direction: column; gap: 10px; }
+.ok { display: none !important; } /* Mobilde ekran dar olduğu için oku gizliyoruz */
+input, button { width: 100%; }
 }
 </style>
 </head>
@@ -136,12 +174,24 @@ border-radius: 8px;
 Bu bir sözlük değil, SÖZCÜKLÜTÜR.
 </div>
 
+<!-- YENİ EKLENEN SAYAÇ ALANLARI -->
+<div class="sayac-alani">
+<div class="sayac-kutusu">
+Toplam İşlem Yapan Sayısı
+<span id="toplamSayac" class="sayac-rakam">0</span>
+</div>
+<div class="sayac-kutusu">
+Günlük İşlemci Sayısı
+<span id="gunlukSayac" class="sayac-rakam">0</span>
+</div>
+</div>
+
 <div class="arama-alani">
 <input type="text" id="girdi" placeholder="SÖZCÜK YAZINIZ..." onkeydown="if(event.key==='Enter') bul()">
 <button class="btn-bul" onclick="bul()">BUL / SOR</button>
 <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
 </div>
-
+0
 <div class="kumeler">
 <div id="kumeA" class="kume">
 <span class="ok">➤</span>
@@ -181,6 +231,9 @@ const sozluk = [
 { A: "FAKÜLTE", B: "BİLİM DALI" },
 { A: "DOKTORA", B: "BİLİRKİŞİLİK" },
 { A: "PROFESÖR", B: "BİLGEN" },
+{ A: "ANFİ", B: "BÜYÜK BASAMAKLI ÖĞRETİLİK" },
+{ A: "KAMPÜS", B: "YERLEŞGE" },
+{ A: "ORDİNARYUS PROFESÖR", B: "BAŞ BİLGEN" },
 { A: "TARİH", B: "GELECEĞE IŞIK TUTMA" },
 { A: "ARİTMETİK", B: "TOPLAMA ÇIKARMA" },
 { A: "ALLAH", B: "BİLİNEMEZ" },
@@ -192,8 +245,8 @@ const sozluk = [
 { A: "İNSAN", B: "TANIMLAYABİLEN" },
 { A: "CEBİR", B: "SESADLI İŞLEMLER" },
 { A: "GEOMETRİ", B: "BİÇİM BİLİMİ" },
-{ A: "KESİT GÖSTERİM", B: "TOMOGRAFİ" },
-{ A: "ÜÇBOYUTLU GÖSTERİM", B: "MR" },
+{ A: "TOMOGRAFİ", B: "KESİT GÖSTERİM" },
+{ A: "MR", B: "ÜÇBOYUTLU GÖSTERİM" },
 { A: "ULTRASOUND", B: "DUYUM ÖTESİ SES" },
 { A: "REZONANS", B: "EŞTİTREŞİM" },
 { A: "KAPASİTE", B: "SIĞAÇ" },
@@ -206,8 +259,8 @@ const sozluk = [
 { A: "GURME", B: "TATBİLİR" },
 { A: "LOGARİTMA", B: "KÜTÜK SAYI" },
 { A: "KOMPLEKS SAYI", B: "SANAL SAYI" },
-{ A: "MATRİKS", B: "TABLO SAYI" },
-{ A: "ASİMTOT", B: "KESİŞMEZ" },
+{ A: "MATRİS", B: "TABLO SAYI" },
+{ A: "ASİMTOT", B: "DEĞEMEZ" },
 { A: "PULS", B: "DARBE" },
 { A: "MEKANİK", B: "DİNAMİKSEL" },
 { A: "COMPONENT", B: "BİLEŞEN" },
@@ -217,16 +270,22 @@ const sozluk = [
 { A: "STABİLİTE", B: "KARARLILIK" },
 { A: "FRİCTİON", B: "SÜRTÜNME" },
 { A: "MOTİON", B: "DEVİNİM" },
+{ A: "HEYKEL", B: "YOĞRUK" },
+{ A: "NOTASYON", B: "ADLANDIRMA" },
+{ A: "MOBİL", B: "DEVİNİK" },
 { A: "NOSYON", B: "SİMGELEŞTİRME" },
 { A: "AVERAGE", B: "ORTALAMA" },
-{ A: "ACCELERATİON", B: "İVME / HIZ DEĞİŞİMİ" },
+{ A: "ACCELERATİON", B: "İVME" },
+{ A: "ACCELERATİON", B: "HIZ DEĞİŞİMİ" },
 { A: "GRAVİTASYON", B: "KÜTLE ÇEKİM" },
 { A: "MAS", B: "KÜTLE" },
 { A: "ENERJİ", B: "ERKE" },
 { A: "WORK", B: "İŞ" },
 { A: "ROTATİON", B: "DÖNDÜRME" },
+{ A: "MOTOR", B: "DÖNDÜREN" },
 { A: "MOMENT", B: "DÖNDÜRME KUVVETİ" },
 { A: "LİNEAR", B: "DOĞRUSAL" },
+{ A: "NONLİNEAR", B: "DOĞRUSAL OLMAYAN" },
 { A: "ELASTİSİTE", B: "ESNEKLİK" },
 { A: "HARMONİK", B: "UYUMLU" },
 { A: "TRANSFER", B: "TAŞIMA" },
@@ -237,7 +296,7 @@ const sozluk = [
 { A: "HEAT", B: "ISI" },
 { A: "EXPANSİON", B: "GENİŞLEME" },
 { A: "VİBRATİON", B: "TİTREŞİM" },
-{ A: "AKUSTİK", B: "SES YANSIMASI" },
+{ A: "AKUSTİK", B: "SES BİLİM" },
 { A: "POTANSİYEL", B: "SAKLI GÜÇ" },
 { A: "MANYETİZMA", B: "EKSİCİK DOĞURABİLEN" },
 { A: "DİELEKTRİK", B: "İLETMEMSİZLİK" },
@@ -249,6 +308,7 @@ const sozluk = [
 { A: "RADYO", B: "ÜNALGILAR" },
 { A: "TELEVİZYON", B: "SANALALGI" },
 { A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
+{ A: "LİFT", B: "DÜŞEY TAŞIT" },
 { A: "TRANSFORMATOR", B: "GÜÇ BİLEŞEN DÖNÜŞTÜRÜCÜ" },
 { A: "İNTERFERENS", B: "GİRİŞİM" },
 { A: "DİFFRAKTİON", B: "KIRILIM" },
@@ -265,10 +325,21 @@ const sozluk = [
 { A: "KOSİNÜS", B: "KOMŞU BOŞLUK", B: "KOMŞUBOŞLUK" },
 { A: "TANJANT", B: "EĞİM" },
 { A: "NÜKLEER", B: "ÖGECİK ÇEKİRDEĞİ" },
-{ A: "FONKSİYON", B: "İŞLEV / ETKİNLİK" },
+{ A: "FONKSİYON", B: "İŞLEV" },
+{ A: "FONKSİYON", B: "ETKİNLİK" },
+{ A: "FONKSİYON", B: "DEĞER DÖNÜŞTÜREN" },
 { A: "İNTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
 { A: "DİFERANSİYEL DENKLEM", B: "NOKTASALLAŞTIRILMIŞ EŞİTLİK" }
 ];
+
+
+// Sayfa ilk yüklendiğinde imleci otomatik olarak kutuya odaklar
+window.onload = function() {
+document.getElementById('girdi').focus();
+// Gerçek bir veritabanı bağlanana kadar şimdilik örnek başlangıç değerleri:
+document.getElementById('toplamSayac').innerText = "1,248";
+document.getElementById('gunlukSayac').innerText = "42";
+};
 
 function bul() {
 const kelime = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
@@ -300,8 +371,11 @@ oneriAlani.style.display = "block";
 }
 }
 
+// ARZULADIĞINIZ KESİN DÜZELTME BURADADIR
 function temizle() {
-document.getElementById('girdi').value = "";
+document.getElementById('girdi').value = ""; // Kutuyu temizler
+document.getElementById('girdi').focus(); // İMLECİ OTOMATİK OLARAK GERİ DÖNDÜRÜR
+
 document.getElementById('sonucMetni').innerHTML = "Yeni sözcük sorabilirsiniz...";
 document.getElementById('oneriAlani').style.display = "none";
 document.getElementById('kumeA').className = "kume";
@@ -311,5 +385,3 @@ document.getElementById('kumeB').className = "kume";
 
 </body>
 </html>
-
---  
