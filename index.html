@@ -1,4 +1,4 @@
-,<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -49,7 +49,7 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 <div class="buton-satiri">
 <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
 <button class="btn-bul" onclick="bul()">BUL</button>
-<button class="btn-saglik" id="saglikBtn" onclick="saglikModuToggle()">SAĞLIK için ÖZEL</button>
+<button class="btn-saglik" id="saglikBtn" onclick="saglikModuToggle()">SAĞLIK İÇİN SÖZEL BASINIZ</button>
 </div>
 <div class="kumeler">
 <div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli</small></div>
@@ -1198,16 +1198,6 @@ const sozluk =[
 {"A": "YEVM", "B": "GÜN"}
 ];
 
-const sozlukSaglik=[
-{A:"ATROFİ",B:"ERİME"},
-{A:"KLİNİK",B:"SAĞLIK OCAĞI"},
-{A:"NÖROLOJİ",B:"SİNİR BİLİMİ"},
-{A:"TROMBOZ",B:"PIHTI"},
-{A:"EMBOLİ",B:"PIHTI TIKANMASI"},
-{A:"FELÇ",B:"HİSSİZLİK"}
-];
-
- const sozlukSaglik = [];
 let saglikModu=false;
 const GUN_KEY='sozcukluk_gun',GUN_SAYAC_KEY='sozcukluk_gunluk',TOP_SAYAC_KEY='sozcukluk_toplam',GUNCELLEME_KEY='sozcukluk_guncelleme';
 
@@ -1254,11 +1244,13 @@ if(kelime===""){sonucMetni.innerHTML="Lütfen sözcük yazınız.";return}
 let liste=saglikModu?sozlukSaglik:sozluk;
 let found=false;
 liste.forEach(k=>{
-if(k.A===kelime){
+const kA_Ust = k.A.trim().toLocaleUpperCase('tr-TR');
+const kB_Ust = k.B.trim().toLocaleUpperCase('tr-TR');
+if(kA_Ust===kelime){
 sonucMetni.innerHTML=`"${kelime}" bulundu.<br>Karşılığı: ${k.B}<br><small>Yabancı kökenli</small>`;
 kA.classList.add('aktif-a');panel.classList.add('yanit-mavi');found=true;sayaclariGuncelle();
 }
-else if(k.B===kelime){
+else if(kB_Ust===kelime){
 sonucMetni.innerHTML=`"${kelime}" bulundu.<br>Karşılığı: ${k.A}<br><small>Yalın Türkçe</small>`;
 kB.classList.add('aktif-b');panel.classList.add('yanit-kirmizi');found=true;sayaclariGuncelle();
 }
@@ -1283,4 +1275,3 @@ window.onload=sayaclariGuncelle;
 </script>
 </body>
 </html>
-
