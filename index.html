@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+,<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -1209,7 +1209,7 @@ const sozlukSaglik=[
 let saglikModu=false;
 const GUN_KEY='sozcukluk_gun',GUN_SAYAC_KEY='sozcukluk_gunluk',TOP_SAYAC_KEY='sozcukluk_toplam',GUNCELLEME_KEY='sozcukluk_guncelleme';
 
-function sayaclarıGüncelle(){
+function sayaclariGuncelle(){
 const b=new Date().toISOString().split('T')[0];
 const k=localStorage.getItem(GUN_KEY);
 if(k!==b){
@@ -1221,9 +1221,9 @@ let t=parseInt(localStorage.getItem(TOP_SAYAC_KEY)||'0');
 g++;t++;
 localStorage.setItem(GUN_SAYAC_KEY,g);
 localStorage.setItem(TOP_SAYAC_KEY,t);
-sayaclarıYükle();
+sayaclariYukle();
 }
-function sayaclarıYükle(){
+function sayaclariYukle(){
 document.getElementById('sayacGun').textContent=localStorage.getItem(GUN_SAYAC_KEY)||'0';
 document.getElementById('sayacTop').textContent=localStorage.getItem(TOP_SAYAC_KEY)||'0';
 document.getElementById('sayacSozcuk').textContent=sozluk.length+sozlukSaglik.length;
@@ -1253,11 +1253,11 @@ let found=false;
 liste.forEach(k=>{
 if(k.A===kelime){
 sonucMetni.innerHTML=`"${kelime}" bulundu.<br>Karşılığı: ${k.B}<br><small>Yabancı kökenli</small>`;
-kA.classList.add('aktif-a');panel.classList.add('yanit-mavi');found=true;sayaclarıGüncelle();
+kA.classList.add('aktif-a');panel.classList.add('yanit-mavi');found=true;sayaclariGuncelle();
 }
 else if(k.B===kelime){
 sonucMetni.innerHTML=`"${kelime}" bulundu.<br>Karşılığı: ${k.A}<br><small>Yalın Türkçe</small>`;
-kB.classList.add('aktif-b');panel.classList.add('yanit-kirmizi');found=true;sayaclarıGüncelle();
+kB.classList.add('aktif-b');panel.classList.add('yanit-kirmizi');found=true;sayaclariGuncelle();
 }
 });
 if(!found){
@@ -1276,8 +1276,7 @@ document.getElementById('kumeB').className="kume";
 document.getElementById('sonucPaneli').className="sonuc-paneli";
 document.getElementById('girdi').focus();
 }
-window.onload=sayaclarıYükle;
+window.onload=sayaclariYukle;
 </script>
 </body>
 </html>
-
