@@ -11,11 +11,11 @@ html, body {background-color:#ffffff;margin:0;padding:0;min-height:100vh;font-fa
 .kizil-yildiz{color:#ff0000;font-size:12px;margin-right:2px}
 .aciklama-kutusu{font-size:13px;background:#add8e6;padding:8px;border-radius:8px;margin-bottom:10px;border:1px solid #b0c4de;font-weight:bold;text-align:center;line-height:1.3}
 input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-size:17px;outline:none;box-sizing:border-box;text-align:center;text-transform:uppercase}
-.buton-satiri{display:flex;gap:5px;margin-bottom:10px;justify-content:center;flex-wrap:wrap}
+.buton-satiri{display:flex;gap:5px;margin-bottom:10px;justify-content:center;align-items:center;flex-wrap:wrap}
 .buton-satiri button{flex:0 0 auto;min-width:120px;padding:9px 12px;font-weight:bold;font-size:12px;border:none;border-radius:8px;cursor:pointer}
-.btn-bul{background-color:#2c3e50;color:white}
-.btn-yeni{background-color:#ff0000;color:white}
-.btn-saglik{background-color:#27ae60;color:white;transition:0.2s}
+.btn-bul{order:2;background-color:#2c3e50;color:white}
+.btn-yeni{order:1;background-color:#ff0000;color:white}
+.btn-saglik{order:3;background-color:#27ae60;color:white;transition:0.2s}
 .kumeler{display:flex;gap:12px;margin-bottom:10px;justify-content:center}
 .kume{flex:1;padding:7px;border:2px solid #d4c4a1;border-radius:10px;background:#ffffff;opacity:0.1;transition:0.3s;text-align:center;position:relative}
 .kume strong{font-size:12px}
@@ -23,7 +23,7 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 .ok{font-size:18px;display:none;position:absolute;left:-18px;top:50%;transform:translateY(-50%)}
 .aktif-a{opacity:1!important;border-color:#0000FF!important;background-color:#e6e6ff!important;box-shadow:0 0 8px #0000FF}
 .aktif-a.ok{display:block;color:#0000FF}
-.aktif-b{opacity:1!important;border-color:#FF0000!important;background-color:#ffe6e6!important;box-shadow:0 0 8px #FF0000}
+.aktif-b{opacity:1!important;border-color:#FF0000!important;background-color:#ffe6e6!important;box-shadow:0 0 8px #ff0000}
 .aktif-b.ok{display:block;color:#ff0000}
 .sonuc-paneli{padding:10px;border-radius:8px;background:#ffffff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px;transition:background 0.3s,color 0.3s}
 #sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3}
@@ -47,8 +47,8 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 <input type="text" id="girdi" placeholder="Yabancı veya Türkçe sözcük sorunuz..." onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
 </div>
 <div class="buton-satiri">
-<button class="btn-bul" onclick="bul()">BUL</button>
 <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
+<button class="btn-bul" onclick="bul()">BUL</button>
 <button class="btn-saglik" id="saglikBtn" onclick="saglikModuToggle()">SAĞLIK için ÖZEL</button>
 </div>
 <div class="kumeler">
@@ -1206,6 +1206,9 @@ const sozlukSaglik=[
 {A:"EMBOLİ",B:"PIHTI TIKANMASI"},
 {A:"FELÇ",B:"HİSSİZLİK"}
 ];
+
+ const sozlukSaglik = [];
+
 let saglikModu=false;
 const GUN_KEY='sozcukluk_gun',GUN_SAYAC_KEY='sozcukluk_gunluk',TOP_SAYAC_KEY='sozcukluk_toplam',GUNCELLEME_KEY='sozcukluk_guncelleme';
 
@@ -1223,6 +1226,7 @@ localStorage.setItem(GUN_SAYAC_KEY,g);
 localStorage.setItem(TOP_SAYAC_KEY,t);
 sayaclariYukle();
 }
+
 function sayaclariYukle(){
 document.getElementById('sayacGun').textContent=localStorage.getItem(GUN_SAYAC_KEY)||'0';
 document.getElementById('sayacTop').textContent=localStorage.getItem(TOP_SAYAC_KEY)||'0';
@@ -1280,3 +1284,5 @@ window.onload=sayaclariYukle;
 </script>
 </body>
 </html>
+
+ 
