@@ -22,9 +22,9 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 .kume small{font-size:10px;display:block;color:#666}
 .ok{font-size:18px;display:none;position:absolute;left:-18px;top:50%;transform:translateY(-50%)}
 .aktif-a{opacity:1!important;border-color:#0000FF!important;background-color:#e6e6ff!important;box-shadow:0 0 8px #0000FF}
-.aktif-a.ok{display:block;color:#0000FF}
+.aktif-a .ok{display:block;color:#0000FF}
 .aktif-b{opacity:1!important;border-color:#FF0000!important;background-color:#ffe6e6!important;box-shadow:0 0 8px #ff0000}
-.aktif-b.ok{display:block;color:#ff0000}
+.aktif-b .ok{display:block;color:#ff0000}
 .sonuc-paneli{padding:10px;border-radius:8px;background:#ffffff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px;transition:background 0.3s,color 0.3s}
 #sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3}
 .yanit-mavi{background-color:#add8e6!important;color:#000!important;border:2px solid #0000FF}
@@ -1201,26 +1201,36 @@ const sozluk =[
 let saglikModu=false;
 const GUN_KEY='sozcukluk_gun',GUN_SAYAC_KEY='sozcukluk_gunluk',TOP_SAYAC_KEY='sozcukluk_toplam',GUNCELLEME_KEY='sozcukluk_guncelleme';
 
+// Güvenli localStorage erişimi sağlayan yardımcı işlev (Çevrim içi gizlilik engellerini aşmak için)
+const hafıza = {
+getItem: (key) => {
+try { return localStorage.getItem(key); } catch(e) { return null; }
+},
+setItem: (key, value) => {
+try { localStorage.setItem(key, value); } catch(e) {}
+}
+};
+
 function sayaclariGuncelle(){
 const b=new Date().toISOString().split('T')[0];
-const k=localStorage.getItem(GUN_KEY);
+const k=hafıza.getItem(GUN_KEY);
 if(k!==b){
-localStorage.setItem(GUN_KEY,b);
-localStorage.setItem(GUN_SAYAC_KEY,'0');
+hafıza.setItem(GUN_KEY,b);
+hafıza.setItem(GUN_SAYAC_KEY,'0');
 }
-let g=parseInt(localStorage.getItem(GUN_SAYAC_KEY)||'0');
-let t=parseInt(localStorage.getItem(TOP_SAYAC_KEY)||'0');
+let g=parseInt(hafıza.getItem(GUN_SAYAC_KEY)||'0');
+let t=parseInt(hafıza.getItem(TOP_SAYAC_KEY)||'0');
 g++;t++;
-localStorage.setItem(GUN_SAYAC_KEY,g);
-localStorage.setItem(TOP_SAYAC_KEY,t);
+hafıza.setItem(GUN_SAYAC_KEY,g);
+hafıza.setItem(TOP_SAYAC_KEY,t);
 sayaclariYukle();
 }
 
 function sayaclariYukle(){
-document.getElementById('sayacGun').textContent=localStorage.getItem(GUN_SAYAC_KEY)||'0';
-document.getElementById('sayacTop').textContent=localStorage.getItem(TOP_SAYAC_KEY)||'0';
+document.getElementById('sayacGun').textContent=hafıza.getItem(GUN_SAYAC_KEY)||'0';
+document.getElementById('sayacTop').textContent=hafıza.getItem(TOP_SAYAC_KEY)||'0';
 document.getElementById('sayacSozcuk').textContent=sozluk.length+sozlukSaglik.length;
-document.getElementById('sayacGuncelleme').textContent=localStorage.getItem(GUNCELLEME_KEY)||'0';
+document.getElementById('sayacGuncelleme').textContent=hafıza.getItem(GUNCELLEME_KEY)||'0';
 }
 
 function saglikModuToggle(){
