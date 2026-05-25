@@ -85,6 +85,7 @@ const sozlukSaglik = [
 {"A": "ATROFİ", "B": "YETERSİZLEŞME"}
 ];
 
+
 let saglikModu=false;
 const GUN_KEY='sozcukluk_gun',GUN_SAYAC_KEY='sozcukluk_gunluk',TOP_SAYAC_KEY='sozcukluk_toplam',GUNCELLEME_KEY='sozcukluk_guncelleme';
 
@@ -144,11 +145,11 @@ liste.forEach(k=>{
 const kA_Ust = k.A.trim().toLocaleUpperCase('tr-TR');
 const kB_Ust = k.B.trim().toLocaleUpperCase('tr-TR');
 if(kA_Ust===kelime){
-sonucMetni.innerHTML=`"${kelime}" bulundu.<br>Karşılığı: ${k.B}<br><small>Yabancı kökenli</small>`;
+sonucMetni.innerHTML=`"${kelime}"Aranan, yabancı kökenli sözcük  bulundu.<br>Karşılığı: önerilen yalın Türkçe sözcükler, gösteriliyor. ${k.B}<br><small></small>`;
 kA.classList.add('aktif-a');panel.classList.add('yanit-mavi');found=true;sayaclariGuncelle();
 }
 else if(kB_Ust===kelime){
-sonucMetni.innerHTML=`"${kelime}" bulundu.<br>Karşılığı: ${k.A}<br><small>Yalın Türkçe</small>`;
+sonucMetni.innerHTML=`"${kelime}" Aranan. önerilmiş yalın Türkçe sözcük bulundu.<br>yabancı kökenli karşılıkları gösteriliyor. ${k.A}<br><small></small>`;
 kB.classList.add('aktif-b');panel.classList.add('yanit-kirmizi');found=true;sayaclariGuncelle();
 }
 });
