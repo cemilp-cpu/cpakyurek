@@ -623,7 +623,7 @@ const sozlukBilim = [
 { A: "AUTOMATİON", B: "KENDİLİĞİNDENLEŞTİRME" }
 ];
 
-let aktifMod = "GENEL";
+et aktifMod = "GENEL";
 const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', GUNCELLEME_KEY='sozcukluk_guncelleme_sayisi';
 
 const hafiza = {
@@ -687,7 +687,7 @@ girdi.placeholder = "Bilim sözcüğü yazınız...";
 }
 temizle();
 }
-} // <-- BURASI EKSİKTİ ABİ, KAPATTIM
+}
 
 function bul(){
 const kelime = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
@@ -709,15 +709,17 @@ if(aktifMod === "BILIM") liste = sozlukBilim;
 let bulunanlar = [];
 let kumeTipi = "";
 
-liste.forEach(k => {
-const kA_Ust = k.A.trim().toLocaleUpperCase('tr-TR');
-const kB_Ust = k.B.trim().toLocaleUpperCase('tr-TR');
+const kelimeBosluklu = " + kelime + " ";
 
-if(kA_Ust === kelime) {
+liste.forEach(k => {
+const kA_Ust = " + k.A.trim().toLocaleUpperCase('tr-TR') + " ";
+const kB_Ust = " + k.B.trim().toLocaleUpperCase('tr-TR') + " ";
+
+if(kA_Ust.includes(kelimeBosluklu)) {
 bulunanlar.push({ aranan: k.A, karsilik: k.B, tur: "Yabancı kökenli" });
 if(!kumeTipi) kumeTipi = "A";
 }
-else if(kB_Ust === kelime) {
+else if(kB_Ust.includes(kelimeBosluklu)) {
 bulunanlar.push({ aranan: k.B, karsilik: k.A, tur: "Yalın Türkçe" });
 if(!kumeTipi) kumeTipi = "B";
 }
