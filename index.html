@@ -20,7 +20,7 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 .btn-saglik{background-color:#27ae60;color:white;transition:0.2s}
 .btn-bilim{background-color:#8e44ad;color:white;transition:0.2s}
 
-/* Kümeler (A ve B Kümeleri Geri Geldi) */
+/* Kümeler */
 .kumeler{display:flex;gap:12px;margin-bottom:10px;justify-content:center}
 .kume{flex:1;padding:7px;border:2px solid #d4c4a1;border-radius:10px;background:#ffffff;opacity:0.1;transition:0.3s;text-align:center;position:relative}
 .kume strong{font-size:12px}
@@ -67,7 +67,6 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 <button class="btn-bilim" id="bilimBtn" onclick="modSec('BILIM')">BİLİMSEVER İÇİN</button>
 </div>
 
-<!-- KÜMELER (A VE B KÜMELERİ KORUNDU) -->
 <div class="kumeler">
 <div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli</small></div>
 <div id="kumeB" class="kume"><span class="ok">➤</span><strong>B KÜMESİ</strong><small>Yalın Türkçe</small></div>
@@ -623,14 +622,21 @@ const sozlukSaglik = [
 {"A": "ATROFİ", "B": "YETERSİZLEŞME"}
 ];
 
-// BİLİMSEVER SÖZCÜKLERİ
-const sozlukBilim = [
-{ "A": "ALGORİTHM", "B": "ÇÖZADIM" },
-{ "A": "ATOM", "B": "ÖGEÇİK" },
-{ "A": "AUTOMATİON", "B": "KENDİLİĞİNDENLEŞTİRME" }
+// SAĞLIK SÖZCÜKLERİ
+const sozlukSaglik = [
+{ A: "ANATOMİ", B: "BEDEN BİLİMİ" },
+{ A: "ASTIM", B: "SOLUMA YETERSİZLİĞİ" },
+{ A: "ATROFİ", B: "YETERSİZLEŞME" }
 ];
 
-let aktifMod = "GENEL"; // "GENEL", "SAGLIK", "BILIM"
+// BİLİMSEVER SÖZCÜKLERİ
+const sozlukBilim = [
+{ A: "ALGORİTHM", B: "ÇÖZADIM" },
+{ A: "ATOM", B: "ÖGEÇİK" },
+{ A: "AUTOMATİON", B: "KENDİLİĞİNDENLEŞTİRME" }
+];
+
+let aktifMod = "GENEL";
 const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', GUNCELLEME_KEY='sozcukluk_guncelleme_sayisi';
 
 const hafiza = {
@@ -642,21 +648,27 @@ function sayaclariGuncelle(isSearch = false){
 const bugün = new Date().toISOString().split('T')[0];
 const kayitliGun = hafiza.getItem(GUN_KEY);
 
+// Eğer gün değiştiyse ya da ilk kez açılıyorsa günlük sayacı sıfırla
 if(kayitliGun !== bugün){
 hafiza.setItem(GUN_KEY, bugün);
 hafiza.setItem(GUN_SAYAC_KEY, '0');
 }
 
-let g = parseInt(hafiza.getItem(GUN_SAYAC_KEY) || '0');
-let t = parseInt(hafiza.getItem(TOP_SAYAC_KEY) || '0');
-let guncelleme = parseInt(hafiza.getItem(GUNCELLEME_KEY) || '0');
+// Hafızada hiç değer yoksa başlangıç değerlerini '0' olarak ata
+if(hafiza.getItem(GUN_SAYAC_KEY) === null) hafiza.setItem(GUN_SAYAC_KEY, '0');
+if(hafiza.getItem(TOP_SAYAC_KEY) === null) hafiza.setItem(TOP_SAYAC_KEY, '0');
+if(hafiza.getItem(GUNCELLEME_KEY) === null) hafiza.setItem(GUNCELLEME_KEY, '0');
+
+let g = parseInt(hafiza.getItem(GUN_SAYAC_KEY));
+let t = parseInt(hafiza.getItem(TOP_SAYAC_KEY));
+let guncelleme = parseInt(hafiza.getItem(GUNCELLEME_KEY));
 
 if(isSearch) {
 g++; t++;
-guncelleme++; // Her başarılı aramada güncelleme sayacı artar
-hafiza.setItem(GUN_SAYAC_KEY, g);
-hafiza.setItem(TOP_SAYAC_KEY, t);
-hafiza.setItem(GUNCELLEME_KEY, guncelleme);
+guncelleme++; // Her başarılı aramada ilk kez ve sonrasında düzenli artar
+hafiza.setItem(GUN_SAYAC_KEY, g.toString());
+hafiza.setItem(TOP_SAYAC_KEY, t.toString());
+hafiza.setItem(GUNCELLEME_KEY, guncelleme.toString());
 }
 
 sayaclariYukle();
@@ -722,7 +734,6 @@ liste.forEach(k => {
 const kA_Ust = k.A.trim().toLocaleUpperCase('tr-TR');
 const kB_Ust = k.B.trim().toLocaleUpperCase('tr-TR');
 
-// Çoklu yanıt eşleşme kontrolü
 if(kA_Ust.includes(kelime)) {
 bulunanlar.push({ aranan: k.A, karsilik: k.B, tur: "Yabancı kökenli" });
 if(!kumeTipi) kumeTipi = "A";
@@ -743,7 +754,6 @@ htmlIcerik += `</div>`;
 
 sonucMetni.innerHTML = htmlIcerik;
 
-// Kümelerin ışıklandırılması ve panel renkleri
 if(kumeTipi === "A") { kA.classList.add('aktif-a'); panel.classList.add('yanit-mavi'); }
 if(kumeTipi === "B") { kB.classList.add('aktif-b'); panel.classList.add('yanit-kirmizi'); }
 
