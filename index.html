@@ -31,7 +31,7 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 .aktif-b{opacity:1!important;border-color:#FF0000!important;background-color:#ffe6e6!important;box-shadow:0 0 8px #ff0000}
 .aktif-b .ok{display:block;color:#ff0000}
 
-/* Sonuç Paneli ve Çoklu Yanıt Düzeni */
+/* Sonuç Paneli */
 .sonuc-paneli{padding:10px;border-radius:8px;background:#ffffff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px;transition:background 0.3s,color 0.3s;box-sizing:border-box}
 #sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3;width:100%}
 .sonuc-listesi {text-align:left;max-height:200px;overflow-y:auto;margin-top:8px;width:100%}
@@ -648,13 +648,11 @@ function sayaclariGuncelle(isSearch = false){
 const bugün = new Date().toISOString().split('T')[0];
 const kayitliGun = hafiza.getItem(GUN_KEY);
 
-// Eğer gün değiştiyse ya da ilk kez açılıyorsa günlük sayacı sıfırla
 if(kayitliGun !== bugün){
 hafiza.setItem(GUN_KEY, bugün);
 hafiza.setItem(GUN_SAYAC_KEY, '0');
 }
 
-// Hafızada hiç değer yoksa başlangıç değerlerini '0' olarak ata
 if(hafiza.getItem(GUN_SAYAC_KEY) === null) hafiza.setItem(GUN_SAYAC_KEY, '0');
 if(hafiza.getItem(TOP_SAYAC_KEY) === null) hafiza.setItem(TOP_SAYAC_KEY, '0');
 if(hafiza.getItem(GUNCELLEME_KEY) === null) hafiza.setItem(GUNCELLEME_KEY, '0');
@@ -665,7 +663,7 @@ let guncelleme = parseInt(hafiza.getItem(GUNCELLEME_KEY));
 
 if(isSearch) {
 g++; t++;
-guncelleme++; // Her başarılı aramada ilk kez ve sonrasında düzenli artar
+guncelleme++;
 hafiza.setItem(GUN_SAYAC_KEY, g.toString());
 hafiza.setItem(TOP_SAYAC_KEY, t.toString());
 hafiza.setItem(GUNCELLEME_KEY, guncelleme.toString());
@@ -717,7 +715,6 @@ const kA = document.getElementById('kumeA');
 const kB = document.getElementById('kumeB');
 const panel = document.getElementById('sonucPaneli');
 
-// Sıfırlama
 sonucMetni.innerHTML = ""; oneriAlani.style.display = "none";
 kA.className = "kume"; kB.className = "kume"; panel.className = "sonuc-paneli";
 
