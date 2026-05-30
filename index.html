@@ -675,7 +675,7 @@ sayaclariYukle();
 function sayaclariYukle(){
 document.getElementById('sayacGun').textContent = hafiza.getItem(GUN_SAYAC_KEY) || '0';
 document.getElementById('sayacTop').textContent = hafiza.getItem(TOP_SAYAC_KEY) || '0';
-document.getElementById('sayacSozcuk').textContent = sozlukGenel.length + sozlukSaglik.length + sozlukBilim.length;
+document.getElementById('sayacSozcuk').textContent = sozluk.length + sozlukSaglik.length + sozlukBilim.length;
 document.getElementById('sayacGuncelleme').textContent = hafiza.getItem(GUNCELLEME_KEY) || '0';
 }
 
@@ -720,7 +720,7 @@ kA.className = "kume"; kB.className = "kume"; panel.className = "sonuc-paneli";
 
 if(kelime === ""){sonucMetni.innerHTML = "Lütfen sözcük yazınız."; return}
 
-let liste = sozlukGenel;
+let liste = sozluk;
 if(aktifMod === "SAGLIK") liste = sozlukSaglik;
 if(aktifMod === "BILIM") liste = sozlukBilim;
 
@@ -779,3 +779,4 @@ document.getElementById('girdi').focus();
 };
 </script>
 </body>
+</html>
