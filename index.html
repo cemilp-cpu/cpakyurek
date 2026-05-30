@@ -17,15 +17,16 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 .btn-yeni{background-color:#ff0000;color:white}
 .btn-saglik{background-color:#27ae60;color:white;transition:0.2s}
 .btn-bilim{background-color:#8e44ad;color:white;transition:0.2s}
+.btn-pasif{opacity:0.5;cursor:not-allowed}
 .kumeler{display:flex;gap:12px;margin-bottom:10px;justify-content:center}
 .kume{flex:1;padding:7px;border:2px solid #d4c4a1;border-radius:10px;background:#ffffff;opacity:0.1;transition:0.3s;text-align:center;position:relative}
 .kume strong{font-size:12px}
 .kume small{font-size:10px;display:block;color:#666}
 .ok{font-size:18px;display:none;position:absolute;left:-18px;top:50%;transform:translateY(-50%)}
 .aktif-a{opacity:1!important;border-color:#0000FF!important;background-color:#e6e6ff!important;box-shadow:0 0 8px #0000FF}
-.aktif-a .ok{display:block;color:#0000FF}
+.aktif-a.ok{display:block;color:#0000FF}
 .aktif-b{opacity:1!important;border-color:#FF0000!important;background-color:#ffe6e6!important;box-shadow:0 0 8px #ff0000}
-.aktif-b .ok{display:block;color:#ff0000}
+.aktif-b.ok{display:block;color:#ff0000}
 .sonuc-paneli{padding:10px;border-radius:8px;background:#ffffff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px;transition:background 0.3s,color 0.3s;box-sizing:border-box}
 #sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3;width:100%}
 .sonuc-listesi {text-align:left;max-height:200px;overflow-y:auto;margin-top:8px;width:100%}
@@ -46,19 +47,23 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 <div class="sol-ust-tanitici"><span class="kizil-yildiz">★</span>Cemil Pakyürek/Sü:2</div>
 <div id="modGosterge"></div>
 <div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir. Farklı sözcük önerilerinde bulunarak siz de katkıda bulunun. <br>Bu bir sözlük değil, SÖZCÜKLÜTÜR.</div>
+
 <div class="arama-alani">
 <input type="text" id="girdi" placeholder="Yabancı veya Türkçe sözcük sorunuz..." onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
 </div>
+
 <div class="buton-satiri">
 <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
 <button class="btn-bul" onclick="bul()">BUL</button>
 <button class="btn-saglik" id="saglikBtn" onclick="modSec('SAGLIK')">SAĞLIK İÇİN SÖZEL</button>
 <button class="btn-bilim" id="bilimBtn" onclick="modSec('BILIM')">BİLİMSEVER İÇİN</button>
 </div>
+
 <div class="kumeler">
 <div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli</small></div>
 <div id="kumeB" class="kume"><span class="ok">➤</span><strong>B KÜMESİ</strong><small>Yalın Türkçe</small></div>
 </div>
+
 <div class="sonuc-paneli" id="sonucPaneli">
 <div id="sonucMetni">Arama sonuçları burada listelenecek...</div>
 <div id="oneriAlani" class="oneri-bolumu">
@@ -69,11 +74,13 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 </div>
 </div>
 </div>
+
 <div class="alt-sayac-alani">
 Bugün gezen:<span id="sayacGun">0</span> | Toplam gezen:<span id="sayacTop">0</span><br>
 Toplam sözcük:<span id="sayacSozcuk">0</span> | Güncelleme sayısı:<span id="sayacGuncelleme">0</span>
 </div>
 </div>
+
 <script>
 // Genel sözlük listesi
 const sozluk = [
@@ -633,25 +640,20 @@ function sayaclariGuncelle(isSearch = false){
 const bugün = new Date().toISOString().split('T')[0];
 const kayitliGun = hafiza.getItem(GUN_KEY);
 
-if(kayitliGun !== bugün){
+if(kayitliGun!== bugün){
 hafiza.setItem(GUN_KEY, bugün);
 hafiza.setItem(GUN_SAYAC_KEY, '0');
 }
 
-if(hafiza.getItem(GUN_SAYAC_KEY) === null) hafiza.setItem(GUN_SAYAC_KEY, '0');
-if(hafiza.getItem(TOP_SAYAC_KEY) === null) hafiza.setItem(TOP_SAYAC_KEY, '0');
-if(hafiza.getItem(GUNCELLEME_KEY) === null) hafiza.setItem(GUNCELLEME_KEY, '0');
-
-let g = parseInt(hafiza.getItem(GUN_SAYAC_KEY));
-let t = parseInt(hafiza.getItem(TOP_SAYAC_KEY));
-let guncelleme = parseInt(hafiza.getItem(GUNCELLEME_KEY));
+let g = parseInt(hafiza.getItem(GUN_SAYAC_KEY) || '0');
+let t = parseInt(hafiza.getItem(TOP_SAYAC_KEY) || '0');
+let guncelleme = parseInt(hafiza.getItem(GUNCELLEME_KEY) || '0');
 
 if(isSearch) {
-g++; t++;
-guncelleme++;
-hafiza.setItem(GUN_SAYAC_KEY, g.toString());
-hafiza.setItem(TOP_SAYAC_KEY, t.toString());
-hafiza.setItem(GUNCELLEME_KEY, guncelleme.toString());
+g++; t++; guncelleme++;
+hafiza.setItem(GUN_SAYAC_KEY, g);
+hafiza.setItem(TOP_SAYAC_KEY, t);
+hafiza.setItem(GUNCELLEME_KEY, guncelleme);
 }
 
 sayaclariYukle();
@@ -660,7 +662,7 @@ sayaclariYukle();
 function sayaclariYukle(){
 document.getElementById('sayacGun').textContent = hafiza.getItem(GUN_SAYAC_KEY) || '0';
 document.getElementById('sayacTop').textContent = hafiza.getItem(TOP_SAYAC_KEY) || '0';
-document.getElementById('sayacSozcuk').textContent = sozluk.length + sozlukSaglik.length + sozlukBilim.length;
+document.getElementById('sayacSozcuk').textContent = sozlukGenel.length + sozlukSaglik.length + sozlukBilim.length;
 document.getElementById('sayacGuncelleme').textContent = hafiza.getItem(GUNCELLEME_KEY) || '0';
 }
 
@@ -688,9 +690,9 @@ bBtn.style.boxShadow = "0 0 10px #9b59b6";
 gosterge.innerHTML = '<div class="mod-aktif" style="background:#f4ecf7; color:#8e44ad;">BİLİMSEVER İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
 girdi.placeholder = "Bilim sözcüğü yazınız...";
 }
-}
 temizle();
 }
+} // <-- BURASI EKSİKTİ ABİ, KAPATTIM
 
 function bul(){
 const kelime = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
@@ -705,7 +707,7 @@ kA.className = "kume"; kB.className = "kume"; panel.className = "sonuc-paneli";
 
 if(kelime === ""){sonucMetni.innerHTML = "Lütfen sözcük yazınız."; return}
 
-let liste = sozluk;
+let liste = sozlukGenel;
 if(aktifMod === "SAGLIK") liste = sozlukSaglik;
 if(aktifMod === "BILIM") liste = sozlukBilim;
 
@@ -716,11 +718,11 @@ liste.forEach(k => {
 const kA_Ust = k.A.trim().toLocaleUpperCase('tr-TR');
 const kB_Ust = k.B.trim().toLocaleUpperCase('tr-TR');
 
-if(kA_Ust.includes(kelime)) {
+if(kA_Ust === kelime) {
 bulunanlar.push({ aranan: k.A, karsilik: k.B, tur: "Yabancı kökenli" });
 if(!kumeTipi) kumeTipi = "A";
 }
-else if(kB_Ust.includes(kelime)) {
+else if(kB_Ust === kelime) {
 bulunanlar.push({ aranan: k.B, karsilik: k.A, tur: "Yalın Türkçe" });
 if(!kumeTipi) kumeTipi = "B";
 }
