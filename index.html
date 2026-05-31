@@ -642,11 +642,11 @@ const sonucMetni=document.getElementById('sonucMetni'),oneriAlani=document.getEl
 sonucMetni.innerHTML="";oneriAlani.style.display="none";kA.className="kume";kB.className="kume";panel.className="sonuc-paneli";
 if(!kelime){sonucMetni.innerHTML="Lütfen sözcük yazınız.";return}
 let liste=sozlukGenel;if(aktifMod==="SAGLIK")liste=sozlukSaglik;if(aktifMod==="BILIM")liste=sozlukBilim;
-let bulunanlar=[],kumeTipi="",kelimeBosluklu=" "+kelime+" ";
+let bulunanlar=[],kumeTipi="";
 liste.forEach(k=>{
-const kA_Ust=" "+k.A.trim().toLocaleUpperCase('tr-TR')+" ",kB_Ust=" "+k.B.trim().toLocaleUpperCase('tr-TR')+" ";
-if(kA_Ust.includes(kelimeBosluklu)){bulunanlar.push({aranan:k.A,karsilik:k.B,tur:"Yabancı kökenli"});if(!kumeTipi)kumeTipi="A"}
-else if(kB_Ust.includes(kelimeBosluklu)){bulunanlar.push({aranan:k.B,karsilik:k.A,tur:"Yalın Türkçe"});if(!kumeTipi)kumeTipi="B"}
+const kA_Ust=k.A.trim().toLocaleUpperCase('tr-TR'),kB_Ust=k.B.trim().toLocaleUpperCase('tr-TR');
+if(kA_Ust.includes(kelime)){bulunanlar.push({aranan:k.A,karsilik:k.B,tur:"Yabancı kökenli"});if(!kumeTipi)kumeTipi="A"}
+else if(kB_Ust.includes(kelime)){bulunanlar.push({aranan:k.B,karsilik:k.A,tur:"Yalın Türkçe"});if(!kumeTipi)kumeTipi="B"}
 });
 if(bulunanlar.length>0){
 let html=`<div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET OLASI SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`;
@@ -655,6 +655,10 @@ html+="</div>";sonucMetni.innerHTML=html;
 if(kumeTipi==="A"){kA.classList.add('aktif-a');panel.classList.add('yanit-mavi')}
 if(kumeTipi==="B"){kB.classList.add('aktif-b');panel.classList.add('yanit-kirmizi')}
 sayaclariGuncelle(true)}
+else{panel.classList.add('yanit-bulunamadi');sonucMetni.innerHTML=`"${kelime}" biriktiricimizde bulunamadı.`;oneriAlani.style.display="block"}
+document.getElementById('girdi').focus()}
+
+
 else{panel.classList.add('yanit-bulunamadi');sonucMetni.innerHTML=`"${kelime}" biriktiricimizde bulunamadı.`;oneriAlani.style.display="block"}
 document.getElementById('girdi').focus()}
 function temizle(){
