@@ -554,7 +554,7 @@ sayaclariYukle();
 function sayaclariYukle(){
 document.getElementById('sayacGun').textContent=hafiza.getItem(GUN_SAYAC_KEY)||'0';
 document.getElementById('sayacTop').textContent=hafiza.getItem(TOP_SAYAC_KEY)||'0';
-document.getElementById('sayacSozcuk').textContent=sozlukGenel.length+sozlukSaglik.length+sozlukBilim.length;
+document.getElementById('sayacSozcuk').textContent=sozluk.length+sozlukSaglik.length+sozlukBilim.length;
 document.getElementById('sayacGuncelleme').textContent=hafiza.getItem(GUNCELLEME_KEY)||'0';
 }
 
@@ -582,7 +582,6 @@ bBtn.style.boxShadow="0 0 10px #9b59b6";
 gosterge.innerHTML='<div class="mod-aktif" style="background:#f4ecf7;color:#8e44ad;">BİLİMSEVER İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
 girdi.placeholder="Bilim sözcüğü yazınız...";
 }
-}
 temizle();
 }
 
@@ -597,22 +596,26 @@ havuzGoster();
 return;
 }
 
-let liste=sozlukGenel; if(aktifMod==="SAGLIK")liste=sozlukSaglik; if(aktifMod==="BILIM")liste=sozlukBilim;
+let liste=sozluk; if(aktifMod==="SAGLIK")liste=sozlukSaglik; if(aktifMod==="BILIM")liste=sozlukBilim;
 let bulunanlar=[], kumeTipi="";
 
 liste.forEach(k=>{
 const kA_Ust=k.A.trim().toLocaleUpperCase('tr-TR'), kB_Ust=k.B.trim().toLocaleUpperCase('tr-TR');
 if(kA_Ust.includes(kelime)){
-bulunanlar.push({aranan:k.A, karsilik:k.B, tur: "A KÜMESİ (Yabancı Kökenli)"});
+bulunanlar.push({aranan:k.A, karsilik:k.B, tur: "A KÜMESİ"});
 if(!kumeTipi) kumeTipi="A";
 }
 else if(kB_Ust.includes(kelime)){
-bulunanlar.push({aranan:k.B, karsilik:k.A, tur: "B KÜMESİ (Yalın Türkçe)"});
+bulunanlar.push({aranan:k.B, karsilik:k.A, tur: "B KÜMESİ"});
 if(!kumeTipi) kumeTipi="B";
 }
 });
 
 if(bulunanlar.length>0){
+sayaclariGuncelle(true);
+panel.classList.add(kumeTipi==="A"? 'yanit-mavi' : 'yanit-kirmizi');
+if(kumeTipi==="A") kA.classList.add('aktif-a'); else kB.classList.add('aktif-b');
+
 let html=`<div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`;
 bulunanlar.forEach((o,i)=>{
 html+=`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666">[${o.tur}]</small></div>`;
@@ -620,13 +623,7 @@ html+=`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.kar
 html+="</div>";
 sonucMetni.innerHTML=html;
 
-// BEYAZ PANELDEKİ KUTULARI DOĞRUDAN DOLDURAN KESİN SATIRLAR
-if (bulunanlar.length > 0) {
-document.getElementById('kA').value = bulunanlar[0].aranan;
-document.getElementById('kB').value = bulunanlar[0].karsilik;
-}
-
-else{
+}else{
 panel.classList.add('yanit-bulunamadi');
 sonucMetni.innerHTML=`"${kelime}" biriktiricimizde bulunamadı.`;
 oneriAlani.style.display="block";
@@ -652,4 +649,3 @@ document.getElementById('girdi').focus();
 </script>
 </body>
 </html>
-
