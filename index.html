@@ -619,7 +619,10 @@ html+=`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.kar
 });
 html+="</div>";
 sonucMetni.innerHTML=html;
-
+if (bulunanlar.length > 0) {
+kA.value = bulunanlar[0].aranan;
+kB.value = bulunanlar[0].karsilik;
+}
 if(kumeTipi==="A"){kA.classList.add('aktif-a'); panel.classList.add('yanit-mavi')}
 if(kumeTipi==="B"){kB.classList.add('aktif-b'); panel.classList.add('yanit-kirmizi')}
 sayaclariGuncelle(true);
