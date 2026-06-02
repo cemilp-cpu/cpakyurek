@@ -547,6 +547,8 @@ git commit -m "anımsatıcı 20 kişide bir dönsün"
 git push
 localStorage.getItem('sozcukluk_toplam') 
 
+const animsaticiHavuz = ["ACCELERATION", "AKUSTİK", "ANATOMİ", "ATOM", "AUTOMATION"];
+
 let aktifMod = "GENEL";
 const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', GUNCELLEME_KEY='sozcukluk_guncelleme_sayisi';
 const hafiza={getItem:k=>{try{return localStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
@@ -567,10 +569,9 @@ document.getElementById('sayacGuncelleme').textContent=hafiza.getItem(GUNCELLEME
 }
 
 function havuzGoster() {
-const animsaticiHavuz = ["MATEMATİK", "SÖZLÜK", "KELİME", "HARF", "CEBİR", "KÜME", "FONKSİYON", "LOGARİTMA", "TÜREV", "İNTEGRAL", "LİMİT", "DİZİ", "PERMÜTASYON", "KOMBİNASYON", "OLASILIK", "GEOMETRİ", "ÜÇGEN", "DAİRE", "VEKTÖR", "MATRİS"];
- let html = `<div style="color:#555;font-size:13px;margin-bottom:5px;"><strong>ANIMSATICI ÖRNEK SORULAR:</strong></div><div class="sonuc-listesi">`';
+let html = `<div style="color:#555;font-size:13px;margin-bottom:5px;"><strong>ANIMSATICI ÖRNEK SORULAR:</strong></div><div class="sonuc-listesi">`;
 animsaticiHavuz.forEach((s, i) => {
-html += `<div class="sonuc-maddesi" style="text-align:center;cursor:pointer;" onclick="document.getElementById('girdi').value='${s}';bul();">${i+1}</div>`;
+html += `<div class="sonuc-maddesi" style="text-align:center;cursor:pointer;" onclick="document.getElementById('girdi').value='${s}';bul();">${i+1}. ${s}</div>`;
 });
 html += `</div>`;
 document.getElementById('sonucMetni').innerHTML = html;
