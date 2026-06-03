@@ -5,82 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sanal Yöre - SÖZCÜKLÜK</title>
 <style>
-html, body {background:#fff;margin:0;padding:0;height:100vh;font-family:sans-serif;display:flex;justify-content:center;align-items:center;overflow:hidden}
-.ana-konteynir{width:98%;max-width:460px;height:96vh;background:#ff0;padding:10px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between}
-.sol-ust-tanitici{text-align:left;font-size:11px;font-weight:bold;color:#333;margin-bottom:2px}
+html, body {background:#fff;margin:0;padding:0;min-height:100vh;font-family:sans-serif;display:flex;justify-content:center;align-items:center}
+.ana-konteynir{width:95%;max-width:500px;background:#ff0;padding:12px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);box-sizing:border-box}
+.sol-ust-tanitici{text-align:left;font-size:11px;font-weight:bold;color:#333;margin-bottom:6px}
 .kizil-yildiz{color:red;font-size:12px;margin-right:2px}
-.aciklama-kutusu{font-size:11px;background:#add8e6;padding:6px;border-radius:8px;margin-bottom:6px;border:1px solid #b0c4de;font-weight:bold;text-align:center;line-height:1.2}
-/* Girdi alanı çerçevesi kalınlaştırıldı ve yazılar kalın yapıldı */
-input{width:100%;padding:8px;border:3px solid #2c3e50;border-radius:8px;font-size:13px;font-weight:bold;outline:none;box-sizing:border-box;text-align:center;text-transform:uppercase}
-.buton-satiri{display:flex;gap:4px;margin-bottom:6px;justify-content:center;flex-wrap:wrap}
-.buton-satiri button{flex:1;min-width:100px;padding:7px 4px;font-weight:bold;font-size:10px;border:none;border-radius:6px;cursor:pointer}
+.aciklama-kutusu{font-size:13px;background:#add8e6;padding:8px;border-radius:8px;margin-bottom:10px;border:1px solid #b0c4de;font-weight:bold;text-align:center;line-height:1.3}
+input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-size:17px;outline:none;box-sizing:border-box;text-align:center;text-transform:uppercase}
+.buton-satiri{display:flex;gap:5px;margin-bottom:10px;justify-content:center;flex-wrap:wrap}
+.buton-satiri button{flex:1;min-width:105px;padding:9px 6px;font-weight:bold;font-size:11px;border:none;border-radius:8px;cursor:pointer}
 .btn-bul{background:#2c3e50;color:#fff}
 .btn-yeni{background:red;color:#fff}
 .btn-saglik{background:#27ae60;color:#fff}
 .btn-bilim{background:#8e44ad;color:#fff}
-.kumeler{display:flex;gap:8px;margin-bottom:6px;justify-content:center}
-.kume{flex:1;padding:5px;border:2px solid #d4c4a1;border-radius:8px;background:#fff;opacity:.2;text-align:center;position:relative;transition: all 0.3s ease;}
-.kume strong{font-size:11px}
-.kume small{font-size:9px;display:block;color:#666;line-height:1.1}
-.ok{font-size:12px;display:none;position:absolute;left:4px;top:50%;transform:translateY(-50%)}
-.aktif-a{opacity:1!important;border-color:#00f!important;background:#e6e6ff!important;box-shadow:0 0 6px #00f}
-.aktif-a .ok{display:block;color:#00f}
-.aktif-b{opacity:1!important;border-color:red!important;background:#ffe6e6!important;box-shadow:0 0 6px red}
-.aktif-b .ok{display:block;color:red}
-.sonuc-paneli{padding:8px;border-radius:8px;background:#fff;border:1px solid #d4c4a1;flex-grow:1;min-height:100px;max-height:160px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;margin-bottom:6px;overflow:hidden}
-/* Yanıtlar ve sonuç metinleri tamamen kalın yapıldı */
-#sonucMetni{font-size:12px;font-weight:bold;text-align:center;line-height:1.3;width:100%;color:#2c3e50;height:100%;overflow-y:auto}
-.sonuc-listesi{text-align:left;margin-top:4px;width:100%;font-weight:bold}
-.sonuc-maddesi{padding:4px;margin-bottom:2px;border-bottom:1px dashed #ccc;font-size:12px;color:#2c3e50;font-weight:bold}
+.kumeler{display:flex;gap:12px;margin-bottom:10px;justify-content:center}
+.kume{flex:1;padding:7px;border:2px solid #d4c4a1;border-radius:10px;background:#fff;opacity:.2;text-align:center;position:relative;transition: all 0.3s ease;}
+.kume strong{font-size:12px}
+.kume small{font-size:10px;display:block;color:#666}
+.ok{font-size:14px;display:none;position:absolute;left:5px;top:50%;transform:translateY(-50%)}
+.aktif-a{opacity:1!important;border-color:#00f!important;background:#e6e6ff!important;box-shadow:0 0 8px #00f}
+.aktif-a.ok{display:block;color:#00f}
+.aktif-b{opacity:1!important;border-color:red!important;background:#ffe6e6!important;box-shadow:0 0 8px red}
+.aktif-b.ok{display:block;color:red}
+.sonuc-paneli{padding:10px;border-radius:8px;background:#fff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px}
+#sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3;width:100%;color:#2c3e50}
+.sonuc-listesi{text-align:left;max-height:150px;overflow-y:auto;margin-top:8px;width:100%}
+.sonuc-maddesi{padding:5px;margin-bottom:4px;border-bottom:1px dashed #ccc;font-size:14px;color:#2c3e50}
 .yanit-mavi{background:#add8e6!important;color:#2c3e50!important;border:2px solid #00f}
 .yanit-kirmizi{background:#ffe6e6!important;color:#2c3e50!important;border:2px solid red}
 .yanit-bulunamadi{background:#fdfae5!important;color:#333!important;border:2px solid #e67e22}
-.oneri-bolumu{display:none;width:100%;margin-top:4px;text-align:center}
-.oneri-girdi{display:flex;gap:4px;justify-content:center;margin-top:4px}
-.oneri-input{width:60%;padding:4px;font-size:11px;border:2px solid #2c3e50;border-radius:6px;font-weight:bold}
-.alt-sayac-alani{border-top:1px solid rgba(0,0,0,.15);padding-top:4px;text-align:center;font-size:11px;color:#2c3e50;font-weight:600;line-height:1.4}
-.alt-sayac-alani span{color:#e74c3c;font-weight:900;font-size:15px}
-.mod-aktif{border:2px solid #2c3e50;padding:4px;border-radius:5px;margin-bottom:4px;text-align:center;font-weight:bold;font-size:11px}
+.oneri-bolumu{display:none;width:100%;margin-top:6px;text-align:center}
+.oneri-girdi{display:flex;gap:4px;justify-content:center;margin-top:5px}
+.oneri-input{width:60%;padding:5px;font-size:13px;border:2px solid #2c3e50;border-radius:6px}
+.alt-sayac-alani{margin-top:8px;border-top:1px solid rgba(0,0,0,.15);padding-top:6px;text-align:center;font-size:12px;color:#2c3e50;font-weight:600;line-height:1.6}
+.alt-sayac-alani span{color:#e74c3c;font-weight:900;font-size:18px}
+.mod-aktif{border:2px solid #2c3e50;padding:5px;border-radius:5px;margin-bottom:8px;text-align:center;font-weight:bold;font-size:12px}
 </style>
 </head>
 <body>
 <div class="ana-konteynir">
-<div>
 <div class="sol-ust-tanitici"><span class="kizil-yildiz">★</span>Cemil Pakyürek/Sü:2</div>
 <div id="modGosterge"></div>
 <div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir. Farklı sözcük önerilerinde bulunarak siz de katkıda bulunun. <br>Bu bir sözlük değil, SÖZCÜKLÜKTÜR.</div>
 
-<div class="arama-alani" style="margin-bottom:6px;">
-<input type="text" id="girdi" placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE SÖZCÜK SOR" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
+<div class="arama-alani">
+<input type="text" id="girdi" placeholder="Yabancı veya Türkçe sözcük sorunuz..." oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
 </div>
 
 <div class="buton-satiri">
 <button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
 <button class="btn-bul" onclick="bul()">BUL</button>
-<button class="btn-saglik" id="saglikBtn" onclick="modSec('SAGLIK')">SAĞLIK İÇİN ÖZEL BAS VE ÇIKMAK İÇİN DE BAS</button>
-<button class="btn-bilim" id="bilimBtn" onclick="modSec('BILIM')">BİLİM için bas, ve çıkmak için de bas</button>
-<button class="btn-bul" onclick="modSec('GENEL')" style="background-color:#34495e;">GENEL SÖZCÜK SOR</button>
+<button class="btn-saglik" id="saglikBtn" onclick="modSec('SAGLIK')">SAĞLIK İÇİN SÖZEL</button>
+<button class="btn-bilim" id="bilimBtn" onclick="modSec('BILIM')">BİLİMSEVER İÇİN</button>
 </div>
 
 <div class="kumeler">
-<div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli sözcükler kümesi</small></div>
-<div id="kumeB" class="kume"><span class="ok">➤</span><strong>B KÜMESİ</strong><small>Önerilmiş yalın Türkçe sözcükler kümesi</small></div>
-</div>
+<div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli</small></div>
+<div id="kumeB" class="kume"><span class="ok">➤</span><strong>B KÜMESİ</strong><small>Yalın Türkçe</small></div>
 </div>
 
 <div class="sonuc-paneli" id="sonucPaneli">
 <div id="sonucMetni">Arama sonuçları burada listelenecek...</div>
 <div id="oneriAlani" class="oneri-bolumu">
-<div style="font-size:12px;font-weight:bold;">Öneriniz için teşekkürler! Başka öneriniz var mı?</div>
+<div style="font-size:15px;font-weight:bold;">Öneriniz için teşekkürler! Başka öneriniz var mı?</div>
 <div class="oneri-girdi">
 <input type="text" id="oneriGirdisi" class="oneri-input" placeholder="Önerinizi, buraya yazınız...">
-<button class="btn-bul" style="padding:2px 6px;width:auto;font-size:11px;" onclick="alert('Kaydedildi!')">GÖNDER</button>
+<button class="btn-bul" style="padding:3px 8px;width:auto;font-size:12px;" onclick="alert('Kaydedildi!')">GÖNDER</button>
 </div>
 </div>
 </div>
 
 <div class="alt-sayac-alani">
-Bugün gezen:<span id="sayacGun">0</span> | Toplam gezen:<span id="sayacTop">0</span> | Toplam sözcük:<span id="sayacSozcuk">0</span> | Güncelleme sayısı:<span id="sayacGuncelleme">0</span>
+Bugün gezen:<span id="sayacGun">0</span> | Toplam gezen:<span id="sayacTop">0</span><br>
+Toplam sözcük:<span id="sayacSozcuk">0</span> | Güncelleme sayısı:<span id="sayacGuncelleme">0</span>
 </div>
 </div>
 
@@ -92,452 +88,11 @@ const sozluk = [
 { A: "BRAKE PADS", B: "SÜRTÜNGEÇ" },
 { A: "BALATA", B: "SÜRTÜNGEÇ" },
 { A: "HEAT", B: "ISI" },
-{ A: "ACCELERATION", B: "İVME" },
-{ A: "AKUSTİK", B: "SES BİLİMİ" },
-{ A: "ALLAH", B: "BİLİNEMEZ" },
-{ A: "BRAKE PADS", B: "SÜRTÜNGEÇ" },
-{ A: "CAZİBE", B: "ÇEKİCİLİK" },
-{ A: "GOOD", B: "İYİ" },
-{ A: "HAZRET", B: "SAYGIN" },
-{ A: "KAREKOD", B: "İKİ BOYUTLU İMGE" },
-{ A: "LİFT", B: "DÜŞEY TAŞIT" },
-{ A: "LOAD", B: "YÜK" },
-{ A: "LOADCELL", B: "YÜK GÖZENEĞİ" },
-{ A: "MONONOM", B: "TEKTERİMLİ" },
-{ A: "MULTIPLE RESPONSE", B: "ÇOKLU YANIT" },
-{ A: "NÜ", B: "ÇIPLAK" },
-{ A: "POLİNOM", B: "ÇOK TERİMLİ" },
-{ A: "PREJUDICE", B: "ÖNYARGI" },
-{ A: "SURE", B: "BÖLÜMCE" },
-{ A: "YEVM", B: "GÜN" },
-{ A: "BID", B: "ÖNERİ" },
-{ A: "BIDIRECTIONAL", B: "İKİ YÖNLÜ" },
-{ A: "BIFURCATION", B: "ÇATALLANMA" },
-{ A: "BILL", B: "EDER BELGESİ" },
-{ A: "BILLING", B: "EDERİ BELGELEME" },
-{ A: "BINARY", B: "İKİLİ" },
-{ A: "BINDER", B: "BAĞLAYICI" },
-{ A: "BINDING", B: "BAĞLAMA" },
-{ A: "BINOCULARS", B: "UZAKGÖRÜR" },
-{ A: "BINOMIAL", B: "İKİ TERİMLİ" },
-{ A: "BIOCHEMISTRY", B: "CANLI ÖGECİKSEL BİRLEŞİMİ" },
-{ A: "BIOGENETIC", B: "CANLILIKTA SOY" },
-{ A: "BIOGRAPHY", B: "ÖZGEÇMİŞ" },
-{ A: "BİYOLOJİ", B: "CANLILIK BİLİMİ" },
-{ A: "BIOMASS", B: "CANLI KÜTLE" },
-{ A: "BİYOMETRİK", B: "CANLI ÖLÇÜLÜLÜK" },
-{ A: "BİYONİK", B: "TANIMLAYABİLENSİ" },
-{ A: "BİYOFİZİK", B: "CANLI ÖGECİKSEL İTİŞİMİ" },
-{ A: "BLOG", B: "ÇEVRİMİÇİ BİLGİLENMELER" },
-{ A: "AKŞAM", B: "TÜN" },
-{ A: "ANARŞİST", B: "DÜZEN TANIMAZ" },
-{ A: "ATRAKT", B: "ÇEKME" },
-{ A: "BALATA", B: "SÜRTÜNGEÇ" },
-{ A: "BARKOD", B: "ÇUBUK İMGE" },
-{ A: "BAUD", B: "İMGE HIZI" },
-{ A: "BAY", B: "KOY" },
-{ A: "BAYİ", B: "ALT SATICI" },
-{ A: "BYTE", B: "8TANE01OLABİLEN" },
-{ A: "BEACON", B: "YER BELİTEÇ" },
-{ A: "BEAD", B: "BONCUK" },
-{ A: "BEAM", B: "IŞIN" },
-{ A: "BEARING", B: "YATAK" },
-{ A: "BEAT", B: "VURU" },
-{ A: "BED", B: "YATAK" },
-{ A: "BEHAVIOR", B: "DAVRANIŞ" },
-{ A: "BELAGAT", B: "KONUŞMALAR" },
-{ A: "BELL", B: "ÇAN" },
-{ A: "BELLOWS", B: "KÖRÜK" },
-{ A: "BELT", B: "KUŞAK" },
-{ A: "BENCHMARK", B: "ÖNTANIMLI ÖLÇÜT" },
-{ A: "BENDING", B: "BÜKÜLME" },
-{ A: "BENEFIT", B: "YARAR" },
-{ A: "BEREKET", B: "BOLLUK" },
-{ A: "BEŞERİ", B: "TANIMLAYABİLENSEL" },
-{ A: "BEŞERİYET", B: "TANIMLAYABİLENLER" },
-{ A: "BETON", B: "YAPAY YAPITAŞI" },
-{ A: "BEVEL", B: "EĞİM" },
-{ A: "BEYGİR", B: "AT" },
-{ A: "BEYİN", B: "DÜŞÜNME ORGANI" },
-{ A: "BEZ", B: "İNCE DOKUMA" },
-{ A: "BIAS", B: "ÖNYARGI" },
-{ A: "BİYOGRAFİ", B: "ÖZGEÇMİŞ" },
-{ A: "BALİSTİK", B: "ATIŞBİLİMİ" },
-{ A: "BALON", B: "UÇARKAÇAR" },
-{ A: "BAND", B: "KUŞAK" },
-{ A: "BANDWIDTH", B: "KUŞAK GENİŞLİĞİ" },
-{ A: "BANKING", B: "DEĞDE ALIRSATARLIĞI" },
-{ A: "BANNER", B: "TANITIMLIK" },
-{ A: "BAR", B: "ÇUBUK" },
-{ A: "BARAJ", B: "YAPAYGÖL" },
-{ A: "BARE", B: "ÇIPLAK" },
-{ A: "BARGE", B: "İTKİSİZ YÜZER DÜZLEM" },
-{ A: "BARİZ", B: "GÖRÜNÜR" },
-{ A: "BAROMETER", B: "BASINÇÖLÇER" },
-{ A: "BARREL", B: "FIÇI" },
-{ A: "BARİYER", B: "ENGELLEYİCİ" },
-{ A: "BASE", B: "ÜS" },
-{ A: "BASEBAND", B: "TEMEL YAYILGI" },
-{ A: "BASELINE", B: "TEMEL DOĞRU" },
-{ A: "BASIC", B: "TEMEL" },
-{ A: "BASIC INPUT OUTPUT SYSTEM", B: "TEMEL GİRİŞ ÇIKIŞ DÜZENEĞİ" },
-{ A: "PRESS", B: "BASIN" },
-{ A: "BASKET", B: "SEPET" },
-{ A: "BASTON", B: "DEĞNEK" },
-{ A: "BATARYA", B: "EKSİCİK BİRİKTİRİCİ" },
-{ A: "BATCH", B: "YIĞIN" },
-{ A: "BATCH PROCESSING", B: "YIĞINCA İŞLEME" },
-{ A: "BATH", B: "YUNAK" },
-{ A: "BATERİ", B: "BİRİKTİRİCİ" },
-{ A: "ELEKTRON", B: "EKSİCİK" },
-{ A: "PROTON", B: "ARTICIK" },
-{ A: "NÖTRON", B: "AĞIRCIK" },
-{ A: "ATOM", B: "ÖGECİK" },
-{ A: "ELEKTRİK", B: "EKSİCİKLENME" },
-{ A: "İSTATİSTİK", B: "SAYMA BİLİMİ" },
-{ A: "FAKÜLTE", B: "BİLİM DALI" },
-{ A: "DOKTORA", B: "BİLİRKİŞİLİK" },
-{ A: "PROFESÖR", B: "BİLGEN" },
-{ A: "TARİH", B: "GELECEĞE IŞIK TUTMA" },
-{ A: "ARİTMETİK", B: "TOPLAMA ÇIKARMA" },
-{ A: "HAYVAN", B: "HAYCAN" },
-{ A: "HARF", B: "SESADI" },
-{ A: "DICTIONARY", B: "SÖZCÜKLÜK" },
-{ A: "LUGAT", B: "SÖZCÜKLÜK" },
-{ A: "SÖZLÜK", B: "SÖZCÜKLÜK" },
-{ A: "KELİME", B: "SÖZCÜK" },
-{ A: "GOD", B: "BİLİNEMEZ" },
-{ A: "DİN", B: "İNANÇLAR" },
-{ A: "TANRI", B: "BİLİNEMEZ" },
-{ A: "İNSAN", B: "TANIMLAYABİLEN" },
-{ A: "CEBİR", B: "SESADLI İŞLEMLER" },
-{ A: "GEOMETRİ", B: "BİÇİM BİLİMİ" },
-{ A: "KESİT GÖSTERİM", B: "TOMOGRAFİ" },
-{ A: "ÜÇBOYUTLU GÖSTERİM", B: "MR" },
-{ A: "ULTRASOUND", B: "DUYUM ÖTESİ SES" },
-{ A: "REZONANS", B: "EŞTİTREŞİM" },
-{ A: "KAPASİTE", B: "SIĞAÇ" },
-{ A: "REZİSTANS", B: "DİRENÇ" },
-{ A: "İNDÜKTANS", B: "ETKEÇ" },
-{ A: "EMPEDANS", B: "SANAL DİRENÇ" },
-{ A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" },
-{ A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" },
-{ A: "İNSÜLİN", B: "GEÇİRGENLEŞTİRİCİ" },
-{ A: "GURME", B: "TATBİLİR" },
-{ A: "LOGARİTMA", B: "KÜTÜK SAYI" },
-{ A: "KOMPLEKS SAYI", B: "SANAL SAYI" },
-{ A: "MATRİS", B: "TABLO SAYI" },
-{ A: "ASİMTOT", B: "DEĞEMEZ" },
-{ A: "PULS", B: "DARBE" },
-{ A: "MEKANİK", B: "DİNAMİKSEL" },
-{ A: "COMPONENT", B: "BİLEŞEN" },
-{ A: "VEKTÖR", B: "YÖNLÜ BÜYÜKLÜK" },
-{ A: "SOLUTION", B: "ÇÖZÜM" },
-{ A: "DİFERANS", B: "FARK" },
-{ A: "STABİLİTE", B: "KARARLILIK" },
-{ A: "FRICTION", B: "SÜRTÜNME" },
-{ A: "MOTION", B: "DEVİNİM" },
-{ A: "NOSYON", B: "SİMGELEŞTİRME" },
-{ A: "AVERAGE", B: "ORTALAMA" },
-{ A: "GRAVITASYON", B: "KÜTLE ÇEKİM" },
-{ A: "MAS", B: "KÜTLE" },
-{ A: "ENERJİ", B: "ERKE" },
-{ A: "ATMOSFER", B: "HAVAYUVAR" },
-{ A: "ATMOSFERİK", B: "HAVAYUVARSAL" },
-{ A: "ELEKTRONİK", B: "EKSİCİKSEL" },
-{ A: "EKONOMİ", B: "YARARCILI" },
-{ A: "İNŞAAT MÜHENDİSİ", B: "YAPI KURGULAMACASI" },
-{ A: "VETERİNER", B: "HAYCAN SAĞLIKÇISI" },
-{ A: "WORK", B: "İŞ" },
-{ A: "ROTATION", B: "DÖNDÜRME" },
-{ A: "MOMENT", B: "DÖNDÜRME KUVVETİ" },
-{ A: "LINEAR", B: "DOĞRUSAL" },
-{ A: "ELASTİSİTE", B: "ESNEKLİK" },
-{ A: "HARMONİK", B: "UYUMLU" },
-{ A: "TRANSFER", B: "TAŞIMA" },
-{ A: "PRES", B: "BASINÇ" },
-{ A: "HİDROSTATİK", B: "SU BASINCI" },
-{ A: "TANSİYON", B: "GERİLİM" },
-{ A: "VİSKOSİTİ", B: "AKIŞKANLIK" },
-{ A: "HEAT", B: "ISI" },
-{ A: "EXPANSION", B: "GENİŞLEME" },
-{ A: "VIBRATION", B: "TİTREŞİM" },
-{ A: "POTANSİYEL", B: "SAKLI GÜÇ" },
-{ A: "MANYETİZMA", B: "EKSİCİK DOĞURABİLEN" },
-{ A: "DİELEKTRİK", B: "İLETMEMSİZLİK" },
-{ A: "ELEKTROSTATİK", B: "DURGUN ELEKTRİK" },
-{ A: "RECTIFICATION", B: "DOĞRULTMA" },
-{ A: "AMPLİTÜT", B: "GENLİK" },
-{ A: "MODULASYON", B: "BİÇİMLENDİRME" },
-{ A: "DEMODULASYON", B: "TERSİNE BİÇİMLENDİRME" },
-{ A: "RADYO", B: "ÜNALGI" },
-{ A: "TELEVİZYON", B: "SANGI" },
-{ A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
-{ A: "TRANSFORMATOR", B: "GÜÇ BİLEŞEN DÖNÜŞTÜRÜCÜ" },
-{ A: "İNTERFERENS", B: "GİRİŞİM" },
-{ A: "DIFFRACTION", B: "KIRILIM" },
-{ A: "POLARIZATION", B: "YÖNLENME" },
-{ A: "RADYOAKTİF", B: "IŞIMA" },
-{ A: "CEDEL", B: "ÇEKİŞME" },
-{ A: "MÜCADELE", B: "ÇEKİŞEN" },
-{ A: "ECZANE", B: "UMAREVİ" },
-{ A: "İLAÇ", B: "UMAR" },
-{ A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" },
-{ A: "TRİGONOMETRİ", B: "AÇILAR BİLİMİ" },
-{ A: "SİNÜS", B: "BOŞLUK" },
-{ A: "KOSİNÜS", B: "KOMŞUBOŞLUK" },
-{ A: "TANJANT", B: "EĞİM" },
-{ A: "NÜKLEER", B: "ÖGECİK ÇEKİRDEĞİ" },
-{ A: "FONKSİYON", B: "DEĞER DÖNÜŞTÜREN" },
-{ A: "ENTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
-{ A: "DİFERANSİYEL DENKLEM", B: "NOKTASALLAŞTIRILMIŞ EŞİTLİK" },
-{ A: "ÂDET", B: "GELENEK" },
-{ A: "ABILITY", B: "YAPABİLİRLİK" },
-{ A: "ABORT", B: "GEÇERSİZ" },
-{ A: "ABSOLUTE REALITY", B: "KOŞULSUZ GERÇEK" },
-{ A: "TESETTÜR", B: "ÖRTÜNME" },
-{ A: "ACCURATE", B: "DOĞRULA" },
-{ A: "ACİZ", B: "YAPAMAZ" },
-{ A: "ACTION", B: "ETKİ" },
-{ A: "OTOMASYON", B: "KENDİLİĞİNDENLEŞTİRME" },
-{ A: "ADALET", B: "GERÇEKLERE BAĞLILIK" },
-{ A: "ADAM", B: "TANIMLAYABİLENER" },
-{ A: "ADAPTASYON", B: "UYMA" },
-{ A: "ADAPTATION", B: "UYUM" },
-{ A: "ADBLOKER", B: "TANITIM ENGELLENMİŞ" },
-{ A: "ADEMOĞLU", B: "TANIMLAYABİLENOĞLU" },
-{ A: "ADENOMA", B: "SALGI BEZİ BAŞKALAŞMIŞ CANLICIĞI" },
-{ A: "ADET", B: "TANE" },
-{ A: "ADETA", B: "SANKİ" },
-{ A: "ADRENALIN HORMONU", B: "DÜŞÜNME ORGANI HAREKET SALGISI" },
-{ A: "ADRENALINE SECRETION", B: "DÜŞÜNME ORGANI HAREKET SALGISI" },
-{ A: "ADDRESS BUS", B: "YERİMİ YOLU" },
-{ A: "Ac (89) - Aktinyum", B: "ÖGECİK89" },
-{ A: "Ag (47) - Gümüş", B: "ÖGECİK47" },
-{ A: "Al (13) - Alüminyum", B: "ÖGECİK13" },
-{ A: "Am (95) - Amerisyum", B: "ÖGECİK95" },
-{ A: "Ar (18) - Argon", B: "ÖGECİK18" },
-{ A: "As (33) - Arsenik", B: "ÖGECİK33" },
-{ A: "At (85) - Astatin", B: "ÖGECİK85" },
-{ A: "Au (79) - Altın", B: "ÖGECİK79" },
-{ A: "B (5) - Bor", B: "ÖGECİK5" },
-{ A: "Ba (56) - Baryum", B: "ÖGECİK56" },
-{ A: "Be (4) - Berilyum", B: "ÖGECİK4" },
-{ A: "Bh (107) - Bohriyum", B: "ÖGECİK107" },
-{ A: "Bi (83) - Bizmut", B: "ÖGECİK83" },
-{ A: "Bk (97) - Berkelyum", B: "ÖGECİK97" },
-{ A: "Br (35) - Brom", B: "ÖGECİK35" },
-{ A: "C (6) - Karbon", B: "ÖGECİK6" },
-{ A: "Ca (20) - Kalsiyum", B: "ÖGECİK20" },
-{ A: "Cd (48) - Kadmiyum", B: "ÖGECİK48" },
-{ A: "Ce (58) - Seryum", B: "ÖGECİK58" },
-{ A: "Cf (98) - Kaliforniyum", B: "ÖGECİK98" },
-{ A: "Cl (17) - Klor", B: "ÖGECİK17" },
-{ A: "Cm (96) - Küriyum", B: "ÖGECİK96" },
-{ A: "Cn (112) - Kopernisyum", B: "ÖGECİK112" },
-{ A: "Co (27) - Kobalt", B: "ÖGECİK27" },
-{ A: "Cr (24) - Krom", B: "ÖGECİK24" },
-{ A: "Cs (55) - Sezyum", B: "ÖGECİK55" },
-{ A: "Cu (29) - Bakır", B: "ÖGECİK29" },
-{ A: "Db (105) - Dubnyum", B: "ÖGECİK105" },
-{ A: "Ds (110) - Darmstadtiyum", B: "ÖGECİK110" },
-{ A: "Dy (66) - Disprosyum", B: "ÖGECİK66" },
-{ A: "Er (68) - Erbiyum", B: "ÖGECİK68" },
-{ A: "Es (99) - Einsteinyum", B: "ÖGECİK99" },
-{ A: "Eu (63) - Evropiyum", B: "ÖGECİK63" },
-{ A: "F (9) - Flor", B: "ÖGECİK9" },
-{ A: "Fe (26) - Demir", B: "ÖGECİK26" },
-{ A: "Fl (114) - Fleroviyum", B: "ÖGECİK114" },
-{ A: "Fr (87) - Fransiyum", B: "ÖGECİK87" },
-{ A: "Ga (31) - Galyum", B: "ÖGECİK31" },
-{ A: "Gd (64) - Gadolinyum", B: "ÖGECİK64" },
-{ A: "Ge (32) - Germanyum", B: "ÖGECİK32" },
-{ A: "H (1) - Hidrojen", B: "ÖGECİK1" },
-{ A: "He (2) - Helyum", B: "ÖGECİK2" },
-{ A: "Hf (72) - Hafniyum", B: "ÖGECİK72" },
-{ A: "Hg (80) - Civa", B: "ÖGECİK80" },
-{ A: "Ho (67) - Holmiyum", B: "ÖGECİK67" },
-{ A: "Hs (108) - Hassiyum", B: "ÖGECİK108" },
-{ A: "I (53) - İyot", B: "ÖGECİK53" },
-{ A: "In (49) - İndiyum", B: "ÖGECİK49" },
-{ A: "Ir (77) - İRİDYUM", B: "ÖGECİK77" },
-{ A: "K (19) - Potasyum", B: "ÖGECİK19" },
-{ A: "Kr (36) - Kripton", B: "ÖGECİK36" },
-{ A: "La (57) - Lantan", B: "ÖGECİK57" },
-{ A: "Li (3) - Lityum", B: "ÖGECİK3" },
-{ A: "Lr (103) - Lawrensiyum", B: "ÖGECİK103" },
-{ A: "Lu (71) - Lutesyum", B: "ÖGECİK71" },
-{ A: "Lv (116) - Livermoryum", B: "ÖGECİK116" },
-{ A: "Mc (115) - Moskovyum", B: "ÖGECİK115" },
-{ A: "Md (101) - Mendelevyum", B: "ÖGECİK101" },
-{ A: "Mg (12) - Magnezyum", B: "ÖGECİK12" },
-{ A: "Mn (25) - Manganez", B: "ÖGECİK25" },
-{ A: "Mo (42) - Molibden", B: "ÖGECİK42" },
-{ A: "Mt (109) - Meitneriyum", B: "ÖGECİK109" },
-{ A: "N (7) - Azot", B: "ÖGECİK7" },
-{ A: "Na (11) - Sodyum", B: "ÖGECİK11" },
-{ A: "Nb (41) - Niyobiyum", B: "ÖGECİK41" },
-{ A: "Nd (60) - Neodim", B: "ÖGECİK60" },
-{ A: "Ne (10) - Neon", B: "ÖGECİK10" },
-{ A: "Nh (113) - Nihonyum", B: "ÖGECİK113" },
-{ A: "Ni (28) - Nikel", B: "ÖGECİK28" },
-{ A: "No (102) - Nobeliyum", B: "ÖGECİK102" },
-{ A: "Np (93) - Neptünyum", B: "ÖGECİK93" },
-{ A: "O (8) - Oksijen", B: "ÖGECİK8" },
-{ A: "Og (118) - Oganesson", B: "ÖGECİK118" },
-{ A: "Os (76) - Osmiyum", B: "ÖGECİK76" },
-{ A: "P (15) - Fosfor", B: "ÖGECİK15" },
-{ A: "Pa (91) - Protaktinyum", B: "ÖGECİK91" },
-{ A: "Pb (82) - Kurşun", B: "ÖGECİK82" },
-{ A: "Pd (46) - Paladyum", B: "ÖGECİK46" },
-{ A: "Pm (61) - Prometyum", B: "ÖGECİK61" },
-{ A: "Po (84) - Polonyum", B: "ÖGECİK84" },
-{ A: "Pr (59) - Praseodim", B: "ÖGECİK59" },
-{ A: "Pt (78) - Platin", B: "ÖGECİK78" },
-{ A: "Pu (94) - Plütonyum", B: "ÖGECİK94" },
-{ A: "Ra (88) - Radyum", B: "ÖGECİK88" },
-{ A: "Rb (37) - Rubidyum", B: "ÖGECİK37" },
-{ A: "Re (75) - Renyum", B: "ÖGECİK75" },
-{ A: "Rf (104) - Rutherfordiyum", B: "ÖGECİK104" },
-{ A: "Rg (111) - Röntgenyum", B: "ÖGECİK111" },
-{ A: "Rh (45) - Rodyum", B: "ÖGECİK45" },
-{ A: "Rn (86) - Radon", B: "ÖGECİK86" },
-{ A: "Ru (44) - Rutenyum", B: "ÖGECİK44" },
-{ A: "S (16) - Kükürt", B: "ÖGECİK16" },
-{ A: "Sb (51) - Antimon", B: "ÖGECİK51" },
-{ A: "Sc (21) - Skandiyum", B: "ÖGECİK21" },
-{ A: "Se (34) - Selenyum", B: "ÖGECİK34" },
-{ A: "Sg (106) - Seaborgiyum", B: "ÖGECİK106" },
-{ A: "Si (14) - Silisyum", B: "ÖGECİK14" },
-{ A: "Sm (62) - Samaryum", B: "ÖGECİK62" },
-{ A: "Sn (50) - Kalay", B: "ÖGECİK50" },
-{ A: "Sr (38) - Stronsiyum", B: "ÖGECİK38" },
-{ A: "Ta (73) - Tantal", B: "ÖGECİK73" },
-{ A: "Tb (65) - Terbiyum", B: "ÖGECİK65" },
-{ A: "Tc (43) - Teknetyum", B: "ÖGECİK43" },
-{ A: "Te (52) - Tellür", B: "ÖGECİK52" },
-{ A: "Th (90) - Toryum", B: "ÖGECİK90" },
-{ A: "Ti (22) - Titanyum", B: "ÖGECİK22" },
-{ A: "Tl (81) - Talyum", B: "ÖGECİK81" },
-{ A: "Tm (69) - Tuliyum", B: "ÖGECİK69" },
-{ A: "Ts (117) - Tennesin", B: "ÖGECİK117" },
-{ A: "U (92) - Uranyum", B: "ÖGECİK92" },
-{ A: "V (23) - Vanadyum", B: "ÖGECİK23" },
-{ A: "W (74) - Tungsten", B: "ÖGECİK74" },
-{ A: "Xe (54) - Ksenon", B: "ÖGECİK54" },
-{ A: "Y (39) - İtriyum", B: "ÖGECİK39" },
-{ A: "Yb (70) - İterbiyum", B: "ÖGECİK70" },
-{ A: "Zn (30) - Çinko", B: "ÖGECİK30" },
-{ A: "Zr (40) - Zirkonyum", B: "ÖGECİK40" },
-{ A: "AVANTAJ", B: "YARAR" },
-{ A: "AEROSOL", B: "HAVAÇÖZÜT" },
-{ A: "AFAROZ", B: "DIŞLAMA" },
-{ A: "AGE", B: "YAŞ" },
-{ A: "AHİR", B: "SONRAKİ" },
-{ A: "AHŞAP", B: "ODUN" },
-{ A: "AİLE", B: "BİRLİKTE GEÇİNENLER" },
-{ A: "AKADEMİ", B: "BİLİMKENT" },
-{ A: "AKLISELİM", B: "İYİ DÜŞÜNCE" },
-{ A: "AKORT", B: "AYAR" },
-{ A: "AKUSTİK", B: "SESBİLİM" },
-{ A: "ALABROS", B: "FIRÇAMSI" },
-{ A: "ALAŞIM", B: "KARIŞIM" },
-{ A: "ALEM", B: "EVREN" },
-{ A: "ALET", B: "ARAÇ" },
-{ A: "ALGORİTMA", B: "İŞLEM ADIMLARI" },
-{ A: "ALLOTROP", B: "ÖGECİĞİN FARKLI BİÇİNİMLEŞMELERİ" },
-{ A: "ALTERNATİF", B: "SEÇENEK" },
-{ A: "ALTİMETRE", B: "YÜKSEKLİK ÖLÇER" },
-{ A: "ALU (ARITHMETIC LOGIC UNIT)", B: "TOPLA ÇIKAR İŞLEMLERİ BİRİMİ" },
-{ A: "AMAÇ", B: "ERİM" },
-{ A: "AMBULANS", B: "CANKURTARAN" },
-{ A: "AMİR", B: "BUYURAN" },
-{ A: "AMORF", B: "BİÇİMSİZ" },
-{ A: "AMORTİSÖR", B: "TİTREŞTİRMEZ" },
-{ A: "AMPLİFİKATÖR", B: "YÜKSELTİCİ" },
-{ A: "ANAFOR", B: "BURGAÇ" },
-{ A: "ANARŞİ", B: "DÜZEN TANIMAZLIK" },
-{ A: "ZAVİYE", B: "AÇI" },
-{ A: "ANGLE", B: "AÇI" },
-{ A: "ANORMAL", B: "TANIMLANMAMIŞ" },
-{ A: "ANTEN", B: "DUYARGA" },
-{ A: "ANTİK", B: "ÇOKÇOK ESKİ" },
-{ A: "ANTİPATİ", B: "KARŞIDUYGU" },
-{ A: "ANTİTEZ", B: "KARŞISAV" },
-{ A: "ANTROPOMORFİK", B: "TANIMLAYABİLENBİÇİMCİLİK" },
-{ A: "ANYON", B: "EKSİ- YÜKLÜ ÖGECİK" },
-{ A: "API APPLICATION INTERFACE", B: "UYGULAMA ÖNGÖRÜLEME ARAYÜZÜ" },
-{ A: "ARABA", B: "DÖRT TEKERLİ TAŞIYICI" },
-{ A: "ARAZİ", B: "YERYÜZÜ PARÇALARI" },
-{ A: "ARGÜMAN", B: "SAV" },
-{ A: "ARIZA", B: "BOZULMA" },
-{ A: "ARİF", B: "AYDINLANMIŞ" },
-{ A: "ARKEOLOJİ", B: "BAŞLANGICA YÖNELEN BİLİM" },
-{ A: "ARMAĞAN", B: "DOYUMLUK" },
-{ A: "ARTIFICIAL", B: "YAPAY" },
-{ A: "ASETAT", B: "YARI GEÇİRGEN İNCE YÜZEY" },
-{ A: "ASİMİLASYON", B: "BENZETME" },
-{ A: "ASİSTAN", B: "YARDIMCI" },
-{ A: "ASİT", B: "EKŞİT" },
-{ A: "ASPECT", B: "YÖNU" },
-{ A: "ASSERTION", B: "İLERİ SÜRME" },
-{ A: "ASERSİYON", B: "SAV" },
-{ A: "ASTRAL", B: "YILDIZLARARASI" },
-{ A: "ASTROİT", B: "GÖKTAŞI" },
-{ A: "ASTRONOT", B: "GÖKBİREY" },
-{ A: "ATİ", B: "GELECEK" },
-{ A: "RAKAM", B: "AÇI SAY" },
-{ A: "PARTİ", B: "GÜÇBENDE OLSUN İSTER" },
-{ A: "SIR", B: "GİZEM" },
-{ A: "ALLOY", B: "ALAŞIM" },
-{ A: "MIXTURE", B: "KARIŞIM" },
-{ A: "MİKSER", B: "KARIŞTIRICI" }, 
-{ A: "AMORTİSÖR", B: "TİTREŞİM ÖNLER" },
-{ A: "ANARŞİ", B: "DÜZENSİZLİK" },
-{ A: "ASSERT", B: "İLERİ SÜRME" },
-{ A: "YEVMİYE", B: "GÜNLÜK" },
-{ A: "ATOM ENERJİSİ", B: "ÖGECİK ERKESİ" },
-{ A: "AXLE", B: "EKSEN" },
-{ A: "AYET", B: "TÜMCE" },
-{ A: "AYNA", B: "YANSITICI" },
-{ A: "Fm (100) - Fermiyum", B: "ÖGECİK100" },
 { A: "WEST", B: "GÜNBATISI" }
 ];
 
-
 const sozlukSaglik = [
 { A: "ANATOMİ", B: "BEDEN BİLİMİ" },
-{ A: "AKIL", B: "US" },
-{ A: "AKILLI", B: "USLU" },
-{ A: "ATROFİ", B: "YETERSİZLEŞME" },
-{ A: "FİZYOLOJİ", B: "İŞLEV BİLİMİ" },
-{ A: "PATOLOJİ", B: "BEDEN BOZUKLUKLARI BİLİMİ" },
-{ A: "KLİNİK", B: "YATAKLI SAĞILTMA" },
-{ A: "HASTANE", B: "SAĞILTIMEVİ" },
-{ A: "DOKTOR", B: "SAĞLIKBİLİR" },
-{ A: "HEMŞİRE", B: "SAĞLIKÇI" },
-{ A: "ECZACI", B: "UMARCI" },
-{ A: "NÖROLOJİ", B: "SİNİR BİLİMİ" },
-{ A: "KARDİYOLOJİ", B: "YÜREK BİLİMİ" },
-{ A: "GLASSES", B: "GÖZLÜK" },
-{ A: "KBB", B: "KULAK BURUN BOĞAZ" },
-{ A: "DERMATOLOJİ", B: "DERI BİLİMİ" },
-{ A: "ÜROLOJİ", B: "SIVI DIŞKILAMA BİLİMİ" },
-{ A: "JİNEKOLOJİ", B: "DOĞUM BİLİMİ" },
-{ A: "PEDİATRİ", B: "ÇOCUK SAĞLIĞI" },
-{ A: "ONKOLOJİ", B: "CANLICIK BAŞKALAŞIM BİLİMİ" },
-{ A: "PSİKİYATRİ", B: "DÜŞÜNME YETENEĞİ SAĞLIĞI" },
-{ A: "CERRAH", B: "KESEREK SAĞILTAN" },
-{ A: "ANESTEZİ", B: "UYUŞTURMA" },
-{ A: "HÜCRE", B: "CANLICIK" },
-{ A: "RÖNTGEN", B: "IŞINLA GÖRÜNTÜLEME" },
-{ A: "TOMOGRAFİ", B: "KESİT GÖRÜNTÜLEME" },
-{ A: "MR", B: "ÜÇ BOYUTLU GÖRÜNTÜLEME" },
-{ A: "TROMBOZ", B: "PIHTI" },
-{ A: "EMBOLİ", B: "PIHTI TIKANMASI" },
-{ A: "FELÇ", B: "İNME" },
-{ A: "HİPERTANSİYON", B: "YÜKSEK KANBASINCI" },
-{ A: "DİYABET", B: "AKAMAZLIK" },
 { A: "ASTIM", B: "SOLUMA YETERSİZLİĞİ" }
 ];
 
@@ -547,56 +102,9 @@ const sozlukBilim = [
 { A: "AUTOMATION", B: "KENDİLİĞİNDENLEŞTİRME" }
 ];
 
-{ A: "WEST", B: "GÜNBATISI" }
-];
-
-const sozlukSaglik = [
-{ A: "ANATOMİ", B: "BEDEN BİLİMİ" },
-{ A: "AKIL", B: "US" },
-{ A: "AKILLI", B: "USLU" },
-{ A: "ATROFİ", B: "YETERSİZLEŞME" },
-{ A: "FİZYOLOJİ", B: "İŞLEV BİLİMİ" },
-{ A: "PATOLOJİ", B: "BEDEN BOZUKLUKLARI BİLİMİ" },
-{ A: "KLİNİK", B: "YATAKLI SAĞILTMA" },
-{ A: "HASTANE", B: "SAĞILTIMEVİ" },
-{ A: "DOKTOR", B: "SAĞLIKBİLİR" },
-{ A: "HEMŞİRE", B: "SAĞLIKÇI" },
-{ A: "ECZACI", B: "UMARCI" },
-{ A: "NÖROLOJİ", B: "SİNİR BİLİMİ" },
-{ A: "KARDİYOLOJİ", B: "YÜREK BİLİMİ" },
-{ A: "GLASSES", B: "GÖZLÜK" },
-{ A: "KBB", B: "KULAK BURUN BOĞAZ" },
-{ A: "DERMATOLOJİ", B: "DERI BİLİMİ" },
-{ A: "ÜROLOJİ", B: "SIVI DIŞKILAMA BİLİMİ" },
-{ A: "JİNEKOLOJİ", B: "DOĞUM BİLİMİ" },
-{ A: "PEDİATRİ", B: "ÇOCUK SAĞLIĞI" },
-{ A: "ONKOLOJİ", B: "CANLICIK BAŞKALAŞIM BİLİMİ" },
-{ A: "PSİKİYATRİ", B: "DÜŞÜNME YETENEĞİ SAĞLIĞI" },
-{ A: "CERRAH", B: "KESEREK SAĞILTAN" },
-{ A: "ANESTEZİ", B: "UYUŞTURMA" },
-{ A: "HÜCRE", B: "CANLICIK" },
-{ A: "RÖNTGEN", B: "IŞINLA GÖRÜNTÜLEME" },
-{ A: "TOMOGRAFİ", B: "KESİT GÖRÜNTÜLEME" },
-{ A: "MR", B: "ÜÇ BOYUTLU GÖRÜNTÜLEME" },
-{ A: "TROMBOZ", B: "PIHTI" },
-{ A: "EMBOLİ", B: "PIHTI TIKANMASI" },
-{ A: "FELÇ", B: "İNME" },
-{ A: "HİPERTANSİYON", B: "YÜKSEK KANBASINCI" },
-{ A: "DİYABET", B: "AKAMAZLIK" },
-{ A: "ASTIM", B: "SOLUMA YETERSİZLİĞİ" }
-];
-
-const sozlukBilim = [
-{ A: "ALGORITHM", B: "ÇÖZADIM" },
-{ A: "ATOM", B: "ÖGEÇİK" },
-{ A: "AUTOMATION", B: "KENDİLİĞİNDENLEŞTİRME" }
-];
-
-
+const animsaticiHavuz = ["ACCELERATION", "AKUSTİK", "ANATOMİ", "ATOM", "AUTOMATION"];
 
 let aktifMod = "GENEL";
-let toplamAramaSayisi = 0;
-
 const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', GUNCELLEME_KEY='sozcukluk_guncelleme_sayisi';
 const hafiza={getItem:k=>{try{return localStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
 
@@ -616,13 +124,9 @@ document.getElementById('sayacGuncelleme').textContent=hafiza.getItem(GUNCELLEME
 }
 
 function havuzGoster() {
-let html = `<div style="color:#555;font-size:11px;margin-bottom:3px;"><strong>ANIMSATICI ÖRNEK SÖZCÜKLER:</strong></div><div class="sonuc-listesi">`;
-let gecerliHavuz = genelHavuz;
-if(aktifMod === "SAGLIK") gecerliHavuz = saglikHavuz;
-if(aktifMod === "BILIM") gecerliHavuz = bilimHavuz;
-
-gecerliHavuz.forEach((s, i) => {
-html += `<div class="sonuc-maddesi" style="text-align:center;cursor:pointer;padding:3px;font-weight:bold;" onclick="document.getElementById('girdi').value='${s}';bul();">${i+1}. ${s}</div>`;
+let html = `<div style="color:#555;font-size:13px;margin-bottom:5px;"><strong>ANIMSATICI ÖRNEK SORULAR:</strong></div><div class="sonuc-listesi">`;
+animsaticiHavuz.forEach((s, i) => {
+html += `<div class="sonuc-maddesi" style="text-align:center;cursor:pointer;" onclick="document.getElementById('girdi').value='${s}';bul();">${i+1}. ${s}</div>`;
 });
 html += `</div>`;
 document.getElementById('sonucMetni').innerHTML = html;
@@ -631,33 +135,24 @@ document.getElementById('sonucMetni').innerHTML = html;
 function modSec(mod){
 const sBtn=document.getElementById('saglikBtn'), bBtn=document.getElementById('bilimBtn'), gosterge=document.getElementById('modGosterge'), girdi=document.getElementById('girdi');
 sBtn.style.boxShadow=bBtn.style.boxShadow="none";
-
-if(aktifMod===mod && mod!=="GENEL"){
-aktifMod="GENEL";gosterge.innerHTML="";girdi.placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE SÖZCÜK SOR"
-}
+if(aktifMod===mod){aktifMod="GENEL";gosterge.innerHTML="";girdi.placeholder="Yabancı veya Türkçe sözcük sorunuz..."}
 else{
 aktifMod=mod;
 if(mod==="SAGLIK"){
-sBtn.style.boxShadow="0 0 6px #2ecc71";
+sBtn.style.boxShadow="0 0 10px #2ecc71";
 gosterge.innerHTML='<div class="mod-aktif" style="background:#e8f8f5;color:#27ae60;">SAĞLIK İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
-} else if(mod==="BILIM") {
-bBtn.style.boxShadow="0 0 6px #9b59b6";
-gosterge.innerHTML='<div class="mod-aktif" style="background:#f4ecf7;color:#8e44ad;">BİLİMSEVER İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
+girdi.placeholder="Sağlık sözcüğü yazınız...";
 } else {
-gosterge.innerHTML='<div class="mod-aktif" style="background:#ebf5fb;color:#2c3e50;">GENEL BÖLÜM SORGULANIYOR</div>';
-}
+bBtn.style.boxShadow="0 0 10px #9b59b6";
+gosterge.innerHTML='<div class="mod-aktif" style="background:#f4ecf7;color:#8e44ad;">BİLİMSEVER İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
+girdi.placeholder="Bilim sözcüğü yazınız...";
 }
 temizle();
 }
-
-function turkceBuyut(str) {
-return str.replace(/i/g, "İ").replace(/ı/g, "I").toUpperCase();
 }
 
 function bul(){
-let kelime = document.getElementById('girdi').value.trim();
-kelime = turkceBuyut(kelime);
-
+const kelime=document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
 const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), kA=document.getElementById('kumeA'), kB=document.getElementById('kumeB'), panel=document.getElementById('sonucPaneli');
 
 sonucMetni.innerHTML=""; oneriAlani.style.display="none"; kA.className="kume"; kB.className="kume"; panel.className="sonuc-paneli";
@@ -667,21 +162,16 @@ havuzGoster();
 return;
 }
 
-toplamAramaSayisi++;
-if(toplamAramaSayisi % 20 === 0){
-alert("20 arama yapıldı! Anımsatıcı havuzu güncelleniyor.");
-}
-
 let liste=sozluk; if(aktifMod==="SAGLIK")liste=sozlukSaglik; if(aktifMod==="BILIM")liste=sozlukBilim;
 let bulunanlar=[], kumeTipi="";
 
 liste.forEach(k=>{
-const kA_Ust=turkceBuyut(k.A.trim()), kB_Ust=turkceBuyut(k.B.trim());
-if(kA_Ust === kelime){
+const kA_Ust=k.A.trim().toLocaleUpperCase('tr-TR'), kB_Ust=k.B.trim().toLocaleUpperCase('tr-TR');
+if(kA_Ust.includes(kelime)){
 bulunanlar.push({aranan:k.A, karsilik:k.B, tur: "A KÜMESİ"});
 if(!kumeTipi) kumeTipi="A";
 }
-else if(kB_Ust === kelime){
+else if(kB_Ust.includes(kelime)){
 bulunanlar.push({aranan:k.B, karsilik:k.A, tur: "B KÜMESİ"});
 if(!kumeTipi) kumeTipi="B";
 }
@@ -692,16 +182,9 @@ sayaclariGuncelle(true);
 panel.classList.add(kumeTipi==="A"? 'yanit-mavi' : 'yanit-kirmizi');
 if(kumeTipi==="A") kA.classList.add('aktif-a'); else kB.classList.add('aktif-b');
 
-let html="";
-if(kumeTipi==="A"){
-html+=`<div style="margin-bottom:4px;color:#00f;font-weight:bold;font-size:11px;">ARANAN YABANCI KÖKENLİ SÖZCÜK BULUNDU, KARŞILIĞI ÖNERİLMİŞ YALIN KÖKENLİ SÖZCÜKLER GÖSTERİLİYOR</div>`;
-} else {
-html+=`<div style="margin-bottom:4px;color:red;font-weight:bold;font-size:11px;">ÖNERİLMİŞ B KÜMESİ YALIN KÖKENLİ SÖZCÜK BULUNDU, KARŞILIĞI YABANCI KÖKENLİ SÖZCÜKLER GÖSTERİMDE</div>`;
-}
-
-html+=`<div class="sonuc-listesi">`;
+let html=`<div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`;
 bulunanlar.forEach((o,i)=>{
-html+=`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666;font-size:10px;">[${o.tur}]</small></div>`;
+html+=`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666">[${o.tur}]</small></div>`;
 });
 html+="</div>";
 sonucMetni.innerHTML=html;
