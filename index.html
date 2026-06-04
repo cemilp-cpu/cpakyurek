@@ -7,7 +7,15 @@
 <title>Sanal Yöre - SÖZCÜKLÜK</title>
 <style>
 html, body {background:#fff;margin:0;padding:0;min-height:100vh;font-family:sans-serif;display:flex;justify-content:center;align-items:center}
-.ana-konteynir{width:95%;max-width:500px;background:#ff0;padding:12px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);box-sizing:border-box;max-height:95vh;overflow-y:auto}
+.ana-gövde {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh; /* Ekranın tam yüksekliği kadar */
+    box-sizing: border-box;
+    padding: 10px;
+    overflow: hidden; /* Kaydırma çubuklarını tümüyle engeller */
+
 .sol-ust-tanitici{text-align:left;font-size:11px;font-weight:bold;color:#333;margin-bottom:6px}
 .kizil-yildiz{color:red;font-size:12px;margin-right:2px}
 .aciklama-kutusu{font-size:13px;background:#add8e6;padding:8px;border-radius:8px;margin-bottom:10px;border:1px solid #b0c4de;font-weight:bold;text-align:center;line-height:1.3}
