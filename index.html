@@ -2,53 +2,159 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Sanal Yöre - SÖZCÜKLÜK</title>
 <style>
-html, body {background:#fff;margin:0;padding:0;min-height:100vh;font-family:sans-serif;display:flex;justify-content:center;align-items:center}
-.ana-konteynir{width:95%;max-width:500px;background:#ff0;padding:12px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);box-sizing:border-box;max-height:95vh;overflow-y:auto}
-.sol-ust-tanitici{text-align:left;font-size:11px;font-weight:bold;color:#333;margin-bottom:6px}
-.kizil-yildiz{color:red;font-size:12px;margin-right:2px}
-.aciklama-kutusu{font-size:13px;background:#add8e6;padding:8px;border-radius:8px;margin-bottom:10px;border:1px solid #b0c4de;font-weight:bold;text-align:center;line-height:1.3}
-input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-size:17px;outline:none;box-sizing:border-box;text-align:center;text-transform:uppercase}
-.buton-satiri{display:flex;gap:5px;margin-bottom:10px;justify-content:center;flex-wrap:wrap}
-.buton-satiri button{flex:1;min-width:105px;padding:9px 6px;font-weight:bold;font-size:11px;border:none;border-radius:8px;cursor:pointer}
-.btn-bul{background:#2c3e50;color:#fff}
-.btn-yeni{background:red;color:#fff}
-.btn-saglik{background:#27ae60;color:#fff}
-.btn-bilim{background:#8e44ad;color:#fff}
-.kumeler{display:flex;gap:12px;margin-bottom:10px;justify-content:center}
-.kume{flex:1;padding:7px;border:2px solid #d4c4a1;border-radius:10px;background:#fff;opacity:.2;text-align:center;position:relative;transition: all 0.3s ease;}
-.kume strong{font-size:12px;display:block}
-.kume small{font-size:10px;display:block;color:#666;margin-top:3px}
-.ok{font-size:14px;display:none;position:absolute;left:5px;top:50%;transform:translateY(-50%)}
-.aktif-a{opacity:1!important;border-color:#00f!important;background:#e6e6ff!important;box-shadow:0 0 8px #00f}
-.aktif-a.ok{display:block;color:#00f}
-.aktif-b{opacity:1!important;border-color:red!important;background:#ffe6e6!important;box-shadow:0 0 8px red}
-.aktif-b.ok{display:block;color:red}
-.sonuc-paneli{padding:10px;border-radius:8px;background:#fff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px}
-#sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3;width:100%;color:#2c3e50}
-.sonuc-listesi{text-align:left;max-height:150px;overflow-y:auto;margin-top:8px;width:100%}
-.sonuc-maddesi{padding:5px;margin-bottom:4px;border-bottom:1px dashed #ccc;font-size:14px;color:#2c3e50}
-.yanit-mavi{background:#add8e6!important;color:#2c3e50!important;border:2px solid #00f}
-.yanit-kirmizi{background:#ffe6e6!important;color:#2c3e50!important;border:2px solid red}
-.yanit-bulunamadi{background:#fdfae5!important;color:#333!important;border:2px solid #e67e22}
-.oneri-bolumu{display:none;width:100%;margin-top:6px;text-align:center}
-.oneri-girdi{display:flex;gap:4px;justify-content:center;margin-top:5px}
-.oneri-input{width:60%;padding:5px;font-size:13px;border:2px solid #2c3e50;border-radius:6px}
-.alt-sayac-alani{margin-top:8px;border-top:1px solid rgba(0,0,0,.15);padding-top:6px;text-align:center;font-size:12px;color:#2c3e50;font-weight:600;line-height:1.6}
-.alt-sayac-alani span{color:#e74c3c;font-weight:900;font-size:18px}
-.mod-aktif{border:2px solid #2c3e50;padding:5px;border-radius:5px;margin-bottom:8px;text-align:center;font-weight:bold;font-size:12px}
+html, body {
+background: #fff;
+margin: 0;
+padding: 0;
+min-height: 100vh;
+font-family: sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow-x: hidden; /* Sağa sola kaydırma çubuğunu tamamen engeller */
+}
+.ana-konteynir {
+width: 100%;
+max-width: 500px;
+background: #ff0;
+padding: 12px;
+border-radius: 15px;
+box-shadow: 0 5px 15px rgba(0,0,0,.1);
+box-sizing: border-box;
+max-height: 98vh;
+overflow-y: auto;
+margin: 5px;
+}
+.sol-ust-tanitici {
+text-align: left;
+font-size: 11px;
+font-weight: bold;
+color: #333;
+margin-bottom: 6px;
+}
+.kizil-yildiz {
+color: red;
+font-size: 12px;
+margin-right: 2px;
+}
+.aciklama-kutusu {
+font-size: 13px;
+background: #add8e6;
+padding: 8px;
+border-radius: 8px;
+margin-bottom: 10px;
+border: 1px solid #b0c4de;
+font-weight: bold;
+text-align: center;
+line-height: 1.3;
+}
+input {
+width: 100%;
+padding: 9px;
+border: 2px solid #d4c4a1;
+border-radius: 8px;
+font-size: 17px;
+outline: none;
+box-sizing: border-box;
+text-align: center;
+}
+.buton-satiri {
+display: flex;
+gap: 5px;
+margin-bottom: 10px;
+justify-content: center;
+flex-wrap: wrap;
+}
+.buton-satiri button {
+flex: 1;
+min-width: 105px;
+padding: 9px 6px;
+font-weight: bold;
+font-size: 11px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+}
+.btn-bul { background: #2c3e50; color: #fff; }
+.btn-yeni { background: red; color: #fff; }
+.btn-saglik { background: #27ae60; color: #fff; }
+.btn-bilim { background: #8e44ad; color: #fff; }
+
+.kumeler {
+display: flex;
+gap: 12px;
+margin-bottom: 10px;
+justify-content: center;
+}
+.kume {
+flex: 1;
+padding: 7px;
+border: 2px solid #d4c4a1;
+border-radius: 10px;
+background: #fff;
+opacity: .2;
+text-align: center;
+position: relative;
+transition: all 0.3s ease;
+}
+.kume strong { font-size: 12px; display: block; }
+.kume small { font-size: 10px; display: block; color: #666; margin-top: 3px; }
+.ok { font-size: 14px; display: none; position: absolute; left: 5px; top: 50%; transform: translateY(-50%); }
+
+.aktif-a { opacity: 1!important; border-color: #00f!important; background: #e6e6ff!important; box-shadow: 0 0 8px #00f; }
+.aktif-a .ok { display: block; color: #00f; }
+.aktif-b { opacity: 1!important; border-color: red!important; background: #ffe6e6!important; box-shadow: 0 0 8px red; }
+.aktif-b .ok { display: block; color: red; }
+
+.sonuc-paneli {
+padding: 10px;
+border-radius: 8px;
+background: #fff;
+border: 1px solid #d4c4a1;
+min-height: 55px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-bottom: 10px;
+}
+#sonucMetni { font-size: 15px; font-weight: bold; text-align: center; line-height: 1.3; width: 100%; color: #2c3e50; }
+.sonuc-listesi { text-align: left; max-height: 150px; overflow-y: auto; margin-top: 8px; width: 100%; }
+.sonuc-maddesi { padding: 5px; margin-bottom: 4px; border-bottom: 1px dashed #ccc; font-size: 14px; color: #2c3e50; }
+
+.yanit-mavi { background: #add8e6!important; color: #2c3e50!important; border: 2px solid #00f; }
+.yanit-kirmizi { background: #ffe6e6!important; color: #2c3e50!important; border: 2px solid red; }
+.yanit-bulunamadi { background: #fdfae5!important; color: #333!important; border: 2px solid #e67e22; }
+
+.oneri-bolumu { display: none; width: 100%; margin-top: 6px; text-align: center; }
+.oneri-girdi { display: flex; gap: 4px; justify-content: center; margin-top: 5px; }
+.oneri-input { width: 60%; padding: 5px; font-size: 13px; border: 2px solid #2c3e50; border-radius: 6px; }
+
+.alt-sayac-alani {
+margin-top: 8px;
+border-top: 1px solid rgba(0,0,0,.15);
+padding-top: 6px;
+text-align: center;
+font-size: 12px;
+color: #2c3e50;
+font-weight: 600;
+line-height: 1.6;
+}
+.alt-sayac-alani span { color: #e74c3c; font-weight: 900; font-size: 18px; }
+.mod-aktif { border: 2px solid #2c3e50; padding: 5px; border-radius: 5px; margin-bottom: 8px; text-align: center; font-weight: bold; font-size: 12px; }
 </style>
 </head>
 <body>
 <div class="ana-konteynir">
-<div class="sol-ust-tanitici"><span class="kizil-yildiz">★</span>Cemil Pakyürek/Sü:2</div>
+<div class="sol-ust-tanitici"><span class="kizil-yildiz">★</span>Cemil Pakyürek/Sü:3</div>
 <div id="modGosterge"></div>
 <div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir. Farklı sözcük önerilerinde bulunarak siz de katkıda bulunun. <br>Bu bir sözlük değil, SÖZCÜKLÜKTÜR.</div>
 
 <div class="arama-alani">
-<input type="text" id="girdi" placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE YABANCI KÖKENLİ VEYA ÖNERİLMİŞ YALIN TÜRKÇE SÖZCÜK SOR" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
+<input type="text" id="girdi" placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE YABANCI KÖKENLİ VEYA ÖNERİLMİŞ YALIN TÜRKÇE SÖZCÜK SOR" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')" onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
 </div>
 
 <div class="buton-satiri">
@@ -68,7 +174,7 @@ input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-siz
 <div id="oneriAlani" class="oneri-bolumu">
 <div style="font-size:15px;font-weight:bold;">Öneriniz için teşekkürler! Başka öneriniz var mı?</div>
 <div class="oneri-girdi">
-<input type="text" id="oneriGirdisi" class="oneri-input" placeholder="Önerinizi, buraya yazınız...">
+<input type="text" id="oneriGirdisi" class="oneri-input" placeholder="Önerinizi, buraya yazınız..." oninput="this.value=this.value.toLocaleUpperCase('tr-TR')">
 <button class="btn-bul" style="padding:3px 8px;width:auto;font-size:12px;" onclick="alert('Kaydedildi!')">GÖNDER</button>
 </div>
 </div>
@@ -634,43 +740,39 @@ if(!kumeTipi) kumeTipi="B";
 }
 });
 
-if(bulunanlar.length>0){
 aramaSayaci++;
-if(aramaSayaci % 20 === 0) animsaticiIndex++;
+if(aramaSayaci % 3 === 0) animsaticiIndex++;
+
+if(bulunanlar.length > 0){
 sayaclariGuncelle(true);
+if(kumeTipi === "A"){ kA.className="kume aktif-a"; panel.className="sonuc-paneli yanit-mavi"; }
+else { kB.className="kume aktif-b"; panel.className="sonuc-paneli yanit-kirmizi"; }
 
-if(kumeTipi==="A"){
-panel.classList.add('yanit-mavi');
-kA.classList.add('aktif-a');
-sonucMetni.innerHTML=`<div style="margin-bottom:6px;font-size:13px;font-weight:bold;color:#00f">ARANAN YABANCI KÖKENLİ SÖZCÜK BULUNDU, KARŞILIĞI ÖNERİLMİŞ YALIN KÖKENLİ SÖZCÜKLER GÖSTERİLİYOR</div><div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`+bulunanlar.map((o,i)=>`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666">[${o.tur}]</small></div>`).join("")+`</div>`;
-}else{
-panel.classList.add('yanit-kirmizi');
-kB.classList.add('aktif-b');
-sonucMetni.innerHTML=`<div style="margin-bottom:6px;font-size:13px;font-weight:bold;color:red">ÖNERİLMİŞ B KÜMESİ YALIN KÖKENLİ SÖZCÜK BULUNDU, KARŞILIĞI YABANCI KÖKENLİ SÖZCÜKLER GÖSTERİMDE</div><div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`+bulunanlar.map((o,i)=>`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666">[${o.tur}]</small></div>`).join("")+`</div>`;
+let html = `<div class="sonuc-listesi">`;
+bulunanlar.forEach(b => {
+html += `<div class="sonuc-maddesi"><strong>[${b.tur}]</strong> ${b.aranan} = <span style="color:red; font-size:16px;">${b.karsilik}</span></div>`;
+});
+html += `</div>`;
+sonucMetni.innerHTML = html;
+} else {
+panel.className="sonuc-paneli yanit-bulunamadi";
+sonucMetni.innerHTML = `"${kelime}" biriktiricimizde bulunamadı.`;
+oneriAlani.style.display = "block";
+document.getElementById('oneriGirdisi').value = kelime;
 }
-
-}else{
-panel.classList.add('yanit-bulunamadi');
-sonucMetni.innerHTML=`"${kelime}" biriktiricimizde bulunamadı.`;
-oneriAlani.style.display="block";
-}
-document.getElementById('girdi').focus();
 }
 
 function temizle(){
 document.getElementById('girdi').value="";
-havuzGoster();
+document.getElementById('sonucMetni').innerHTML="Arama sonuçları burada listelenecek...";
 document.getElementById('oneriAlani').style.display="none";
 document.getElementById('kumeA').className="kume";
 document.getElementById('kumeB').className="kume";
 document.getElementById('sonucPaneli').className="sonuc-paneli";
-document.getElementById('girdi').focus();
 }
 
-window.onload=()=>{
-sayaclariGuncelle(false);
-havuzGoster();
-document.getElementById('girdi').focus();
+window.onload = function() {
+sayaclariYukle();
 };
 </script>
 </body>
