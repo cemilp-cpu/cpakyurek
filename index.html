@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Sanal Yöre - SÖZCÜKLÜK</title>
+<title>Sanal Yöre - Sü:3</title>
 <style>
 html, body {
 background: #fff;
@@ -29,24 +29,31 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 }
-.sol-ust-tanitici {
-text-align: left;
+.ust-bilgi-satiri {
+display: flex;
+justify-content: space-between;
+align-items: center;
 font-size: 12px;
 font-weight: bold;
 color: #333;
 margin-bottom: 4px;
-display: flex;
-align-items: center;
-justify-content: space-between;
 }
 .kizil-yildiz { color: red; font-size: 14px; margin-right: 3px; }
 
-/* Yukarıya Sığdırılan Sayaç Kutuları */
+.yonetici-kapisi {
+background: none;
+border: none;
+color: #333;
+font-size: 11px;
+cursor: pointer;
+font-weight: bold;
+text-decoration: underline;
+}
+
 .ust-sayac-grubu {
 display: flex;
-gap: 5px;
+gap: 4px;
 margin-bottom: 6px;
-justify-content: center;
 }
 .sayac-kutusu {
 flex: 1;
@@ -54,8 +61,8 @@ background: #fff;
 border: 1px solid #ccc;
 border-radius: 4px;
 text-align: center;
-padding: 2px;
-font-size: 9px;
+padding: 2px 1px;
+font-size: 8px;
 font-weight: bold;
 color: #333;
 line-height: 1.1;
@@ -63,14 +70,14 @@ line-height: 1.1;
 .sayac-kutusu span {
 display: block;
 color: #3f51b5;
-font-size: 12px;
+font-size: 11px;
 font-weight: 900;
 }
 
 .aciklama-kutusu {
 font-size: 11px;
-padding: 6px;
-border-radius: 8px;
+padding: 5px;
+border-radius: 6px;
 margin-bottom: 6px;
 border: 1px solid #b0c4de;
 font-weight: bold;
@@ -79,22 +86,39 @@ line-height: 1.2;
 color: #fff;
 background-color: #3498db;
 }
-.arama-alani { margin-bottom: 6px; }
-input {
+
+.arama-alani { margin-bottom: 4px; }
+input[type="text"] {
 width: 100%;
-padding: 10px;
+padding: 8px;
 border: 2px solid #d4c4a1;
 border-radius: 8px;
-font-size: 18px;
+font-size: 16px;
 outline: none;
 box-sizing: border-box;
 text-align: center;
 font-weight: bold;
 }
-.buton-grubu {
+input::placeholder { color: #ccc; font-weight: normal; }
+
+.btn-ana-bul {
+width: 100%;
+padding: 10px;
+font-size: 14px;
+font-weight: bold;
+background: #2c3e50;
+color: #fff;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+margin-bottom: 6px;
+text-transform: uppercase;
+}
+
+.satir-butonları {
 display: flex;
 flex-direction: column;
-gap: 5px;
+gap: 4px;
 margin-bottom: 6px;
 }
 .buton-satiri {
@@ -104,46 +128,20 @@ justify-content: center;
 }
 .buton-satiri button {
 flex: 1;
-padding: 8px 4px;
+padding: 6px 2px;
 font-weight: bold;
-font-size: 11px;
+font-size: 10px;
 border: none;
-border-radius: 6px;
+border-radius: 5px;
 cursor: pointer;
 text-transform: uppercase;
+color: #fff;
 }
-.btn-bul { background: #555; color: #fff; }
-.btn-yeni { background: #e74c3c; color: #fff; }
-.btn-saglik { background: #2ecc71; color: #fff; }
-.btn-bilim { background: #9b59b6; color: #fff; }
-.btn-haklilik { background: #e67e22; color: #fff; }
-.btn-tgid { background: #009688; color: #fff; }
-.btn-cokluk { background: #3f51b5; color: #fff; }
-
-.kumeler {
-display: flex;
-gap: 8px;
-margin-bottom: 6px;
-justify-content: center;
-}
-.kume {
-flex: 1;
-padding: 5px;
-border: 2px solid #d4c4a1;
-border-radius: 8px;
-background: #fff;
-opacity: .2;
-text-align: center;
-position: relative;
-}
-.kume strong { font-size: 11px; display: block; }
-.kume small { font-size: 9px; display: block; color: #666; margin-top: 1px; }
-.ok { font-size: 12px; display: none; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); }
-
-.aktif-a { opacity: 1!important; border-color: #00f!important; background: #e6e6ff!important; }
-.aktif-a .ok { display: block; color: #00f; }
-.aktif-b { opacity: 1!important; border-color: red!important; background: #ffe6e6!important; }
-.aktif-b .ok { display: block; color: red; }
+.btn-saglik { background: #2ecc71; }
+.btn-bilim { background: #9b59b6; }
+.btn-haklilik { background: #e67e22; }
+.btn-tgid { background: #009688; }
+.btn-cokluk { background: #3f51b5; }
 
 .sonuc-paneli {
 padding: 8px;
@@ -152,7 +150,7 @@ background: #fff;
 border: 1px solid #d4c4a1;
 flex-grow: 1;
 min-height: 100px;
-max-height: 40vh;
+max-height: 42vh;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -160,9 +158,9 @@ align-items: center;
 margin-bottom: 6px;
 overflow-y: auto;
 }
-#sonucMetni { font-size: 14px; font-weight: bold; text-align: center; line-height: 1.3; width: 100%; color: #2c3e50; }
+#sonucMetni { font-size: 13px; font-weight: bold; text-align: center; line-height: 1.3; width: 100%; color: #2c3e50; }
 .sonuc-listesi { text-align: left; width: 100%; display: flex; flex-direction: column; gap: 3px; }
-.sonuc-maddesi { padding: 5px; border-bottom: 1px dashed #ccc; font-size: 14px; color: #2c3e50; line-height: 1.2; }
+.sonuc-maddesi { padding: 4px; border-bottom: 1px dashed #ccc; font-size: 13px; color: #2c3e50; line-height: 1.2; }
 
 .yanit-mavi { background: #add8e6!important; border: 2px solid #00f; }
 .yanit-kirmizi { background: #ffe6e6!important; border: 2px solid red; }
@@ -170,15 +168,41 @@ overflow-y: auto;
 
 .oneri-bolumu { display: none; width: 100%; margin-top: 4px; text-align: center; }
 .oneri-girdi { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
-.oneri-input { width: 60%; padding: 4px; font-size: 12px; border: 1px solid #555; border-radius: 4px; font-weight: bold; text-align: center; }
+.oneri-input { width: 60%; padding: 4px; font-size: 11px; border: 1px solid #555; border-radius: 4px; font-weight: bold; text-align: center; }
 
-.mod-aktif { border: 1px solid #2c3e50; padding: 4px; border-radius: 5px; margin-bottom: 4px; text-align: center; font-weight: bold; font-size: 11px; width: 100%; box-sizing: border-box; text-transform: uppercase; }
+.btn-temizle {
+width: 100%;
+padding: 10px;
+font-size: 13px;
+font-weight: bold;
+background: #e74c3c;
+color: #fff;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+text-transform: uppercase;
+}
+
+.mod-aktif { border: 1px solid #2c3e50; padding: 3px; border-radius: 4px; margin-bottom: 4px; text-align: center; font-weight: bold; font-size: 10px; width: 100%; box-sizing: border-box; text-transform: uppercase; }
+
+/* Yönetici Paneli Alanı */
+.yonetici-paneli {
+display: none;
+background: #f4f6f7;
+border: 2px dashed #7f8c8d;
+padding: 6px;
+border-radius: 6px;
+margin-bottom: 6px;
+font-size: 11px;
+}
+.yonetici-listesi { max-height: 60px; overflow-y: auto; background: #fff; border: 1px solid #ccc; padding: 2px; margin-top: 3px; }
 </style>
 </head>
 <body>
 <div class="ana-konteynir">
-<div class="sol-ust-tanitici">
+<div class="ust-bilgi-satiri">
 <span><span class="kizil-yildiz">★</span>Cemil Pakyürek / Sü:3</span>
+<button class="yonetici-kapisi" id="yoneticiBtn" onclick="yoneticiGirisCikis()">YÖNETİCİ GİRİŞİ</button>
 </div>
 
 <div class="ust-sayac-grubu">
@@ -190,15 +214,19 @@ overflow-y: auto;
 <div id="modGosterge"></div>
 <div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir...<br>Bu bir sözlük değil, SÖZCÜKLÜKTÜR.</div>
 
-<div class="arama-alani">
-<input type="text" id="girdi" placeholder="BOŞLUK" autocomplete="off">
+<div id="yoneticiPaneli" class="yonetici-paneli">
+<strong>Yönetici Paneli (Bulunamayan Öneriler):</strong>
+<div id="yoneticiListesi" class="yonetici-listesi">Henüz öneri yok.</div>
+<button onclick="onerileriTemizle()" style="margin-top:4px; font-size:9px; font-weight:bold;">Listeyi Temizle</button>
 </div>
 
-<div class="buton-grubu">
-<div class="buton-satiri">
-<button class="btn-bul" onclick="bul()">BUL</button>
-<button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
+<div class="arama-alani">
+<input type="text" id="girdi" placeholder="ARANACAK SÖZCÜK" autocomplete="off" onkeydown="if(event.key==='Enter') bul()">
 </div>
+
+<button class="btn-ana-bul" onclick="bul()">BUL</button>
+
+<div class="satir-butonları">
 <div class="buton-satiri">
 <button class="btn-saglik" id="saglikBtn" onclick="modSec('SAGLIK')">SAĞLIK</button>
 <button class="btn-bilim" id="bilimBtn" onclick="modSec('BILIM')">BİLİM</button>
@@ -210,24 +238,22 @@ overflow-y: auto;
 </div>
 </div>
 
-<div class="kumeler">
-<div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli küme</small></div>
-<div id="kumeB" class="kume"><span class="ok">➤</span><strong>B KÜMESİ</strong><small>Yalın Türkçe küme</small></div>
-</div>
-
 <div class="sonuc-paneli" id="sonucPaneli">
 <div id="sonucMetni">Arama sonuçları burada listelenecek...</div>
 <div id="oneriAlani" class="oneri-bolumu">
 <div class="oneri-girdi">
-<input type="text" id="oneriGirdisi" class="oneri-input">
-<button class="btn-bul" style="padding:2px 6px;width:auto;font-size:11px;background:#555;" onclick="alert('Kaydedildi!')">GÖNDER</button>
+<input type="text" id="oneriGirdisi" class="oneri-input" placeholder="Yalın Türkçe Öneriniz">
+<button onclick="oneriKaydet()" style="padding:2px 6px; font-size:11px; font-weight:bold; background:#555; color:#fff; border:none; border-radius:4px; cursor:pointer;">GÖNDER</button>
 </div>
 </div>
 </div>
-   
+
+<button class="btn-temizle" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
+
 </div>
 
 <script>
+// Dinamik eklenebilecek genel havuz
 const sozluk = [];
 
 const sozlukSaglik = [
@@ -240,12 +266,12 @@ const sozlukSaglik = [
 { A: "KRONİK", B: "SÜREGEN" },
 { A: "AKUT", B: "GEÇİCİ" },
 { A: "EPİKRİZ", B: "DAŞLANGICI BİTİŞİ KAPSAR" },
-{ A: "SYMPTOM", B: "BELİRTİ " },
+{ A: "SYMPTOM", B: "BELİRTİ" },
 { A: "CERRAHİ ONKOLOJİ", B: "KESEREK BAŞKALAŞMIŞ CANLICIK SAĞİLTIMI" },
 { A: "BEYİN VE SİNİR CERRAHİSİ", B: "DÜŞÜNME ORGANI VE SİNİR KESEREK SAĞILTIMI" },
 { A: "REANİMASYON", B: "YENİDEN CANLANDIRMA" },
 { A: "AMATEM", B: "DÜŞÜNME YETENEĞİNİ UYUŞTURAN İÇKİ VE ÖZDEK BAĞIMLILIĞI" },
-{ A: "HASTANE RANDEVUSU", B: "SAĞİLTIMEVİNDE SAĞLIK İÇİN BULUŞMA" },
+{ A: "HASTANE RANDEVUSU", B: "SAĞILTIMEVİNDE SAĞLIK İÇİN BULUŞMA" },
 { A: "HASTANE", B: "SAĞILTIMEV" },
 { A: "AİLE HEKİMLİĞİ", B: "BİRLİKTEYAŞAYANLARIN SAĞLIK BİLENİ" },
 { A: "DOKTOR", B: "SAĞLIK BİLEN" },
@@ -263,8 +289,8 @@ const sozlukSaglik = [
 { A: "ŞAŞILIK", B: "KENARLARA BAKAROLMA" },
 { A: "RETİNA", B: "GÖZDE AĞ KATMAN" },
 { A: "GLAKOM", B: "GÖZİÇİ BASINÇ" },
-{ A: "GÖZ HASTALIKLARI", B: "GÖZ BOZUKLUKLARI " },
-{ A: "GÖĞÜS HASTALIKLARI", B: "GÖĞÜSTE BEDEN BOZUKLUKLARI" },
+{ A: "GÖZ HASTALIKLARI", B: "GÖZ BOZUKLUKLARI" },
+{ A: "GÖĞÜS HASTALIKLARI", B: "GÖĞÜSTE BEDEN BOZUKLUKLUKLARI" },
 { A: "GÖĞÜS CERRAHİSİ", B: "GÖĞÜSTE KESEREK SAĞILTMA" },
 { A: "GERİATRİ", B: "65 YAŞ ÜSTÜNDE BEDEN BOZUKLUKLARI" },
 { A: "GENEL CERRAHİ", B: "GENEL KESEREK SAĞILTMA" },
@@ -284,7 +310,7 @@ const sozlukSaglik = [
 { A: "ÇOCUK ÜMMÜNOLOJİSİ VE ALERJİ HASTALIKLARI", B: "ÇOCUKTA BAĞIŞIKLIK BİLİMİ VE AŞIRI DUYARLILIK BEDEN BOZUKLUĞU" },
 { A: "ÇOCUK HEMATOLOJİSİ VE ONKOLOJİSİ", B: "ÇOCUKTA KAN SAĞLIĞI VE BAŞKALAŞMIŞ CANLICIK BİLİMİ" },
 { A: "ÇOCUK GÖĞÜS HASTALIKLARI", B: "ÇOCUK GÖĞÜSTE BEDEN BOZUKLUKLARI" },
-{ A: "ÇOCUK ENFEKSİYON HASTALIKLARI", B: "ÇOCUK BULAŞICILIĞINA BAĞLI BEDEN BOZUKLUKLARI" },
+{ A: "ÇOCUK ENFEKSİYON HASTALIKLARI", B: "ÇOCUK BULAŞICILIĞINA BAĞLI BEDEN BOZUKLUĞU" },
 { A: "ÇOCUK ENDOKRİNOLOJİSİ", B: "ÇOCUKTA İÇSALGILAR BİLİMİ" },
 { A: "ÇOCUK CERRAHİSİ", B: "ÇOCUKTA KESEREK SAĞILTMA" },
 { A: "ANESTEZİYOLOJİ VE REANİMASYON", B: "UYUŞTURMA BİLİMİ VE YENİDEN DÜŞÜNEBİLMEYİ SAĞLAMA" },
@@ -428,18 +454,6 @@ const sozlukBilim = [
 { A: "BALON", B: "UÇARKAÇAR" },
 { A: "BAND", B: "KUŞAK" },
 { A: "BANDWIDTH", B: "KUŞAK GENİŞLİĞİ" },
-{ A: "BANKING", B: "DEĞDE ALIRSATARLIĞI" },
-{ A: "BANNER", B: "TANITIMLIK" },
-{ A: "BAR", B: "ÇUBUK" },
-{ A: "BARAJ", B: "YAPAYGÖL" },
-{ A: "BARE", B: "ÇIPLAK" },
-{ A: "BARGE", B: "İTKİSİZ YÜZER DÜZLEM" },
-{ A: "BARİYER", B: "ENGELLEYİCİ" },
-{ A: "BARİZ", B: "GÖRÜNÜR" },
-{ A: "BARKOD", B: "ÇUBUK İMGE" },
-{ A: "BAROMETER", B: "BASINÇÖLÇER" },
-{ A: "BARREL", B: "FIÇI" },
-{ A: "BASE", B: "ÜS" },
 { A: "BASEBAND", B: "TEMEL YAYILGI" },
 { A: "BASELINE", B: "TEMEL DOĞRU" },
 { A: "BASIC", B: "TEMEL" },
@@ -470,7 +484,7 @@ const sozlukBilim = [
 { A: "BENEFIT", B: "YARAR" },
 { A: "BEREKET", B: "BOLLUK" },
 { A: "BEŞERİ", B: "TANIMLAYABİLENSEL" },
-{ A: "BEŞERİYET", B: "TANIMLAYABİLENLER" },
+{ A: "BEŞERİYET", B: "TANIMLAYABİLENler" },
 { A: "BETON", B: "YAPAY YAPITAŞI" },
 { A: "BEVEL", B: "EĞİM" },
 { A: "BEYGİR", B: "AT" },
@@ -480,7 +494,7 @@ const sozlukBilim = [
 { A: "BIDIRECTIONAL", B: "İKİ YÖNLÜ" },
 { A: "BIFURCATION", B: "ÇATALLANMA" },
 { A: "BILL", B: "EDER BELGESİ" },
-{ A: "BILLING", B: "EDERİ BELGELEME" },
+{ A: "BILLING", B: "EDERI BELGELEME" },
 { A: "BINARY", B: "İKİLİ" },
 { A: "BINDER", B: "BAĞLAYICI" },
 { A: "BINDING", B: "BAĞLAMA" },
@@ -576,7 +590,7 @@ const sozlukBilim = [
 { A: "PRİCE", B: "EDERI" },
 { A: "PROFESÖR", B: "BİLGEN" },
 { A: "PULS", B: "DARBE" },
-{ A: "QUBİT", B: "AYNI ANDATÜM 01 ARASI DEĞERLERİNİ ALABİLİR" },
+{ A: "QUBİT", B: "AYNYI ANDATÜM 01 ARASI DEĞERLERİNİ ALABİLİR" },
 { A: "REZİSTANS", B: "DİRENÇ" },
 { A: "REZONANS", B: "EŞTİTREŞİM" },
 { A: "ROTATION", B: "DÖNDÜRME" },
@@ -638,10 +652,19 @@ const sozlukBilim = [
 { A: "VİDA", B: "BURMA" },
 { A: "TORNAVİDA", B: "BURMAÇ" },
 { A: "MATKAP", B: "DELİCİ" },
-{ A: "AUTOMATION", B: "KENDİLİĞİNDENLEŞTİRME" }
+{ A: "AUTOMATION", B: "KENDİLİĞİNDENLEŞTİRME" },
+{ A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" }
 ];
 
-const sozlukTgid = [];
+const sozlukTgid = [
+{ A: "DOKÜMAN", B: "BELGE" },
+{ A: "FİBER OPTİK KABLO", B: "IŞIK YOLU BAĞLANTISI" },
+{ A: "NETWORK", B: "BİLGİ İŞLER PAYLAŞIM ALANI" },
+{ A: "IP ADRESİ", B: "BİLGİ İŞLER ADI" },
+{ A: "VERİ MERKEZİ", B: "BİLGİ BİRİKTİRME KATMANI" },
+{ A: "SUNUCU", B: "BİLGİ DAĞITICI" },
+{ A: "BİLGİ", B: "BİLİNENLER" }
+];
 
 const sozlukCokluk = [
 { A: "ADET", B: "TANE" },
@@ -700,8 +723,19 @@ const sozlukCokluk = [
 ];
 
 let aktifMod = "GENEL";
-const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam';
+let yoneticiModu = false;
+const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', ONERI_KEY='sozcukluk_oneriler';
 const hafiza={getItem:k=>{try{return localStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+
+function esnekNormalize(metin) {
+if (!metin) return "";
+let h = { "i": "İ", "ı": "I", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç" };
+let buyuk = metin.toLowerCase().replace(/[iışğüöç]/g, function(m) { return h[m]; }).toUpperCase();
+return buyuk
+.replace(/Ö/g, "O").replace(/İ/g, "I")
+.replace(/Ü/g, "U").replace(/Ç/g, "C")
+.replace(/Ğ/g, "G").replace(/Ş/g, "S");
+}
 
 function turkceBuyut(metin) {
 if (!metin) return "";
@@ -737,18 +771,17 @@ else if(mod==="BILIM") { bBtn.style.boxShadow="0 0 8px #9b59b6"; gosterge.innerH
 else if(mod==="HAKLILIK") { hBtn.style.boxShadow="0 0 8px #e67e22"; gosterge.innerHTML='<div class="mod-aktif" style="background:#fdf2e9;color:#e67e22;">HAKLILIK SATIRI SEÇİLDİ</div>'; }
 else if(mod==="TGID") { tBtn.style.boxShadow="0 0 8px #009688"; gosterge.innerHTML='<div class="mod-aktif" style="background:#e0f2f1;color:#009688;">TGİD SATIRI SEÇİLDİ</div>'; }
 else if(mod==="COKLUK") { cBtn.style.boxShadow="0 0 8px #3f51b5"; gosterge.innerHTML='<div class="mod-aktif" style="background:#e8eaf6;color:#3f51b5;">ÇOKLUKLAR BİLİMİ SEÇİLDİ</div>'; }
-temizle();
+temizleArama();
 }
 }
 
 function bul(){
 const girdiAlani = document.getElementById('girdi');
-const hamGirdi = girdiAlani.value.trim();
-const kelimeArama = turkceBuyut(hamGirdi);
+const hamGirdi = turkceBuyut(girdiAlani.value.trim());
+const esnekArama = esnekNormalize(hamGirdi);
 
-const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), kA=document.getElementById('kumeA'), kB=document.getElementById('kumeB'), panel=document.getElementById('sonucPaneli');
-
-sonucMetni.innerHTML=""; oneriAlani.style.display="none"; kA.className="kume"; kB.className="kume"; panel.className="sonuc-paneli";
+const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), panel=document.getElementById('sonucPaneli');
+sonucMetni.innerHTML=""; oneriAlani.style.display="none"; panel.className="sonuc-paneli";
 
 if(!hamGirdi){ return; }
 
@@ -764,50 +797,120 @@ if(aktifMod==="COKLUK") liste=sozlukCokluk;
 }
 
 let bulunanlar=[], kumeTipi="";
+let gorulenKombinasyonlar = new Set(); // Çift çıktı üretilmesini engelleyen süzgeç düzeneği
 
 liste.forEach(k=>{
-const kA_Havuz=turkceBuyut(k.A.trim());
-const kB_Havuz=turkceBuyut(k.B.trim());
+const kA_Havuz=esnekNormalize(k.A.trim());
+const kB_Havuz=esnekNormalize(k.B.trim());
 
-if(kA_Havuz === kelimeArama){
+if(kA_Havuz === esnekArama){
+let anahtar = k.A + "|||" + k.B;
+if(!gorulenKombinasyonlar.has(anahtar)){
+gorulenKombinasyonlar.add(anahtar);
 bulunanlar.push({ aranan: k.A, karsilik: k.B });
 if(!kumeTipi) kumeTipi="A";
 }
-else if(kB_Havuz === kelimeArama){
+}
+else if(kB_Havuz === esnekArama){
+let anahtar = k.B + "|||" + k.A;
+if(!gorulenKombinasyonlar.has(anahtar)){
+gorulenKombinasyonlar.add(anahtar);
 bulunanlar.push({ aranan: k.B, karsilik: k.A });
 if(!kumeTipi) kumeTipi="B";
+}
 }
 });
 
 if(bulunanlar.length > 0){
 sayaclariGuncelle(true);
-if(kumeTipi === "A"){ kA.className="kume aktif-a"; panel.className="sonuc-paneli yanit-mavi"; }
-else { kB.className="kume aktif-b"; panel.className="sonuc-paneli yanit-kirmizi"; }
+// A ve B salon kutuları kalktı; renklendirme doğrudan panel üzerinden yürütülüyor
+if(kumeTipi === "A"){ panel.className="sonuc-paneli yanit-mavi"; }
+else { panel.className="sonuc-paneli yanit-kirmizi"; }
 
 let html = `<div class="sonuc-listesi">`;
 bulunanlar.forEach((b, index) => {
-html += `<div class="sonuc-maddesi">${index + 1}- <strong>${b.aranan}</strong> = <span style="color:red; font-size:15px; font-weight:bold;">${b.karsilik}</span></div>`;
+html += `<div class="sonuc-maddesi">${index + 1}- <strong>${b.aranan}</strong> = <span style="color:red; font-size:14px; font-weight:bold;">${b.karsilik}</span></div>`;
 });
 html += `</div>`;
 sonucMetni.innerHTML = html;
 } else {
 panel.className="sonuc-paneli yanit-bulunamadi";
-sonucMetni.innerHTML = `SÖZCÜK BULUNAMADI.<br><span style="font-size:12px;color:#555;">"${hamGirdi}" biriktiricimizde bulunamadı.</span>`;
+sonucMetni.innerHTML = `SÖZCÜK BULUNAMADI.<br><span style="font-size:11px;color:#555;">"${hamGirdi}" biriktiricimizde bulunamadı.</span>`;
 oneriAlani.style.display = "block";
-document.getElementById('oneriGirdisi').value = hamGirdi;
+document.getElementById('oneriGirdisi').value = "";
+document.getElementById('oneriGirdisi').placeholder = hamGirdi + " için Türkçe öneriniz";
+document.getElementById('oneriGirdisi').dataset.kayipSozcuk = hamGirdi;
 }
-setTimeout(() => { girdiAlani.focus(); }, 20);
+setTimeout(() => { girdiAlani.focus(); girdiAlani.select(); }, 20);
+}
+
+function oneriKaydet() {
+const oneriInput = document.getElementById('oneriGirdisi');
+const kayipSozcuk = oneriInput.dataset.kayipSozcuk;
+const kullaniciOnerisi = turkceBuyut(oneriInput.value.trim());
+
+if(!kullaniciOnerisi) return;
+
+let mevcutOneriler = JSON.parse(hafiza.getItem(ONERI_KEY) || "[]");
+mevcutOneriler.push({ sozcuk: kayipSozcuk, oneri: kullaniciOnerisi, tarih: new Date().toLocaleString('tr-TR') });
+hafiza.setItem(ONERI_KEY, JSON.stringify(mevcutOneriler));
+
+document.getElementById('oneriAlani').style.display = "none";
+document.getElementById('sonucMetni').innerHTML = `<span style="color:green;">Öneriniz yönetici bilgisine sunulmak üzere anımsatıcı düzeneğe kaydedildi.</span>`;
+yoneticiListesiniYenile();
+}
+
+function yoneticiGirisCikis() {
+const btn = document.getElementById('yoneticiBtn');
+const pnl = document.getElementById('yoneticiPaneli');
+if(!yoneticiModu) {
+let sifre = prompt("Yönetici giriş şifresini giriniz:");
+if(sifre === "1973") {
+yoneticiModu = true;
+btn.textContent = "YÖNETİCİ ÇIKIŞI";
+pnl.style.display = "block";
+yoneticiListesiniYenile();
+} else if(sifre !== null) {
+alert("Hatalı şifre!");
+}
+} else {
+yoneticiModu = false;
+btn.textContent = "YÖNETİCİ GİRİŞİ";
+pnl.style.display = "none";
+}
+}
+
+function yoneticiListesiniYenile() {
+const listeKutusu = document.getElementById('yoneticiListesi');
+let mevcutOneriler = JSON.parse(hafiza.getItem(ONERI_KEY) || "[]");
+if(mevcutOneriler.length === 0) {
+listeKutusu.innerHTML = "Henüz yeni öneri yok.";
+return;
+}
+let html = "";
+mevcutOneriler.forEach((o, i) => {
+html += `${i+1}. ${o.sozcuk} -> <strong>${o.oneri}</strong> <br>`;
+});
+listeKutusu.innerHTML = html;
+}
+
+function onerileriTemizle() {
+if(confirm("Tüm öneri listesini temizlemek istediğinize emin misiniz?")) {
+hafiza.setItem(ONERI_KEY, "[]");
+yoneticiListesiniYenile();
+}
+}
+
+function temizleArama() {
+document.getElementById('sonucMetni').innerHTML="Arama sonuçları burada listelenecek...";
+document.getElementById('oneriAlani').style.display="none";
+document.getElementById('sonucPaneli').className="sonuc-paneli";
 }
 
 function temizle(){
 const girdiAlani = document.getElementById('girdi');
 girdiAlani.value="";
-document.getElementById('oneriGirdisi').value = "";
-document.getElementById('sonucMetni').innerHTML="Arama sonuçları burada listelenecek...";
-document.getElementById('oneriAlani').style.display="none";
-document.getElementById('kumeA').className="kume";
-document.getElementById('kumeB').className="kume";
-document.getElementById('sonucPaneli').className="sonuc-paneli";
+temizleArama();
 setTimeout(() => { girdiAlani.focus(); }, 20);
 }
 
