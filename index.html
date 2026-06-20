@@ -157,6 +157,7 @@ justify-content: flex-start;
 align-items: center;
 margin-bottom: 6px;
 overflow-y: auto;
+box-sizing: border-box;
 }
 #sonucMetni { font-size: 13px; font-weight: bold; text-align: center; line-height: 1.3; width: 100%; color: #2c3e50; }
 .sonuc-listesi { text-align: left; width: 100%; display: flex; flex-direction: column; gap: 3px; }
@@ -185,7 +186,6 @@ text-transform: uppercase;
 
 .mod-aktif { border: 1px solid #2c3e50; padding: 3px; border-radius: 4px; margin-bottom: 4px; text-align: center; font-weight: bold; font-size: 10px; width: 100%; box-sizing: border-box; text-transform: uppercase; }
 
-/* Yönetici Paneli Alanı */
 .yonetici-paneli {
 display: none;
 background: #f4f6f7;
@@ -1212,61 +1212,101 @@ const hamGirdi = turkceBuyut(girdiAlani.value.trim());
 const esnekArama = esnekNormalize(hamGirdi);
 
 const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), panel=document.getElementById('sonucPaneli');
-sonucMetni.innerHTML=""; oneriAlani.style.display="none"; panel.className="sonuc-paneli";
+sonucMetni.innerHTML=""; oneriAlani.style.display="none";
+panel.removeAttribute("style"); panel.className="sonuc-paneli";
 
 if(!hamGirdi){ return; }
 
-let liste=[];
-if(aktifMod==="GENEL") {
-liste=[...sozluk, ...sozlukSaglik, ...sozlukBilim, ...sozlukHaklilik, ...sozlukTgid, ...sozlukCokluk];
-} else {
-if(aktifMod==="SAGLIK") liste=sozlukSaglik;
-if(aktifMod==="BILIM") liste=sozlukBilim;
-if(aktifMod==="HAKLILIK") liste=sozlukHaklilik;
-if(aktifMod==="TGID") liste=sozlukTgid;
-if(aktifMod==="COKLUK") liste=sozlukCokluk;
-}
+// 1. ADIM: Seçili havuzcuğu belirleme
+let anaListe = [];
+let modMetni = aktifMod;
+if(aktifMod === "SAGLIK") { anaListe = sozlukSaglik; }
+else if(aktifMod === "BILIM") { anaListe = sozlukBilim; }
+else if(aktifMod === "HAKLILIK") { anaListe = sozlukHaklilik; }
+else if(aktifMod === "TGID") { anaListe = sozlukTgid; }
+else if(aktifMod === "COKLUK") { anaListe = sozlukCokluk; modMetni = "ÇOKLUKLAR BİLİMİ"; }
+else { anaListe = sozluk; } // Mod GENEL ise temel havuz taranır
 
-let bulunanlar=[], kumeTipi="";
-let gorulenKombinasyonlar = new Set(); // Çift çıktı üretilmesini engelleyen süzgeç düzeneği
+let bulunanlar = [];
+let kumeTipi = "";
+let gorulenKombinasyonlar = new Set();
+let seciliHavuzdaBulundu = false;
 
-liste.forEach(k=>{
-const kA_Havuz=esnekNormalize(k.A.trim());
-const kB_Havuz=esnekNormalize(k.B.trim());
+// Önce kullanıcının tıkladığı özel satırda arıyoruz
+if (aktifMod !== "GENEL") {
+anaListe.forEach(k => {
+const kA_Havuz = esnekNormalize(k.A.trim());
+const kB_Havuz = esnekNormalize(k.B.trim());
 
 if(kA_Havuz === esnekArama){
 let anahtar = k.A + "|||" + k.B;
 if(!gorulenKombinasyonlar.has(anahtar)){
 gorulenKombinasyonlar.add(anahtar);
 bulunanlar.push({ aranan: k.A, karsilik: k.B });
-if(!kumeTipi) kumeTipi="A";
+if(!kumeTipi) kumeTipi = "A";
+seciliHavuzdaBulundu = true;
 }
-}
-else if(kB_Havuz === esnekArama){
+} else if(kB_Havuz === esnekArama){
 let anahtar = k.B + "|||" + k.A;
 if(!gorulenKombinasyonlar.has(anahtar)){
 gorulenKombinasyonlar.add(anahtar);
 bulunanlar.push({ aranan: k.B, karsilik: k.A });
-if(!kumeTipi) kumeTipi="B";
+if(!kumeTipi) kumeTipi = "B";
+seciliHavuzdaBulundu = true;
 }
 }
 });
+}
 
+// 2. ADIM: Seçili satırda yoksa veya mod GENEL ise, tüm havuzları tara
+if (!seciliHavuzdaBulundu) {
+let tumHavuzlar = [...sozluk, ...sozlukSaglik, ...sozlukBilim, ...sozlukHaklilik, ...sozlukTgid, ...sozlukCokluk];
+tumHavuzlar.forEach(k => {
+const kA_Havuz = esnekNormalize(k.A.trim());
+const kB_Havuz = esnekNormalize(k.B.trim());
+
+if(kA_Havuz === esnekArama){
+let anahtar = k.A + "|||" + k.B;
+if(!gorulenKombinasyonlar.has(anahtar)){
+gorulenKombinasyonlar.add(anahtar);
+bulunanlar.push({ aranan: k.A, karsilik: k.B });
+if(!kumeTipi) kumeTipi = "A";
+}
+} else if(kB_Havuz === esnekArama){
+let anahtar = k.B + "|||" + k.A;
+if(!gorulenKombinasyonlar.has(anahtar)){
+gorulenKombinasyonlar.add(anahtar);
+bulunanlar.push({ aranan: k.B, karsilik: k.A });
+if(!kumeTipi) kumeTipi = "B";
+}
+}
+});
+}
+
+// 3. ADIM: Ekranda listeleme ve akıllı renk kodlaması
 if(bulunanlar.length > 0){
 sayaclariGuncelle(true);
-// A ve B salon kutuları kalktı; renklendirme doğrudan panel üzerinden yürütülüyor
-if(kumeTipi === "A"){ panel.className="sonuc-paneli yanit-mavi"; }
-else { panel.className="sonuc-paneli yanit-kirmizi"; }
+
+// Öngörülü uyarı mantığı: Seçili satırda bulunamayıp genelden geldiyse bildir
+if (aktifMod !== "GENEL" && !seciliHavuzdaBulundu) {
+panel.style.backgroundColor = "#f5f5f5";
+panel.style.border = "2px dashed #7f8c8d";
+sonucMetni.innerHTML = `<div style="color:#d35400; font-size:11px; margin-bottom:6px; font-weight:bold; width:100%; text-align:center;">⚠️ BU SÖZCÜK ${modMetni} SATIRINDA BULUNAMADI;<br>GENEL BİRİKTİRİCİDEN GETİRİLMİŞTİR:</div>`;
+} else {
+if(kumeTipi === "A"){ panel.className = "sonuc-paneli yanit-mavi"; }
+else { panel.className = "sonuc-paneli yanit-kirmizi"; }
+}
 
 let html = `<div class="sonuc-listesi">`;
 bulunanlar.forEach((b, index) => {
 html += `<div class="sonuc-maddesi">${index + 1}- <strong>${b.aranan}</strong> = <span style="color:red; font-size:14px; font-weight:bold;">${b.karsilik}</span></div>`;
 });
 html += `</div>`;
-sonucMetni.innerHTML = html;
+sonucMetni.innerHTML += html;
 } else {
-panel.className="sonuc-paneli yanit-bulunamadi";
-sonucMetni.innerHTML = `SÖZCÜK BULUNAMADI.<br><span style="font-size:11px;color:#555;">"${hamGirdi}" biriktiricimizde bulunamadı.</span>`;
+// Sözcük hiçbir katmanda yoksa
+panel.className = "sonuc-paneli yanit-bulunamadi";
+sonucMetni.innerHTML = `SÖZCÜK BULUNAMADI.<br><span style="font-size:11px;color:#555;">"${hamGirdi}" hiçbir biriktiricimizde bulunamadı.</span>`;
 oneriAlani.style.display = "block";
 document.getElementById('oneriGirdisi').value = "";
 document.getElementById('oneriGirdisi').placeholder = hamGirdi + " için Türkçe öneriniz";
@@ -1335,6 +1375,7 @@ yoneticiListesiniYenile();
 function temizleArama() {
 document.getElementById('sonucMetni').innerHTML="Arama sonuçları burada listelenecek...";
 document.getElementById('oneriAlani').style.display="none";
+document.getElementById('sonucPaneli').removeAttribute("style");
 document.getElementById('sonucPaneli').className="sonuc-paneli";
 }
 
