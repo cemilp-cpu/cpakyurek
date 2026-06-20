@@ -40,6 +40,33 @@ align-items: center;
 justify-content: space-between;
 }
 .kizil-yildiz { color: red; font-size: 14px; margin-right: 3px; }
+
+/* Yukarıya Sığdırılan Sayaç Kutuları */
+.ust-sayac-grubu {
+display: flex;
+gap: 5px;
+margin-bottom: 6px;
+justify-content: center;
+}
+.sayac-kutusu {
+flex: 1;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 4px;
+text-align: center;
+padding: 2px;
+font-size: 9px;
+font-weight: bold;
+color: #333;
+line-height: 1.1;
+}
+.sayac-kutusu span {
+display: block;
+color: #3f51b5;
+font-size: 12px;
+font-weight: 900;
+}
+
 .aciklama-kutusu {
 font-size: 11px;
 padding: 6px;
@@ -145,17 +172,6 @@ overflow-y: auto;
 .oneri-girdi { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
 .oneri-input { width: 60%; padding: 4px; font-size: 12px; border: 1px solid #555; border-radius: 4px; font-weight: bold; text-align: center; }
 
-.alt-sayac-alani {
-border-top: 1px solid rgba(0,0,0,.15);
-text-align: center;
-font-size: 10px;
-color: #2c3e50;
-font-weight: 600;
-background: #fff;
-border-radius: 5px;
-padding: 3px;
-}
-.alt-sayac-alani span { color: #e74c3c; font-weight: 900; font-size: 13px; }
 .mod-aktif { border: 1px solid #2c3e50; padding: 4px; border-radius: 5px; margin-bottom: 4px; text-align: center; font-weight: bold; font-size: 11px; width: 100%; box-sizing: border-box; text-transform: uppercase; }
 </style>
 </head>
@@ -164,11 +180,18 @@ padding: 3px;
 <div class="sol-ust-tanitici">
 <span><span class="kizil-yildiz">★</span>Cemil Pakyürek / Sü:3</span>
 </div>
+
+<div class="ust-sayac-grubu">
+<div class="sayac-kutusu"><span id="sayacGun">0</span>GEZİYOR</div>
+<div class="sayac-kutusu"><span id="sayacTop">0</span>GEZDİ</div>
+<div class="sayac-kutusu"><span id="sayacSozcuk">0</span>TOTAL SÖZCÜK</div>
+</div>
+
 <div id="modGosterge"></div>
-<div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir. Farklı sözcük önerilerinde bulunarak siz de katkıda bulunun. <br>Bu bir sözlük değil, SÖZCÜKLÜKTÜR.</div>
+<div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir...<br>Bu bir sözlük değil, SÖZCÜKLÜKTÜR.</div>
 
 <div class="arama-alani">
-<input type="text" id="girdi" placeholder="YABANCI KÖKENLİ VEYA SÖZCÜK SOR" autocomplete="off">
+<input type="text" id="girdi" placeholder="BOŞLUK" autocomplete="off">
 </div>
 
 <div class="buton-grubu">
@@ -201,14 +224,10 @@ padding: 3px;
 </div>
 </div>
 </div>
+   
+</div>
 
-<div class="alt-sayac-alani">
-GEZİYOR: <span id="sayacGun">0</span> | GEZDİ: <span id="sayacTop">0</span> | TOPLAM SÖZCÜK: <span id="sayacSozcuk">0</span>
-</div>
-</div>
-// ==========================================
-// TİRENG YAPISI - ÖZGÜN SÖZCÜK HAVUZLARINIZ
-// ==========================================
+<script>
 const sozluk = [];
 
 const sozlukSaglik = [
@@ -227,7 +246,7 @@ const sozlukSaglik = [
 { A: "REANİMASYON", B: "YENİDEN CANLANDIRMA" },
 { A: "AMATEM", B: "DÜŞÜNME YETENEĞİNİ UYUŞTURAN İÇKİ VE ÖZDEK BAĞIMLILIĞI" },
 { A: "HASTANE RANDEVUSU", B: "SAĞİLTIMEVİNDE SAĞLIK İÇİN BULUŞMA" },
-{ A: "HASTANE", B: "SAĞILTIMEVİ" },
+{ A: "HASTANE", B: "SAĞILTIMEV" },
 { A: "AİLE HEKİMLİĞİ", B: "BİRLİKTEYAŞAYANLARIN SAĞLIK BİLENİ" },
 { A: "DOKTOR", B: "SAĞLIK BİLEN" },
 { A: "KLİNİK NÖROFİZYOLOJİ", B: "YATARAK SİNİRSEL İŞLEV BOZUKLUKLARINI SAĞILTMA" },
@@ -347,7 +366,7 @@ const sozlukBilim = [
 { A: "ALEM", B: "EVREN" },
 { A: "ALET", B: "ARAÇ" },
 { A: "ALLAH", B: "BİLİNEMEZ" },
-{ A: "ALLOTROP", B: "ÖGECİĞİN FARKLI BİÇİNİMLEŞMELERİ" },
+{ A: "ALLOTROP", B: "ÖGECIĞİN FARKLI BİÇİNİMLEŞMELERİ" },
 { A: "ALLOY", B: "ALAŞIM" },
 { A: "ALTERNATİF", B: "SEÇENEK" },
 { A: "ALTİMETRE", B: "YÜKSEKLİK ÖLÇER" },
@@ -355,7 +374,7 @@ const sozlukBilim = [
 { A: "AMAÇ", B: "ERİM" },
 { A: "AMBULANS", B: "CANKURTARAN" },
 { A: "AMİR", B: "BUYURAN" },
-{ A: "AMORF", B: "BİÇİMSİZ" },
+{ A: "AMORF", B: "BİÇIIMSİZ" },
 { A: "AMORTİSÖR", B: "TİTREŞTİRMEZ" },
 { A: "AMPLİFİKATÖR", B: "YÜKSELTİCİ" },
 { A: "AMPLİTÜT", B: "GENLİK" },
@@ -369,7 +388,7 @@ const sozlukBilim = [
 { A: "ANTİPATİ", B: "KARŞIDUYGU" },
 { A: "ANTİTEZ", B: "KARŞISAV" },
 { A: "ANTİVİRÜS", B: "YAYILGAN BUYRUK BOZUCU KARŞITI" },
-{ A: "ANTROPOMORFİK", B: "TANIMLAYABİLENBİÇİMCİLİK" },
+{ A: "ANTROPOMORFİK", B: "TANIMLAYABİLENSEL" },
 { A: "ANYON", B: "EKSİ- YÜKLÜ ÖGECİK" },
 { A: "API APPLICATION INTERFACE", B: "UYGULAMA ÖNGÖRÜLEME ARAYÜZÜ" },
 { A: "ARABA", B: "DÖRT TEKERLİ TAŞIYICI" },
@@ -483,7 +502,7 @@ const sozlukBilim = [
 { A: "CAZİBE", B: "ÇEKİCİLİK" },
 { A: "CEDEL", B: "ÇEKİŞME" },
 { A: "CHANGE", B: "DEĞDE ÜSTÜ" },
-{ A: "CHEAP", B: "EDERİDÜŞÜK" },
+{ A: "CHEAP", B: "EDERIIDÜŞÜK" },
 { A: "CLOSED", B: "KAPALI" },
 { A: "COMPONENT", B: "BİLEŞEN" },
 { A: "ÇARE", B: "UMAR" },
@@ -550,7 +569,6 @@ const sozlukBilim = [
 { A: "OPEN", B: "AÇIK" },
 { A: "OPEN SOURCE", B: "AÇIK KAYNAK" },
 { A: "OTOMASYON", B: "KENDİLİĞİNDENLEŞTİRME" },
-{ A: "PARTİ", B: "GÜÇBENDE OLSUN İSTER" },
 { A: "POLARIZATION", B: "YÖNLENME" },
 { A: "POTANSİYEL", B: "SAKLI GÜÇ" },
 { A: "PRES", B: "BASINÇ" },
@@ -595,7 +613,7 @@ const sozlukBilim = [
 { A: "ÇEVRE MÜHENDİSİ", B: "ÇEVRE KURGULAMACASI" },
 { A: "ELEKTRİK MÜHENDİSİ", B: "EKSİCİKLENME KURGULAMACASI" },
 { A: "ELEKTRONİK MÜHENDİSİ", B: "EKSİCİK KURGULAMACASI" },
-{ A: "TRAFO", B: "GÜÇ BİLEŞENLERİ DÖNÜŞTÜRÜCÜCÜ" },
+{ A: "TRAFO", B: "GÜÇ BİLEŞENlerİ DÖNÜŞTÜRÜCÜCÜ" },
 { A: "JENERATÖR", B: "EKSİCİKLENME ÜRETECİ" },
 { A: "GENERATÖR", B: "EKSİCİKLENME ÜRETECİ" },
 { A: "FİZİK MÜHENDİSİ", B: "ÖGECİK İTİŞİM KURGULAMACASI" },
@@ -681,12 +699,10 @@ const sozlukCokluk = [
 { A: "SİNÜS", B: "BOŞLUK" }
 ];
 
-
 let aktifMod = "GENEL";
 const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam';
 const hafiza={getItem:k=>{try{return localStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
 
-// Türkçe harf eşleme motoru (Arama doğruluğu için arka planda kullanılır)
 function turkceBuyut(metin) {
 if (!metin) return "";
 let harfler = { "i": "İ", "ı": "I", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç" };
@@ -725,10 +741,9 @@ temizle();
 }
 }
 
-// ARANAN SÖZCÜĞÜ ÇİFT YÖNLÜ OLARAK SEPETE ATAN VE SIRALAYAN KESİN MOTOR
 function bul(){
 const girdiAlani = document.getElementById('girdi');
-const hamGirdi = girdiAlani.value.trim(); // Girilen ham sözcük
+const hamGirdi = girdiAlani.value.trim();
 const kelimeArama = turkceBuyut(hamGirdi);
 
 const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), kA=document.getElementById('kumeA'), kB=document.getElementById('kumeB'), panel=document.getElementById('sonucPaneli');
@@ -754,12 +769,10 @@ liste.forEach(k=>{
 const kA_Havuz=turkceBuyut(k.A.trim());
 const kB_Havuz=turkceBuyut(k.B.trim());
 
-// 1. Durum: Aranan A kümesinde bulundu -> Karşılığı B'den çekilir
 if(kA_Havuz === kelimeArama){
 bulunanlar.push({ aranan: k.A, karsilik: k.B });
 if(!kumeTipi) kumeTipi="A";
 }
-// 2. Durum: Aranan B kümesinde bulundu -> Karşılığı A'dan çekilir
 else if(kB_Havuz === kelimeArama){
 bulunanlar.push({ aranan: k.B, karsilik: k.A });
 if(!kumeTipi) kumeTipi="B";
@@ -771,7 +784,6 @@ sayaclariGuncelle(true);
 if(kumeTipi === "A"){ kA.className="kume aktif-a"; panel.className="sonuc-paneli yanit-mavi"; }
 else { kB.className="kume aktif-b"; panel.className="sonuc-paneli yanit-kirmizi"; }
 
-// Bulunanları uydurmadan, 1-, 2-, şeklinde sıralayarak sepete sergileme alanı
 let html = `<div class="sonuc-listesi">`;
 bulunanlar.forEach((b, index) => {
 html += `<div class="sonuc-maddesi">${index + 1}- <strong>${b.aranan}</strong> = <span style="color:red; font-size:15px; font-weight:bold;">${b.karsilik}</span></div>`;
