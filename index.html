@@ -218,6 +218,11 @@ font-size: 11px;
 <strong>Yönetici Paneli (Bulunamayan Öneriler):</strong>
 <div id="yoneticiListesi" class="yonetici-listesi">Henüz öneri yok.</div>
 <button onclick="onerileriTemizle()" style="margin-top:4px; font-size:9px; font-weight:bold;">Listeyi Temizle</button>
+<hr style="border:0; border-top:1px solid #ccc; margin:6px 0;">
+<strong>Sözcük Havuzu Düzenleme Girişi:</strong>
+<textarea id="yeniTopluGirdi" placeholder="Excel'den kopyaladığınız satırları buraya yapıştırın..." style="width:100%; height:50px; font-size:10px; box-sizing:border-box; margin-top:3px;"></textarea>
+<button onclick="havuzaTekilEkle()" style="margin-top:4px; font-size:10px; font-weight:bold; background:#2c3e50; color:white; border:none; padding:3px 6px; border-radius:3px; cursor:pointer;">Tekil Ekle ve Abece Sırala</button>
+<div id="eklemeDurumRaporu" style="font-size:10px; font-weight:bold; color:green; margin-top:3px;"></div>
 </div>
 
 <div class="arama-alani">
@@ -1314,7 +1319,6 @@ panel.removeAttribute("style"); panel.className="sonuc-paneli";
 
 if(!hamGirdi){ return; }
 
-// 1. ADIM: Seçili havuzcuğu belirleme
 let anaListe = [];
 let modMetni = aktifMod;
 if(aktifMod === "SAGLIK") { anaListe = sozlukSaglik; }
@@ -1322,14 +1326,13 @@ else if(aktifMod === "BILIM") { anaListe = sozlukBilim; }
 else if(aktifMod === "HAKLILIK") { anaListe = sozlukHaklilik; }
 else if(aktifMod === "TGID") { anaListe = sozlukTgid; }
 else if(aktifMod === "COKLUK") { anaListe = sozlukCokluk; modMetni = "ÇOKLUKLAR BİLİMİ"; }
-else { anaListe = sozluk; } // Mod GENEL ise temel havuz taranır
+else { anaListe = sozluk; }
 
 let bulunanlar = [];
 let kumeTipi = "";
 let gorulenKombinasyonlar = new Set();
 let seciliHavuzdaBulundu = false;
 
-// Önce kullanıcının tıkladığı özel satırda arıyoruz
 if (aktifMod !== "GENEL") {
 anaListe.forEach(k => {
 const kA_Havuz = esnekNormalize(k.A.trim());
@@ -1355,7 +1358,6 @@ seciliHavuzdaBulundu = true;
 });
 }
 
-// 2. ADIM: Seçili satırda yoksa veya mod GENEL ise, tüm havuzları tara
 if (!seciliHavuzdaBulundu) {
 let tumHavuzlar = [...sozluk, ...sozlukSaglik, ...sozlukBilim, ...sozlukHaklilik, ...sozlukTgid, ...sozlukCokluk];
 tumHavuzlar.forEach(k => {
@@ -1380,11 +1382,9 @@ if(!kumeTipi) kumeTipi = "B";
 });
 }
 
-// 3. ADIM: Ekranda listeleme ve akıllı renk kodlaması
 if(bulunanlar.length > 0){
 sayaclariGuncelle(true);
 
-// Öngörülü uyarı mantığı: Seçili satırda bulunamayıp genelden geldiyse bildir
 if (aktifMod !== "GENEL" && !seciliHavuzdaBulundu) {
 panel.style.backgroundColor = "#f5f5f5";
 panel.style.border = "2px dashed #7f8c8d";
@@ -1401,7 +1401,6 @@ html += `<div class="sonuc-maddesi">${index + 1}- <strong>${b.aranan}</strong> =
 html += `</div>`;
 sonucMetni.innerHTML += html;
 } else {
-// Sözcük hiçbir katmanda yoksa
 panel.className = "sonuc-paneli yanit-bulunamadi";
 sonucMetni.innerHTML = `SÖZCÜK BULUNAMADI.<br><span style="font-size:11px;color:#555;">"${hamGirdi}" hiçbir biriktiricimizde bulunamadı.</span>`;
 oneriAlani.style.display = "block";
@@ -1467,6 +1466,57 @@ if(confirm("Tüm öneri listesini temizlemek istediğinize emin misiniz?")) {
 hafiza.setItem(ONERI_KEY, "[]");
 yoneticiListesiniYenile();
 }
+}
+
+// ARKA PLANDAKİ TEKİLLİK VE SEÇİLİ HAVUZA EKLEME İŞLEVİ
+function havuzaTekilEkle() {
+const girdiAlani = document.getElementById('yeniTopluGirdi');
+const raporAlani = document.getElementById('eklemeDurumRaporu');
+const satirlar = girdiAlani.value.split('\n');
+
+let eklenenSayisi = 0;
+let tekrarEdenSayisi = 0;
+
+let hedefHavuz = sozluk;
+if(aktifMod === "SAGLIK") hedefHavuz = sozlukSaglik;
+else if(aktifMod === "BILIM") hedefHavuz = sozlukBilim;
+else if(aktifMod === "HAKLILIK") hedefHavuz = sozlukHaklilik;
+else if(aktifMod === "TGID") hedefHavuz = sozlukTgid;
+else if(aktifMod === "COKLUK") hedefHavuz = sozlukCokluk;
+
+satirlar.forEach(function(satir) {
+let temizSatir = satir.replace(/^[\d.\s]+/g, '').trim();
+if (temizSatir.length > 0) {
+let parcalar = temizSatir.split(/\s+(.+)/);
+let kelimeA = parcalar[0] ? parcalar[0].trim() : "";
+let kelimeB = parcalar[1] ? parcalar[1].trim() : "";
+
+if(kelimeA && !kelimeB) {
+kelimeB = "TANIMSIZ";
+}
+
+if(kelimeA && kelimeB) {
+let zatenVarMi = hedefHavuz.some(function(o) {
+return o.A.trim().toLowerCase('tr') === kelimeA.toLowerCase('tr');
+});
+
+if(!zatenVarMi) {
+hedefHavuz.push({ A: kelimeA, B: kelimeB });
+eklenenSayisi++;
+} else {
+tekrarEdenSayisi++;
+}
+}
+}
+});
+
+hedefHavuz.sort(function(a, b) {
+return a.A.localeCompare(b.A, 'tr');
+});
+
+sayaclariYukle();
+girdiAlani.value = "";
+raporAlani.innerHTML = `${aktifMod} havuzuna ${eklenenSayisi} yeni sözcük eklendi. ${tekrarEdenSayisi} mükerrer kelime engellendi.`;
 }
 
 function temizleArama() {
