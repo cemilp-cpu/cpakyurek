@@ -1462,20 +1462,17 @@ let yoneticiModu = false;
 const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', ONERI_KEY='sozcukluk_oneriler';
 const hafiza={getItem:k=>{try{return localStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
 
-function esnekNormalize(metin) {
+// Türkçe karakterleri tam koruyan kesin arama normalleştirme işlevi
+function tamNormalize(metin) {
 if (!metin) return "";
-let h = { "i": "İ", "ı": "I", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç" };
-let buyuk = metin.toLowerCase().replace(/[iışğüöç]/g, function(m) { return h[m]; }).toUpperCase();
-return buyuk
-.replace(/Ö/g, "O").replace(/İ/g, "I")
-.replace(/Ü/g, "U").replace(/Ç/g, "C")
-.replace(/Ğ/g, "G").replace(/Ş/g, "S");
-}
-
-function turkceBuyut(metin) {
-if (!metin) return "";
-let harfler = { "i": "İ", "ı": "I", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç" };
-return metin.toLowerCase().replace(/[iışğüöç]/g, function(h) { return harfler[h]; }).toUpperCase();
+return metin.trim()
+.toLocaleLowerCase('tr')
+.replace(/ı/g, 'i')
+.replace(/ö/g, 'o')
+.replace(/ü/g, 'u')
+.replace(/ç/g, 'c')
+.replace(/ğ/g, 'g')
+.replace(/ş/g, 's');
 }
 
 function sayaclariGuncelle(isSearch=false){
@@ -1512,8 +1509,8 @@ temizleArama();
 
 function bul(){
 const girdiAlani = document.getElementById('girdi');
-const hamGirdi = turkceBuyut(girdiAlani.value.trim());
-const esnekArama = esnekNormalize(hamGirdi);
+const hamGirdi = girdiAlani.value.trim();
+const normalizeArama = tamNormalize(hamGirdi);
 
 const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), panel=document.getElementById('sonucPaneli');
 sonucMetni.innerHTML=""; oneriAlani.style.display="none";
@@ -1537,10 +1534,10 @@ let seciliHavuzdaBulundu = false;
 
 if (aktifMod !== "GENEL") {
 anaListe.forEach(k => {
-const kA_Havuz = esnekNormalize(k.A.trim());
-const kB_Havuz = esnekNormalize(k.B.trim());
+const kA_Havuz = tamNormalize(k.A);
+const kB_Havuz = tamNormalize(k.B);
 
-if(kA_Havuz === esnekArama){
+if(kA_Havuz === normalizeArama){
 let anahtar = k.A + "|||" + k.B;
 if(!gorulenKombinasyonlar.has(anahtar)){
 gorulenKombinasyonlar.add(anahtar);
@@ -1548,7 +1545,7 @@ bulunanlar.push({ aranan: k.A, karsilik: k.B });
 if(!kumeTipi) kumeTipi = "A";
 seciliHavuzdaBulundu = true;
 }
-} else if(kB_Havuz === esnekArama){
+} else if(kB_Havuz === normalizeArama){
 let anahtar = k.B + "|||" + k.A;
 if(!gorulenKombinasyonlar.has(anahtar)){
 gorulenKombinasyonlar.add(anahtar);
@@ -1563,17 +1560,17 @@ seciliHavuzdaBulundu = true;
 if (!seciliHavuzdaBulundu) {
 let tumHavuzlar = [...sozluk, ...sozlukSaglik, ...sozlukBilim, ...sozlukHaklilik, ...sozlukTgid, ...sozlukCokluk];
 tumHavuzlar.forEach(k => {
-const kA_Havuz = esnekNormalize(k.A.trim());
-const kB_Havuz = esnekNormalize(k.B.trim());
+const kA_Havuz = tamNormalize(k.A);
+const kB_Havuz = tamNormalize(k.B);
 
-if(kA_Havuz === esnekArama){
+if(kA_Havuz === normalizeArama){
 let anahtar = k.A + "|||" + k.B;
 if(!gorulenKombinasyonlar.has(anahtar)){
 gorulenKombinasyonlar.add(anahtar);
 bulunanlar.push({ aranan: k.A, karsilik: k.B });
 if(!kumeTipi) kumeTipi = "A";
 }
-} else if(kB_Havuz === esnekArama){
+} else if(kB_Havuz === normalizeArama){
 let anahtar = k.B + "|||" + k.A;
 if(!gorulenKombinasyonlar.has(anahtar)){
 gorulenKombinasyonlar.add(anahtar);
@@ -1616,7 +1613,7 @@ setTimeout(() => { girdiAlani.focus(); girdiAlani.select(); }, 20);
 function oneriKaydet() {
 const oneriInput = document.getElementById('oneriGirdisi');
 const kayipSozcuk = oneriInput.dataset.kayipSozcuk;
-const kullaniciOnerisi = turkceBuyut(oneriInput.value.trim());
+const kullaniciOnerisi = oneriInput.value.trim();
 
 if(!kullaniciOnerisi) return;
 
@@ -1670,7 +1667,6 @@ yoneticiListesiniYenile();
 }
 }
 
-// ARKA PLANDAKİ TEKİLLİK VE SEÇİLİ HAVUZA EKLEME İŞLEVİ
 function havuzaTekilEkle() {
 const girdiAlani = document.getElementById('yeniTopluGirdi');
 const raporAlani = document.getElementById('eklemeDurumRaporu');
@@ -1699,7 +1695,7 @@ kelimeB = "TANIMSIZ";
 
 if(kelimeA && kelimeB) {
 let zatenVarMi = hedefHavuz.some(function(o) {
-return o.A.trim().toLowerCase('tr') === kelimeA.toLowerCase('tr');
+return tamNormalize(o.A) === tamNormalize(kelimeA);
 });
 
 if(!zatenVarMi) {
@@ -1743,3 +1739,4 @@ girdiAlani.focus();
 </script>
 </body>
 </html>
+
