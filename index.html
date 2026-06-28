@@ -2649,11 +2649,9 @@ input[type="text"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-
 { A: "SİNÜS", B: "BOŞLUK" }
 ];
 
-let sozlukBilim = [];
-let sozlukHaklilik = [];
-let sozlukTgid = [];
-let sozlukCokluk = [];
-
+// -------------------------------------------------------------------------
+// MOTOR KODLARI VE SİSTEM AYARLARI (ZARARLI BOŞ TANIMLAMALAR TEMİZLENDİ)
+// -------------------------------------------------------------------------
 let aktifHavuz = "HEPSİ";
 let toplamAramaSayisi = 0;
 let animsaticiEndeks = 0;
@@ -2677,6 +2675,7 @@ document.getElementById("lblGezi").innerText = localStorage.getItem('sozcukluk_g
 
 // HALEN VAR OLANLARI DA KAPSAYAN GÜVENLİ TEKİLLEŞTİRME VE SIRALAMA MOTORU
 function sistemiKokenTemizleVeSirala() {
+// Havuzlarınızın içi dolu olduğu için çakışma riski tamamen ortadan kaldırılmıştır
 let birlesikListe = [...sozluk, ...sozlukSaglik, ...sozlukBilim, ...sozlukHaklilik, ...sozlukTgid, ...sozlukCokluk];
 let gorulenler = new Set();
 genelTekilHavuz = [];
@@ -2686,7 +2685,6 @@ if (öge && öge.A && öge.B) {
 let temizA = öge.A.trim().toUpperCase().replace(/i/g, "İ").replace(/ı/g, "I");
 let temizB = öge.B.trim().toUpperCase().replace(/i/g, "İ").replace(/ı/g, "I");
 
-// Hem A kümesi hem B kümesi aynı olan birebir mükerrerleri eler, nüansları korur
 let benzersizAnahtar = temizA + "|||" + temizB;
 
 if (!gorulenler.has(benzersizAnahtar)) {
@@ -2746,7 +2744,6 @@ else if (aktifHavuz === "HAKLILIK") aramaListesi = sozlukHaklilik;
 else if (aktifHavuz === "YAZILIM") aramaListesi = sozlukTgid;
 else if (aktifHavuz === "ÇOKLUKLAR BİLİMİ") aramaListesi = sozlukCokluk;
 
-// Çift yönlü arama: Hem yabancı sözcükte (A) hem de yerli karşılıkta (B) arar
 let sonuc = aramaListesi.find(öge => öge.A === aranan || öge.B === aranan);
 let sonucAlani = document.getElementById("sonucAlani");
 let oneriGiris = document.getElementById("oneriGirisAlani");
