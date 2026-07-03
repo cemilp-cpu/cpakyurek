@@ -2,134 +2,158 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>YABAN / YALIN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BİZİM SÖZCÜKLÜK</title>
 <style>
-body{margin:0;padding:8px;font-family:-apple-system,sans-serif;background:#FFEB3B;display:flex;flex-direction:column;align-items:center;transform:scale(0.8);transform-origin:top center;width:125%}
-h1{margin:0 0 5px;font-size:14px}
-.kutu{width:260px;display:flex;gap:4px;margin-bottom:5px}
-input{flex:1;padding:7px;font-size:12px;border:1.5px solid #333;border-radius:6px;text-transform:uppercase}
-button{padding:7px 9px;font-size:11px;font-weight:bold;border:0;border-radius:6px}
-#bulBtn{background:#333;color:#FFEB3B}
-#baskaBtn{background:#666;color:#fff;width:260px}
-.yesnoBtn{background:#444;color:#fff;margin:0 2px;padding:5px 10px;font-size:11px}
-.sonuc{width:260px;margin-top:6px;display:flex;flex-direction:column;gap:4px;align-items:center}
-.kart{display:none;width:260px;padding:7px;border-radius:6px;text-align:center;font-weight:bold;font-size:13px}
-.s-kart{background:#2E7D32;color:#fff} /* S KÜMESİ = YEŞİL */
-.a-kart{background:#E53935;color:#fff}
-.b-kart{background:#1E88E5;color:#fff}
-.oneri,.soru{font-size:11px;color:#333;text-align:center}
-footer{margin-top:auto;padding-top:5px;font-size:9px}
+:root{ --sari:#FFFFE0; --turuncu:#FF9800; --mavi:#0052D4; --kirmizi:#D32F2F; --gri:#616161; --yesil:#2E7D32; }
+*{box-sizing:border-box}
+
+/* 1. GÖVDE SARI, EKRAN BEYAZ. TEK EKRANA SIĞDIRMA */
+html, body{ height:100%; overflow:hidden; } /* KAYDIRMA ÇUBUĞU YOK */
+body{ margin:0; padding:8px; font-family:Arial, sans-serif; background:var(--sari); display:flex; justify-content:center; align-items:center; }
+
+/* 2. BEYAZ KART = CEP TEL UYUMLU MAX YÜKSEKLİK */
+.kutu{ width:100%; max-width:420px; height:100%; max-height:740px; background:#fff; border-radius:16px; padding:12px; display:flex; flex-direction:column; gap:8px; position:relative; overflow:hidden; }
+
+/* 3. 3 SAYAÇ = KÜÇÜK PADDING İLE SIĞDIR */
+.ust-sayac{display:flex; gap:6px; font-size:11px; font-weight:800; text-align:center; flex-shrink:0}
+.ust-sayac div{flex:1; background:var(--sari); color:#000; padding:6px 4px; border-radius:6px; line-height:1.2}
+
+/* 4. MAVİ BANT */
+.mavi-bant{background:var(--mavi); color:#fff; font-size:11px; font-weight:700; padding:6px; text-align:center; border-radius:6px; line-height:1.3; flex-shrink:0}
+
+/* 5. TURUNCU BANT = YENİ METİN */
+.aranacak{background:var(--turuncu); color:#000; font-size:12px; font-weight:800; padding:6px; text-align:center; border-radius:6px; flex-shrink:0}
+
+/* 6. INPUT = YENİ PLACEHOLDER */
+input{ width:100%; padding:10px; font-size:14px; border:1.5px solid #ccc; border-radius:8px; text-align:center; font-weight:700; text-transform:none; flex-shrink:0; }
+
+/* 7. DÜĞMELER = HAP + KENARLARA YAPIŞIK */
+.btn-row{display:flex; gap:10px; justify-content: space-between; flex-shrink:0}
+.btn-row button{ padding:10px 22px; font-size:13px; font-weight:900; border:0; border-radius:999px; color:#fff; cursor:pointer; }
+#bulBtn{background:var(--gri)} /* BUL = SOLA */
+#baskaBtn{background:var(--kirmizi)} /* BAŞKA = SAĞA */
+
+/* 8. SONUÇ KUTUSU = TURUNCU GİBİ CANLI. ESNEK YÜKSEKLİK */
+.sonuc-kutu{
+border:0; border-radius:8px; flex-grow:1; /* BOŞLUĞU DOLDUR, TAŞMA */
+padding:10px; font-size:13px; color:#fff; background:var(--turuncu); /* TURUNCU */
+font-weight:800; text-align:center; display:flex; flex-direction:column; justify-content:center; gap:6px; overflow:auto; /* İçerik taşarsa sadece burası kayar */
+}
+.kart{padding:8px; border-radius:6px; font-weight:800; text-align:center; color:#fff; font-size:13px}
+.s-kart{background:var(--yesil)}
+.a-kart{background:#444}
+.b-kart{background:var(--mavi)}
+.yesnoBtn{background:#fff;color:#000;margin:0 4px;padding:6px 14px;font-size:12px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+
+/* 9. YÖNETİCİ = SOL ALT UFAK */
+.yonetici-btn{ position:absolute; left:12px; bottom:12px; background:var(--gri); color:#fff; border:0; border-radius:6px; padding:4px 8px; font-size:10px; font-weight:700; cursor:pointer; }
 </style>
 </head>
 <body>
-<h1>🐱 YABAN / YALIN</h1>
 <div class="kutu">
-<input id="kelime" placeholder="SÖZCÜK SOR..." autocomplete="off" autocapitalize="characters">
-<button id="bulBtn">BUL</button>
-</div>
-<button id="baskaBtn">BAŞKA SÖZCÜK SOR</button>
 
-<div class="sonuc">
-<div id="sKart" class="kart s-kart"></div>
-<div id="aKart" class="kart a-kart"></div>
-<div id="bKart" class="kart b-kart"></div>
-<div id="oneri" class="oneri"></div>
-<div id="soru" class="soru"></div>
+<div class="ust-sayac">
+<div id="geziyor">0<br>GEZİYOR OLAN</div>
+<div id="gezmis">0<br>GEZMİŞ OLAN</div>
+<div id="toplam">0<br>TOPLAM SÖZCÜK</div>
 </div>
-<footer>1873 İTÜ Cemil Pakyürek</footer>
+
+<div class="mavi-bant">
+Önerilen yalın Türkçe sözcükler önerilir.<br>
+Bu bir SÖZLÜK değil, SÖZCÜKLÜKTÜR.
+</div>
+
+<!-- 1. YAZI DEĞİŞTİ -->
+<div class="aranacak">YABANCI KÖKENLİ SÖZCÜK LAÇ, ÖNERİLEN YALIN TÜRKÇE SÖZCÜĞÜ ÖĞREN</div>
+
+<!-- 2. PLACEHOLDER DEĞİŞTİ -->
+<input id="kelime" placeholder="Yabancı kökenli sözcüğü yaz." autocomplete="off" autocapitalize="off" spellcheck="false">
+
+<div class="btn-row">
+<button id="bulBtn">BUL</button>
+<button id="baskaBtn">BAŞKA SÖZCÜK SOR</button>
+</div>
+
+<!-- 3. SONUÇ TURUNCU -->
+<div id="sonuc" class="sonuc-kutu">Arama sonuçları burada listelenecek...</div>
+
+<button class="yonetici-btn" onclick="alert('BİLGİ İŞLER ÖNERİ TOPLAMA')">YÖNETİCİ</button>
+
+</div>
 
 <script>
-const sozluk = [ // BU S KÜMESİ = HAVUZ
-{ S: "ADALET", A: "ADALET", B: "GERÇEKLERE BAĞLILIK" }, 
-{ S: "ADAM", A: "ADAM", B: "TANIMLAYABİLEM ER" }, 
-{ S: "ADAPTASYON", A: "ADAPTASYON", B: "UYUM" }, 
-{ S: "ALLAH", A: "ALLAH", B: "BİLİNEMEZ" }, 
-{ S: "ASİMTOT", A: "ASİMTOT", B: "DEĞEMEZ" }, 
-{ S: "ATOM", A: "ATOM", B: "ÖGECİK" }, 
-{ S: "BASKETBOL", A: "BASKETBOL", B: "SEPETTOPU" }, 
-{ S: "BİYOLOJİ", A: "BİYOLOJİ", B: "CANLILIK BİLİMİ" }, 
-{ S: "CAT", A: "CAT", B: "KEDİ" }, 
-{ S: "CEBİR", A: "CEBİR", B: "SESADLI İŞLEMLER" }, 
-{ S: "DOÇENT", A: "DOÇENT", B: "BİLGEN YARDIMCISI" }, 
-{ S: "ELEKTRON", A: "ELEKTRON", B: "EKSİCİK" }, 
-{ S: "FAKÜLTE", A: "FAKÜLTE", B: "B,L,M DALI" }, 
-{ S: "FİZİK", A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" }, 
-{ S: "FONKSİYON", A: "FONKSİYON", B: "DEĞER DÖNÜŞTÜREN" }, 
-{ S: "FUNCTION", A: "FUNCTION", B: "DEĞER DÖNÜŞTÜREN" }, 
-{ S: "FUTBOL", A: "FUTBOL", B: "AYAKTOPU" }, 
-{ S: "GEOMETRİ", A: "GEOMETRİ", B: "BİÇİMLER BİLİMİ" }, 
-{ S: "GOD", A: "GOD", B: "BİLİNEMEZ" }, 
-{ S: "HACİM", A: "HACİM", B: "OYLUM" }, 
-{ S: "HARF", A: "HARF", B: "SES ADI" }, 
-{ S: "HÜCRE", A: "HÜCRE", B: "CANLICIK" }, 
-{ S: "İNSAN", A: "İNSAN", B: "TANIMLAYABİLEN" }, 
-{ S: "KİMYA", A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" }, 
-{ S: "KOSİBÜS", A: "KOSİBÜS", B: "KOMŞU BOŞLUK" }, 
-{ S: "MANİTU", A: "MANİTU", B: "BİLİNEMEZ" }, 
-{ S: "MATEMATİK", A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" }, 
-{ S: "MOLEKÜL", A: "MOLEKÜL", B: "BİLEŞİKCİK" }, 
-{ S: "NÖTRON", A: "NÖTRON", B: "AĞIRCIK" }, 
-{ S: "PİRAMİT", A: "PİRAMİT", B: "ÇATKI" }, 
-{ S: "PRİZMA", A: "PRİZMA", B: "OYLUMGER" }, 
-{ S: "PROFESÖR", A: "PROFESÖR", B: "BİLGEN" }, 
-{ S: "PROTON", A: "PROTON", B: "ARTICIK" }, 
-{ S: "RADYO", A: "RADYO", B: "ÜNALGI" }, 
-{ S: "RAKAM", A: "RAKAM", B: "AÇISAY" }, 
-{ S: "SİNÜS", A: "SİNÜS", B: "BOŞLUK" }, 
-{ S: "TANJANT", A: "TANJANT", B: "EĞİM" }, 
-{ S: "TANRI", A: "TANRI", B: "BİLİNEMEZ" }, 
-{ S: "TELEVİZYON", A: "TELEVİZYON", B: "SANALALGI" }, 
-{ S: "TRİGONOMETRİ", A: "TRİGONOMETRİ", B: "AÇILAR BİLİMİ" }, 
-{ S: "ÜNİVERSİTE", A: "ÜNİVERSİTE", B: "BİLİMKENT" } 
-
-
-
+const sozluk = [ // BİZİM SÖZCÜKLERİMİZ
+{ S: "HESAP", A: "HESAP", B: "SAYIŞMA" },
+{ S: "MATEMATİK", A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" },
+{ S: "HACİM", A: "HACİM", B: "OYLUM" },
+{ S: "PRİZMA", A: "PRİZMA", B: "OYLUMGER" },
+{ S: "PİRAMİT", A: "PİRAMİT", B: "ÇATKI" },
+{ S: "BİLGİSAYAR", A: "BİLGİSAYAR", B: "BİLGİ İŞLER" },
+{ S: "TELEVİZYON", A: "TELEVİZYON", B: "SANALALGI" },
+{ S: "RADYO", A: "RADYO", B: "ÜNALGI" },
+{ S: "TURENG", A: "TURENG", B: "SÖZCÜKÇÜ" }
 ];
 
 const kelime = document.getElementById('kelime');
-const sKart = document.getElementById('sKart');
-const aKart = document.getElementById('aKart');
-const bKart = document.getElementById('bKart');
-const oneri = document.getElementById('oneri');
-const soru = document.getElementById('soru');
+const sonuc = document.getElementById('sonuc');
+const geziyorEl = document.getElementById('geziyor');
+const gezmisEl = document.getElementById('gezmis');
+const toplamEl = document.getElementById('toplam');
 let bekleyen = '';
 
-function temizle(){
-sKart.style.display=aKart.style.display=bKart.style.display='none';
-oneri.textContent=''; soru.innerHTML='';
-kelime.focus(); // Kutuyu silmiyoruz
+const bugün = new Date().toISOString().slice(0,10);
+let stats = JSON.parse(localStorage.getItem('bizimSozcukluk_SON') || '{"gezmis":0,"bugun":"", "geziyor":0, "gezmisSet":[]}');
+if(stats.bugun !== bugün){ stats.bugun = bugün; stats.geziyor = 0; }
+function guncelleSayac(){
+geziyorEl.innerHTML = `${stats.geziyor}<br>GEZİYOR OLAN`;
+gezmisEl.innerHTML = `${stats.gezmis}<br>GEZMİŞ OLAN`;
+toplamEl.innerHTML = `${sozluk.length}<br>TOPLAM SÖZCÜK`;
+localStorage.setItem('bizimSozcukluk_SON', JSON.stringify(stats));
 }
 
+const normalize = s => s.toUpperCase().replace(/\s+/g, ''); // TURENG = tu reng
+
+function temizle(){ sonuc.innerHTML = 'Arama sonuçları burada listelenecek...'; kelime.focus(); }
+
 function bul(){
-const q = kelime.value.toUpperCase().trim();
-temizle();
+const q = normalize(kelime.value.trim());
 if(!q) return;
 
-const kayit = sozluk.find(k => k.S === q); // S KÜMESİNDE ARA
+const kayit = sozluk.find(k => normalize(k.S) === q);
 
-if(kayit){ // VARSA: BULUNDU
-sKart.textContent = 'BULUNDU: ' + kayit.S;
-aKart.textContent = 'YABAN: ' + kayit.A;
-bKart.textContent = 'YALIN: ' + kayit.B;
-sKart.style.display=aKart.style.display=bKart.style.display='block';
-} else { // YOKSA: ÖNERİ TOPLA
-bekleyen = q;
-aKart.textContent = 'BULUNAMADI';
-aKart.style.display = 'block';
-soru.innerHTML = `Öneriniz var mı? <button class="yesnoBtn" onclick="evet()">EVET</button><button class="yesnoBtn" onclick="hayir()">HAYIR</button>`;
+if(kayit){
+sonuc.innerHTML = `
+<div class="kart s-kart">BULUNDU: ${kayit.S}</div>
+<div class="kart a-kart">YABAN: ${kayit.A}</div>
+<div class="kart b-kart">YALIN: ${kayit.B}</div>
+`;
+if(!stats.gezmisSet.includes(kayit.S)){ stats.gezmisSet.push(kayit.S); stats.gezmis++; }
+stats.geziyor++; guncelleSayac();
+} else {
+bekleyen = kelime.value.trim().toUpperCase();
+// 4. BULUNAMADI DÜZENEĞİ = MAILTO cemilp@gmail.com
+sonuc.innerHTML = `
+<div class="kart a-kart">BULUNAMADI: ${bekleyen}</div>
+YALIN ÖNERİN VAR MI?
+<button class="yesnoBtn" onclick="evet()">EVET, GÖNDER</button>
+<button class="yesnoBtn" onclick="hayir()">HAYIR</button>
+`;
 }
 }
 
 function evet(){
-location.href = `mailto:cemilp@gmail.com?subject=${encodeURIComponent('YENİ SÖZ: '+bekleyen)}&body=${encodeURIComponent('{ S: "'+bekleyen+'", A: "'+bekleyen+'", B: "" }')}`;
+location.href = `mailto:cemilp@gmail.com?subject=${encodeURIComponent('YENİ SÖZ: '+bekleyen)}&body=${encodeURIComponent('S KÜMESİ ÖNERİ\n\n{ S: "'+bekleyen+'", A: "'+bekleyen+'", B: "" }')}`;
 }
-function hayir(){ soru.textContent = 'Teşekkürler.'; }
+function hayir(){ sonuc.innerHTML = 'Teşekkürler. S KÜMESİ büyüyor.'; }
 
 document.getElementById('bulBtn').onclick = bul;
 kelime.onkeypress = e => { if(e.key==='Enter') bul(); };
 document.getElementById('baskaBtn').onclick = () => { kelime.value=''; temizle(); };
+
+guncelleSayac();
 kelime.focus();
 </script>
 </body>
 </html>
+
