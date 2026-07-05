@@ -3,104 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YABANCIYA YALIN SÖZCÜKLER</title>
+<title>SÖZLÜK değil, SÖZCÜKLÜK</title>
 <style>
-body { background: #FF4500; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial; }
-.kutu { background: white; width: 90%; max-width: 400px; border: 5px solid #FFD700; border-radius: 15px; padding: 10px; box-shadow: 0 0 20px #000; }
-.baslik { background: red; color: white; padding: 8px; font-size: 18px; font-weight: bold; text-align: center; }
-.mavi { background: blue; color: white; padding: 8px; font-size: 14px; text-align: center; }
-.turuncu { background: #FF4500; color: white; padding: 6px; font-size: 16px; font-weight: bold; text-align: center; }
-.arama { width: 95%; padding: 8px; margin: 8px 0; font-size: 16px; border: 2px solid orange; }
-.btn { background: green; color: white; border: none; padding: 8px 10px; margin: 3px; font-size: 14px; border-radius: 5px; cursor: pointer; }
-.btn-baska { background: orange; }
-.sonuc { margin-top: 10px; font-size: 16px; text-align: left; min-height: 60px; }
-.oneri-kutu { display:none; margin-top:10px; }
-.oneri-kutu textarea { width: 95%; height: 60px; }
-.geri { background: #FFD700; border: 2px solid orange; padding: 8px; margin-top: 10px; font-size: 13px; }
+body {
+background: #ffffff; /* Arka plan tamamen beyaz */
+margin: 0;
+padding: 0;
+height: 100vh;
+width: 100vw;
+font-family: Arial, sans-serif;
+overflow: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.kutu {
+background: white;
+width: 95%;
+max-width: 400px;
+border: 2px solid #000; /* Sadece ince siyah çerçeve */
+border-radius: 10px;
+padding: 15px;
+display: flex;
+flex-direction: column;
+height: 96vh;
+justify-content: space-between;
+}
+
+.baslik {
+background: #FFFF00; /* Kanarya sarısı */
+color: black;
+padding: 8px;
+font-size: 18px;
+font-weight: normal;
+text-align: center;
+border-radius: 4px;
+margin-bottom: 8px;
+border: 1px solid #000;
+}
+
+.mavi {
+background: #e0e0e0; /* Gri tonlu, renksiz */
+color: black;
+padding: 6px;
+font-size: 13px;
+text-align: center;
+border-radius: 4px;
+margin-bottom: 10px;
+line-height: 1.4;
+font-weight: normal;
+border: 1px solid #000;
+}
+
+.turuncu {
+background: #f0f0f0; /* Gri tonlu */
+color: black;
+padding: 6px;
+font-size: 16px;
+font-weight: normal;
+text-align: center;
+border-radius: 4px;
+margin-bottom: 8px;
+border: 1px solid #000;
+}
+
+.arama {
+width: 96%;
+padding: 10px;
+margin: 5px 0;
+font-size: 16px;
+border: 1px solid #000;
+border-radius: 4px;
+box-sizing: border-box;
+font-weight: normal;
+background: #fff;
+color: #000;
+}
+
+.btn {
+background: #f0f0f0; /* Gri tonlu butonlar */
+color: black;
+border: 1px solid #000;
+padding: 10px;
+margin: 4px 0;
+font-size: 14px;
+border-radius: 4px;
+cursor: pointer;
+font-weight: normal;
+width: 100%;
+}
+
+.btn:hover {
+background: #e0e0e0;
+}
+
+.btn-baska { background: #d0d0d0; }
+.btn-yonetici { background: #333; color: white; border: none; }
+.btn-olustur { background: #555; color: white; border: none; }
+
+.sonuc {
+margin-top: 10px;
+font-size: 16px;
+text-align: left;
+min-height: 50px;
+background: #fff;
+padding: 10px;
+border-radius: 4px;
+border: 1px solid #000;
+overflow-y: auto;
+max-height: 120px;
+font-weight: normal;
+}
+
+.oneri-kutu {
+display: none;
+margin-top: 10px;
+background: #fffbe6;
+padding: 10px;
+border-radius: 4px;
+border: 1px solid #000;
+}
+
+.oneri-kutu textarea {
+width: 96%;
+height: 60px;
+font-size: 14px;
+border: 1px solid #000;
+border-radius: 3px;
+font-weight: normal;
+}
+
+.geri {
+background: #f0f0f0;
+border: 1px solid #000;
+padding: 8px;
+margin-top: 5px;
+font-size: 12px;
+text-align: center;
+border-radius: 4px;
+font-weight: normal;
+}
+
+.imza {
+font-size: 11px;
+text-align: center;
+color: #333;
+margin-top: 5px;
+font-style: italic;
+font-weight: normal;
+}
 </style>
 </head>
 <body>
 <div class="kutu">
 <div class="baslik">YABANCIYA YALIN SÖZCÜKLER</div>
 <div class="mavi">Bu bir sözlük değil, SÖZCÜKLÜKTÜR.<br>Önerilen yalın Türkçe kelimeyi seç.</div>
+
 <div class="turuncu">ARAMA</div>
-<input id="kelime" class="arama" placeholder="Kelime yaz..." onkeypress="if(event.key==='Enter'){bul()}">
+<input id="kelime" class="arama" placeholder="Sözcük yaz..." onkeypress="if(event.key==='Enter'){bul()}">
+
 <button class="btn" onclick="bul()">BUL</button>
+<button class="btn btn-baska" onclick="baskaCumle()">BAŞKA SÖZCÜK SOR</button>
 <button class="btn" onclick="onerKutusu()">ÖNERİ GÖNDER</button>
-<button class="btn btn-baska" onclick="baskaCumle()">BAŞKA CÜMLE</button>
+
 <div id="sonuc" class="sonuc"></div>
+
 <div id="oneri" class="oneri-kutu">
 <b>YALIN TÜRKÇE ÖNERİ:</b><br>
-<textarea id="oneriText"></textarea><br>
+<textarea id="oneriText" placeholder="Önerinizi buraya yazın..."></textarea><br>
 <button class="btn" onclick="gonderOneri()">GÖNDER</button>
 </div>
+
+<button class="btn btn-olustur" onclick="olusturucuModu()">OLUŞTURUCU- 1973 İTÜ Cemil Pakyürek</button>
+
 <div class="geri">
 <b>GERİ BİLDİRİM:</b> Bu sözlük yabancı kelimeleri yalın Türkçe ile açıklar.
 </div>
+
+<div class="imza">1973 İTÜ Cemil Pakyürek</div>
+
+<button class="btn btn-yonetici" onclick="yoneticiGirisi()">YÖNETİCİ GİRİŞİ</button>
 </div>
+
 <script>
 const sozluk = {
-{ "atrofi" : "yetersizleşme" }, 
-{ "algoritma" : "işlem adıkları" }, 
-{ "angle" : "açı" }, 
-{ "asimtod" : "değemez" }, 
-{ "atom" : "ögecik" }, 
-{ "atom altı" : "ögecik altı" }, 
-{ "cap" : "kap" }, 
-{ "capacitor" : "kondansatör" }, 
-{ "capsule" : "kapsül" }, 
-{ "car" : "araba" }, 
-{ "card" : "kart" }, 
-{ "cardiology" : "kalp bilimi" }, 
-{ "care" : "bakım" }, 
-{ "cebir" : "sesadlı işlemler" }, 
-{ "coherence" : "eşevre" }, 
-{ "diferansiyel denklem" : "noktasallaştırılmiş denklem" }, 
-{ "druzen" : "GÖZOLEN" }, 
-{ "elektron" : "eksicik" }, 
-{ "fizik" : "ögeciksel itişim" }, 
-{ "fonksiyon" : "değer dönüştüren" }, 
-{ "geometri" : "biçimler bilimi" }, 
-{ "hacim" : "oylum" }, 
-{ "harf" : "sesadı" }, 
-{ "hassas" : "duyarlı" }, 
-{ "integre" : "boyutsuzlaştırılmış toplam" }, 
-{ "kimya" : "ögecikse birleşim" }, 
-{ "koroid" : "ŞARLAK" }, 
-{ "kosinüs" : "komşu boşluk" }, 
-{ "lineer" : "doğrusal" }, 
-{ "macula" : "öziç" }, 
-{ "matematik" : "çokluklar bilimi" }, 
-{ "mononom" : "tek terimli" }, 
-{ "nolineer" : "doğrusal olmayan" }, 
-{ "nötron" : " ağırcık" }, 
-{ "oct" : "ışınla eş evreli kesit gösterim" }, 
-{ "piramit" : "çatkı" }, 
-{ "polinom" : "çokterimli" }, 
-{ "prizma" : "oylumger" }, 
-{ "proton" : "artıcık" }, 
-{ "rakam" : "açısay" }, 
-{ "rektangıl" : "dikdörtgen" }, 
-{ "retina" : "AĞ KATMANI" }, 
-{ "sinüs" : "boşluk" }, 
-{ "square" : "kare" }, 
-{ "tanjant" : "eğim" }, 
-{ "tomografi" : "kesit gösterim" }, 
-{ "triangle" : "üçgen" }, 
-{ "trigonometri" : "açılar bilimi" }, 
-{ "vitreus" : "CAMSI SIVI" }, 
-{ "zaviye" : "açı" } 
+"atrofi": "yetersizleşme",
+"algoritma": "işlem adıkları",
+"angle": "açı",
+"asimtod": "değemez",
+"vitreus": "CAMSI SIVI",
+"zaviye": "açı",
+"elektron": "eksicik",
+"proton": "artıcık",
+"nötron": "ağırcık",
+"atom": "ögecik",
+"fizik": "ögeciksel itişim"
+};
 
-  };
+function yoneticiGirisi() {
+let sifre = prompt("Yönetici şifresini girin:");
+if (sifre === "111111") {
+alert("Giriş başarılı! Yönetici paneli açıldı.");
+} else {
+alert("Hatalı şifre.");
+}
+}
+
+function olusturucuModu() {
+let yeniKelime = prompt("Yeni yabancı kelime girin:");
+if (yeniKelime) {
+let yeniAnlam = prompt(yeniKelime + " için yalın Türkçe anlamını girin:");
+if (yeniAnlam) {
+sozluk[yeniKelime.toLowerCase()] = yeniAnlam;
+alert("Kelime havuza eklendi: " + yeniKelime + " = " + yeniAnlam);
+}
+}
+}
+
 function bul() {
 let k = document.getElementById("kelime").value.toLowerCase().trim();
 let s = document.getElementById("sonuc");
-if(sozluk[k]){ s.innerHTML = "<b>" + k + "</b> = " + sozluk[k]; }
-else { s.innerHTML = "Kelime bulunamadı. Öneri gönderebilirsin."; }
+
+if (!k) {
+s.innerHTML = "Lütfen bir kelime yazın.";
+return;
 }
-function onerKutusu(){ document.getElementById("oneri").style.display="block"; }
-function gonderOneri(){ alert("Teşekkürler! Öneriniz alındı."); document.getElementById("oneri").style.display="none"; document.getElementById("oneriText").value=""; }
-function baskaCumle(){ document.getElementById("kelime").value=""; document.getElementById("sonuc").innerHTML=""; }
+
+if (sozluk[k]) {
+s.innerHTML = "<b>" + k + "</b> = " + sozluk[k];
+s.style.color = "#000"; /* Siyah çıktı */
+} else {
+s.innerHTML = "Kelime bulunamadı. 'Öneri Gönder' ile ekleyebilirsiniz.";
+s.style.color = "#000"; /* Siyah çıktı */
+}
+}
+
+function onerKutusu() {
+document.getElementById("oneri").style.display = "block";
+document.getElementById("sonuc").innerHTML = "";
+}
+
+function gonderOneri() {
+let metin = document.getElementById("oneriText").value;
+if (metin.trim() === "") {
+alert("Lütfen önerinizi yazın.");
+return;
+}
+alert("Teşekkürler! Öneriniz alındı: " + metin);
+document.getElementById("oneri").style.display = "none";
+document.getElementById("oneriText").value = "";
+}
+
+function baskaCumle() {
+document.getElementById("kelime").value = "";
+document.getElementById("sonuc").innerHTML = "";
+document.getElementById("sonuc").style.color = "#000";
+document.getElementById("oneri").style.display = "none";
+}
 </script>
 </body>
 </html>
