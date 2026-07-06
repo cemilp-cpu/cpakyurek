@@ -1,274 +1,997 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="iso-8859-9">
-<title>Kendi Sanalyöreni Kendin Yap</title>
-<style type="text/css">
-h3 { color: blue; }
-h2 { color: green; }
-p { color: black; font-size: 25px; }
-body { background-color: white; }
-h1 { color: black; font-size: 50px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanal Yöre - SÖZCÜKLÜK</title>
+<style>
+html, body {background:#fff;margin:0;padding:0;min-height:100vh;font-family:sans-serif;display:flex;justify-content:center;align-items:center}
+.ana-konteynir{width:95%;max-width:500px;background:#ff0;padding:12px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1);box-sizing:border-box;max-height:95vh;overflow-y:auto}
+.sol-ust-tanitici{text-align:left;font-size:11px;font-weight:bold;color:#333;margin-bottom:6px}
+.kizil-yildiz{color:red;font-size:12px;margin-right:2px}
+.aciklama-kutusu{font-size:13px;background:#add8e6;padding:8px;border-radius:8px;margin-bottom:10px;border:1px solid #b0c4de;font-weight:bold;text-align:center;line-height:1.3}
+input{width:100%;padding:9px;border:2px solid #d4c4a1;border-radius:8px;font-size:17px;outline:none;box-sizing:border-box;text-align:center;text-transform:uppercase}
+.buton-satiri{display:flex;gap:5px;margin-bottom:10px;justify-content:center;flex-wrap:wrap}
+.buton-satiri button{flex:1;min-width:105px;padding:9px 6px;font-weight:bold;font-size:11px;border:none;border-radius:8px;cursor:pointer}
+.btn-bul{background:#2c3e50;color:#fff}
+.btn-yeni{background:red;color:#fff}
+.btn-saglik{background:#27ae60;color:#fff}
+.btn-bilim{background:#8e44ad;color:#fff}
+.kumeler{display:flex;gap:12px;margin-bottom:10px;justify-content:center}
+.kume{flex:1;padding:7px;border:2px solid #d4c4a1;border-radius:10px;background:#fff;opacity:.2;text-align:center;position:relative;transition: all 0.3s ease;}
+.kume strong{font-size:12px;display:block}
+.kume small{font-size:10px;display:block;color:#666;margin-top:3px}
+.ok{font-size:14px;display:none;position:absolute;left:5px;top:50%;transform:translateY(-50%)}
+.aktif-a{opacity:1!important;border-color:#00f!important;background:#e6e6ff!important;box-shadow:0 0 8px #00f}
+.aktif-a.ok{display:block;color:#00f}
+.aktif-b{opacity:1!important;border-color:red!important;background:#ffe6e6!important;box-shadow:0 0 8px red}
+.aktif-b.ok{display:block;color:red}
+.sonuc-paneli{padding:10px;border-radius:8px;background:#fff;border:1px solid #d4c4a1;min-height:55px;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:10px}
+#sonucMetni{font-size:15px;font-weight:bold;text-align:center;line-height:1.3;width:100%;color:#2c3e50}
+.sonuc-listesi{text-align:left;max-height:150px;overflow-y:auto;margin-top:8px;width:100%}
+.sonuc-maddesi{padding:5px;margin-bottom:4px;border-bottom:1px dashed #ccc;font-size:14px;color:#2c3e50}
+.yanit-mavi{background:#add8e6!important;color:#2c3e50!important;border:2px solid #00f}
+.yanit-kirmizi{background:#ffe6e6!important;color:#2c3e50!important;border:2px solid red}
+.yanit-bulunamadi{background:#fdfae5!important;color:#333!important;border:2px solid #e67e22}
+.oneri-bolumu{display:none;width:100%;margin-top:6px;text-align:center}
+.oneri-girdi{display:flex;gap:4px;justify-content:center;margin-top:5px}
+.oneri-input{width:60%;padding:5px;font-size:13px;border:2px solid #2c3e50;border-radius:6px}
+.alt-sayac-alani{margin-top:8px;border-top:1px solid rgba(0,0,0,.15);padding-top:6px;text-align:center;font-size:12px;color:#2c3e50;font-weight:600;line-height:1.6}
+.alt-sayac-alani span{color:#e74c3c;font-weight:900;font-size:18px}
+.mod-aktif{border:2px solid #2c3e50;padding:5px;border-radius:5px;margin-bottom:8px;text-align:center;font-weight:bold;font-size:12px}
 </style>
 </head>
-<body bgcolor="beyaz">
-
-<h1>KENDİ SANALYÖRENİ KENDİN YAP</h1>
-
-<h2>PAKYÜREK Sanalyöre</h2>
-<p>PAKYÜREK Sanalyöre enbüyükten bir küçük h2 ile yazıldı</p>
-
-<p>Her şeyden önce, head=baş bölümünde yapılan tüm biçim tanımları bu belgenin her yerinde etkilidir.</p>
-<p>Var olabilecek diğer belgelerinde etkili olmayacaktır</p>
-
-<h3>Bu başlık at da, diğer h3 ile tanımlanmış başlık atlar gibi, mavi renktedir.</h3>
-<p>Süreç başlatanlan yazılarının tümü kırmızı ve 25 noktacık yazacak</p>
-
-<p>Bölüm sonunda değerlendirme yapalım.</p>
-
-<p><strong>&lt;head&gt; baş</strong> buyrukları arasında yazılabilecek, yazılması gereken, 7 adet buyruk ve niteleyicileri ile alacağı değerleri, bilgi işlerlere- ikili tabanlı düzeneklere - yaptıracaklarını ortaya koymaya çalıştım.</p>
-
-<p>Görüldüğü gibi <strong>&lt;head&gt; baş</strong> bölümünde Sanalyöremizin nitelikleri ile ilgili veriler diğer iki tabanlı düzeneklere iletilmiş olur.</p>
-
-<p>Adı, yazarı, dil(ler)i, cep-belleği kullanıp kullanmayacağı, güncellenme tarihi, görüntüye girerken, çıkarken nasıl davranacağı, yararlanma hakkı kimin, biçim bilgileri hangi belgede saklı, yada biçim bilgileri, canlımsıcılara dolaşma olanakları verilip, verilmediği, içerik damıtığı, yazılım dli kullanılıyorsa hangi diller in kullanılacağı , yazılım kurallarına uygun olarak ikili tabanlı düzeneklere aktarıldı.</p>
-
-<p>Şimdi artık <strong>&lt;body&gt; gövde</strong> bölümüne geçebiliriz.</p>
-
-<p>Başa head -------------------------------------- --------</p>
-
-<h2>Bu, bir "BAŞARIM OLSUN" yazılarından birincisidir.</h2>
-
-<p>(Bu yazı, yabancı sözcük kullanmaksızın, bir anlatım örneğidir.)</p>
-
-<p>(Hypertext Markup Language (H.T.M.L.) Ben buna)</p>
-
-<p><strong>TÜM GÖRÜNÜMLERİ İMGELEME DİLİ (T.G.İ.D.) demek istiyorum.</strong></p>
-
-<h2>ÖNSÖZ</h2>
-
-<pre>
-&lt;html&gt; &lt;head&gt; &lt;title&gt; Yazım özellikleri &lt;/title&gt; &lt;style &gt; type="text/css"&gt;&lt;/style&gt; &lt;/head&gt; &lt;body bgcolor="gold"&gt; &lt;p&gt;Pakyürek Sanalyöre &lt;/body&gt; &lt;/html&gt; Uygulamanın sonucunu görmek istiyorsanız ?
-</pre>
-
-<h2>GENEL YAPI</h2>
-
-<p>genel yapı sonunagirişeilksayfa <strong>HTML (=tüm görünümleri imgeleme dili)</strong>'nin genel yapısından söz etmek istersek, canlılarda olduğu gibi, en az üç bölümden sözedebiliriz.</p>
-
-<ul>
-<li><strong>Head (baş)</strong></li>
-<li><strong>Body (gövde)</strong></li>
-<li><strong>Extremity (Uzantılar ya da Kol ve Bacaklar)</strong></li>
-</ul>
-
-<p>a - &lt;head&gt; baş bölümünde, sanalyörenin kimliği ile ilgili bilgiler ile öntanımı yapılması gerekli bilgilerin tanımlaması yapılır,</p>
-
-<ol>
-<li>&lt;html&gt;</li>
-<li>&lt;head&gt; &lt;title&gt; &lt;/title&gt; &lt;style&gt; &lt;/style&gt; &lt;/head&gt;</li>
-<li>&lt;body&gt;</li>
-<li>uzantılar &lt;extremity&gt; &lt;/extremity&gt; &lt;/body&gt; &lt;/html&gt;</li>
-</ol>
-
-<p>Buyruklar ın ve niteleyicilerin abecesel tablosuya ulaşın</p>
-
-<p>2 - <strong>&lt;HEAD&gt; BAŞ</strong> bölümü buyruklarını, niteleyicilerini ve alacağı değerlerini incele me y l e başlayalım : baş bölümü sonuna ilksayfaya</p>
-
-<p>Genel yapıyı gözeterek. Html( Tü m Görünümleri imgeleme d ili )'nin buyruklarını, buyrukların niteleyicilerini ve aldığı değerleri teker teker ele alarak öğrenelim. Uygulayalım. Gerek &lt;head&gt;baş, &lt;body&gt;gövde, gerekse &lt;extrimity&gt; uzantılar(kol ve bacaklar) bölümü üç ayrı bölüm olarak ele alınacaktır.</p>
-
-<p>Her buyruk , İngilizcesi ve benim önerdiğim anlaşılır Türkçe karşılıkları ile ve her bölüm içinde ayrı ayrı , etkinliklerini de açıklayarak, örnekleyerek ele alacağız.</p>
-
-<p>Html(tgid) 'nin iskeletsel yapısı aşağıdaki gibidir.</p>
-
-<ol>
-<li>&lt;html&gt;</li>
-<li>&lt;head&gt; &lt;title&gt; &lt;/title&gt; &lt;style&gt; &lt;/style&gt; &lt;/head&gt;</li>
-</ol>
-
-<p>İşte örnek, &lt;html&gt; &lt;head&gt; &lt;title&gt; Kalıb Genel &lt;/title&gt; &lt;METAcontent=text/html;CHARSET=iso-8859-9 http-equiv=Content-Type &gt; &lt;style&gt; type {type:text/css;} h3 {color:blue;} h2 {color:green;} p {color:red; font-size:25;} &lt;/style&gt; &lt;/head&gt; &lt;body bgcolor="yellow"&gt; &lt;h6&gt; Pakyürek Sanalyöre ++++++++++ enküçük h6 ile yazıldı&lt;/h6&gt; &lt;h3&gt; P A K Y Ü R E K ... S A N A L Y Ö R E --------küçük h3 ile yazıldı&lt;/h3&gt;</p>
-
-<p><strong>&lt;head&gt; baş</strong> bölümünden başlıyarak, daha sonra sırayla <strong>&lt;body&gt; gövde</strong> ve &lt;extremity&gt; kol ve bacaklar (uzantılar) bölümlerini incel erken buyruk sözcüklerinin anlamlarını. Yaptırım güçlerini, çeşitli niteleyicilerini alabilecekleri değerleri ve yazılım kurallarını n ayırdına vararak öğren eceğiz.</p>
-
-<p>Özellikle niteleyicilerin ve değerlerin tümünü ele alamıyacağımızı göz önünde bulundurmalıyız.</p>
-
-<p>Sözcükler ( buyruklar ) kümesi ögelerini n , sadece ve sadece ad ve eylem sözcüklerininden (buyruklarından) oluştuğunu artık biliyoruz.</p>
-
-<pre>
-<strong>&lt;html&gt;</strong> <strong>&lt;head&gt;</strong> <strong>&lt; title &gt;</strong> <strong>Başlıksız</strong> <strong>&lt;/title&gt;</strong> <strong>&lt;METAcontent=text/html ;CHARSET=iso -8859-9 http-equiv=Content-Type &gt;</strong> <strong>&lt;/head&gt;</strong> <strong>&lt;body&gt;</strong> <strong>&lt;script language=""&gt;</strong> <strong>var cevap=false</strong> <strong>while(cevap==false)</strong> <strong>cevap=confirm("Siteme tekrar geleceksiniz değil mi !?</strong>
-</pre>
-
-<h2>GİRİŞ</h2>
-
-<p>boloumsonu ilksayfayaBen öğrenmek istedim. Sanırım çok iyi İngilizce bilmememe rağmen, yabancı sözcüklerle boğuşarak da olsa öğrendim. Öğrendiklerimi anladığım biçimlerde – bence anlaşılır Türkçe ile- anlatmaya çalışıyorum.</p>
-
-<p>Eğer bu yazdıklarımla ilgili bir yanlış anlamam, yanlış anlatımım görülüyorsa bunun sorumluluğu bize bu yabancı sözcükleri kullanarak anlatmadaki direnimdir. Çünkü benim yabancı sözcükler ile ilgili bilgi birikimim yeterli olmayabilir, hatta yeterli değildir.</p>
-
-<pre>
-&lt;h1 style=" color:red; font-size:50;"&gt; Pakyürek Sanalyöre&lt;/h1&gt; &lt;h1&gt; P a k y ü r e k Sanalyöre &lt;/h1&gt; &lt;font size="3" color="blue" face="comic sans MS"&gt;Yazılım kuralı olarak; &lt;br&gt;h1 boyutlu başlık buyruğunun biçim &lt; style &gt; niteleyicisi, renk ve boyut değerleriyle gövde bölümünde yer almıştır. &lt;br&gt;Yani sadece ikinci satırdaki yazılanlarda etkili olacaktır. 1. ve 3. satırdaki yazılanlar etkilenmeyecektir. &lt;br&gt;Burada yazılım kuralı olarak İki niteleyici arasında sadece boşluk bırakılmıştır, color:red; font-size:50; gibi
-</pre>
-
-<p>Kimi sanalyöre gezgini sizing sanalyörenizi sık kullanılanlara eklenince <strong>"&lt;title&gt; başlık"</strong>'ın algılanması sağla nır.</p>
-
-<p>Böylece ("search engine"lerde ) Arama döndürücülerinde (google, yandex gibi) sonuç olarak <strong>"&lt;title&gt; başlık"</strong> görünür.</p>
-
-<p>&lt; title &gt; başlık atarken bu özelliğinden yararlanmayı gözönünde bulundurun.</p>
-
-<p>Herb ir belgede sadece bir tane <strong>&lt;head&gt; başlık</strong> olmalıdır.</p>
-
-<p>Ayrıca , bir sanalyöre belgesine <strong>&lt;title&gt; başlık</strong> konulması atlan mamalıdır. Aksi halde uluslararası ağ'da, html ( tgid ) belgesi olarak algılanamazlar.</p>
-
-<p>Üçüncü bölümde hem <strong>Ardışık Biçim Belgeleri (=CSS)</strong> hem de katmanlar birlikte ayrıca <strong>JAVASCRİPT</strong> bilgilerimizi tümden ve düzenli bir şekilde gözden geçirip sergileyeceğiz.</p>
-
-<h2>Burada, t.g.i.d. için belirtilmesi zorunlu olan birkaç yazım kuralından da sözedelim:</h2>
-
-<h2>Yazılım Kuralları Kümesi:</h2>
-
-<p>&lt;Meta&gt; konu buyrukları genellikle belgenin (description) açıklama , (keywords) ilişkin sözcükler , (author) belgenin yazarı, (last modified ) son değiştirilme tarihi, vb gibi sanalyöre özelliklerinin tarayıcıların – bilgi işlerlerin- sayfa yüklenirken nasıl görüneceği, arama döndürücüleri için buldurucu ve/veya ilişkili sözcükleri belirtir.</p>
-
-<p>Anlaşılacağı gibi, html (tgid) yazılımlar ı &lt;head&gt; baş bölümünde , sanalyörenin ayırıcı özelliklerini, bazı niteliklerini, ikili tabanli düzeneklere - bu arada arama döndürücülerine de belirtmek üzere - bilgiler barındırır.</p>
-
-<p>Bu buyrukla imgelenen içerik sanalyörenin geri kalanından bağımsız olarak dağıtmak mümkün olmalıdır.</p>
-
-<p>Şu içerikler &lt; article &gt; buyruğu ile ile imgelenebilir; Forum Yazıları, Blog yazıları, haberler, yorumlar.</p>
-
-<p>&lt;/article&gt;&lt;br&gt;&lt;b&gt;2- bölüm&lt; section &gt;&lt;/b&gt; buyruğu belgede bir bölüm tanımlar. Bölümler üstbilgi, altbilgi gibi belgenin herhangi bir bölümü olabilir.</p>
-
-<p>şimdi kapsam niteleyicisini inceleyebiliriz.</p>
-
-<p>Örnekler; <strong>&lt;title&gt; Pakyürek Sanalyöresi&lt;/title&gt;</strong>, <strong>&lt;title&gt; Türkiye İş Bankası &lt;/title&gt;</strong>, <strong>&lt;title&gt; Ulusal Kanal &lt;/title&gt;</strong>, gibi</p>
-
-<p>2 2 - <strong>&lt;author&gt;</strong> yazar niyeleyicisi, Belgeyi(sanalyöreyi) hazırlayan adını belirtmede kullanılır. Örnek : &lt;meta name="author" content="C. P"&gt; gibi,</p>
-
-<p>2 .3. - <strong>&lt;description&gt;</strong> açıkla ma niteleyicisi, Sayfanın bir açıklamasını belirtir. Arama döndürücüleri arama sonuçlarını göstermek için bu açıklamaları kullanır.</p>
-
-<p>Örnek 1: &lt;meta name = "description" content = "Kendi sanalyöreni kendin yap"&gt;, Sanalyöreninizi niteleyecek açıklamaları tanımlayın.</p>
-
-<p>2 .3. - <strong>&lt;generator&gt;</strong> üretici niteleyicisi, yazılımda kullanılan yardımcı yazılımları belirtmede kullanılır.</p>
-
-<ol>
-<li>internet Explorer, Chrome vb <strong>tarayıcılar</strong>,</li>
-<li>google, yandex gibi sözcük- tümce döndürücüleri yada</li>
-<li>konuklayıcı <strong>sunucular</strong> ve de</li>
-<li>doğal olarak sanalyöre konuklarınızın ikili tabanlı düzenekleri -bilgi işlerleri- dir.</li>
-</ol>
-
-<p>Buyruklar ı, niteleyicilerini, aldığı değerleri, nasıl yazarsak , hangi yazım kuralları kullanırsak birbirimizle sorunsuz, yanlışsız ve eşsiz bir biçimde iletişim kurabileceğiz, anlaşabileceğiz .?</p>
-
-<p><strong>Özetlemeye çalışırsak,</strong> kabaca ve sıra ile</p>
-
-<h2>Ardışık Biçim Belgeleri (=CSS)</h2>
-
-<p>Ardışık biçim belgelerini (=ABB) de, tekrarlardan sakınma da kolaylık sağlamak için, "kalıp"ları, "kalıp belgelerini", oluşturabiliyoruz. (cascade style sheets =css) diye kısaltılıyor.</p>
-
-<p>CSS=ABB ardışık biçim belgeleri bölümünün sonuna geldik. Gördüğünüz gibi bu kurgusal biçimler, T.G.İ.D.(=HTML)'in eksik yönlerini tamamlıyor. Ayrıca büyük belgeler hazırlarken zamandan tüketim yapmamamızı sağlıyor.</p>
-
-<p>Fakat her zaman usumuzun bir köşesinde olsun: Ardışık biçimleme belgeleri, Netscape tarafından desteklenmeyen özelliklerinin sayısı, bir hayli fazladır.</p>
-
-<p>Oysa yöntem i, tam da burada, büyük kolaylık sağlar. Bu bölüm, yeni buyruklar, niteleyiciler, içermiyor. Sadece h.t.m.l=t.g.i.d. buyruklarını, uzantısı .css olan belge yada belgelerde bulundurarak başarıyor.</p>
-
-<p>Bu tek biçimliliğin sağlanacağı belgelerde, bu Ardışık Biçimleme Belgesi "&lt;link rel="stylesheet" href="dosya_adı.css"&gt;" gibi buyrukla çağrılarak, tanımlanan biçimler, yada genel görünüm, sağlanmış olur.</p>
-
-<p>Hemen hemen her konuda olduğu gibi ardışık biçimleme belgeleri, konusunda da, tarayıcı yazılımları (Microsoft Internet Explorer ve Netscape vb.) değişik tepkiler ortaya koyarlar. Bu noktada, sanalyöre yazılımlarımızı, tarayıcıların da çoğunluğunun doğru yorumlayacağı imgeler ile yazmak en uygunudur.</p>
-
-<h2>Javascript Javadili tümceleri</h2>
-
-<p>Bu javascript dili ni, html(Tüm Görünümleri İmgeleme Dili) içinde kullanmak, sanalyöremize devinirlilik ve karşılıklı bilgi alış veriş olanağı – iki yönlü bilgileşme - kazandıracaktır.</p>
-
-<p>Bizlere bu olanağı, T.G.İ.D.(HTML=HİPER TEXT MARK UP LANGUAGE) Tüm Görünümleri İmgeleme Dili sunmuş bulunuyor.</p>
-
-<ol>
-<li>javascript ile devinirlilik sağlama, ve</li>
-<li>Ardışık Biçim Belgeleri (ABB)(=CSS) diğer deyişle kalıplar oluşturarak, kolaylıkla sanalyöre içinde "eşsiz biçim belgeler", "kalıplar" sağlama, yinelemelerden sakınma, denetim ve/veya güncelleme kolaylığı sağlanmış, olacaktır.</li>
-</ol>
-
-<p>Yine bir benzetme yapmak istersek, kol ve bacaklar gövdeye bağlı oldukları halde baş ile yöneltilirler. Yani devinirliliği sağlayan bu bölümdeki buyruk ve niteleyiciler, büyük bölümü &lt;head&gt; baş bölümünde olmak üzere &lt;body&gt; gövde bölümünde de bulunabilir.</p>
-
-<h2>Örnek Uygulamalar</h2>
-
-<p>Şimdi, bir belge yapalım; belgeye koyacağımız çapa at &lt;a&gt; buyruğu, imleç simgesini çapa at ögesinin üzerine getirdiği anda, hem biraz büyük gösterilsin, hem de renk değiştirsinler.</p>
-
-<p>Aşağıdaki örneği Internet Explorer ile sınamanız gerekir.</p>
-
-<pre>
-&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;jdili-merhaba dünya&lt;/title&gt;
-&lt;META content=text/html; charset=iso-8859-9 http-equiv=Content-Type&gt;
-&lt;script&gt;function merhaba() { alert('Bilgin olsun Dünya! Buradayım') }&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;form&gt;
-&lt;input type="Button" value="Tıklayın!"&gt;
-&lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</pre>
-
-<h2>HTML Buyrukları</h2>
-
-<p>Her buyruk, İngilizcesi ve benim önerdiğim anlaşılır Türkçe karşılıkları ile ve her bölüm içinde ayrı ayrı, etkinliklerini de açıklayarak, örnekleyerek ele alacağız.</p>
-
-<p>Html(tgid)'nin iskeletsel yapısı aşağıdaki gibidir:</p>
-
-<ol>
-<li>&lt;html&gt;</li>
-<li>&lt;head&gt; &lt;title&gt; &lt;/title&gt; &lt;style&gt; &lt;/style&gt; &lt;/head&gt;</li>
-</ol>
-
-<p><strong>&lt;article&gt;</strong> buyruğu ile imgelenebilir; Forum Yazıları, Blog yazıları, haberler, yorumlar.</p>
-
-<p><strong>&lt;section&gt;</strong> buyruğu belgede bir bölüm tanımlar. Bölümler üstbilgi, altbilgi gibi belgenin herhangi bir bölümü olabilir.</p>
-
-<h2>Ekler</h2>
-
-<h3>Ek 1:</h3>
-<p>Çeşitli dünya dilleri ve ilgili imge kümeleri(= charset'ler) Yeni ettiricilerden</p>
-
-<h3>Ek 2:</h3>
-<p>T.G.İ.D(HTML) tarafından desteklenen Çokluklar Bilimi imgeleri Biçimleme buyrukları ile ilgili anımsatmalar.</p>
-
-<h3>Ek 3:</h3>
-<p>Resmi veya arkaplan resmini hem yatay hem dikey olarak sayfada ortalama Geliştirilmeler html4, html5</p>
-
-<h2>Son Söylenebilecekler</h2>
-
-<p>İşte bunlar, Tüm Görünümleri İmgeleme Dilini (T.G.İ.D) ve Javascript dilini öğrenmek olacaktır.</p>
-
-<p>Tabidir ki, olmazsa olmaz <strong>yazım kurallarını</strong> da, Javascript, TGİD, katmanlarda değişiklikler gösterse de, bu sırada doğru biçimde öğrenecek ve uygulayacağız.</p>
-
-<p>İşte 'Merhaba Dünya!'</p>
-
-<p>Bu, bir "BAŞARIM OLSUN" yazılarımdan birincisidir.</p>
-
-<p>1. 4. 1-KALIP LAR - CSS=cascade style sheets (ABB=Ardışık Biçim leme Belgeleri) &amp; Katmanlar</p>
-<p>2. 4. 2-Javascript Javadili tümceleri</p>
-<p>5-SON SÖYLENEBİLECEKLER</p>
-
-<p>EKLER sons ayfaya</p>
-
-<p>Dolayısıyla imgeleri satır satır anlamaya çalışmayın.İşte 'Merhaba Dünya!' &lt;html&gt; &lt; head&gt; &lt;title&gt; jdili-merhaba dünya &lt;/title&gt; &lt; META content=text/ html ; charset =iso-8859-9 http-equiv=Content-Type&gt; &lt;script&gt;function merhaba() { alert ( ' Bilgin olsun Dünya! Buradayım') } &lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;form&gt; &lt;input type="Button" value= "Tıklayın!</p>
-
-<p>Şimdi bunların kullanımını bir örnekle görelim: &lt;html&gt; &lt;head&gt; &lt;title&gt; Link ( bağlantı )yolla r ı ve biçim ( C . S .S )&lt;/title&gt; &lt;METAcontent=text/html;CHARSET=iso-8859-9 http-equiv=Content-Type &gt; &lt;style type="text/css"&gt;&lt;/style&gt; &lt;/head&gt; &lt;body&gt; <strong>Anasayfa </strong> <strong>&lt;/body&gt;</strong> <strong>&lt;/html&gt;</strong> Sonucu görmek istiyorsanız tıklayınız . <strong>geliştir</strong>.</p>
-
-<p>?</p>
-
-<p>Bir sanalyöre belgesini n olmazsa olmaz başlatan ve bitiren buyruk yapıştırılanları &lt;html&gt; &lt;/html&gt; imgeleridir. Ne varsa bu iki buyruk yapıştırılanı arasına yazılır. H yper text mark up language (html) belgesi , bunlar arasına yazılır. Bu belgelere yada bu dile, tüm görünümleri imgeleme dili diyorum. T . g . i . d . kısaltmasını öneriyorum.</p>
-
-<p>**&lt;head&gt;** **…….** **&lt;** **/** **head&gt;** **baş** b uyruğu v e niteleyicileri :</p>
-
-<p>Bu javascript dili ni , html(Tüm Görünüm leri İ mgeleme Dili ) içinde kullanmak, sanalyöremize devinirlilik ve karşılıklı bilgi alış veriş olanağı – iki yönlü bilgileşme - kazandıracaktır.</p>
-
-<p>**A** **rdışık biçim belgelerini (=ABB)** de , tekrarlardan sakınma da kolaylık sağlamak k için,**"kalıp"ları, "kalıp belgelerini",**oluşturabiliyoruz. **(cascade style sheets** **=css****)** diye kısaltılıyor) Bu son iki özellik ile,</p>
-
-<p>Bilgi işlerlere - İkili tabanlı düzeneklere -, html(=tüm görünümleri i mgeleme dili ) ile anlattıklarımız, ikili tabanlı düzeneklerce diğer ikili tabanlı düzeneklere a kt a rılacak, sonra bu ikili tabanlı düzeneklerin bu dil ile anladıklarına verecekleri yanıtları, anladığımız, konuştuğumuz dile, sözcüklere, biçimlere, görüntülere, seslere vb burada, &lt;body&gt; gövdede yazılanlar, gösterime çevrilecektir. Bir yazım kuralı olarak, **&lt;body&gt;****gövde** **buyruğunun** niteleyicileri de başlatan buyruğunun içinde gösterilebilir.</p>
-
-<p>, ! i mgeleri yazılan buyrukları eski sürüm tarayıcılardan gizler. Aşağıdaki imge sadece yukarıda verilen kalıbın T . G. İ . D . belgesinin içine nasıl yerleştirildiğini görmeniz ve Javascript hakkında bir görüş sahibi olmanız için verilmiştir.</p>
-
-<p>Uygulamanın sonucunu görmek istiyorsanız ?</p>
-
-<p>Geliştirilmeler html4, html5</p>
-
+<body>
+<div class="ana-konteynir">
+<div class="sol-ust-tanitici"><span class="kizil-yildiz">★</span>Cemil Pakyürek/Sü:2</div>
+<div id="modGosterge"></div>
+<div class="aciklama-kutusu">Önerilen yalın Türkçe sözcükler öneridir. Farklı sözcük önerilerinde bulunarak siz de katkıda bulunun. <br>Bu bir sözlük değil, SÖZCÜKLÜKTÜR.</div>
+
+<div class="arama-alani">
+<input type="text" id="girdi" placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE YABANCI KÖKENLİ VEYA ÖNERİLMİŞ YALIN TÜRKÇE SÖZCÜK SOR" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')bul()" autocomplete="off">
+</div>
+
+<div class="buton-satiri">
+<button class="btn-yeni" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
+<button class="btn-bul" onclick="bul()">BUL</button>
+<button class="btn-saglik" id="saglikBtn" onclick="modSec('SAGLIK')">SAĞLIK İÇİN BAS VE ÇIKMAK İÇİN DE BAS</button>
+<button class="btn-bilim" id="bilimBtn" onclick="modSec('BILIM')">BİLİM İÇİN BAS VE ÇIKMAK İÇİN DE BAS</button>
+</div>
+
+<div class="kumeler">
+<div id="kumeA" class="kume"><span class="ok">➤</span><strong>A KÜMESİ</strong><small>Yabancı kökenli sözcükler kümesi</small></div>
+<div id="kumeB" class="kume"><span class="ok">➤</span><strong>B KÜMESİ</strong><small>Önerilmiş yalın Türkçe sözcükler kümesi</small></div>
+</div>
+
+<div class="sonuc-paneli" id="sonucPaneli">
+<div id="sonucMetni">Arama sonuçları burada listelenecek...</div>
+<div id="oneriAlani" class="oneri-bolumu">
+<div style="font-size:15px;font-weight:bold;">Öneriniz için teşekkürler! Başka öneriniz var mı?</div>
+<div class="oneri-girdi">
+<input type="text" id="oneriGirdisi" class="oneri-input" placeholder="Önerinizi, buraya yazınız...">
+<button class="btn-bul" style="padding:3px 8px;width:auto;font-size:12px;" onclick="alert('Kaydedildi!')">GÖNDER</button>
+</div>
+</div>
+</div>
+
+<div class="alt-sayac-alani">
+Bugün gezen:<span id="sayacGun">0</span> | Toplam gezen:<span id="sayacTop">0</span><br>
+Toplam sözcük:<span id="sayacSozcuk">0</span> | Güncelleme sayısı:<span id="sayacGuncelleme">0</span>
+</div>
+</div>
+
+<script>
+const sozluk = [
+{ A: "ACCELERATION", B: "İVME" },
+{ A: "AKUSTİK", B: "SES YANSIMASI" },
+{ A: "ALLAH", B: "BİLİNEMEZ" },
+{ A: "BRAKE PADS", B: "SÜRTÜNGEÇ" },
+{ A: "CAZİBE", B: "ÇEKİCİLİK" },
+{ A: "GOOD", B: "İYİ" },
+{ A: "HAZRET", B: "SAYGIN" },
+{ A: "KAREKOD", B: "İKİ BOYUTLU İMGE" },
+{ A: "LİFT", B: "DÜŞEY TAŞIT" },
+{ A: "LOAD", B: "YÜK" },
+{ A: "LOADCELL", B: "YÜK GÖZENEĞİ" },
+{ A: "MONONOM", B: "TEKTERİMLİ" },
+{ A: "MULTIPLE RESPONSE", B: "ÇOKLU YANIT" },
+{ A: "NÜ", B: "ÇIPLAK" },
+{ A: "POLİNOM", B: "ÇOK TERİMLİ" },
+{ A: "PREJUDICE", B: "ÖNYARGI" },
+{ A: "SURE", B: "BÖLÜMCE" },
+{ A: "YEVM", B: "GÜN" },
+{ A: "BID", B: "ÖNERİ" },
+{ A: "BIDIRECTIONAL", B: "İKİ YÖNLÜ" },
+{ A: "BIFURCATION", B: "ÇATALLANMA" },
+{ A: "BILL", B: "EDER BELGESİ" },
+{ A: "BILLING", B: "EDERİ BELGELEME" },
+{ A: "BINARY", B: "İKİLİ" },
+{ A: "BINDER", B: "BAĞLAYICI" },
+{ A: "BINDING", B: "BAĞLAMA" },
+{ A: "BINOCULARS", B: "UZAKGÖRÜR" },
+{ A: "BINOMIAL", B: "İKİ TERİMLİ" },
+{ A: "BIOCHEMISTRY", B: "CANLI ÖGECİKSEL BİRLEŞİMİ" },
+{ A: "BIOGENETIC", B: "CANLILIKTA SOY" },
+{ A: "BIOGRAPHY", B: "ÖZ YAŞAM ÖYKÜSÜ" },
+{ A: "BIOLOGY", B: "CANLILIK BİLİMİ" },
+{ A: "BIOMASS", B: "CANLI KÜTLE" },
+{ A: "BIOMETRICS", B: "CANLI ÖLÇÜLÜLÜK" },
+{ A: "BIONICS", B: "YAŞAM KURGUSALI" },
+{ A: "BIOPHYSICS", B: "CANLI ÖGECİKSEL İTİŞİMİ" },
+{ A: "BLOG", B: "ÇEVRİMİÇİ BİLGİLENMELER" },
+{ A: "AKŞAM", B: "TÜN" },
+{ A: "ANARŞİST", B: "DÜZEN TANIMAZ" },
+{ A: "ATRAKT", B: "ÇEKME" },
+{ A: "BALATA", B: "SÜRTÜNGEÇ" },
+{ A: "BARKOD", B: "ÇUBUK İMGE" },
+{ A: "BAUD", B: "İMGE HIZI" },
+{ A: "BAY", B: "KOY" },
+{ A: "BAYİ", B: "ALT SATICI" },
+{ A: "BYTE", B: "8TANE01OLABİLEN" },
+{ A: "BEACON", B: "YER BELİTEÇ" },
+{ A: "BEAD", B: "BONCUK" },
+{ A: "BEAM", B: "IŞIN" },
+{ A: "BEARING", B: "YATAK" },
+{ A: "BEAT", B: "VURU" },
+{ A: "BED", B: "YATAK" },
+{ A: "BEHAVIOR", B: "DAVRANIŞ" },
+{ A: "BELAGAT", B: "KONUŞMALAR" },
+{ A: "BELL", B: "ÇAN" },
+{ A: "BELLOWS", B: "KÖRÜK" },
+{ A: "BELT", B: "KUŞAK" },
+{ A: "BENCHMARK", B: "ÖNTANIMLI ÖLÇÜT" },
+{ A: "BENDING", B: "BÜKÜLME" },
+{ A: "BENEFIT", B: "YARAR" },
+{ A: "BEREKET", B: "BOLLUK" },
+{ A: "BEŞERİ", B: "TANIMLAYABİLENSEL" },
+{ A: "BEŞERİYET", B: "TANIMLAYABİLENLER" },
+{ A: "BETON", B: "YAPAY YAPITAŞI" },
+{ A: "BEVEL", B: "EĞİM" },
+{ A: "BEYGİR", B: "AT" },
+{ A: "BEYİN", B: "DÜŞÜNME ORGANI" },
+{ A: "BEZ", B: "İNCE DOKUMA" },
+{ A: "BIAS", B: "ÖNYARGI" },
+{ A: "BİYOGRAFİ", B: "ÖZGEÇMİŞ" },
+{ A: "BALİSTİK", B: "ATIŞBİLİMİ" },
+{ A: "BALON", B: "UÇARKAÇAR" },
+{ A: "BAND", B: "KUŞAK" },
+{ A: "BANDWIDTH", B: "KUŞAK GENİŞLİĞİ" },
+{ A: "BANKING", B: "DEĞDE ALIRSATARLIĞI" },
+{ A: "BANNER", B: "TANITIMLIK" },
+{ A: "BAR", B: "ÇUBUK" },
+{ A: "BARAJ", B: "YAPAYGÖL" },
+{ A: "BARE", B: "ÇIPLAK" },
+{ A: "BARGE", B: "İTKİSİZ YÜZER DÜZLEM" },
+{ A: "BARİZ", B: "GÖRÜNÜR" },
+{ A: "BAROMETER", B: "BASINÇÖLÇER" },
+{ A: "BARREL", B: "FIÇI" },
+{ A: "BARİYER", B: "ENGELLEYİCİ" },
+{ A: "BASE", B: "ÜS" },
+{ A: "BASEBAND", B: "TEMEL YAYILGI" },
+{ A: "BASELINE", B: "TEMEL DOĞRU" },
+{ A: "BASIC", B: "TEMEL" },
+{ A: "BASIC INPUT OUTPUT SYSTEM", B: "TEMEL GİRİŞ ÇIKIŞ DÜZENEĞİ" },
+{ A: "PRESS", B: "BASIN" },
+{ A: "BASKET", B: "SEPET" },
+{ A: "BASTON", B: "DEĞNEK" },
+{ A: "BATARYA", B: "EKSİCİK BİRİKTİRİCİ" },
+{ A: "BATCH", B: "YIĞIN" },
+{ A: "BATCH PROCESSING", B: "YIĞINCA İŞLEME" },
+{ A: "BATH", B: "YUNAK" },
+{ A: "BATERİ", B: "BİRİKTİRİCİ" },
+{ A: "ELEKTRON", B: "EKSİCİK" },
+{ A: "PROTON", B: "ARTICIK" },
+{ A: "NÖTRON", B: "AĞIRCIK" },
+{ A: "ATOM", B: "ÖGECİK" },
+{ A: "ELEKTRİK", B: "EKSİCİKLENME" },
+{ A: "İSTATİSTİK", B: "SAYMA BİLİMİ" },
+{ A: "FAKÜLTE", B: "BİLİM DALI" },
+{ A: "DOKTORA", B: "BİLİRKİŞİLİK" },
+{ A: "PROFESÖR", B: "BİLGEN" },
+{ A: "TARİH", B: "GELECEĞE IŞIK TUTMA" },
+{ A: "ARİTMETİK", B: "TOPLAMA ÇIKARMA" },
+{ A: "HAYVAN", B: "HAYCAN" },
+{ A: "HARF", B: "SESADI" },
+{ A: "DICTIONARY", B: "SÖZCÜKLÜK" },
+{ A: "LUGAT", B: "SÖZCÜKLÜK" },
+{ A: "SÖZLÜK", B: "SÖZCÜKLÜK" },
+{ A: "KELİME", B: "SÖZCÜK" },
+{ A: "GOD", B: "BİLİNEMEZ" },
+{ A: "DİN", B: "İNANÇLAR" },
+{ A: "TANRI", B: "BİLİNEMEZ" },
+{ A: "İNSAN", B: "TANIMLAYABİLEN" },
+{ A: "CEBİR", B: "SESADLI İŞLEMLER" },
+{ A: "GEOMETRİ", B: "BİÇİM BİLİMİ" },
+{ A: "KESİT GÖSTERİM", B: "TOMOGRAFİ" },
+{ A: "ÜÇBOYUTLU GÖSTERİM", B: "MR" },
+{ A: "ULTRASOUND", B: "DUYUM ÖTESİ SES" },
+{ A: "REZONANS", B: "EŞTİTREŞİM" },
+{ A: "KAPASİTE", B: "SIĞAÇ" },
+{ A: "REZİSTANS", B: "DİRENÇ" },
+{ A: "İNDÜKTANS", B: "ETKEÇ" },
+{ A: "EMPEDANS", B: "SANAL DİRENÇ" },
+{ A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" },
+{ A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" },
+{ A: "İNSÜLİN", B: "GEÇİRGENLEŞTİRİCİ" },
+{ A: "GURME", B: "TATBİLİR" },
+{ A: "LOGARİTMA", B: "KÜTÜK SAYI" },
+{ A: "KOMPLEKS SAYI", B: "SANAL SAYI" },
+{ A: "MATRİS", B: "TABLO SAYI" },
+{ A: "ASİMTOT", B: "DEĞEMEZ" },
+{ A: "PULS", B: "DARBE" },
+{ A: "MEKANİK", B: "DİNAMİKSEL" },
+{ A: "COMPONENT", B: "BİLEŞEN" },
+{ A: "VEKTÖR", B: "YÖNLÜ BÜYÜKLÜK" },
+{ A: "SOLUTION", B: "ÇÖZÜM" },
+{ A: "DİFERANS", B: "FARK" },
+{ A: "STABİLİTE", B: "KARARLILIK" },
+{ A: "FRICTION", B: "SÜRTÜNME" },
+{ A: "MOTION", B: "DEVİNİM" },
+{ A: "NOSYON", B: "SİMGELEŞTİRME" },
+{ A: "AVERAGE", B: "ORTALAMA" },
+{ A: "GRAVITASYON", B: "KÜTLE ÇEKİM" },
+{ A: "MAS", B: "KÜTLE" },
+{ A: "ENERJİ", B: "ERKE" },
+{ A: "ATMOSFER", B: "HAVAYUVAR" },
+{ A: "ATMOSFERİK", B: "HAVAYUVARSAL" },
+{ A: "ELEKTRONİK", B: "EKSİCİKSEL" },
+{ A: "EKONOMİ", B: "YARARCILI" },
+{ A: "İNŞAAT MÜHENDİSİ", B: "YAPI KURGULAMACASI" },
+{ A: "VETERİNER", B: "HAYCAN SAĞLIKÇISI" },
+{ A: "WORK", B: "İŞ" },
+{ A: "ROTATION", B: "DÖNDÜRME" },
+{ A: "MOMENT", B: "DÖNDÜRME KUVVETİ" },
+{ A: "LINEAR", B: "DOĞRUSAL" },
+{ A: "ELASTİSİTE", B: "ESNEKLİK" },
+{ A: "HARMONİK", B: "UYUMLU" },
+{ A: "TRANSFER", B: "TAŞIMA" },
+{ A: "PRES", B: "BASINÇ" },
+{ A: "HİDROSTATİK", B: "SU BASINCI" },
+{ A: "TANSİYON", B: "GERİLİM" },
+{ A: "VİSKOSİTİ", B: "AKIŞKANLIK" },
+{ A: "HEAT", B: "ISI" },
+{ A: "EXPANSION", B: "GENİŞLEME" },
+{ A: "VIBRATION", B: "TİTREŞİM" },
+{ A: "POTANSİYEL", B: "SAKLI GÜÇ" },
+{ A: "MANYETİZMA", B: "EKSİCİK DOĞURABİLEN" },
+{ A: "DİELEKTRİK", B: "İLETMEMSİZLİK" },
+{ A: "ELEKTROSTATİK", B: "DURGUN ELEKTRİK" },
+{ A: "RECTIFICATION", B: "DOĞRULTMA" },
+{ A: "AMPLİTÜT", B: "GENLİK" },
+{ A: "MODULASYON", B: "BİÇİMLENDİRME" },
+{ A: "DEMODULASYON", B: "TERSİNE BİÇİMLENDİRME" },
+{ A: "RADYO", B: "ÜNALGI" },
+{ A: "TELEVİZYON", B: "SANGI" },
+{ A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
+{ A: "TRANSFORMATOR", B: "GÜÇ BİLEŞEN DÖNÜŞTÜRÜCÜ" },
+{ A: "İNTERFERENS", B: "GİRİŞİM" },
+{ A: "DIFFRACTION", B: "KIRILIM" },
+{ A: "POLARIZATION", B: "YÖNLENME" },
+{ A: "RADYOAKTİF", B: "IŞIMA" },
+{ A: "CEDEL", B: "ÇEKİŞME" },
+{ A: "MÜCADELE", B: "ÇEKİŞEN" },
+{ A: "ECZANE", B: "UMAREVİ" },
+{ A: "İLAÇ", B: "UMAR" },
+{ A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" },
+{ A: "TRİGONOMETRİ", B: "AÇILAR BİLİMİ" },
+{ A: "SİNÜS", B: "BOŞLUK" },
+{ A: "KOSİNÜS", B: "KOMŞUBOŞLUK" },
+{ A: "TANJANT", B: "EĞİM" },
+{ A: "NÜKLEER", B: "ÖGECİK ÇEKİRDEĞİ" },
+{ A: "FONKSİYON", B: "DEĞER DÖNÜŞTÜREN" },
+{ A: "ENTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
+{ A: "DİFERANSİYEL DENKLEM", B: "NOKTASALLAŞTIRILMIŞ EŞİTLİK" },
+{ A: "ÂDET", B: "GELENEK" },
+{ A: "ABILITY", B: "YAPABİLİRLİK" },
+{ A: "ABORT", B: "GEÇERSİZ" },
+{ A: "ABSOLUTE REALITY", B: "KOŞULSUZ GERÇEK" },
+{ A: "TESETTÜR", B: "ÖRTÜNME" },
+{ A: "ACCURATE", B: "DOĞRULA" },
+{ A: "ACİZ", B: "YAPAMAZ" },
+{ A: "ACTION", B: "ETKİ" },
+{ A: "OTOMASYON", B: "KENDİLİĞİNDENLEŞTİRME" },
+{ A: "ADALET", B: "GERÇEKLERE BAĞLILIK" },
+{ A: "ADAM", B: "TANIMLAYABİLENER" },
+{ A: "ADAPTASYON", B: "UYMA" },
+{ A: "ADAPTATION", B: "UYUM" },
+{ A: "ADBLOKER", B: "TANITIM ENGELLENMİŞ" },
+{ A: "ADEMOĞLU", B: "TANIMLAYABİLENOĞLU" },
+{ A: "ADENOMA", B: "SALGI BEZİ BAŞKALAŞMIŞ CANLICIĞI" },
+{ A: "ADET", B: "TANE" },
+{ A: "ADETA", B: "SANKİ" },
+{ A: "ADRENALIN HORMONU", B: "DÜŞÜNME ORGANI HAREKET SALGISI" },
+{ A: "ADRENALINE SECRETION", B: "DÜŞÜNME ORGANI HAREKET SALGISI" },
+{ A: "ADDRESS BUS", B: "YERİMİ YOLU" },
+{ A: "Ac (89) - Aktinyum", B: "ÖGECİK89" },
+{ A: "Ag (47) - Gümüş", B: "ÖGECİK47" },
+{ A: "Al (13) - Alüminyum", B: "ÖGECİK13" },
+{ A: "Am (95) - Amerisyum", B: "ÖGECİK95" },
+{ A: "Ar (18) - Argon", B: "ÖGECİK18" },
+{ A: "As (33) - Arsenik", B: "ÖGECİK33" },
+{ A: "At (85) - Astatin", B: "ÖGECİK85" },
+{ A: "Au (79) - Altın", B: "ÖGECİK79" },
+{ A: "B (5) - Bor", B: "ÖGECİK5" },
+{ A: "Ba (56) - Baryum", B: "ÖGECİK56" },
+{ A: "Be (4) - Berilyum", B: "ÖGECİK4" },
+{ A: "Bh (107) - Bohriyum", B: "ÖGECİK107" },
+{ A: "Bi (83) - Bizmut", B: "ÖGECİK83" },
+{ A: "Bk (97) - Berkelyum", B: "ÖGECİK97" },
+{ A: "Br (35) - Brom", B: "ÖGECİK35" },
+{ A: "C (6) - Karbon", B: "ÖGECİK6" },
+{ A: "Ca (20) - Kalsiyum", B: "ÖGECİK20" },
+{ A: "Cd (48) - Kadmiyum", B: "ÖGECİK48" },
+{ A: "Ce (58) - Seryum", B: "ÖGECİK58" },
+{ A: "Cf (98) - Kaliforniyum", B: "ÖGECİK98" },
+{ A: "Cl (17) - Klor", B: "ÖGECİK17" },
+{ A: "Cm (96) - Küriyum", B: "ÖGECİK96" },
+{ A: "Cn (112) - Kopernisyum", B: "ÖGECİK112" },
+{ A: "Co (27) - Kobalt", B: "ÖGECİK27" },
+{ A: "Cr (24) - Krom", B: "ÖGECİK24" },
+{ A: "Cs (55) - Sezyum", B: "ÖGECİK55" },
+{ A: "Cu (29) - Bakır", B: "ÖGECİK29" },
+{ A: "Db (105) - Dubnyum", B: "ÖGECİK105" },
+{ A: "Ds (110) - Darmstadtiyum", B: "ÖGECİK110" },
+{ A: "Dy (66) - Disprosyum", B: "ÖGECİK66" },
+{ A: "Er (68) - Erbiyum", B: "ÖGECİK68" },
+{ A: "Es (99) - Einsteinyum", B: "ÖGECİK99" },
+{ A: "Eu (63) - Evropiyum", B: "ÖGECİK63" },
+{ A: "F (9) - Flor", B: "ÖGECİK9" },
+{ A: "Fe (26) - Demir", B: "ÖGECİK26" },
+{ A: "Fl (114) - Fleroviyum", B: "ÖGECİK114" },
+{ A: "Fr (87) - Fransiyum", B: "ÖGECİK87" },
+{ A: "Ga (31) - Galyum", B: "ÖGECİK31" },
+{ A: "Gd (64) - Gadolinyum", B: "ÖGECİK64" },
+{ A: "Ge (32) - Germanyum", B: "ÖGECİK32" },
+{ A: "H (1) - Hidrojen", B: "ÖGECİK1" },
+{ A: "He (2) - Helyum", B: "ÖGECİK2" },
+{ A: "Hf (72) - Hafniyum", B: "ÖGECİK72" },
+{ A: "Hg (80) - Civa", B: "ÖGECİK80" },
+{ A: "Ho (67) - Holmiyum", B: "ÖGECİK67" },
+{ A: "Hs (108) - Hassiyum", B: "ÖGECİK108" },
+{ A: "I (53) - İyot", B: "ÖGECİK53" },
+{ A: "In (49) - İndiyum", B: "ÖGECİK49" },
+{ A: "Ir (77) - İRİDYUM", B: "ÖGECİK77" },
+{ A: "K (19) - Potasyum", B: "ÖGECİK19" },
+{ A: "Kr (36) - Kripton", B: "ÖGECİK36" },
+{ A: "La (57) - Lantan", B: "ÖGECİK57" },
+{ A: "Li (3) - Lityum", B: "ÖGECİK3" },
+{ A: "Lr (103) - Lawrensiyum", B: "ÖGECİK103" },
+{ A: "Lu (71) - Lutesyum", B: "ÖGECİK71" },
+{ A: "Lv (116) - Livermoryum", B: "ÖGECİK116" },
+{ A: "Mc (115) - Moskovyum", B: "ÖGECİK115" },
+{ A: "Md (101) - Mendelevyum", B: "ÖGECİK101" },
+{ A: "Mg (12) - Magnezyum", B: "ÖGECİK12" },
+{ A: "Mn (25) - Manganez", B: "ÖGECİK25" },
+{ A: "Mo (42) - Molibden", B: "ÖGECİK42" },
+{ A: "Mt (109) - Meitneriyum", B: "ÖGECİK109" },
+{ A: "N (7) - Azot", B: "ÖGECİK7" },
+{ A: "Na (11) - Sodyum", B: "ÖGECİK11" },
+{ A: "Nb (41) - Niyobiyum", B: "ÖGECİK41" },
+{ A: "Nd (60) - Neodim", B: "ÖGECİK60" },
+{ A: "Ne (10) - Neon", B: "ÖGECİK10" },
+{ A: "Nh (113) - Nihonyum", B: "ÖGECİK113" },
+{ A: "Ni (28) - Nikel", B: "ÖGECİK28" },
+{ A: "No (102) - Nobeliyum", B: "ÖGECİK102" },
+{ A: "Np (93) - Neptünyum", B: "ÖGECİK93" },
+{ A: "O (8) - Oksijen", B: "ÖGECİK8" },
+{ A: "Og (118) - Oganesson", B: "ÖGECİK118" },
+{ A: "Os (76) - Osmiyum", B: "ÖGECİK76" },
+{ A: "P (15) - Fosfor", B: "ÖGECİK15" },
+{ A: "Pa (91) - Protaktinyum", B: "ÖGECİK91" },
+{ A: "Pb (82) - Kurşun", B: "ÖGECİK82" },
+{ A: "Pd (46) - Paladyum", B: "ÖGECİK46" },
+{ A: "Pm (61) - Prometyum", B: "ÖGECİK61" },
+{ A: "Po (84) - Polonyum", B: "ÖGECİK84" },
+{ A: "Pr (59) - Praseodim", B: "ÖGECİK59" },
+{ A: "Pt (78) - Platin", B: "ÖGECİK78" },
+{ A: "Pu (94) - Plütonyum", B: "ÖGECİK94" },
+{ A: "Ra (88) - Radyum", B: "ÖGECİK88" },
+{ A: "Rb (37) - Rubidyum", B: "ÖGECİK37" },
+{ A: "Re (75) - Renyum", B: "ÖGECİK75" },
+{ A: "Rf (104) - Rutherfordiyum", B: "ÖGECİK104" },
+{ A: "Rg (111) - Röntgenyum", B: "ÖGECİK111" },
+{ A: "Rh (45) - Rodyum", B: "ÖGECİK45" },
+{ A: "Rn (86) - Radon", B: "ÖGECİK86" },
+{ A: "Ru (44) - Rutenyum", B: "ÖGECİK44" },
+{ A: "S (16) - Kükürt", B: "ÖGECİK16" },
+{ A: "Sb (51) - Antimon", B: "ÖGECİK51" },
+{ A: "Sc (21) - Skandiyum", B: "ÖGECİK21" },
+{ A: "Se (34) - Selenyum", B: "ÖGECİK34" },
+{ A: "Sg (106) - Seaborgiyum", B: "ÖGECİK106" },
+{ A: "Si (14) - Silisyum", B: "ÖGECİK14" },
+{ A: "Sm (62) - Samaryum", B: "ÖGECİK62" },
+{ A: "Sn (50) - Kalay", B: "ÖGECİK50" },
+{ A: "Sr (38) - Stronsiyum", B: "ÖGECİK38" },
+{ A: "Ta (73) - Tantal", B: "ÖGECİK73" },
+{ A: "Tb (65) - Terbiyum", B: "ÖGECİK65" },
+{ A: "Tc (43) - Teknetyum", B: "ÖGECİK43" },
+{ A: "Te (52) - Tellür", B: "ÖGECİK52" },
+{ A: "Th (90) - Toryum", B: "ÖGECİK90" },
+{ A: "Ti (22) - Titanyum", B: "ÖGECİK22" },
+{ A: "Tl (81) - Talyum", B: "ÖGECİK81" },
+{ A: "Tm (69) - Tuliyum", B: "ÖGECİK69" },
+{ A: "Ts (117) - Tennesin", B: "ÖGECİK117" },
+{ A: "U (92) - Uranyum", B: "ÖGECİK92" },
+{ A: "V (23) - Vanadyum", B: "ÖGECİK23" },
+{ A: "W (74) - Tungsten", B: "ÖGECİK74" },
+{ A: "Xe (54) - Ksenon", B: "ÖGECİK54" },
+{ A: "Y (39) - İtriyum", B: "ÖGECİK39" },
+{ A: "Yb (70) - İterbiyum", B: "ÖGECİK70" },
+{ A: "Zn (30) - Çinko", B: "ÖGECİK30" },
+{ A: "Zr (40) - Zirkonyum", B: "ÖGECİK40" },
+{ A: "AVANTAJ", B: "YARAR" },
+{ A: "AEROSOL", B: "HAVAÇÖZÜT" },
+{ A: "AFAROZ", B: "DIŞLAMA" },
+{ A: "AGE", B: "YAŞ" },
+{ A: "AHİR", B: "SONRAKİ" },
+{ A: "AHŞAP", B: "ODUN" },
+{ A: "AİLE", B: "BİRLİKTE GEÇİNENLER" },
+{ A: "AKADEMİ", B: "BİLİMKENT" },
+{ A: "AKLISELİM", B: "İYİ DÜŞÜNCE" },
+{ A: "AKORT", B: "AYAR" },
+{ A: "AKUSTİK", B: "SESBİLİM" },
+{ A: "ALABROS", B: "FIRÇAMSI" },
+{ A: "ALAŞIM", B: "KARIŞIM" },
+{ A: "ALEM", B: "EVREN" },
+{ A: "ALET", B: "ARAÇ" },
+{ A: "ALGORİTMA", B: "İŞLEM ADIMLARI" },
+{ A: "ALLOTROP", B: "ÖGECİĞİN FARKLI BİÇİNİMLEŞMELERİ" },
+{ A: "ALTERNATİF", B: "SEÇENEK" },
+{ A: "ALTİMETRE", B: "YÜKSEKLİK ÖLÇER" },
+{ A: "ALU (ARITHMETIC LOGIC UNIT)", B: "TOPLA ÇIKAR İŞLEMLERİ BİRİMİ" },
+{ A: "AMAÇ", B: "ERİM" },
+{ A: "AMBULANS", B: "CANKURTARAN" },
+{ A: "AMİR", B: "BUYURAN" },
+{ A: "AMORF", B: "BİÇİMSİZ" },
+{ A: "AMORTİSÖR", B: "TİTREŞTİRMEZ" },
+{ A: "AMPLİFİKATÖR", B: "YÜKSELTİCİ" },
+{ A: "ANAFOR", B: "BURGAÇ" },
+{ A: "ANARŞİ", B: "DÜZEN TANIMAZLIK" },
+{ A: "ZAVİYE", B: "AÇI" },
+{ A: "ANGLE", B: "AÇI" },
+{ A: "ANORMAL", B: "TANIMLANMAMIŞ" },
+{ A: "ANTEN", B: "DUYARGA" },
+{ A: "ANTİK", B: "ÇOKÇOK ESKİ" },
+{ A: "ANTİPATİ", B: "KARŞIDUYGU" },
+{ A: "ANTİTEZ", B: "KARŞISAV" },
+{ A: "ANTROPOMORFİK", B: "TANIMLAYABİLENBİÇİMCİLİK" },
+{ A: "ANYON", B: "EKSİ- YÜKLÜ ÖGECİK" },
+{ A: "API APPLICATION INTERFACE", B: "UYGULAMA ÖNGÖRÜLEME ARAYÜZÜ" },
+{ A: "ARABA", B: "DÖRT TEKERLİ TAŞIYICI" },
+{ A: "ARAZİ", B: "YERYÜZÜ PARÇALARI" },
+{ A: "ARGÜMAN", B: "SAV" },
+{ A: "ARIZA", B: "BOZULMA" },
+{ A: "ARİF", B: "AYDINLANMIŞ" },
+{ A: "ARKEOLOJİ", B: "BAŞLANGICA YÖNELEN BİLİM" },
+{ A: "ARMAĞAN", B: "DOYUMLUK" },
+{ A: "ARTIFICIAL", B: "YAPAY" },
+{ A: "ASETAT", B: "YARI GEÇİRGEN İNCE YÜZEY" },
+{ A: "ASİMİLASYON", B: "BENZETME" },
+{ A: "ASİSTAN", B: "YARDIMCI" },
+{ A: "ASİT", B: "EKŞİT" },
+{ A: "ASPECT", B: "YÖNU" },
+{ A: "ASSERTION", B: "İLERİ SÜRME" },
+{ A: "ASERSİYON", B: "SAV" },
+{ A: "ASTRAL", B: "YILDIZLARARASI" },
+{ A: "ASTROİT", B: "GÖKTAŞI" },
+{ A: "ASTRONOT", B: "GÖKBİREY" },
+{ A: "ATİ", B: "GELECEK" },
+{ A: "RAKAM", B: "AÇI SAY" },
+{ A: "PARTİ", B: "GÜÇBENDE OLSUN İSTER" },
+{ A: "SIR", B: "GİZEM" },
+{ A: "ALLOY", B: "ALAŞIM" },
+{ A: "MIXTURE", B: "KARIŞIM" },
+{ A: "AMORTİSÖR", B: "TİTREŞİM ÖNLER" },
+{ A: "ANARŞİ", B: "DÜZENSİZLİK" },
+{ A: "ASSERT", B: "İLERİ SÜRME" },
+{ A: "YEVMİYE", B: "GÜNLÜK" },
+{ A: "ATOM ENERJİSİ", B: "ÖGECİK ERKESİ" },
+{ A: "AXLE", B: "EKSEN" },
+{ A: "AYET", B: "TÜMCE" },
+{ A: "AYNA", B: "YANSITICI" },
+{ A: "WEST", B: "GÜNBATISI" },
+{ A: "Fm (100) - Fermiyum", B: "ÖGECİK100" },
+{ A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" },
+{ A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" },
+{ A: "LOAD", B: "YÜK" },
+{ A: "WEST", B: "GÜNBATISI" }
+];
+
+const sozlukSaglik = [
+{ A: "ANATOMİ", B: "BEDEN BİLİMİ" },
+{ A: "ASTIM", B: "SOLUMA YETERSİZLİĞİ" }
+];
+
+const sozlukBilim = [
+{ A: "ALGORITHM", B: "ÇÖZADIM" },
+{ A: "ATOM", B: "ÖGEÇİK" },
+{ A: "ABORT", B: "GEÇERSİZ" },
+{ A: "ABSOLUTE REALITY", B: "KOŞULSUZ GERÇEK" },
+{ A: "ACCELERATION", B: "İVME" },
+{ A: "ACCURATE", B: "DOĞRULA" },
+{ A: "ACİZ", B: "YAPAMAZ" },
+{ A: "ACTION", B: "ETKİ" },
+{ A: "ADALET", B: "GERÇEKLERE BAĞLILIK" },
+{ A: "ADAM", B: "TANIMLAYABİLENER" },
+{ A: "ADAPTASYON", B: "UYMA" },
+{ A: "ADAPTATION", B: "UYUM" },
+{ A: "ADBLOKER", B: "TANITIM ENGELLENMİŞ" },
+{ A: "ADDRESS BAR", B: "YER İMİ YAZ BOŞLUĞU" },
+{ A: "ADDRESS BUS", B: "YERİMİ YOLU" },
+{ A: "ADEMOĞLU", B: "TANIMLAYABİLENOĞLU" },
+{ A: "ADENOMA", B: "SALGI BEZİ BAŞKALAŞMIŞ CANLICIĞI" },
+{ A: "ADET", B: "TANE" },
+{ A: "ADETA", B: "SANKİ" },
+{ A: "ADRENALIN HORMONU", B: "DÜŞÜNME ORGANI HAREKET SALGISI" },
+{ A: "ADRENALINE SECRETION", B: "DÜŞÜNME ORGANI HAREKET SALGISI" },
+{ A: "AEROSOL", B: "HAVAÇÖZÜT" },
+{ A: "AFAROZ", B: "DIŞLAMA" },
+{ A: "AGE", B: "YAŞ" },
+{ A: "AHİR", B: "SONRAKİ" },
+{ A: "AHŞAP", B: "ODUN" },
+{ A: "AİLE", B: "BİRLİKTE GEÇİNENLER" },
+{ A: "AKADEMİ", B: "BİLİMKENT" },
+{ A: "AKLISELİM", B: "İYİ DÜŞÜNCE" },
+{ A: "AKORT", B: "AYAR" },
+{ A: "AKŞAM", B: "TÜN" },
+{ A: "AKUSTİK", B: "SES BİLİM" },
+{ A: "ALABROS", B: "FIRÇAMSI" },
+{ A: "ALAŞIM", B: "KARIŞIM" },
+{ A: "ALEM", B: "EVREN" },
+{ A: "ALET", B: "ARAÇ" },
+{ A: "ALGORİTMA", B: "İŞLEM ADIMLARI" },
+{ A: "ALLAH", B: "BİLİNEMEZ" },
+{ A: "ALLOTROP", B: "ÖGECİĞİN FARKLI BİÇİNİMLEŞMELERİ" },
+{ A: "ALLOY", B: "ALAŞIM" },
+{ A: "ALTERNATİF", B: "SEÇENEK" },
+{ A: "ALTİMETRE", B: "YÜKSEKLİK ÖLÇER" },
+{ A: "ALU (ARITHMETIC LOGIC UNIT)", B: "TOPLA ÇIKAR İŞLEMLERİ BİRİMİ" },
+{ A: "AMAÇ", B: "ERİM" },
+{ A: "AMBULANS", B: "CANKURTARAN" },
+{ A: "AMİR", B: "BUYURAN" },
+{ A: "AMORF", B: "BİÇİMSİZ" },
+{ A: "AMORTİSÖR", B: "TİTREŞTİRMEZ" },
+{ A: "AMPLİFİKATÖR", B: "YÜKSELTİCİ" },
+{ A: "AMPLİTÜT", B: "GENLİK" },
+{ A: "ANAFOR", B: "BURGAÇ" },
+{ A: "ANARŞİ", B: "DÜZEN TANIMAZLIK" },
+{ A: "ANARŞİST", B: "DÜZEN TANIMAZ" },
+{ A: "ANGLE", B: "AÇI" },
+{ A: "ANORMAL", B: "TANIMLANMAMIŞ" },
+{ A: "ANTEN", B: "DUYARGA" },
+{ A: "ANTİK", B: "ÇOKÇOK ESKİ" },
+{ A: "ANTİPATİ", B: "KARŞIDUYGU" },
+{ A: "ANTİTEZ", B: "KARŞISAV" },
+{ A: "ANTİVİRÜS", B: "YAYILGAN BUYRUK BOZUCU KARŞITI" },
+{ A: "ANTROPOMORFİK", B: "TANIMLAYABİLENBİÇİMCİLİK" },
+{ A: "ANYON", B: "EKSİ- YÜKLÜ ÖGECİK" },
+{ A: "API APPLICATION INTERFACE", B: "UYGULAMA ÖNGÖRÜLEME ARAYÜZÜ" },
+{ A: "ARABA", B: "DÖRT TEKERLİ TAŞIYICI" },
+{ A: "ARAZİ", B: "YERYÜZÜ PARÇALARI" },
+{ A: "ARGÜMAN", B: "SAV" },
+{ A: "ARIZA", B: "BOZULMA" },
+{ A: "ARİF", B: "AYDINLANMIŞ" },
+{ A: "ARİTMETİK", B: "TOPLAMA ÇIKARMA" },
+{ A: "ARKEOLOJİ", B: "BAŞLANGICA YÖNELEN BİLİM" },
+{ A: "ARMAĞAN", B: "DOYUMLUK" },
+{ A: "ARTIFICIAL", B: "YAPAY" },
+{ A: "ASANSÖR", B: "DÜŞEY TAŞIT" },
+{ A: "ASERSİYON", B: "SAV" },
+{ A: "ASETAT", B: "YARI GEÇİRGEN İNCE YÜZEY" },
+{ A: "ASİMİLASYON", B: "BENZETME" },
+{ A: "ASİMTOT", B: "DEĞEMEZ" },
+{ A: "ASİSTAN", B: "YARDIMCI" },
+{ A: "ASİT", B: "EKŞİT" },
+{ A: "ASPECT", B: "YÖNU" },
+{ A: "ASSERT", B: "İLERİ SÜRME" },
+{ A: "ASSERTION", B: "İLERİ SÜRME" },
+{ A: "ASTRAL", B: "YILDIZLARARASI" },
+{ A: "ASTROİT", B: "GÖKTAŞI" },
+{ A: "ASTRONOT", B: "GÖKBİREY" },
+{ A: "ATİ", B: "GELECEK" },
+{ A: "ATMOSFER", B: "HAVAYUVAR" },
+{ A: "ATMOSFERİK", B: "HAVAYUVARSAL" },
+{ A: "ATOM", B: "ÖGECİK" },
+{ A: "ATOM ENERJİSİ", B: "ÖGECİK ERKESİ" },
+{ A: "ATRAKT", B: "ÇEKME" },
+{ A: "AVANTAJ", B: "YAR" },
+{ A: "AVERAGE", B: "ORTALAMA" },
+{ A: "AXLE", B: "EKSEN" },
+{ A: "AYET", B: "TÜMCE" },
+{ A: "AYNA", B: "YANSITICI" },
+{ A: "BAG", B: "ÇANTA" },
+{ A: "BALATA", B: "SÜRTÜNGEÇ" },
+{ A: "BALİSTİK", B: "ATIŞ BİLİMİ" },
+{ A: "BALON", B: "UÇARKAÇAR" },
+{ A: "BAND", B: "KUŞAK" },
+{ A: "BANDWIDTH", B: "KUŞAK GENİŞLİĞİ" },
+{ A: "BANKING", B: "DEĞDE ALIRSATARLIĞI" },
+{ A: "BANNER", B: "TANITIMLIK" },
+{ A: "BAR", B: "ÇUBUK" },
+{ A: "BARAJ", B: "YAPAYGÖL" },
+{ A: "BARE", B: "ÇIPLAK" },
+{ A: "BARGE", B: "İTKİSİZ YÜZER DÜZLEM" },
+{ A: "BARİYER", B: "ENGELLEYİCİ" },
+{ A: "BARİZ", B: "GÖRÜNÜR" },
+{ A: "BARKOD", B: "ÇUBUK İMGE" },
+{ A: "BAROMETER", B: "BASINÇÖLÇER" },
+{ A: "BARREL", B: "FIÇI" },
+{ A: "BASE", B: "ÜS" },
+{ A: "BASEBAND", B: "TEMEL YAYILGI" },
+{ A: "BASELINE", B: "TEMEL DOĞRU" },
+{ A: "BASIC", B: "TEMEL" },
+{ A: "BASIC INPUT OUTPUT SYSTEM", B: "TEMEL GİRİŞ ÇIKIŞ DÜZENEĞİ" },
+{ A: "BASKET", B: "SEPET" },
+{ A: "BASTON", B: "DEĞNEK" },
+{ A: "BATARYA", B: "EKSİCİK BİRİKTİRİCİ" },
+{ A: "BATCH", B: "YIĞIN" },
+{ A: "BATCH PROCESSING", B: "YIĞINCA İŞLEME" },
+{ A: "BATERİ", B: "BİRİKTİRİCİ" },
+{ A: "BATH", B: "YUNAK" },
+{ A: "BAUD", B: "İMGE HIZI" },
+{ A: "BAY", B: "EDERİNİ ÖDE AL" },
+{ A: "BAYİ", B: "ALT SATICI" },
+{ A: "BEACON", B: "YER BELİTEÇ" },
+{ A: "BEAD", B: "BONCUK" },
+{ A: "BEAM", B: "IŞIN" },
+{ A: "BEARING", B: "YATAK" },
+{ A: "BEAT", B: "VURU" },
+{ A: "BED", B: "YATAK" },
+{ A: "BEHAVIOR", B: "DAVRANIŞ" },
+{ A: "BELAGAT", B: "KONUŞMALAR" },
+{ A: "BELL", B: "ÇAN" },
+{ A: "BELLOWS", B: "KÖRÜK" },
+{ A: "BELT", B: "KUŞAK" },
+{ A: "BENCHMARK", B: "ÖNTANIMLI ÖLÇÜT" },
+{ A: "BENDING", B: "BÜKÜLME" },
+{ A: "BENEFIT", B: "YARAR" },
+{ A: "BEREKET", B: "BOLLUK" },
+{ A: "BEŞERİ", B: "TANIMLAYABİLENSEL" },
+{ A: "BEŞERİYET", B: "TANIMLAYABİLENLER" },
+{ A: "BETON", B: "YAPAY YAPITAŞI" },
+{ A: "BEVEL", B: "EĞİM" },
+{ A: "BEYGİR", B: "AT" },
+{ A: "BEYİN", B: "DÜŞÜNME ORGANI" },
+{ A: "BEZ", B: "İNCE DOKUMA" },
+{ A: "BIAS", B: "ÖNYARGI" },
+{ A: "BID", B: "ÖNERİ" },
+{ A: "BIDIRECTIONAL", B: "İKİ YÖNLÜ" },
+{ A: "BIFURCATION", B: "ÇATALLANMA" },
+{ A: "BILL", B: "EDER BELGESİ" },
+{ A: "BILLING", B: "EDERİ BELGELEME" },
+{ A: "BINARY", B: "İKİLİ" },
+{ A: "BINDER", B: "BAĞLAYICI" },
+{ A: "BINDING", B: "BAĞLAMA" },
+{ A: "BINOCULARS", B: "UZAKGÖRÜR" },
+{ A: "BINOMIAL", B: "İKİ TERİMLİ" },
+{ A: "BIOCHEMISTRY", B: "CANLI ÖGECİKSEL BİRLEŞİMİ" },
+{ A: "BIOGENETIC", B: "CANLILIKTA SOY" },
+{ A: "BIOGRAPHY", B: "ÖZ YAŞAM ÖYKÜSÜ" },
+{ A: "BIOMASS", B: "CANLI KÜTLE" },
+{ A: "BIONICS", B: "YAŞAM KURGUSALI" },
+{ A: "BİYOFİZİK", B: "CANLI ÖGECİKSEL İTİŞİMİ" },
+{ A: "BİYOGRAFİ", B: "ÖZGEÇMİŞ" },
+{ A: "BİYOLOJİ", B: "CANLILIK BİLİMİ" },
+{ A: "BİYOMETRİK", B: "CANLI ÖLÇÜLÜLÜK" },
+{ A: "BLOG", B: "ÇEVRİMİÇİ BİLGİLENMELER" },
+{ A: "BRAKE PADS", B: "SÜRTÜNGEÇ" },
+{ A: "BRANCH", B: "DAL" },
+{ A: "BYTE", B: "8TANE 01OLABİLEN" },
+{ A: "CACH", B: "AKARÖDEME" },
+{ A: "CAZİBE", B: "ÇEKİCİLİK" },
+{ A: "CEBİR", B: "SESADLI İŞLEMLER" },
+{ A: "CEDEL", B: "ÇEKİŞME" },
+{ A: "CHANGE", B: "DEĞDE ÜSTÜ" },
+{ A: "CHEAP", B: "EDERİDÜŞÜK" },
+{ A: "CLOSED", B: "KAPALI" },
+{ A: "COMPONENT", B: "BİLEŞEN" },
+{ A: "ÇARE", B: "UMAR" },
+{ A: "ÇARESİZ", B: "UMARSIZ" },
+{ A: "DEMODULASYON", B: "TERSİNE BİÇİMLENDİRME" },
+{ A: "DEPLOY FROM A BRANCH", B: "BİR DALDAN DAĞITIM" },
+{ A: "DETERMİNANT", B: "KÖK BULDURUCU" },
+{ A: "DICTIONARY", B: "SÖZCÜKLÜK" },
+{ A: "DIFFRACTION", B: "KIRILIM" },
+{ A: "DİELEKTRİK", B: "İLETMEZLİK" },
+{ A: "DİFERANS", B: "FARK" },
+{ A: "DİFERANSİYEL DENKLEM", B: "NOKTASALLAŞTIRILMIŞ EŞİTLİK" },
+{ A: "DİMENSİON", B: "BOYUT" },
+{ A: "DİN", B: "İNANÇLAR" },
+{ A: "DOKTORA", B: "BİLİRKİŞİLİK" },
+{ A: "ECZANE", B: "UMAREVİ" },
+{ A: "EKONOMİ", B: "YARARCILIK" },
+{ A: "ELASTİSİTE", B: "ESNEKLİK" },
+{ A: "ELEKTRİK", B: "EKSİCİKLENME" },
+{ A: "ELEKTRON", B: "EKSİCİK" },
+{ A: "ELEKTRONİK", B: "EKSİCİKSEL" },
+{ A: "ELEKTROSTATİK", B: "DURGUN EKSİCİKLENME" },
+{ A: "EMPEDANS", B: "SANAL DİRENÇ" },
+{ A: "ENERJİ", B: "ERKE" },
+{ A: "ENTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
+{ A: "EXPANSION", B: "GENİŞLEME" },
+{ A: "FAKÜLTE", B: "BİLİM DALI" },
+{ A: "FİEREWALL", B: "YAZILIM KALKANI" },
+{ A: "FİZİK", B: "ÖGECİKSEL İTİŞİM" },
+{ A: "FONKSİYON", B: "DEĞER DÖNÜŞTÜREN" },
+{ A: "FRICTION", B: "SÜRTÜNME" },
+{ A: "GEMİNİ", B: "ÖNGÖRÜLERİ GELİŞTİRİLMİŞ ARAÇ" },
+{ A: "GEOMETRİ", B: "BİÇİM BİLİMİ" },
+{ A: "GOD", B: "BİLİNEMEZ" },
+{ A: "GOOD", B: "İYİ" },
+{ A: "GRAVITASYON", B: "KÜTLE ÇEKİM" },
+{ A: "GURME", B: "TATBİLİR" },
+{ A: "HARF", B: "SESADI" },
+{ A: "HARMONİK", B: "UYUMLU" },
+{ A: "HAYVAN", B: "HAYCAN" },
+{ A: "HAZRET", B: "SAYGIN" },
+{ A: "HEAT", B: "ISI" },
+{ A: "HİDROSTATİK", B: "SU BASINCI" },
+{ A: "İLAÇ", B: "UMAR" },
+{ A: "İNDÜKTANS", B: "ETKEÇ" },
+{ A: "İNSAN", B: "TANIMLAYABİLEN" },
+{ A: "İNSÜLİN", B: "GEÇİRGENLEŞTİRİCİ" },
+{ A: "İNŞAAT MÜHENDİSİ", B: "YAPI KURGULAMACASI" },
+{ A: "İNTEGRAL", B: "BOYUTSUZLAŞTIRILMIŞ TOPLAM" },
+{ A: "İNTERFERENS", B: "GİRİŞİM" },
+{ A: "İRREEL", B: "MIŞ GİBİ" },
+{ A: "İSTATİSTİK", B: "SAYMA BİLİMİ" },
+{ A: "KAMPÜS", B: "YERLEŞKE" },
+{ A: "KAPASİTE", B: "SIĞAÇ" },
+{ A: "KAREKOD", B: "İKİ BOYUTLU İMGE" },
+{ A: "KELİME", B: "SÖZCÜK" },
+{ A: "KİMYA", B: "ÖGECİKSEL BİRLEŞİM" },
+{ A: "KİTAP", B: "OKUNACAK" },
+{ A: "KOMPLEKS SAYI", B: "SANAL SAYILI" },
+{ A: "KOORDİNAT SİSTEMİ", B: "YERBELİRTME DÜZENEĞİ" },
+{ A: "KOSİNÜS", B: "KOMŞUBOŞLUK" },
+{ A: "LINEAR", B: "DOĞRUSAL" },
+{ A: "LİFT", B: "DÜŞEY TAŞIT" },
+{ A: "LİMİT", B: "SINIR" },
+{ A: "LİMİTED", B: "SINIRLANMIŞ" },
+{ A: "LİNEER", B: "DOĞRUSAL" },
+{ A: "LOAD", B: "YÜK" },
+{ A: "LOADCELL", B: "YÜK GÖZENEĞİ" },
+{ A: "LOADİNG", B: "YÜKLENME" },
+{ A: "LOCALSTORAGE", B: "YEREL SAKLAK" },
+{ A: "LOGARİTMA", B: "KÜTÜK SAYI" },
+{ A: "LUGAT", B: "SÖZCÜKLÜK" },
+{ A: "MAGNETİZMA", B: "EKSİCİK DOĞURABİLEN" },
+{ A: "MAKBUZ", B: "DEĞİŞİM BELGESİ" },
+{ A: "MANYETİZMA", B: "EKSİCİK DOĞURABİLEN" },
+{ A: "MARKET", B: "BÜYÜKÇE İŞLİK" },
+{ A: "MAS", B: "KÜTLE" },
+{ A: "MATEMATİK", B: "ÇOKLUKLAR BİLİMİ" },
+{ A: "MATRİS", B: "TABLO SAYI" },
+{ A: "MEKANİK", B: "DİNAMİKSEL" },
+{ A: "MENÜ", B: "SEÇENEKLER" },
+{ A: "META Aİ", B: "ÖNGÖRÜLERİ GELİŞTİRİLMİŞ ARAÇ" },
+{ A: "MIXTURE", B: "KARIŞIM" },
+{ A: "MODULASYON", B: "BİÇİMLENDİRME" },
+{ A: "MOMENT", B: "DÖNDÜRME KUVVETİ" },
+{ A: "MONONOM", B: "TEKTERİMLİ" },
+{ A: "MOTION", B: "DEVİNİM" },
+{ A: "MULTIPLE RESPONSE", B: "ÇOKLU YANIT" },
+{ A: "MÜCADELE", B: "ÇEKİŞEN" },
+{ A: "NAKİT", B: "AKARÖDEME" },
+{ A: "NONLİNEER", B: "DOĞRUSAL OLMAYAN" },
+{ A: "NOSYON", B: "SİMGELEŞTİRME" },
+{ A: "NÖTRON", B: "AĞIRCIK" },
+{ A: "NÜ", B: "ÇIPLAK" },
+{ A: "NÜKLEER", B: "ÖGECİK ÇEKİRDEĞİ" },
+{ A: "OPEN", B: "AÇIK" },
+{ A: "OPEN SOURCE", B: "AÇIK KAYNAK" },
+{ A: "OTOMASYON", B: "KENDİLİĞİNDENLEŞTİRME" },
+{ A: "PARTİ", B: "GÜÇBENDE OLSUN İSTER" },
+{ A: "POLARIZATION", B: "YÖNLENME" },
+{ A: "POLİNOM", B: "ÇOK TERİMLİ" },
+{ A: "POTANSİYEL", B: "SAKLI GÜÇ" },
+{ A: "PREJUDICE", B: "ÖNYARGI" },
+{ A: "PRES", B: "BASINÇ" },
+{ A: "PRESS", B: "BASIN" },
+{ A: "PRİCE", B: "EDERİ" },
+{ A: "PROFESÖR", B: "BİLGEN" },
+{ A: "PROTON", B: "ARTICIK" },
+{ A: "PULS", B: "DARBE" },
+{ A: "QUBİT", B: "AYNI ANDATÜM 01 ARASI DEĞERLERİNİ ALABİLİR" },
+{ A: "RADYO", B: "ÜNALGI" },
+{ A: "RADYOAKTİF", B: "IŞIMA" },
+{ A: "RAKAM", B: "AÇI SAY" },
+{ A: "RECEİPT", B: "DEĞİŞİM BELGESİ" },
+{ A: "RECTIFICATION", B: "DOĞRULTMA" },
+{ A: "REZİSTANS", B: "DİRENÇ" },
+{ A: "REZONANS", B: "EŞTİTREŞİM" },
+{ A: "ROTATION", B: "DÖNDÜRME" },
+{ A: "SALE", B: "İNDİRİMDE" },
+{ A: "SHOP", B: "İŞLİK" },
+{ A: "SIR", B: "GİZEM" },
+{ A: "SİNÜS", B: "BOŞLUK" },
+{ A: "SLACK", B: "GEVŞEK" },
+{ A: "SOLUTION", B: "ÇÖZÜM" },
+{ A: "SÖZLÜK", B: "SÖZCÜKLÜK" },
+{ A: "STABİLİTE", B: "KARARLILIK" },
+{ A: "SURE", B: "BÖLÜMCE" },
+{ A: "TANJANT", B: "EĞİM" },
+{ A: "TANRI", B: "BİLİNEMEZ" },
+{ A: "TANSİYON", B: "GERİLİM" },
+{ A: "TARİH", B: "GELECEĞE IŞIK TUTMA" },
+{ A: "TELEVİZYON", B: "SANALGI" },
+{ A: "TESETTÜR", B: "ÖRTÜNME" },
+{ A: "TOMOGRAFİ", B: "KESİT GÖSTERİM" },
+{ A: "TRANSFER", B: "TAŞIMA" },
+{ A: "TRANSFORMATOR", B: "GÜÇ BİLEŞEN DÖNÜŞTÜRÜCÜ" },
+{ A: "TRİGONOMETRİ", B: "AÇILAR BİLİMİ" },
+{ A: "ULTRASOUND", B: "DUYUM ÖTESİ SES" },
+{ A: "UPLOADİNG", B: "YÜKLETME" },
+{ A: "UVİVERS", B: "UZAY" },
+{ A: "ÜCRET", B: "EDER" },
+{ A: "ÜCRETSİZ", B: "EDERSİZ" },
+{ A: "ÜÇBOYUTLU GÖSTERİM", B: "MR" },
+{ A: "ÜNİVERSİTE", B: "BİLİMKENT" },
+{ A: "VEKTÖR", B: "YÖNLÜ BÜYÜKLÜK" },
+{ A: "VETERİNER", B: "HAYCAN SAĞLIKÇISI" },
+{ A: "VIBRATION", B: "TİTREŞİM" },
+{ A: "VİSKOSİTİ", B: "AKIŞKANLIK" },
+{ A: "WEST", B: "GÜNBATISI" },
+{ A: "WORK", B: "İŞ" },
+{ A: "YANDEX Aİ", B: "ÖNGÖRÜLERİ GELİŞTİRİLMİŞ ARAÇ" },
+{ A: "YEVM", B: "GÜN" },
+{ A: "YEVMİYE", B: "GÜNLÜK" },
+{ A: "ZAVİYE", B: "AÇI" },
+{ A: "İHTİSAS", B: "ÖZGÜLLÜK" },
+{ A: "HUS", B: "ÖZELLİK" },
+{ A: "MAHSUS", B: "ÖZGÜ" },
+{ A: "BİLGİSAYAR MÜHENDİSİ", B: "BİLGİ İŞLER KURGULAMACISI" },
+{ A: "ÇEVRE MÜHENDİSİ", B: "ÇEVRE KURGULAMACISI" },
+{ A: "ELEKTRİK MÜHENDİSİ", B: "EKSİCİKLENME KURGULAMACISI" },
+{ A: "ELEKTRONİK MÜHENDİSİ", B: "EKSİCİK KURGULAMACISI" },
+{ A: "TRAFO", B: "GÜÇ BİLEŞENLERİ DÖNÜŞTÜRÜCÜCÜ" },
+{ A: "JENERATÖR", B: "EKSİCİKLENME ÜRETECİ" },
+{ A: "GENERATÖR", B: "EKSİCİKLENME ÜRETECİ" },
+{ A: "FİZİK MÜHENDİSİ", B: "ÖGECİK İTİŞİM KURGULAMACISI" },
+{ A: "GEMİ MÜHENDİSİ", B: "SUDA TAŞIT KURGULAMACISI" },
+{ A: "GIDA MÜHENDİSİ", B: "BESLENME KURGULAMACISI" },
+{ A: "HARİTA MÜHENDİS,", B: "İZLEK KURGULAMACISITANE" },
+{ A: "HARİTA", B: "İZLEK" },
+{ A: "KADASTRO", B: "TAŞINMAZ EDİNİMİ TANIMLAMA" },
+{ A: "İÇ MİMAR", B: "İÇ YERLEŞİM TASARIMCISI" },
+{ A: "JEOFİZİK MÜHENDİSİ", B: "YERÖGECİKSEL İTİŞİM KURGULAMACISI" },
+{ A: "JEOLOJİ MÜHENDİSİ", B: "YER BİLİMİ KURGULAMACISI" },
+{ A: "KİMYA MÜHENDİSİ", B: "ÖGECİKSEL BİRLEŞİM KURGULAMACISI" },
+{ A: "MADEN MÜHENDİSİ", B: "ÖZDEK KURGULAMACISI" },
+{ A: "MAKİNE MÜHENDİSİ", B: "KOLAYLAŞTIRICI KURGULAMACISI" },
+{ A: "MAKİNE", B: "KOLAYLAŞTIRICI" },
+{ A: "METALURJİ MÜHENDİSİ", B: "ÖZDEK VE ALAŞIMLARI ÜRETİM KURGULAMACISI" },
+{ A: "METEOROLOJİ MÜHENDİSİ", B: "HAVAYUVAR KURGULAMACISI" },
+{ A: "MİMAR", B: "YAPI TASARIMCISI" },
+{ A: "ORMAN MÜHENDİSİ", B: "ORMAN KURGULAMACISI" },
+{ A: "PETROL MÜHENDİSİ", B: "KAYAYAĞI KURGULAMACISI" },
+{ A: "PEYZAJ MÜHENDİSİ", B: "ÇEVRE DÜZENLEME KURGULAMACISI" },
+{ A: "VİDA", B: "BURMA" },
+{ A: "TORNAVİDA", B: "BURMAÇ" },
+{ A: "MATKAP", B: "DELİCİ" },
+{ A: "AUTOMATION", B: "KENDİLİĞİNDENLEŞTİRME" }
+];
+
+let aktifMod = "GENEL";
+let aramaSayaci = 0;
+let animsaticiIndex = 0;
+const GUN_KEY='sozcukluk_gun', GUN_SAYAC_KEY='sozcukluk_gunluk', TOP_SAYAC_KEY='sozcukluk_toplam', GUNCELLEME_KEY='sozcukluk_guncelleme_sayisi';
+const hafiza={getItem:k=>{try{return localStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+
+function sayaclariGuncelle(isSearch=false){
+const bugün=new Date().toISOString().split('T')[0];
+if(hafiza.getItem(GUN_KEY)!==bugün){hafiza.setItem(GUN_KEY,bugün);hafiza.setItem(GUN_SAYAC_KEY,'0')}
+let g=parseInt(hafiza.getItem(GUN_SAYAC_KEY)||'0'), t=parseInt(hafiza.getItem(TOP_SAYAC_KEY)||'0'), u=parseInt(hafiza.getItem(GUNCELLEME_KEY)||'0');
+if(isSearch){g++;t++;u++;hafiza.setItem(GUN_SAYAC_KEY,g);hafiza.setItem(TOP_SAYAC_KEY,t);hafiza.setItem(GUNCELLEME_KEY,u)}
+sayaclariYukle();
+}
+
+function sayaclariYukle(){
+document.getElementById('sayacGun').textContent=hafiza.getItem(GUN_SAYAC_KEY)||'0';
+document.getElementById('sayacTop').textContent=hafiza.getItem(TOP_SAYAC_KEY)||'0';
+document.getElementById('sayacSozcuk').textContent=sozluk.length+sozlukSaglik.length+sozlukBilim.length;
+document.getElementById('sayacGuncelleme').textContent=hafiza.getItem(GUNCELLEME_KEY)||'0';
+}
+
+function havuzGoster() {
+const aktifHavuz = aktifMod==="SAGLIK"? sozlukSaglik : aktifMod==="BILIM"? sozlukBilim : sozluk;
+const baslangic = (animsaticiIndex * 5) % aktifHavuz.length;
+const havuz = [];
+for(let i=0; i<5; i++){
+havuz.push(aktifHavuz[(baslangic + i) % aktifHavuz.length]);
+}
+
+let html = `<div style="color:#555;font-size:13px;margin-bottom:5px;"><strong>ANIMSATICI ÖRNEK SORULAR:</strong></div><div class="sonuc-listesi">`;
+havuz.forEach((s, i) => {
+html += `<div class="sonuc-maddesi" style="text-align:center;cursor:pointer;" onclick="document.getElementById('girdi').value='${s.A}';bul();">${i+1}. ${s.A} - ${s.B}</div>`;
+});
+html += `</div>`;
+document.getElementById('sonucMetni').innerHTML = html;
+}
+
+function modSec(mod){
+const sBtn=document.getElementById('saglikBtn'), bBtn=document.getElementById('bilimBtn'), gosterge=document.getElementById('modGosterge'), girdi=document.getElementById('girdi');
+sBtn.style.boxShadow=bBtn.style.boxShadow="none";
+if(aktifMod===mod){aktifMod="GENEL";gosterge.innerHTML="";girdi.placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE YABANCI KÖKENLİ VEYA ÖNERİLMİŞ YALIN TÜRKÇE SÖZCÜK SOR"}
+else{
+aktifMod=mod;
+if(mod==="SAGLIK"){
+sBtn.style.boxShadow="0 0 10px #2ecc71";
+gosterge.innerHTML='<div class="mod-aktif" style="background:#e8f8f5;color:#27ae60;">SAĞLIK İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
+girdi.placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE YABANCI KÖKENLİ VEYA ÖNERİLMİŞ YALIN TÜRKÇE SÖZCÜK SOR";
+} else {
+bBtn.style.boxShadow="0 0 10px #9b59b6";
+gosterge.innerHTML='<div class="mod-aktif" style="background:#f4ecf7;color:#8e44ad;">BİLİMSEVER İÇİN ÖZEL SÖZCÜKLER SORGULANIYOR</div>';
+girdi.placeholder="ÖNCE GENEL, SAĞLIK, BİLİM BÖLÜMLERİNDEN BİRİNİ SEÇ VE YABANCI KÖKENLİ VEYA ÖNERİLMİŞ YALIN TÜRKÇE SÖZCÜK SOR";
+}
+temizle();
+}
+}
+
+function bul(){
+const kelime=document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
+const sonucMetni=document.getElementById('sonucMetni'), oneriAlani=document.getElementById('oneriAlani'), kA=document.getElementById('kumeA'), kB=document.getElementById('kumeB'), panel=document.getElementById('sonucPaneli');
+
+sonucMetni.innerHTML=""; oneriAlani.style.display="none"; kA.className="kume"; kB.className="kume"; panel.className="sonuc-paneli";
+
+if(!kelime){
+havuzGoster();
+return;
+}
+
+let liste=sozluk; if(aktifMod==="SAGLIK")liste=sozlukSaglik; if(aktifMod==="BILIM")liste=sozlukBilim;
+let bulunanlar=[], kumeTipi="";
+
+liste.forEach(k=>{
+const kA_Ust=k.A.trim().toLocaleUpperCase('tr-TR'), kB_Ust=k.B.trim().toLocaleUpperCase('tr-TR');
+if(kA_Ust.includes(kelime)){
+bulunanlar.push({aranan:k.A, karsilik:k.B, tur: "A KÜMESİ"});
+if(!kumeTipi) kumeTipi="A";
+}
+else if(kB_Ust.includes(kelime)){
+bulunanlar.push({aranan:k.B, karsilik:k.A, tur: "B KÜMESİ"});
+if(!kumeTipi) kumeTipi="B";
+}
+});
+
+if(bulunanlar.length>0){
+aramaSayaci++;
+if(aramaSayaci % 20 === 0) animsaticiIndex++;
+sayaclariGuncelle(true);
+
+if(kumeTipi==="A"){
+panel.classList.add('yanit-mavi');
+kA.classList.add('aktif-a');
+sonucMetni.innerHTML=`<div style="margin-bottom:6px;font-size:13px;font-weight:bold;color:#00f">ARANAN YABANCI KÖKENLİ SÖZCÜK BULUNDU, KARŞILIĞI ÖNERİLMİŞ YALIN KÖKENLİ SÖZCÜKLER GÖSTERİLİYOR</div><div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`+bulunanlar.map((o,i)=>`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666">[${o.tur}]</small></div>`).join("")+`</div>`;
+}else{
+panel.classList.add('yanit-kirmizi');
+kB.classList.add('aktif-b');
+sonucMetni.innerHTML=`<div style="margin-bottom:6px;font-size:13px;font-weight:bold;color:red">ÖNERİLMİŞ B KÜMESİ YALIN KÖKENLİ SÖZCÜK BULUNDU, KARŞILIĞI YABANCI KÖKENLİ SÖZCÜKLER GÖSTERİMDE</div><div style="margin-bottom:8px;color:#2c3e50"><strong>${bulunanlar.length} ADET SONUÇ BULUNDU:</strong></div><div class="sonuc-listesi">`+bulunanlar.map((o,i)=>`<div class="sonuc-maddesi">${i+1}. <strong>${o.aranan}</strong> = ${o.karsilik} <br><small style="color:#666">[${o.tur}]</small></div>`).join("")+`</div>`;
+}
+
+}else{
+panel.classList.add('yanit-bulunamadi');
+sonucMetni.innerHTML=`"${kelime}" biriktiricimizde bulunamadı.`;
+oneriAlani.style.display="block";
+}
+document.getElementById('girdi').focus();
+}
+
+function temizle(){
+document.getElementById('girdi').value="";
+havuzGoster();
+document.getElementById('oneriAlani').style.display="none";
+document.getElementById('kumeA').className="kume";
+document.getElementById('kumeB').className="kume";
+document.getElementById('sonucPaneli').className="sonuc-paneli";
+document.getElementById('girdi').focus();
+}
+
+window.onload=()=>{
+sayaclariGuncelle(false);
+havuzGoster();
+document.getElementById('girdi').focus();
+};
+</script>
 </body>
 </html>
-
-
-
