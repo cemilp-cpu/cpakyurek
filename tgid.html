@@ -1,206 +1,271 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>Tüm Görünümleri İmgeleme Dili (T.G.İ.D.) Kılavuzu</title>
-<style>
-body {
-font-family: 'Times New Roman', serif;
-font-size: 11pt;
-line-height: 1.6;
-color: #111111;
-max-width: 800px;
-margin: 40px auto;
-padding: 0 20px;
-background-color: #ffffff;
-}
-
-h1, h2, h3 {
-font-family: 'Times New Roman', serif;
-color: #003366;
-font-weight: bold;
-margin-top: 1.8em;
-margin-bottom: 0.6em;
-}
-
-h1 {
-font-size: 22pt;
-text-align: center;
-text-transform: uppercase;
-margin-bottom: 1.5em;
-border-bottom: 2px solid #003366;
-padding-bottom: 10px;
-}
-
-h2 {
-font-size: 15pt;
-border-left: 4px solid #003366;
-padding-left: 10px;
-}
-
-h3 {
-font-size: 12pt;
-font-style: italic;
-}
-
-p {
-margin-top: 0;
-margin-bottom: 1.2em;
-text-indent: 1.5em;
-text-align: justify;
-}
-
-.author-box {
-text-align: center;
-font-size: 11pt;
-margin-bottom: 3em;
-font-style: italic;
-color: #444444;
-line-height: 1.4;
-}
-
-.dedication {
-text-align: center;
-font-style: italic;
-margin: 2.5em auto;
-max-width: 85%;
-border-top: 1px solid #dddddd;
-border-bottom: 1px solid #dddddd;
-padding: 15px 0;
-font-size: 11pt;
-color: #222222;
-}
-
-.code-block {
-font-family: monospace;
-background-color: #f7f7f7;
-border: 1px solid #dddddd;
-padding: 12px 18px;
-margin: 1.2em 0;
-font-size: 10pt;
-white-space: pre-wrap;
-border-radius: 4px;
-}
-
-.term-table {
-width: 100%;
-border-collapse: collapse;
-margin: 1.8em 0;
-}
-
-.term-table th, .term-table td {
-border: 1px solid #bbbbbb;
-padding: 10px 14px;
-font-size: 10.5pt;
-text-align: left;
-vertical-align: top;
-}
-
-.term-table th {
-background-color: #f0f4f8;
-color: #003366;
-font-weight: bold;
-}
-
-.term-table tr:nth-child(even) {
-background-color: #fafafa;
-}
+<meta charset="iso-8859-9">
+<title>Kendi Sanalyöreni Kendin Yap</title>
+<style type="text/css">
+h3 { color: blue; }
+h2 { color: green; }
+p { color: black; font-size: 25px; }
+body { background-color: white; }
+h1 { color: black; font-size: 50px; }
 </style>
 </head>
-<body>
+<body bgcolor="beyaz">
 
-<h1>TÜM GÖRÜNÜMLERİ İMGELEME DİLİ (T.G.İ.D.)<br><span style="font-size: 14pt; font-weight: normal; color: #555555; text-transform: none; display: block; margin-top: 10px;">Yabancı Sözcük Kullanmaksızın Bir Anlatım ve Uygulama Örneği</span></h1>
+<h1>KENDİ SANALYÖRENİ KENDİN YAP</h1>
 
-<div class="author-box">
-<strong>Cemil Pakyürek</strong><br>
-Elektronik Yüksek Mühendisi (İTÜ, 1973)
-</div>
+<h2>PAKYÜREK Sanalyöre</h2>
+<p>PAKYÜREK Sanalyöre enbüyükten bir küçük h2 ile yazıldı</p>
 
-<div class="dedication">
-"Bu çalışmamı, bana öğrenmeyi öğreten ve sevdiren, yaşamdan yıllar önce ayrılmış olan saygın öğretmenim <strong>Ömer Beygo</strong> Beyefendi’ye armağan etmek istiyorum."
-</div>
+<p>Her şeyden önce, head=baş bölümünde yapılan tüm biçim tanımları bu belgenin her yerinde etkilidir.</p>
+<p>Var olabilecek diğer belgelerinde etkili olmayacaktır</p>
 
-<h2>1.1 ÖNSÖZ</h2>
-<p>Bu yazıyı, her şeyden önce Türkiye’de Türkçe konuşarak, düşünerek, yazarak öğrenmeye önem veren biri olarak, bu düşünüşe değer verenlere verdiğim değerden dolayı ve tabii bu biçimde öğrenmeye gerek duyan her yaştan öğrenciler için anlaşılır Türkçe ile yazıyorum. Olabildiğince Latince, Arapça, Rusça, Çince, Farsça, İngilizce, Fransızca veya Almanca kökenli sözcüklerden arındırılmış bir anlatım amaçlanmıştır.</p>
-<p>Bu sırada, bugüne kadar anlaşılır dille, yabancı kökenli sözcükleri kullanmaktan kaçınarak yazı hazırlayan, görüşlerini yazılı belirtmeye çaba gösteren herkese saygılarımı sunuyor, sağlıklar diliyorum. Bu çalışma bir "başarım olsun" çabasıdır.</p>
+<h3>Bu başlık at da, diğer h3 ile tanımlanmış başlık atlar gibi, mavi renktedir.</h3>
+<p>Süreç başlatanlan yazılarının tümü kırmızı ve 25 noktacık yazacak</p>
 
-<h2>1.2 GİRİŞ: TÜM GÖRÜNÜMLERİ İMGELEME DİLİNİ (T.G.İ.D) YORUMLAMAM</h2>
-<p>Öğrenmek istedim ve çok iyi İngilizce bilmememe rağmen, yabancı sözcüklerle boğuşarak da olsa öğrendiğimi söyleyebilirim. Öğrendiklerimi kendi anladığım biçimlerde –bence anlaşılır Yalın Türkçe ile– anlatmaya çalışıyorum. Eğer bu yazdıklarımla ilgili bir yanlış anlamam veya yanlış anlatımım görülüyorsa, bunun temel sorumluluğu yabancı sözcükleri kullanmadaki ısrarlı direnç ve Türkçe bilimsel karşılık eksikliğidir.</p>
-<p>Burada geliştirdiğim yeni bir yazılım dilinden söz etmiyorum; sadece var olan <strong>Tüm Görünümleri İmgeleme Dili (HTML)</strong> yapısının anlaşılmasına, kendimce yeni bir berraklık getirmeye çabalıyorum. Bir konuşma dilinin temel yapısını göz önüne aldığımızda, dilin en temel iki yapısal kümesi olduğunu görürüz: <em>Sözcükler Kümesi</em> ve <em>Yazılım/Kullanım Kuralları Kümesi</em>.</p>
-<p>Yazılım dillerinde her sözcüğün buyurmak ya da ettirmek işlevi vardır. Yazılımlar, yapay düşünme düzeneklerine, daha genel anlatımla <strong>bilgi işlerlere</strong> (bilgisayar yerine bu kavramı yeğliyorum) buyruklar ve yaptırımlar yazar; bilgi işlerler de o buyrukları yerine verir. Başka yazarların komut, etiket, tag gibi adlandırdığı yapılara "buyruk" veya "yapıştırılan" sözcüklerini kullanmamız bu sebeple çok daha kavratıcıdır.</p>
+<p>Bölüm sonunda değerlendirme yapalım.</p>
 
-<h2>1.3 GENEL YAPI: BAŞ, GÖVDE VE UZANTILAR</h2>
-<p>T.G.İ.D. yapısından söz etmek istersek, canlılarda olduğu gibi en az üç temel bölümden bahsedebiliriz:</p>
+<p><strong>&lt;head&gt; baş</strong> buyrukları arasında yazılabilecek, yazılması gereken, 7 adet buyruk ve niteleyicileri ile alacağı değerleri, bilgi işlerlere- ikili tabanlı düzeneklere - yaptıracaklarını ortaya koymaya çalıştım.</p>
 
-<table class="term-table">
-<thead>
-<tr>
-<th>Özgün Terim / Buyruk</th>
-<th>Yalın Türkçe Karşılığı</th>
-<th>İşlevi ve Tanımı</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>&lt;head&gt;</strong></td>
-<td>Baş Bölümü</td>
-<td>Sanalyörenin kimliği, öntanımları ve ikili tabanlı düzeneklere kendini tanıtıcı bildirimlerin yapıldığı bölüm. Tarayıcıda doğrudan sergilenmez.</td>
-</tr>
-<tr>
-<td><strong>&lt;body&gt;</strong></td>
-<td>Gövde Bölümü</td>
-<td>Sanalyöre konuklarına sergilenmek istenen tüm içeriklerin (yazılar, görseller, sesler, tablolar) yer aldığı ana sergi alanı.</td>
-</tr>
-<tr>
-<td><strong>&lt;extremity&gt; / Uzantılar</strong></td>
-<td>Kol ve Bacaklar Bölümü</td>
-<td>Sayfaya hareketlilik ve devinirlilik kazandıran Javascript tümceleri ile belgelerde eşsiz biçimlilik ve denetim kolaylığı sağlayan Ardışık Biçimleme Belgelerinin (CSS) incelendiği dinamik bölüm.</td>
-</tr>
-</tbody>
-</table>
+<p>Görüldüğü gibi <strong>&lt;head&gt; baş</strong> bölümünde Sanalyöremizin nitelikleri ile ilgili veriler diğer iki tabanlı düzeneklere iletilmiş olur.</p>
 
-<h2>2. &lt;HEAD&gt; BAŞ BÖLÜMÜ BUYRUKLARI VE NİTELEYİCİLERİ</h2>
-<p>Baş denilen bölümde yazılacak buyruklar, niteleyiciler ve alacağı değerler tüm sanalyöreye ilişkindir. Bu bölümde toplam 7 adet temel buyruk öngörülmüştür:</p>
+<p>Adı, yazarı, dil(ler)i, cep-belleği kullanıp kullanmayacağı, güncellenme tarihi, görüntüye girerken, çıkarken nasıl davranacağı, yararlanma hakkı kimin, biçim bilgileri hangi belgede saklı, yada biçim bilgileri, canlımsıcılara dolaşma olanakları verilip, verilmediği, içerik damıtığı, yazılım dli kullanılıyorsa hangi diller in kullanılacağı , yazılım kurallarına uygun olarak ikili tabanlı düzeneklere aktarıldı.</p>
 
-<h3>2.1 &lt;title&gt; Başlık Buyruğu</h3>
-<p>Sanalyöreyi ya da ilgili belgeyi tanımlamaya yarar. İkili tabanlı düzenekler ve arama döndürücüleri sanalyörenizi bu başlıkla tanır ve arama sonuçlarında bu içeriği gösterir. Niteleyicisi ve değeri yoktur.</p>
-<div class="code-block">&lt;title&gt; Pakyürek Sanalyöresi &lt;/title&gt;</div>
+<p>Şimdi artık <strong>&lt;body&gt; gövde</strong> bölümüne geçebiliriz.</p>
 
-<h3>2.2 &lt;style&gt; Biçim Buyruğu</h3>
-<p>T.G.İ.D. belgelerine biçimler tanımlamada kullanılır. Üç farklı yöntemle uygulanabilir: Dış Biçimleme Dosyası (kalıp_adı.css), İç Biçim Belgesi (sadece o sayfaya özgü) ve Satır İçi Biçim Uygulama.</p>
-<div class="code-block">
+<p>Başa head -------------------------------------- --------</p>
+
+<h2>Bu, bir "BAŞARIM OLSUN" yazılarından birincisidir.</h2>
+
+<p>(Bu yazı, yabancı sözcük kullanmaksızın, bir anlatım örneğidir.)</p>
+
+<p>(Hypertext Markup Language (H.T.M.L.) Ben buna)</p>
+
+<p><strong>TÜM GÖRÜNÜMLERİ İMGELEME DİLİ (T.G.İ.D.) demek istiyorum.</strong></p>
+
+<h2>ÖNSÖZ</h2>
+
+<pre>
+&lt;html&gt; &lt;head&gt; &lt;title&gt; Yazım özellikleri &lt;/title&gt; &lt;style &gt; type="text/css"&gt;&lt;/style&gt; &lt;/head&gt; &lt;body bgcolor="gold"&gt; &lt;p&gt;Pakyürek Sanalyöre &lt;/body&gt; &lt;/html&gt; Uygulamanın sonucunu görmek istiyorsanız ?
+</pre>
+
+<h2>GENEL YAPI</h2>
+
+<p>genel yapı sonunagirişeilksayfa <strong>HTML (=tüm görünümleri imgeleme dili)</strong>'nin genel yapısından söz etmek istersek, canlılarda olduğu gibi, en az üç bölümden sözedebiliriz.</p>
+
+<ul>
+<li><strong>Head (baş)</strong></li>
+<li><strong>Body (gövde)</strong></li>
+<li><strong>Extremity (Uzantılar ya da Kol ve Bacaklar)</strong></li>
+</ul>
+
+<p>a - &lt;head&gt; baş bölümünde, sanalyörenin kimliği ile ilgili bilgiler ile öntanımı yapılması gerekli bilgilerin tanımlaması yapılır,</p>
+
+<ol>
+<li>&lt;html&gt;</li>
+<li>&lt;head&gt; &lt;title&gt; &lt;/title&gt; &lt;style&gt; &lt;/style&gt; &lt;/head&gt;</li>
+<li>&lt;body&gt;</li>
+<li>uzantılar &lt;extremity&gt; &lt;/extremity&gt; &lt;/body&gt; &lt;/html&gt;</li>
+</ol>
+
+<p>Buyruklar ın ve niteleyicilerin abecesel tablosuya ulaşın</p>
+
+<p>2 - <strong>&lt;HEAD&gt; BAŞ</strong> bölümü buyruklarını, niteleyicilerini ve alacağı değerlerini incele me y l e başlayalım : baş bölümü sonuna ilksayfaya</p>
+
+<p>Genel yapıyı gözeterek. Html( Tü m Görünümleri imgeleme d ili )'nin buyruklarını, buyrukların niteleyicilerini ve aldığı değerleri teker teker ele alarak öğrenelim. Uygulayalım. Gerek &lt;head&gt;baş, &lt;body&gt;gövde, gerekse &lt;extrimity&gt; uzantılar(kol ve bacaklar) bölümü üç ayrı bölüm olarak ele alınacaktır.</p>
+
+<p>Her buyruk , İngilizcesi ve benim önerdiğim anlaşılır Türkçe karşılıkları ile ve her bölüm içinde ayrı ayrı , etkinliklerini de açıklayarak, örnekleyerek ele alacağız.</p>
+
+<p>Html(tgid) 'nin iskeletsel yapısı aşağıdaki gibidir.</p>
+
+<ol>
+<li>&lt;html&gt;</li>
+<li>&lt;head&gt; &lt;title&gt; &lt;/title&gt; &lt;style&gt; &lt;/style&gt; &lt;/head&gt;</li>
+</ol>
+
+<p>İşte örnek, &lt;html&gt; &lt;head&gt; &lt;title&gt; Kalıb Genel &lt;/title&gt; &lt;METAcontent=text/html;CHARSET=iso-8859-9 http-equiv=Content-Type &gt; &lt;style&gt; type {type:text/css;} h3 {color:blue;} h2 {color:green;} p {color:red; font-size:25;} &lt;/style&gt; &lt;/head&gt; &lt;body bgcolor="yellow"&gt; &lt;h6&gt; Pakyürek Sanalyöre ++++++++++ enküçük h6 ile yazıldı&lt;/h6&gt; &lt;h3&gt; P A K Y Ü R E K ... S A N A L Y Ö R E --------küçük h3 ile yazıldı&lt;/h3&gt;</p>
+
+<p><strong>&lt;head&gt; baş</strong> bölümünden başlıyarak, daha sonra sırayla <strong>&lt;body&gt; gövde</strong> ve &lt;extremity&gt; kol ve bacaklar (uzantılar) bölümlerini incel erken buyruk sözcüklerinin anlamlarını. Yaptırım güçlerini, çeşitli niteleyicilerini alabilecekleri değerleri ve yazılım kurallarını n ayırdına vararak öğren eceğiz.</p>
+
+<p>Özellikle niteleyicilerin ve değerlerin tümünü ele alamıyacağımızı göz önünde bulundurmalıyız.</p>
+
+<p>Sözcükler ( buyruklar ) kümesi ögelerini n , sadece ve sadece ad ve eylem sözcüklerininden (buyruklarından) oluştuğunu artık biliyoruz.</p>
+
+<pre>
+<strong>&lt;html&gt;</strong> <strong>&lt;head&gt;</strong> <strong>&lt; title &gt;</strong> <strong>Başlıksız</strong> <strong>&lt;/title&gt;</strong> <strong>&lt;METAcontent=text/html ;CHARSET=iso -8859-9 http-equiv=Content-Type &gt;</strong> <strong>&lt;/head&gt;</strong> <strong>&lt;body&gt;</strong> <strong>&lt;script language=""&gt;</strong> <strong>var cevap=false</strong> <strong>while(cevap==false)</strong> <strong>cevap=confirm("Siteme tekrar geleceksiniz değil mi !?</strong>
+</pre>
+
+<h2>GİRİŞ</h2>
+
+<p>boloumsonu ilksayfayaBen öğrenmek istedim. Sanırım çok iyi İngilizce bilmememe rağmen, yabancı sözcüklerle boğuşarak da olsa öğrendim. Öğrendiklerimi anladığım biçimlerde – bence anlaşılır Türkçe ile- anlatmaya çalışıyorum.</p>
+
+<p>Eğer bu yazdıklarımla ilgili bir yanlış anlamam, yanlış anlatımım görülüyorsa bunun sorumluluğu bize bu yabancı sözcükleri kullanarak anlatmadaki direnimdir. Çünkü benim yabancı sözcükler ile ilgili bilgi birikimim yeterli olmayabilir, hatta yeterli değildir.</p>
+
+<pre>
+&lt;h1 style=" color:red; font-size:50;"&gt; Pakyürek Sanalyöre&lt;/h1&gt; &lt;h1&gt; P a k y ü r e k Sanalyöre &lt;/h1&gt; &lt;font size="3" color="blue" face="comic sans MS"&gt;Yazılım kuralı olarak; &lt;br&gt;h1 boyutlu başlık buyruğunun biçim &lt; style &gt; niteleyicisi, renk ve boyut değerleriyle gövde bölümünde yer almıştır. &lt;br&gt;Yani sadece ikinci satırdaki yazılanlarda etkili olacaktır. 1. ve 3. satırdaki yazılanlar etkilenmeyecektir. &lt;br&gt;Burada yazılım kuralı olarak İki niteleyici arasında sadece boşluk bırakılmıştır, color:red; font-size:50; gibi
+</pre>
+
+<p>Kimi sanalyöre gezgini sizing sanalyörenizi sık kullanılanlara eklenince <strong>"&lt;title&gt; başlık"</strong>'ın algılanması sağla nır.</p>
+
+<p>Böylece ("search engine"lerde ) Arama döndürücülerinde (google, yandex gibi) sonuç olarak <strong>"&lt;title&gt; başlık"</strong> görünür.</p>
+
+<p>&lt; title &gt; başlık atarken bu özelliğinden yararlanmayı gözönünde bulundurun.</p>
+
+<p>Herb ir belgede sadece bir tane <strong>&lt;head&gt; başlık</strong> olmalıdır.</p>
+
+<p>Ayrıca , bir sanalyöre belgesine <strong>&lt;title&gt; başlık</strong> konulması atlan mamalıdır. Aksi halde uluslararası ağ'da, html ( tgid ) belgesi olarak algılanamazlar.</p>
+
+<p>Üçüncü bölümde hem <strong>Ardışık Biçim Belgeleri (=CSS)</strong> hem de katmanlar birlikte ayrıca <strong>JAVASCRİPT</strong> bilgilerimizi tümden ve düzenli bir şekilde gözden geçirip sergileyeceğiz.</p>
+
+<h2>Burada, t.g.i.d. için belirtilmesi zorunlu olan birkaç yazım kuralından da sözedelim:</h2>
+
+<h2>Yazılım Kuralları Kümesi:</h2>
+
+<p>&lt;Meta&gt; konu buyrukları genellikle belgenin (description) açıklama , (keywords) ilişkin sözcükler , (author) belgenin yazarı, (last modified ) son değiştirilme tarihi, vb gibi sanalyöre özelliklerinin tarayıcıların – bilgi işlerlerin- sayfa yüklenirken nasıl görüneceği, arama döndürücüleri için buldurucu ve/veya ilişkili sözcükleri belirtir.</p>
+
+<p>Anlaşılacağı gibi, html (tgid) yazılımlar ı &lt;head&gt; baş bölümünde , sanalyörenin ayırıcı özelliklerini, bazı niteliklerini, ikili tabanli düzeneklere - bu arada arama döndürücülerine de belirtmek üzere - bilgiler barındırır.</p>
+
+<p>Bu buyrukla imgelenen içerik sanalyörenin geri kalanından bağımsız olarak dağıtmak mümkün olmalıdır.</p>
+
+<p>Şu içerikler &lt; article &gt; buyruğu ile ile imgelenebilir; Forum Yazıları, Blog yazıları, haberler, yorumlar.</p>
+
+<p>&lt;/article&gt;&lt;br&gt;&lt;b&gt;2- bölüm&lt; section &gt;&lt;/b&gt; buyruğu belgede bir bölüm tanımlar. Bölümler üstbilgi, altbilgi gibi belgenin herhangi bir bölümü olabilir.</p>
+
+<p>şimdi kapsam niteleyicisini inceleyebiliriz.</p>
+
+<p>Örnekler; <strong>&lt;title&gt; Pakyürek Sanalyöresi&lt;/title&gt;</strong>, <strong>&lt;title&gt; Türkiye İş Bankası &lt;/title&gt;</strong>, <strong>&lt;title&gt; Ulusal Kanal &lt;/title&gt;</strong>, gibi</p>
+
+<p>2 2 - <strong>&lt;author&gt;</strong> yazar niyeleyicisi, Belgeyi(sanalyöreyi) hazırlayan adını belirtmede kullanılır. Örnek : &lt;meta name="author" content="C. P"&gt; gibi,</p>
+
+<p>2 .3. - <strong>&lt;description&gt;</strong> açıkla ma niteleyicisi, Sayfanın bir açıklamasını belirtir. Arama döndürücüleri arama sonuçlarını göstermek için bu açıklamaları kullanır.</p>
+
+<p>Örnek 1: &lt;meta name = "description" content = "Kendi sanalyöreni kendin yap"&gt;, Sanalyöreninizi niteleyecek açıklamaları tanımlayın.</p>
+
+<p>2 .3. - <strong>&lt;generator&gt;</strong> üretici niteleyicisi, yazılımda kullanılan yardımcı yazılımları belirtmede kullanılır.</p>
+
+<ol>
+<li>internet Explorer, Chrome vb <strong>tarayıcılar</strong>,</li>
+<li>google, yandex gibi sözcük- tümce döndürücüleri yada</li>
+<li>konuklayıcı <strong>sunucular</strong> ve de</li>
+<li>doğal olarak sanalyöre konuklarınızın ikili tabanlı düzenekleri -bilgi işlerleri- dir.</li>
+</ol>
+
+<p>Buyruklar ı, niteleyicilerini, aldığı değerleri, nasıl yazarsak , hangi yazım kuralları kullanırsak birbirimizle sorunsuz, yanlışsız ve eşsiz bir biçimde iletişim kurabileceğiz, anlaşabileceğiz .?</p>
+
+<p><strong>Özetlemeye çalışırsak,</strong> kabaca ve sıra ile</p>
+
+<h2>Ardışık Biçim Belgeleri (=CSS)</h2>
+
+<p>Ardışık biçim belgelerini (=ABB) de, tekrarlardan sakınma da kolaylık sağlamak için, "kalıp"ları, "kalıp belgelerini", oluşturabiliyoruz. (cascade style sheets =css) diye kısaltılıyor.</p>
+
+<p>CSS=ABB ardışık biçim belgeleri bölümünün sonuna geldik. Gördüğünüz gibi bu kurgusal biçimler, T.G.İ.D.(=HTML)'in eksik yönlerini tamamlıyor. Ayrıca büyük belgeler hazırlarken zamandan tüketim yapmamamızı sağlıyor.</p>
+
+<p>Fakat her zaman usumuzun bir köşesinde olsun: Ardışık biçimleme belgeleri, Netscape tarafından desteklenmeyen özelliklerinin sayısı, bir hayli fazladır.</p>
+
+<p>Oysa yöntem i, tam da burada, büyük kolaylık sağlar. Bu bölüm, yeni buyruklar, niteleyiciler, içermiyor. Sadece h.t.m.l=t.g.i.d. buyruklarını, uzantısı .css olan belge yada belgelerde bulundurarak başarıyor.</p>
+
+<p>Bu tek biçimliliğin sağlanacağı belgelerde, bu Ardışık Biçimleme Belgesi "&lt;link rel="stylesheet" href="dosya_adı.css"&gt;" gibi buyrukla çağrılarak, tanımlanan biçimler, yada genel görünüm, sağlanmış olur.</p>
+
+<p>Hemen hemen her konuda olduğu gibi ardışık biçimleme belgeleri, konusunda da, tarayıcı yazılımları (Microsoft Internet Explorer ve Netscape vb.) değişik tepkiler ortaya koyarlar. Bu noktada, sanalyöre yazılımlarımızı, tarayıcıların da çoğunluğunun doğru yorumlayacağı imgeler ile yazmak en uygunudur.</p>
+
+<h2>Javascript Javadili tümceleri</h2>
+
+<p>Bu javascript dili ni, html(Tüm Görünümleri İmgeleme Dili) içinde kullanmak, sanalyöremize devinirlilik ve karşılıklı bilgi alış veriş olanağı – iki yönlü bilgileşme - kazandıracaktır.</p>
+
+<p>Bizlere bu olanağı, T.G.İ.D.(HTML=HİPER TEXT MARK UP LANGUAGE) Tüm Görünümleri İmgeleme Dili sunmuş bulunuyor.</p>
+
+<ol>
+<li>javascript ile devinirlilik sağlama, ve</li>
+<li>Ardışık Biçim Belgeleri (ABB)(=CSS) diğer deyişle kalıplar oluşturarak, kolaylıkla sanalyöre içinde "eşsiz biçim belgeler", "kalıplar" sağlama, yinelemelerden sakınma, denetim ve/veya güncelleme kolaylığı sağlanmış, olacaktır.</li>
+</ol>
+
+<p>Yine bir benzetme yapmak istersek, kol ve bacaklar gövdeye bağlı oldukları halde baş ile yöneltilirler. Yani devinirliliği sağlayan bu bölümdeki buyruk ve niteleyiciler, büyük bölümü &lt;head&gt; baş bölümünde olmak üzere &lt;body&gt; gövde bölümünde de bulunabilir.</p>
+
+<h2>Örnek Uygulamalar</h2>
+
+<p>Şimdi, bir belge yapalım; belgeye koyacağımız çapa at &lt;a&gt; buyruğu, imleç simgesini çapa at ögesinin üzerine getirdiği anda, hem biraz büyük gösterilsin, hem de renk değiştirsinler.</p>
+
+<p>Aşağıdaki örneği Internet Explorer ile sınamanız gerekir.</p>
+
+<pre>
+&lt;html&gt;
 &lt;head&gt;
-&lt;style type="text/css"&gt;
-body { background-color: yellow; }
-p { color: blue; }
-&lt;/style&gt;
+&lt;title&gt;jdili-merhaba dünya&lt;/title&gt;
+&lt;META content=text/html; charset=iso-8859-9 http-equiv=Content-Type&gt;
+&lt;script&gt;function merhaba() { alert('Bilgin olsun Dünya! Buradayım') }&lt;/script&gt;
 &lt;/head&gt;
-</div>
+&lt;body&gt;
+&lt;form&gt;
+&lt;input type="Button" value="Tıklayın!"&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
 
-<h3>2.3 &lt;meta&gt; Konu Buyruğu</h3>
-<p>Sanalyörenin karakter kümesini (charset), yazarını, arama döndürücü robotların dolaşma izinlerini ve sayfa geçiş etkilerini belirler.</p>
+<h2>HTML Buyrukları</h2>
 
-<h3>2.4 &lt;link&gt; Bağlantı Yolu / Bağlan Buyruğu</h3>
-<p>Özellikle dışarıda saklanan Ardışık Biçim Belgelerini (CSS kalıplarını) mevcut T.G.İ.D. belgesine bağlamak için kullanılır. Tek bir kalıp dosyasından tüm sanalyöreyi yönetme (eşsiz biçimlilik) olanağı tanır.</p>
-<div class="code-block">&lt;link rel="stylesheet" type="text/css" href="kalıb1.css"&gt;</div>
+<p>Her buyruk, İngilizcesi ve benim önerdiğim anlaşılır Türkçe karşılıkları ile ve her bölüm içinde ayrı ayrı, etkinliklerini de açıklayarak, örnekleyerek ele alacağız.</p>
 
-<h3>2.5 &lt;script&gt; Yazılım Buyruğu & 2.6 &lt;noscript&gt; Yazılımsız Buyruğu</h3>
-<p>Sayfaya iki yönlü bilgileşme ve devinirlilik katan Javadili (Javascript) tümcelerini çalıştırmak için kullanılır. Eğer konuğun tarayıcısı yazılımı desteklemiyorsa &lt;noscript&gt; buyruğu devreye girer.</p>
+<p>Html(tgid)'nin iskeletsel yapısı aşağıdaki gibidir:</p>
 
-<h3>2.7 &lt;base&gt; Temel Buyruğu</h3>
-<p>Belgedeki tüm göreceli bağlantı yollarını ve yönlendirmeleri önceden belirlenmiş tek bir temel adrese yönlendirmek için kullanılır.</p>
+<ol>
+<li>&lt;html&gt;</li>
+<li>&lt;head&gt; &lt;title&gt; &lt;/title&gt; &lt;style&gt; &lt;/style&gt; &lt;/head&gt;</li>
+</ol>
 
-<h2>3. &lt;BODY&gt; GÖVDE BÖLÜMÜ VE BİÇİMLENDİRME KURALLARI</h2>
-<p>Gövde, sanalyöre konuklarımıza sergileyeceğimiz her şeyin yer aldığı katmandır. T.G.İ.D dilinde yazılan buyruklar durağandır, zaman boyutuyla kendiliğinden değişmezler. Gövde içerisinde yeni nesil anlamsal buyruklar da kullanılmaktadır:</p>
-<p><strong>&lt;article&gt; (Özgün Yazı):</strong> Forum yazıları, blog girdileri veya haberler gibi sanalyörenin geri kalanından bağımsız, kendi başına dağıtılabilir içerikleri tanımlar.</p>
-<p><strong>&lt;section&gt; (Bölüm):</strong> Belge içinde belirli ve mantıksal bir temaya sahip bölümler oluşturmak amacıyla kullanılır.</p>
+<p><strong>&lt;article&gt;</strong> buyruğu ile imgelenebilir; Forum Yazıları, Blog yazıları, haberler, yorumlar.</p>
 
-<h2>4. &lt;EXTREMITY&gt; ARDIŞIK BİÇİMLEME BELGELERİ (ABB / CSS) VE KALIPLAR</h2>
-<p>Ardışık Biçim Belgeleri (CSS), biçimlendirmeyi en üst düzeye taşır. Ortak biçimlerin tek bir <code>.css</code> dosyasında saklanıp çağrılması, yinelemelerden sakınma, merkezi denetim ve hızlı güncelleme kolaylığı sağlar. Bu sayede tüm sanalyöre belgelerinde kusursuz bir "tek biçimlilik" elde edilir.</p>
-<p>Ayrıca <strong>Kalıp Belgesi (Template)</strong> yöntemiyle, bir işletmenin veya sanalyörenin tüm sayfalarında ortak olması gereken başlıklar, seçenekler ve taban yazıları tek bir dosyada oluşturulup tüm yeni belgelere hatasızca aktarılabilir.</p>
+<p><strong>&lt;section&gt;</strong> buyruğu belgede bir bölüm tanımlar. Bölümler üstbilgi, altbilgi gibi belgenin herhangi bir bölümü olabilir.</p>
 
-<h2>5. SON SÖZ</h2>
-<p>Bu çalışma, bilinen bir dilin yabancı terimlerden arındırılarak öz dille düşünülüp tasarlanabileceğini kanıtlama çabasıdır. Görüş, öneri ve eleştirileriniz çalışmanın sonraki baskılarına olumlu katkılar sağlayacaktır. Katkılarınızı berrak bir iletişimle iletebilirsiniz.</p>
+<h2>Ekler</h2>
+
+<h3>Ek 1:</h3>
+<p>Çeşitli dünya dilleri ve ilgili imge kümeleri(= charset'ler) Yeni ettiricilerden</p>
+
+<h3>Ek 2:</h3>
+<p>T.G.İ.D(HTML) tarafından desteklenen Çokluklar Bilimi imgeleri Biçimleme buyrukları ile ilgili anımsatmalar.</p>
+
+<h3>Ek 3:</h3>
+<p>Resmi veya arkaplan resmini hem yatay hem dikey olarak sayfada ortalama Geliştirilmeler html4, html5</p>
+
+<h2>Son Söylenebilecekler</h2>
+
+<p>İşte bunlar, Tüm Görünümleri İmgeleme Dilini (T.G.İ.D) ve Javascript dilini öğrenmek olacaktır.</p>
+
+<p>Tabidir ki, olmazsa olmaz <strong>yazım kurallarını</strong> da, Javascript, TGİD, katmanlarda değişiklikler gösterse de, bu sırada doğru biçimde öğrenecek ve uygulayacağız.</p>
+
+<p>İşte 'Merhaba Dünya!'</p>
+
+<p>Bu, bir "BAŞARIM OLSUN" yazılarımdan birincisidir.</p>
+
+<p>1. 4. 1-KALIP LAR - CSS=cascade style sheets (ABB=Ardışık Biçim leme Belgeleri) &amp; Katmanlar</p>
+<p>2. 4. 2-Javascript Javadili tümceleri</p>
+<p>5-SON SÖYLENEBİLECEKLER</p>
+
+<p>EKLER sons ayfaya</p>
+
+<p>Dolayısıyla imgeleri satır satır anlamaya çalışmayın.İşte 'Merhaba Dünya!' &lt;html&gt; &lt; head&gt; &lt;title&gt; jdili-merhaba dünya &lt;/title&gt; &lt; META content=text/ html ; charset =iso-8859-9 http-equiv=Content-Type&gt; &lt;script&gt;function merhaba() { alert ( ' Bilgin olsun Dünya! Buradayım') } &lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;form&gt; &lt;input type="Button" value= "Tıklayın!</p>
+
+<p>Şimdi bunların kullanımını bir örnekle görelim: &lt;html&gt; &lt;head&gt; &lt;title&gt; Link ( bağlantı )yolla r ı ve biçim ( C . S .S )&lt;/title&gt; &lt;METAcontent=text/html;CHARSET=iso-8859-9 http-equiv=Content-Type &gt; &lt;style type="text/css"&gt;&lt;/style&gt; &lt;/head&gt; &lt;body&gt; <strong>Anasayfa </strong> <strong>&lt;/body&gt;</strong> <strong>&lt;/html&gt;</strong> Sonucu görmek istiyorsanız tıklayınız . <strong>geliştir</strong>.</p>
+
+<p>?</p>
+
+<p>Bir sanalyöre belgesini n olmazsa olmaz başlatan ve bitiren buyruk yapıştırılanları &lt;html&gt; &lt;/html&gt; imgeleridir. Ne varsa bu iki buyruk yapıştırılanı arasına yazılır. H yper text mark up language (html) belgesi , bunlar arasına yazılır. Bu belgelere yada bu dile, tüm görünümleri imgeleme dili diyorum. T . g . i . d . kısaltmasını öneriyorum.</p>
+
+<p>**&lt;head&gt;** **…….** **&lt;** **/** **head&gt;** **baş** b uyruğu v e niteleyicileri :</p>
+
+<p>Bu javascript dili ni , html(Tüm Görünüm leri İ mgeleme Dili ) içinde kullanmak, sanalyöremize devinirlilik ve karşılıklı bilgi alış veriş olanağı – iki yönlü bilgileşme - kazandıracaktır.</p>
+
+<p>**A** **rdışık biçim belgelerini (=ABB)** de , tekrarlardan sakınma da kolaylık sağlamak k için,**"kalıp"ları, "kalıp belgelerini",**oluşturabiliyoruz. **(cascade style sheets** **=css****)** diye kısaltılıyor) Bu son iki özellik ile,</p>
+
+<p>Bilgi işlerlere - İkili tabanlı düzeneklere -, html(=tüm görünümleri i mgeleme dili ) ile anlattıklarımız, ikili tabanlı düzeneklerce diğer ikili tabanlı düzeneklere a kt a rılacak, sonra bu ikili tabanlı düzeneklerin bu dil ile anladıklarına verecekleri yanıtları, anladığımız, konuştuğumuz dile, sözcüklere, biçimlere, görüntülere, seslere vb burada, &lt;body&gt; gövdede yazılanlar, gösterime çevrilecektir. Bir yazım kuralı olarak, **&lt;body&gt;****gövde** **buyruğunun** niteleyicileri de başlatan buyruğunun içinde gösterilebilir.</p>
+
+<p>, ! i mgeleri yazılan buyrukları eski sürüm tarayıcılardan gizler. Aşağıdaki imge sadece yukarıda verilen kalıbın T . G. İ . D . belgesinin içine nasıl yerleştirildiğini görmeniz ve Javascript hakkında bir görüş sahibi olmanız için verilmiştir.</p>
+
+<p>Uygulamanın sonucunu görmek istiyorsanız ?</p>
+
+<p>Geliştirilmeler html4, html5</p>
 
 </body>
 </html>
