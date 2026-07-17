@@ -15,7 +15,6 @@ input{width:100%;padding:7px;font-size:14px;font-weight:bold;border:1px solid bl
 .dugmeler button{flex:1;padding:7px;border:none;color:white;font-weight:bold;cursor:pointer;font-size:11px}
 .yesil{background:green}
 .turuncu{background:orange}
-.kirmizi{background:darkred}
 .sonuc{background:#e8e8e8;margin-top:10px;padding:8px;min-height:40px;border:1px solid #999;font-size:16px;font-weight:bold;color:black;text-transform:uppercase}
 .sonuc b{color:#a00000;font-size:16px}
 .sonuc hr{border:none;border-top:1px dashed #999;margin:5px 0}
@@ -32,11 +31,10 @@ textarea{width:100%;padding:5px;box-sizing:border-box}
 <div class="b3">HER YABANCI SOZCUGE KARSILIK, YALIN TURKCE KARSILIK SOZCUK VARDIR</div>
 
 <div class="beyaz">
-<input type="text" id="ara" value="">
+<input type="text" id="ara">
 <div class="dugmeler">
 <button class="yesil" onclick="bul()">BUL</button>
-<button class="turuncu" onclick="baska()">BASKA SOZCUK</button>
-<button class="kirmizi" onclick="sil()">SIL</button>
+<button class="turuncu" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
 <button class="yesil" onclick="oner()">ONERI GONDER</button>
 </div>
 <div id="sonuc" class="sonuc"></div>
@@ -2102,7 +2100,8 @@ let sozluk = [
 { A: "zoom" , B: "çevrimiçi bilgilenmeler" }
 ];
 
-// Hem kucuk a hem buyuk A okusun diye duzelttim
+// ====================================
+
 let mapA = {};
 let mapB = {};
 for(let i=0;i<sozluk.length;i++){
@@ -2136,14 +2135,12 @@ function baska(){
 document.getElementById("ara").value="";
 document.getElementById("sonuc").innerHTML="";
 document.getElementById("oneriKutu").style.display="none";
-}
-
-function sil(){
-document.getElementById("ara").value="";
+document.getElementById("ara").focus();
 }
 
 function oner(){
 document.getElementById("oneriKutu").style.display="block";
+document.getElementById("oneriMetin").focus();
 }
 
 function onerGonder(){
@@ -2151,6 +2148,8 @@ let y = document.getElementById("ara").value;
 let yl = document.getElementById("oneriMetin").value;
 location.href=`mailto:cemilp@gmail.com?subject=Oneri&body=YABAN: ${y}%0AYALIN: ${yl}`;
 }
+
+document.getElementById("ara").focus();
 </script>
 </body>
 </html>
