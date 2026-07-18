@@ -5,8 +5,9 @@
 <title>YABANCIYA YALIN SOZCUKLER</title>
 <style>
 body{margin:0;background:#dcdcdc;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:Arial}
-.ana{width:480px;border:3px solid #000;border-radius:5px;box-shadow:3px 3px 10px #000}
-.b1{background:#a00000;color:#fff;text-align:center;padding:10px;font-size:18px;font-weight:bold}
+.ana{width:500px;border:3px solid #000;border-radius:5px;box-shadow:3px 3px 10px #000;background:#fff}
+.ustbant{background:#8B0000;color:#FFD700;text-align:center;padding:8px;font-size:13px;font-weight:bold;letter-spacing:1px}
+.altbaslik{background:#a00000;color:#fff;text-align:center;padding:6px;font-size:14px;font-weight:bold;letter-spacing:2px}
 .b2{background:#001a70;color:#fff;text-align:center;padding:8px;font-size:12px;line-height:1.4}
 .b3{background:#a00000;color:#fff;text-align:center;padding:8px;font-size:11px}
 .beyaz{background:#fff;padding:12px}
@@ -15,9 +16,14 @@ input{width:100%;padding:8px;font-size:14px;font-weight:bold;border:1px solid #0
 .dugmeler button{flex:1;padding:8px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
 .yesil{background:#0a8a0a}
 .turuncu{background:#e67300}
-.sonuc{background:#e8e8e8;margin-top:12px;padding:10px;min-height:45px;border:1px solid #999;font-size:16px;font-weight:bold;color:#000;text-transform:uppercase}
-.sonuc b{color:#a00000;font-size:16px}
-.sonuc hr{border:none;border-top:1px dashed #999;margin:6px 0}
+.istatistik{background:#f0f0f0;padding:6px;text-align:center;font-size:11px;font-weight:bold;border-bottom:1px solid #ccc}
+.istatistik span{color:#a00000}
+.yuruyenKutu{background:#fff;margin-top:8px;border:1px solid #999;height:35px;overflow:hidden;white-space:nowrap}
+.yuruyenYazi{display:inline-block;padding:8px;font-size:15px;font-weight:bold;color:#CC0000;text-transform:uppercase;animation: yatayKaydir 20s linear infinite}
+@keyframes yatayKaydir {0% { transform: translateX(100%); }100% { transform: translateX(-100%); }}
+.sonucKutu{background:#fff;margin-top:6px;border:1px solid #999;min-height:50px;padding:10px;font-size:16px;font-weight:bold;color:#000;text-transform:uppercase;line-height:1.6}
+.sonucKutu b{color:#a00000;font-size:16px}
+.sonucKutu hr{border:none;border-top:1px dashed #ccc;margin:6px 0}
 .oneriKutu{display:none;margin-top:10px}
 textarea{width:100%;padding:6px;box-sizing:border-box;border:1px solid #000}
 .altBant{background:#ffd700;text-align:center;padding:8px;font-size:10px}
@@ -26,9 +32,12 @@ textarea{width:100%;padding:6px;box-sizing:border-box;border:1px solid #000}
 <body>
 
 <div class="ana">
-<div class="b1">YABANCIYA YALIN SOZCUKLER</div>
+<div class="ustbant">★ CEMİL PAKYÜREK / 1973 İTÜ ★</div>
+<div class="altbaslik">SAĞLIK İLE İLGİLİ SÖZCÜKLÜK</div>
 <div class="b2">Bu bir sozluk degil. SOZCUKLUKTUR.<br>onerilen yalin turkce sozcukler sunulur.</div>
 <div class="b3">HER YABANCI SOZCUGE KARSILIK, YALIN TURKCE KARSILIK SOZCUK VARDIR</div>
+
+<div class="istatistik">TOPLAM SÖZCÜK: <span id="toplam">0</span> | TOPLAM GEZEN: <span id="gezen">0</span></div>
 
 <div class="beyaz">
 <input type="text" id="ara" autofocus placeholder="ornek: akşam veya tün">
@@ -37,17 +46,29 @@ textarea{width:100%;padding:6px;box-sizing:border-box;border:1px solid #000}
 <button class="turuncu" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
 <button class="yesil" onclick="oner()">ONERI GONDER</button>
 </div>
-<div id="sonuc" class="sonuc"></div>
+
+<div class="yuruyenKutu"><div id="yuruyen" class="yuruyenYazi"></div></div>
+<div id="sonuc" class="sonucKutu"></div>
+
 <div id="oneriKutu" class="oneriKutu">
 <textarea id="oneriMetin" rows="2" placeholder="yalin turkce oneriniz"></textarea>
 <button class="yesil" onclick="onerGonder()">MAIL ILE GONDER</button>
 </div>
 </div>
-
 <div class="altBant">Bulamadiklarinizi onerin. oneriniz yoneticiye gidecek.<br>cemilp@gmail.com</div>
 </div>
 
 <script>
+let mesajlar = [
+"1. HER YABANCI KOKENLI SOZCÜGE KARSILIK, EN AZ BIR TANE YALIN TURKCE SOZCÜK VARDIR.",
+"2. YALIN TURKCE ILE KONUS, ANLAS. BOYLECE HIZLI DÜSUN.",
+"3. YALIN TÜRKCENIN KORUNMASI, HER YURTSEVERIN SORUMLULUGUNDADIR.",
+"4. DILINI KORUYAMAYAN ULUSLAR, BAGIMSIZLIGINI KORUYAMAZ.",
+"5. DILINI KORUYABILEN ULUSLAR, OZDEGERLERINI, EKININI KORUR VE GELISTIR.",
+"6. DILINI KORU, BAGIMSIZLIGINI GÜVENCEYE AL.",
+"7. BAGIMSIZLIK YALIN DIL ILE VARLIGINI KORUR VE GELISTIR."
+];
+
 // SIZIN NOT DEFTERINDEKI HAVUZU BURAYA KOPYALAYIN
 let sozluk = [
 
@@ -2046,14 +2067,19 @@ mapA[x].push(sozluk[i]);
 if(!mapB[y]) mapB[y]=[];
 mapB[y].push(sozluk[i]);
 }
+document.getElementById("toplam").innerText = sozluk.length;
+let g = localStorage.getItem("gezenSayi"); if(!g) g=0; g++;
+localStorage.setItem("gezenSayi", g);
+document.getElementById("gezen").innerText = g;
+let gun = new Date().getDay();
+document.getElementById("yuruyen").innerText = mesajlar[gun];
 document.getElementById("ara").focus();
 }
 
 function duz(k){
 return k.toLocaleLowerCase('tr-TR')
 .replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
-.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c')
-.trim();
+.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c').trim();
 }
 
 function bul(){
@@ -2062,7 +2088,7 @@ if(g=="") return;
 let sonuc = (mapA[g]||[]).concat(mapB[g]||[]);
 if(sonuc.length>0){
 let h="";
-for(let i=0;i<sonuc.length;i++){
+for(let i=0;i<sonuc.length;i++){ // DÜZELTİLDİ: sozluk.length -> sonuc.length
 h+=`<b>YABAN:</b> ${sonuc[i].A.toUpperCase()}<br><b>YALIN:</b> ${sonuc[i].B.toUpperCase()}<hr>`;
 }
 document.getElementById("sonuc").innerHTML=h;
@@ -2077,22 +2103,14 @@ document.getElementById("sonuc").innerHTML="";
 document.getElementById("oneriKutu").style.display="none";
 document.getElementById("ara").focus();
 }
-
-function oner(){
-document.getElementById("oneriKutu").style.display="block";
-document.getElementById("oneriMetin").focus();
-}
-
+function oner(){ document.getElementById("oneriKutu").style.display="block"; }
 function onerGonder(){
 let y = document.getElementById("ara").value;
 let yl = document.getElementById("oneriMetin").value;
 if(yl.trim()=="") { alert("LUTFEN ONERI YAZIN"); return; }
 location.href=`mailto:cemilp@gmail.com?subject=Yalin Sozcuk Onerisi&body=YABANCI SOZCUK: ${y}%0AONERILEN YALIN: ${yl}`;
 }
-
-document.getElementById("ara").addEventListener("keypress", function(e){
-if(e.key === "Enter") bul();
-});
+document.getElementById("ara").addEventListener("keypress", function(e){ if(e.key === "Enter") bul(); });
 </script>
 </body>
 </html>
