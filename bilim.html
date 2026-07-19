@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YABANCI KÖKENLİ BİLİM SÖZCÜKLERİNE - YALIN TÜRKÇE ÖNERİLERİ</title>
+<style>
+:root { --bordo: #8B0000; --altin: #FFD700; --yesil:#28a745; --turuncu:#fd7e14; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px;background:#f5f7fa;}
+.ustbant{background:var(--bordo);color:var(--altin);padding:12px;text-align:center;border-radius:15px 15px 0 0;font-weight:bold;font-size:15px;}
+.header{background:linear-gradient(90deg,#0a8a0a,#007bff);color:white;padding:20px;text-align:center;border-radius:0 0 15px 15px;margin-bottom:20px;}
+.header h1{font-size:22px;}
+.input-grup{display:flex;gap:10px;background:white;padding:15px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+#kelime{flex:1;padding:14px 18px;border:2px solid #ddd;border-radius:15px;font-size:16px;}
+.ak-buton{background:var(--yesil);color:white;border:none;padding:14px 22px;border-radius:15px;font-weight:bold;cursor:pointer;}
+.turuncu{background:var(--turuncu);color:white;border:none;padding:14px 22px;border-radius:15px;font-weight:bold;cursor:pointer;}
+#sonuc{background:white;padding:20px;border-radius:15px;margin-top:20px;min-height:100px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+.numarali{margin:8px 0;padding:10px;background:#f0f8ff;border-left:4px solid var(--yesil);border-radius:5px;}
+</style>
+</head>
+<body>
+
+<div class="ustbant">★ CEMİL PAKYÜREK / 1973 / İTÜ ★</div>
+
+<div class="header">
+<h1>YABANCI KÖKENLİ BİLİM SÖZCÜKLERİNE</h1>
+<p>YALIN TÜRKÇE ÖNERİLERİ</p>
+</div>
+
+<div class="input-grup">
+<input type="text" id="kelime" placeholder="motor veya döndüren yaz" onkeypress="if(event.key==='Enter')arama()">
+<button class="ak-buton" onclick="arama()">➤ Ara</button>
+<button class="turuncu" onclick="baska()">🔄 BAŞKA SORU SOR</button>
+</div>
+
+<div id="sonuc">Kelime yazıp Ara tuşuna basın.</div>
+
+<script>
+// TAM SİZİN FORMatiniz: { A: "...", B: "..." }
+const veri = [
+
+
+{ A: "zoom" , B: "çevrimiçi bilgilenmeler" },
+{ A: "zeka" , B: "düşünme yeteneği" }, 
+{ A: "airdrop" , B: "telsiz paylaşım" }, 
+{ A: "airprint" , B: "telsiz yazdırma" }, 
+{ A: "asimtod" , B: "değemez" }, 
+{ A: "asimtot" , B: "değemez" }, 
+{ A: "background color" , B: "arkayüz rengi" }, 
+{ A: "bgcolor" , B: "arkayüz rengi" }, 
+{ A: "blog" , B: "çevrimiçi paylaşım" }, 
+{ A: "cebir" , B: "sesadlı işlemler" }, 
+{ A: "download" , B: "indir" } 
+// Buraya 1996 kelime daha ekleyin. Aynı format.
+];
+
+function arama(){
+const k = document.getElementById('kelime').value.toLowerCase().trim();
+const sonucDiv = document.getElementById('sonuc');
+if(k=="") return;
+
+let bulunanlar = [];
+
+// 1. A -> B ara: Yabancıdan Yalına
+veri.filter(item => item.A.toLowerCase() === k)
+.forEach(item => bulunanlar.push(`YABANCI: <b>${item.A}</b> → YALIN: <b>${item.B}</b>`));
+
+// 2. B -> A ara: Yalından Yabancıya
+veri.filter(item => item.B.toLowerCase() === k)
+.forEach(item => bulunanlar.push(`YALIN: <b>${item.B}</b> → YABANCI: <b>${item.A}</b>`));
+
+if(bulunanlar.length>0){
+let html = `<h3>✅ ${bulunanlar.length} Sonuç</h3>`;
+bulunanlar.forEach((s,i)=> html += `<div class="numarali">${i+1}. ${s}</div>`);
+sonucDiv.innerHTML = html;
+}else{
+sonucDiv.innerHTML = `<h3>❓ "${k}" bulunamadı</h3>`;
+}
+}
+
+function baska(){
+document.getElementById("kelime").value="";
+document.getElementById("sonuc").innerHTML="Yeni kelime yazıp Ara tuşuna basın.";
+document.getElementById("kelime").focus();
+}
+</script>
+</body>
+</html>
