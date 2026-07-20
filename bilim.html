@@ -5,27 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YABANCI KÖKENLİ BİLİM SÖZCÜKLERİNE - YALIN TÜRKÇE ÖNERİLERİ</title>
 <style>
-:root { --bordo: #8B0000; --altin: #FFD700; --yesil:#28a745; --turuncu:#fd7e14; }
+:root { --bordo: #8B0000; --altin: #FFD700; --yesil:#28a745; --turuncu:#fd7e14; --kanarya:#FFFF99; --bayrak_kirmizi:#FF0000; }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Segoe UI',Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px;background:#f5f7fa;}
 .ustbant{background:var(--bordo);color:var(--altin);padding:12px;text-align:center;border-radius:15px 15px 0 0;font-weight:bold;font-size:15px;}
-.header{background:linear-gradient(90deg,#0a8a0a,#007bff);color:white;padding:20px;text-align:center;border-radius:0 0 15px 15px;margin-bottom:20px;}
-.header h1{font-size:22px;}
+
+/* ÜST + ALT BAŞLIK AYNI OLDU */
+.cift-baslik{background:var(--kanarya); padding:20px; text-align:center; border-radius:0 0 15px 15px; margin-bottom:20px; border:2px solid var(--bayrak_kirmizi);}
+.cift-baslik h1, .cift-baslik p{font-size:22px; color:var(--bayrak_kirmizi); font-weight:bold; letter-spacing:1px; line-height:1.6;}
+
 .input-grup{display:flex;gap:10px;background:white;padding:15px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
 #kelime{flex:1;padding:14px 18px;border:2px solid #ddd;border-radius:15px;font-size:16px;}
 .ak-buton{background:var(--yesil);color:white;border:none;padding:14px 22px;border-radius:15px;font-weight:bold;cursor:pointer;}
 .turuncu{background:var(--turuncu);color:white;border:none;padding:14px 22px;border-radius:15px;font-weight:bold;cursor:pointer;}
-#sonuc{background:white;padding:20px;border-radius:15px;margin-top:20px;min-height:100px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+#sonuc{background:white;padding:20px;border-radius:15px;margin-top:20px;min-height:100px;box-shadow:0 5px 15px rgba(0,0,0,0.1); position:relative; padding-bottom:45px;}
 .numarali{margin:8px 0;padding:10px;background:#f0f8ff;border-left:4px solid var(--yesil);border-radius:5px;}
+#sayac{position:absolute; bottom:10px; right:15px; font-size:14px; font-weight:bold; color:#333; background:var(--altin); padding:6px 12px; border-radius:8px; border:1px solid #ccc;}
 </style>
 </head>
 <body>
 
 <div class="ustbant">★ CEMİL PAKYÜREK / 1973 / İTÜ ★</div>
 
-<div class="header">
+<div class="cift-baslik">
 <h1>YABANCI KÖKENLİ BİLİM SÖZCÜKLERİNE</h1>
-<p>YALIN TÜRKÇE ÖNERİLERİ</p>
+<p>YALIN TÜRKÇE SÖZCÜK ÖNERİLERİ</p>
 </div>
 
 <div class="input-grup">
@@ -34,58 +38,63 @@ body{font-family:'Segoe UI',Arial,sans-serif;max-width:700px;margin:0 auto;paddi
 <button class="turuncu" onclick="baska()">🔄 BAŞKA SORU SOR</button>
 </div>
 
-<div id="sonuc">Kelime yazıp Ara tuşuna basın.</div>
+<div id="sonuc">
+Kelime yazıp Ara tuşuna basın.
+<div id="sayac">TOPLAM SÖZCÜK: 0</div>
+</div>
 
 <script>
-// TAM SİZİN FORMatiniz: { A: "...", B: "..." }
 const veri = [
 
-
 { A: "zoom" , B: "çevrimiçi bilgilenmeler" },
-{ A: "zeka" , B: "düşünme yeteneği" }, 
-{ A: "airdrop" , B: "telsiz paylaşım" }, 
-{ A: "airprint" , B: "telsiz yazdırma" }, 
-{ A: "asimtod" , B: "değemez" }, 
-{ A: "asimtot" , B: "değemez" }, 
-{ A: "background color" , B: "arkayüz rengi" }, 
-{ A: "bgcolor" , B: "arkayüz rengi" }, 
-{ A: "blog" , B: "çevrimiçi paylaşım" },  
-{ A: "prensip" , B: "ilke" },  
-{ A: "acute angle" , B: "daraçı" }, 
-{ A: "airdrop" , B: "telsiz paylaşım" }, 
-{ A: "motor" , B: "döndüren" }, 
-{ A: "akademi" , B: "bilimkent" }, 
-{ A: "makine" , B: "kolaylaştırıcı" }, 
-{ A: "makine mühendisi" , B: "kolaylaştırıcı kurgulamacısı" }, 
-{ A: "teknoloji" , B: "kurgulama bilimi" },  
-{ A: "teknik" , B: "kurgu" },  
-{ A: "algoritma" , B: "işlem adımları" }, 
-{ A: "allotrop" , B: "ögecığın farklı bıçınımleşlerı" }, 
+{ A: "zeka" , B: "düşünme yeteneği" },
+{ A: "airdrop" , B: "telsiz paylaşım" },
+{ A: "airprint" , B: "telsiz yazdırma" },
+{ A: "asimtod" , B: "değemez" },
+{ A: "asimtot" , B: "değemez" },
+{ A: "background color" , B: "arkayüz rengi" },
+{ A: "bgcolor" , B: "arkayüz rengi" },
+{ A: "blog" , B: "çevrimiçi paylaşım" },
+{ A: "prensip" , B: "ilke" },
+{ A: "acute angle" , B: "daraçı" },
+{ A: "airdrop" , B: "telsiz paylaşım" },
+{ A: "motor" , B: "döndüren" },
+{ A: "akademi" , B: "bilimkent" },
+{ A: "makine" , B: "kolaylaştırıcı" },
+{ A: "makine mühendisi" , B: "kolaylaştırıcı kurgulamacısı" },
+{ A: "teknoloji" , B: "kurgulama bilimi" },
+{ A: "teknik" , B: "kurgu" },
+{ A: "algoritma" , B: "işlem adımları" },
+{ A: "allotrop" , B: "ögecığın farklı bıçınımleşlerı" },
 { A: "altimetre" , B: "yükseklik ölçer" },
-{ A: "amorf" , B: "biçimsiz" }, 
-{ A: "amortisör" , B: "etkısını gıderen" }, 
-{ A: "amplifikatör" , B: "yükseltici" }, 
+{ A: "amorf" , B: "biçimsiz" },
+{ A: "amortisör" , B: "etkısını gıderen" },
+{ A: "amplifikatör" , B: "yükseltici" },
 { A: "analog" , B: "benzetme" },
-{ A: "angle" , B: "açı" }, 
+{ A: "angle" , B: "açı" },
 { A: "anten" , B: "duyarga" },
-{ A: "antik" , B: "çokçok eski" }, 
-{ A: "antitez" , B: "karşısav" }, 
-{ A: "antropoloji" , B: "düşünebilenler bilimi" }, 
+{ A: "antik" , B: "çok eski" },
+{ A: "antitez" , B: "karşısav" },
+{ A: "antropoloji" , B: "düşünebilenler bilimi" },
 { A: "anyon" , B: "eksicik almış ögecik" },
-{ A: "asimtod" , B: "değemez" }, 
-{ A: "asimtot" , B: "değemez" }, 
-{ A: "cebir" , B: "sesadlı işlemler" }, 
+{ A: "asimtod" , B: "değemez" },
+{ A: "asimtot" , B: "değemez" },
+{ A: "cebir" , B: "sesadlı işlemler" },
 { A: "electrin affinity" , B: "eksicik ilgisi" },
 { A: "elektrik" , B: "eksiciklenme" },
-{ A: "elektronik" , B: "eksiciksel" }, 
-{ A: "element" , B: "öge" },  
+{ A: "elektronik" , B: "eksiciksel" },
+{ A: "element" , B: "öge" },
 { A: "emir" , B: "buyruk" },
-{ A: "prime" , B: "ilk" }, 
-{ A: "primer" , B: "birincil" }, 
-{ A: "atom", B: "bölünemez" }, 
-{ A: "download" , B: "indir" } 
-// Buraya 1996 kelime daha ekleyin. Aynı format.
+{ A: "prime" , B: "ilk" },
+{ A: "primer" , B: "birincil" },
+{ A: "atom", B: "bölünemez" },
+{ A: "download" , B: "indir" }
 ];
+
+function sayaciGuncelle(){
+const gecerliKayitlar = veri.filter(item => item.A.trim() !== "" && item.B.trim() !== "");
+document.getElementById("sayac").innerText = `TOPLAM SÖZCÜK: ${gecerliKayitlar.length}`;
+}
 
 function arama(){
 const k = document.getElementById('kelime').value.toLowerCase().trim();
@@ -93,29 +102,30 @@ const sonucDiv = document.getElementById('sonuc');
 if(k=="") return;
 
 let bulunanlar = [];
-
-// 1. A -> B ara: Yabancıdan Yalına
 veri.filter(item => item.A.toLowerCase() === k)
 .forEach(item => bulunanlar.push(`YABANCI: <b>${item.A}</b> → YALIN: <b>${item.B}</b>`));
-
-// 2. B -> A ara: Yalından Yabancıya
 veri.filter(item => item.B.toLowerCase() === k)
 .forEach(item => bulunanlar.push(`YALIN: <b>${item.B}</b> → YABANCI: <b>${item.A}</b>`));
+
+let sayacHTML = `<div id="sayac">TOPLAM SÖZCÜK: ${veri.filter(item => item.A.trim() !== "" && item.B.trim() !== "").length}</div>`;
 
 if(bulunanlar.length>0){
 let html = `<h3>✅ ${bulunanlar.length} Sonuç</h3>`;
 bulunanlar.forEach((s,i)=> html += `<div class="numarali">${i+1}. ${s}</div>`);
+html += sayacHTML;
 sonucDiv.innerHTML = html;
 }else{
-sonucDiv.innerHTML = `<h3>❓ "${k}" bulunamadı</h3>`;
+sonucDiv.innerHTML = `<h3>❓ "${k}" bulunamadı</h3>` + sayacHTML;
 }
 }
 
 function baska(){
 document.getElementById("kelime").value="";
-document.getElementById("sonuc").innerHTML="Yeni kelime yazıp Ara tuşuna basın.";
+document.getElementById("sonuc").innerHTML=`Yeni kelime yazıp Ara tuşuna basın.<div id="sayac">TOPLAM SÖZCÜK: ${veri.filter(item => item.A.trim() !== "" && item.B.trim() !== "").length}</div>`;
 document.getElementById("kelime").focus();
 }
+
+window.onload = sayaciGuncelle;
 </script>
 </body>
 </html>
