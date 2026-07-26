@@ -82,38 +82,89 @@ const veri = [
  
 ];
 
+function tamNormalize(metin) {
+if (!metin) return "";
+return metin.trim()
+.toLocaleLowerCase('tr')
+.replace(/ı/g, 'i')
+.replace(/ö/g, 'o')
+.replace(/ü/g, 'u')
+.replace(/ç/g, 'c')
+.replace(/ğ/g, 'g')
+.replace(/ş/g, 's');
+}
+
 function sayaciGuncelle(){
-const gecerliKayitlar = veri.filter(item => item.A.trim() !== "" && item.B.trim() !== "");
-document.getElementById("sayac").innerText = `TOPLAM SÖZCÜK: ${gecerliKayitlar.length}`;
+if (typeof veri === 'undefined' || !veri) return;
+const gecerliKayitlar = veri.filter(item => item.A && item.B && item.A.trim() !== "" && item.B.trim() !== "");
+const sayacOgesi = document.getElementById("sayac");
+if (sayacOgesi) {
+sayacOgesi.innerText = `TOPLAM SÖZCÜK: ${gecerliKayitlar.length}`;
+}
 }
 
 function arama(){
-const k = document.getElementById('kelime').value.toLowerCase().trim();
+const girdiAlani = document.getElementById('kelime');
+if (!girdiAlani) return;
+
+const hamGirdi = girdiAlani.value.trim();
+const normalizeArama = tamNormalize(hamGirdi);
 const sonucDiv = document.getElementById('sonuc');
-if(k=="") return;
+
+if (!normalizeArama) return;
 
 let bulunanlar = [];
-veri.filter(item => item.A.toLowerCase() === k)
-.forEach(item => bulunanlar.push(`YABANCI: <b>${item.A}</b> → YALIN: <b>${item.B}</b>`));
-veri.filter(item => item.B.toLowerCase() === k)
-.forEach(item => bulunanlar.push(`YALIN: <b>${item.B}</b> → YABANCI: <b>${item.A}</b>`));
+let gorulenKombinasyonlar = new Set();
 
-let sayacHTML = `<div id="sayac">TOPLAM SÖZCÜK: ${veri.filter(item => item.A.trim() !== "" && item.B.trim() !== "").length}</div>`;
+if (typeof veri !== 'undefined' && Array.isArray(veri)) {
+veri.forEach(item => {
+if (!item.A || !item.B) return;
 
-if(bulunanlar.length>0){
+const kA_Havuz = tamNormalize(item.A);
+const kB_Havuz = tamNormalize(item.B);
+
+if (kA_Havuz === normalizeArama) {
+let anahtar = item.A + "|||" + item.B;
+if (!gorulenKombinasyonlar.has(anahtar)) {
+gorulenKombinasyonlar.add(anahtar);
+bulunanlar.push(`YABANCI: <b>${item.A}</b> → YALIN: <b>${item.B}</b>`);
+}
+} else if (kB_Havuz === normalizeArama) {
+let anahtar = item.B + "|||" + item.A;
+if (!gorulenKombinasyonlar.has(anahtar)) {
+gorulenKombinasyonlar.add(anahtar);
+bulunanlar.push(`YALIN: <b>${item.B}</b> → YABANCI: <b>${item.A}</b>`);
+}
+}
+});
+}
+
+const gecerliSayi = (typeof veri !== 'undefined' && Array.isArray(veri))
+? veri.filter(item => item.A && item.B && item.A.trim() !== "" && item.B.trim() !== "").length
+: 0;
+
+let sayacHTML = `<div id="sayac">TOPLAM SÖZCÜK: ${gecerliSayi}</div>`;
+
+if(bulunanlar.length > 0){
 let html = `<h3>✅ ${bulunanlar.length} Sonuç</h3>`;
-bulunanlar.forEach((s,i)=> html += `<div class="numarali">${i+1}. ${s}</div>`);
+bulunanlar.forEach((s, i) => html += `<div class="numarali">${i + 1}. ${s}</div>`);
 html += sayacHTML;
 sonucDiv.innerHTML = html;
-}else{
-sonucDiv.innerHTML = `<h3>❓ "${k}" bulunamadı</h3>` + sayacHTML;
+} else {
+sonucDiv.innerHTML = `<h3>❓ "${hamGirdi.toUpperCase()}" bulunamadı</h3>` + sayacHTML;
 }
 }
 
 function baska(){
-document.getElementById("kelime").value="";
-document.getElementById("sonuc").innerHTML=`Yeni kelime yazıp Ara tuşuna basın.<div id="sayac">TOPLAM SÖZCÜK: ${veri.filter(item => item.A.trim() !== "" && item.B.trim() !== "").length}</div>`;
-document.getElementById("kelime").focus();
+const girdiAlani = document.getElementById("kelime");
+if (girdiAlani) {
+girdiAlani.value = "";
+girdiAlani.focus();
+}
+const gecerliSayi = (typeof veri !== 'undefined' && Array.isArray(veri))
+? veri.filter(item => item.A && item.B && item.A.trim() !== "" && item.B.trim() !== "").length
+: 0;
+document.getElementById("sonuc").innerHTML = `Yeni kelime yazıp Ara tuşuna basın.<div id="sayac">TOPLAM SÖZCÜK: ${gecerliSayi}</div>`;
 }
 
 window.onload = sayaciGuncelle;
