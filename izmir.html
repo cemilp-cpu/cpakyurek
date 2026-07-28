@@ -2652,50 +2652,53 @@ var sozverisi = [
   
 ];
 
-var yonetici = false;
+// SAYFA YÜKLENİNCE ÇALIŞACAK İŞLEVLER
+window.onload = function() {
+guncelleSayac();
 
-// GERÇEK SÖZCÜK SAYISINI BİLDİREN İŞLEV
-function sayaciGuncelle() {
-document.getElementById('sayac').innerHTML = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
+document.getElementById('anaBtn').addEventListener('click', sozcukAra);
+document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
+document.getElementById('girdi').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+sozcukAra();
+}
+});
+};
+
+// SÖZCÜK SAYISINI GÜNCELLEME
+function guncelleSayac() {
+document.getElementById('sayac').innerText = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
 }
 
-function kucukHarfYalin(txt) {
-if (!txt) return '';
-return txt.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase()
-.replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
-.replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c')
-.trim();
-}
-function sozcukluguGoster() {
-if (!yonetici) {
-var sifre = prompt("Yönetici Gizli Sözünü girin:");
-if (sifre === YONETICI_GIZLISOZ) {
-yonetici = true;
-} else {
-alert("Hatalı gizli söz!");
-return;
-}
-}
-
-document.getElementById('girdi').style.display = 'none';
-document.getElementById('anaBtn').style.display = 'none';
-document.getElementById('sayac').style.display = 'none';
-document.getElementById('gosterBtn').style.display = 'none';
-
+// ARAMA İŞLEVİ (KÜÇÜK HARFLİ VERİLERE UYUMLU VE BÜYÜK TÜRKÇE HARF DUYARLI)
+function sozcukAra() {
+var aranan = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
 var gosterici = document.getElementById('gosterici');
 
-var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
+if (aranan === "") {
+gosterici.innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
+return;
+}
+
+var bulunanlar = [];
 
 for (var i = 0; i < sozverisi.length; i++) {
-var s = sozverisi[i];
-dokum += (i + 1) + '. ' + s.A + ', ' + s.B + '\n';
+var a = String(sozverisi[i].A).toLocaleUpperCase('tr-TR');
+var b = String(sozverisi[i].B).toLocaleUpperCase('tr-TR');
+
+if (a.indexOf(aranan) !== -1 || b.indexOf(aranan) !== -1) {
+bulunanlar.push((i + 1) + '. ' + String(sozverisi[i].A).toLocaleUpperCase('tr-TR') + ' -> ' + String(sozverisi[i].B).toLocaleUpperCase('tr-TR'));
+}
 }
 
-gosterici.innerHTML = dokum;
-document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
+if (bulunanlar.length > 0) {
+gosterici.innerHTML = bulunanlar.join('\n');
+} else {
+gosterici.innerHTML = "ARANAN SÖZCÜK BULUNAMADI.";
+}
 }
 
-// SÖZCÜKLÜĞÜ GÖSTERİNCE DİĞER BİLEŞENLERİ GİZLEYİP TÜM ALANI AÇMA
+// TÜM SÖZCÜKLÜĞÜ GÖSTERME İŞLEVİ
 function sozcukluguGoster() {
 if (!yonetici) {
 var sifre = prompt("Yönetici Gizli Sözünü girin:");
@@ -2720,37 +2723,20 @@ gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
 var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
 for (var i = 0; i < sozverisi.length; i++) {
 var s = sozverisi[i];
-dokum += (i + 1) + '. ' + s.A + ', ' + s.B + '\n';
+dokum += (i + 1) + '. ' + String(s.A).toLocaleUpperCase('tr-TR') + ' -> ' + String(s.B).toLocaleUpperCase('tr-TR') + '\n';
 }
 gosterici.innerHTML = dokum;
 document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
 }
 }
 
-// YENİDEN ANA ARAMA EKRANINA DÖNÜŞ
+// ARAMA EKRANINA GERİ DÖNME İŞLEVİ
 function sozcuklugeDon() {
 document.getElementById('girdi').style.display = 'block';
 document.getElementById('anaBtn').style.display = 'block';
 document.getElementById('sayac').style.display = 'block';
 document.getElementById('gosterBtn').style.display = 'block';
 
-document.getElementById('gosterici').innerHTML = 'HAZIR';
-temizleGirdi();
+var gosterici = document.getElementById('gosterici');
+gosterici.innerHTML = 'HAZIR';
 }
-
-function temizleGirdi() {
-document.getElementById('girdi').value = '';
-document.getElementById('girdi').focus();
-}
-
-document.getElementById('anaBtn').addEventListener('click', bulBulanSor);
-document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
-document.getElementById('girdi').addEventListener('keyup', function(e) {
-if (e.key === 'Enter') bulBulanSor();
-});
-
-// SAYFA AÇILDIĞINDA SAYAÇ ÇALIŞIR
-sayaciGuncelle();
-</script>
-</body>
-</html>
