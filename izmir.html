@@ -2695,15 +2695,25 @@ gosterici.innerHTML = dokum;
 document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
 }
 
+// SÖZCÜKLÜĞÜ GÖSTERİNCE DİĞER BİLEŞENLERİ GİZLEYİP TÜM ALANI AÇMA
+function sozcukluguGoster() {
+if (!yonetici) {
+var sifre = prompt("Yönetici Gizli Sözünü girin:");
+if (sifre === YONETICI_GIZLISOZ) {
+yonetici = true;
+} else {
+alert("Hatalı gizli söz!");
+return;
+}
+}
 
-
-// Girdi, düğme ve sayacı gizle ki tüm alan görüntüleyiciye kalsın
 document.getElementById('girdi').style.display = 'none';
 document.getElementById('anaBtn').style.display = 'none';
 document.getElementById('sayac').style.display = 'none';
 document.getElementById('gosterBtn').style.display = 'none';
 
 var gosterici = document.getElementById('gosterici');
+
 if (sozverisi.length === 0) {
 gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
 } else {
