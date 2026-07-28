@@ -2,468 +2,270 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>YABANCIYA YALIN SOZCUKLER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SÖZCÜKLÜK</title>
 <style>
-body{margin:0;background:#dcdcdc;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:Arial}
-.ana{width:500px;border:3px solid #000;border-radius:5px;box-shadow:3px 3px 10px #000;background:#fff}
-.ustbant{background:#8B0000;color:#FFD700;text-align:center;padding:8px;font-size:13px;font-weight:bold}
-.altbaslik{background:#a00000;color:#fff;text-align:center;padding:6px;font-size:14px;font-weight:bold}
-.b2{background:#001a70;color:#fff;text-align:center;padding:8px;font-size:12px}
-.b3{background:#a00000;color:#fff;text-align:center;padding:8px;font-size:11px}
-.beyaz{background:#fff;padding:12px}
-input{width:100%;padding:8px;font-size:14px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
-.dugmeler{margin-top:10px;display:flex;gap:4px}
-.dugmeler button{flex:1;padding:8px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
-.yesil{background:#0a8a0a}.turuncu{background:#e67300}
-.istatistik{background:#f0f0f0;padding:6px;text-align:center;font-size:13px;font-weight:bold;border-bottom:1px solid #ccc}
-.istatistik span{color:#a00000;font-size:15px}
-.yuruyenKutu{background:#fff;margin-top:8px;border:1px solid #999;height:32px;overflow:hidden;position:relative}
-.yuruyenYazi{position:absolute;white-space:nowrap;padding:7px 0;font-size:15px;font-weight:bold;color:#CC0000;text-transform:uppercase;animation: yatayKaydir 9s linear infinite}
-@keyframes yatayKaydir {from { left: 100%; } to { left: -100%; }}
-.sonucKutu{background:#fff;margin-top:6px;border:1px solid #999;min-height:50px;padding:10px;font-size:16px;font-weight:bold;color:#000;text-transform:uppercase;line-height:1.6}
-.sonucKutu b{color:#a00000}
-.sonucKutu hr{border:none;border-top:1px dashed #ccc;margin:6px 0}
-.oneriKutu{display:none;margin-top:10px}
-textarea{width:100%;padding:6px;box-sizing:border-box;border:1px solid #000}
-.altBant{background:#ffd700;text-align:center;padding:8px;font-size:10px}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* EKRAAN TAM SIĞMA VE DIŞ KAYDIRMA ÇUBUĞUNU ENGELLEME */
+html, body {
+height: 100vh;
+overflow: hidden;
+background: #e8e8e8;
+font-family: Arial, sans-serif;
+display: flex;
+flex-direction: column;
+}
+
+.bayrak {
+background: #e30a17;
+color: #fff;
+padding: 8px;
+font-weight: bold;
+border-bottom: 3px solid #000;
+text-align: center;
+flex-shrink: 0;
+}
+
+.ana-kapsayici {
+flex: 1;
+padding: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+}
+
+.kutu {
+width: 100%;
+max-width: 650px;
+height: 100%;
+background: #fff;
+padding: 12px;
+border: 3px solid #000;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+text-align: center;
+}
+
+h1 { font-size: 1.2rem; margin-bottom: 4px; flex-shrink: 0; }
+.felsefe { font-size: 0.8rem; font-weight: bold; background: #000; color: #fff; padding: 4px; margin-bottom: 8px; flex-shrink: 0; }
+
+#girdi {
+width: 100%;
+padding: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+border: 3px solid #000;
+background: #ffff00;
+text-align: center;
+text-transform: uppercase;
+margin-bottom: 6px;
+flex-shrink: 0;
+}
+
+.dugme {
+width: 100%;
+padding: 8px;
+font-size: 1rem;
+font-weight: bold;
+border: 2px solid #000;
+background: #000;
+color: #fff;
+cursor: pointer;
+margin-bottom: 6px;
+flex-shrink: 0;
+}
+
+/* GÖRÜNTÜLEYİCİ ALANI */
+#gosterici {
+flex: 1;
+padding: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+border: 3px solid #000;
+background: #ffff00;
+text-align: left;
+overflow-y: auto;
+white-space: pre-wrap;
+margin-bottom: 6px;
+position: relative;
+}
+
+/* EN ÜSTTE SABİT DURSUN DİYE YAPILAN SÖZCÜKLÜĞE DÖN DÜĞMESİ */
+.don-dugmesi {
+position: sticky;
+top: 0;
+z-index: 100;
+width: 100%;
+padding: 10px;
+background: #e30a17;
+color: #fff;
+font-size: 1.1rem;
+font-weight: bold;
+border: 2px solid #000;
+cursor: pointer;
+margin-bottom: 8px;
+box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+}
+
+.sayac {
+font-size: 0.85rem;
+font-weight: bold;
+background: #000;
+color: #fff;
+padding: 5px;
+flex-shrink: 0;
+margin-bottom: 6px;
+}
 </style>
 </head>
 <body>
 
-<div class="ana">
-<div class="ustbant">★ CEMİL PAKYÜREK / 1973 İTÜ ★</div>
-<div class="altbaslik">SAĞLIK İLE İLGİLİ SÖZCÜKLÜK</div>
-<div class="b2">Bu bir sozluk degil. SOZCUKLUKTUR.</div>
-<div class="b3">HER YABANCI SOZCUGE KARSILIK, YALIN TURKCE KARSILIK VARDIR</div>
-<div class="istatistik">TOPLAM SÖZCÜK: <span id="toplam">0</span></div>
+<div class="bayrak">1 MAYIS EMEK VE DAYANIŞMA YÜCELTİLSİN</div>
 
-<div class="beyaz">
-<input type="text" id="ara" autofocus placeholder="ornek: akşam">
-<div class="dugmeler">
-<button class="yesil" onclick="bul()">BUL</button>
-<button class="turuncu" onclick="baska()">BAŞKA</button>
-<button class="yesil" onclick="oner()">ONERI</button>
+<div class="ana-kapsayici">
+<div class="kutu">
+<h1>cpakyürek SANAL YÖRESİ</h1>
+<div class="felsefe">TANRI BİLİNEMEZ. İNSAN: TANIMLAYABİLEN.</div>
+
+<input type="text" id="girdi" placeholder="SÖZCÜĞÜ YAZIN..." autocomplete="off">
+<button type="button" class="dugme" id="anaBtn">BUL. BULUNUZ. BAŞKA SÖZCÜK SORUNUZ.</button>
+
+<div id="gosterici">HAZIR</div>
+
+<div class="sayac" id="sayac">Sözcüklükte: 0 sözcük</div>
+<button type="button" class="dugme" id="gosterBtn" style="background: #000080;">SÖZCÜKLÜĞÜ GÖSTER</button>
 </div>
-<div class="yuruyenKutu"><div id="yuruyen" class="yuruyenYazi"></div></div>
-<div id="sonuc" class="sonucKutu"></div>
-<div id="oneriKutu" class="oneriKutu">
-<textarea id="oneriMetin" rows="2"></textarea>
-<button class="yesil" onclick="onerGonder()">MAIL GONDER</button>
-</div>
-</div>
-<div class="altBant">cemilp@gmail.com</div>
 </div>
 
 <script>
-// SİZİN 2000 KELİMENİZİ BURAYA YAPIŞTIRIN
-let sozluk = [
-{ A : "antipati" , B: "karşıduygu" },
-{ A : "antivirüs" , B: "yayılgan buyruk bozucu karşıtı" },
-{ A : "armağan" , B: "doyumluk" },
-{ A : "asistan" , B: "yardımcı" },
-{ A : "astım" , B: "soluma yetersizliği" },
-{ A : "barkod" , B: "çubuk imge" },
-{ A : "baston" , B: "değnek" },
-{ A : "bed" , B: "yatak" },
-{ A : "behavior" , B: "davranış" },
-{ A : "belagat" , B: "konuşmalar" },
-{ A : "bellows" , B: "körük" },
-{ A : "belt" , B: "kuşak" },
-{ A : "beşeri" , B: "tanımlayabilensel" },
-{ A : "beşeriyet" , B: "tanımlayabilenler" },
-{ A : "beyin sinir cerrahisi" , B: "düşünme organı keserek sağaltma" },
-{ A : "bez" , B: "ince dokuma" },
-{ A : "bias" , B: "önyargı" },
-{ A : "bid" , B: "öneri" },
-{ A : "bidirectional" , B: "iki yönlü" },
-{ A : "bifurcation" , B: "çatallanma" },
-{ A : "bilgisayar" , B: "bilgi işler" },
-{ A : "bill" , B: "eder belgesi" },
-{ A : "billing" , B: "ederi belgeleme" },
-{ A : "binoculars" , B: "uzakgörür" },
-{ A: "aciz" , B: "yapabilemez" },
-{ A: "adenoma" , B: "salgı bezesi başkalaşmış canlıcığı" },
-{ A: "adrenaliın hormonu" , B: "düşünmıe organı hareket salgısı" },
-{ A: "affirmation" , B:"olurlama" }, 
-{ A: "akademi" , B: "bilimkent" },
-{ A: "akut" , B: "kısa süreli" },
-{ A: "ambulans" , B: "cankurtaran" },
-{ A: "amorf" , B: "biçimsiz" },
-{ A: "analog" , B: "benzetme" },
-{ A: "anatomi" , B: "bedenyapısı bilimi" },
-{ A: "anormal" , B: "tanımlanmamış" },
-{ A: "antitez" , B: "karşısav" },
-{ A: "antropoloji" , B: "düşünebilenler bilimi" },
-{ A: "approval" , B:"onay" }, 
-{ A: "argüman" , B: "sav" },
-{ A: "arms and legs" , B: "kol ve bacaklar" },
-{ A: "asit" , B: "ekşit" },
-{ A: "assurance" , B:"güvence" }, 
-{ A: "biyoloji" , B: "canlılar bilimi" },
-{ A: "cerahım" , B: "kanamam" },
-{ A: "consent" , B:"onay" }, 
-{ A: "constraint" , B:"kısıtlılık" }, 
-{ A: "copy" , B:"aynısına benzet" }, 
-{ A: "çehre" , B: "yüzü" },
-{ A: "dahî" , B: "üstün düşünme yetenekli" },
-{ A: "değde" , B: "değer değiştiren" },
-{ A: "deha" , B: "üstündüşünme yeteneği" },
-{ A: "desktıop" , B:"masaüstü" }, 
-{ A: "doçent" , B: "bilgen yardımcısı" },
-{ A: "ebedi" , B: "bitimsiz" },
-{ A: "ekonomi" , B: "yararcılık" },
-{ A: "ekonomik" , B: "yararcıl " },
-{ A: "ekonomist" , B: "yararcı" },
-{ A: "exercise" , B: "alıştırma" },
-{ A: "extention" , B:"genişletme" }, 
-{ A: "extremity" , B: "uzantı" },
-{ A: "extremity" , B:"uzantı" }, 
-{ A: "ezel" , B: "başlangıçsızlık" },
-{ A: "fakülte" , B: "bilimdali" },
-{ A: "feda" , B: "istever" },
-{ A: "fizik" , B: "ögeciksel itişim" },
-{ A: "fotokopi" , B: "aynenbasım" },
-{ A: "foton" , B: "ışın" },
-{ A: "get" , B:"al" }, 
-{ A: "göğüs" , B: "solunak" },
-{ A: "gövde" , B: "beden" },
-{ A: "hazırlama" , B:"sunulama" }, 
-{ A: "head" , B: "baş" },
-{ A: "hidrojen" , B: "ögecik1" },
-{ A: "hilal" , B: "ay" },
-{ A: "horizental" , B: "yatay" },
-{ A: "hücre" , B: "canlıcık" },
-{ A: "hürriyet" , B: "özgürlükler" },
-{ A: "Insomniac" , B: "uykusuz" },
-{ A: "insan" , B: "tanımlayabilen" },
-{ A: "istatistik" , B: "sayma bilimi" },
-{ A: "kayıt" , B:"yazarak belirleme" }, 
-{ A: "kopyala" , B:"aynısına benzet" }, 
-{ A: "kronik" , B: "sürekli" },
-{ A: "laptop" , B:"dizüstü" }, 
-{ A: "lineer" , B: "doğru" },
-{ A: "magnetik" , B: "akım doğuran" },
-{ A: "makine" , B: "kolaylaştırıcı" },
-{ A: "manzara" , B:"yatay gösterim" }, 
-{ A: "matchless" , B:"eşsiz" }, 
-{ A: "merkez" , B: "öziç" },
-{ A: "mod" , B:"biçim" }, 
-{ A: "molekül" , B: "bileşikcik" },
-{ A: "motor" , B: "döndüren" },
-{ A: "mr" , B: "3 boyutlu gösterim" },
-{ A: "muscle breakdown" , B: "kas yıkımı" },
-{ A: "müeyyide" , B:"yaptırım" }, 
-{ A: "naaş" , B: "düşünemeyen" },
-{ A: "namahrem" , B: "benimsetilmemiş" },
-{ A: "negatif" , B: "eksil" },
-{ A: "non lineer" , B: "doğrusal olmayan" },
-{ A: "nöroloji" , B: "sinir bilim" },
-{ A: "nöron" , B: "sinir" },
-{ A: "objection" , B:"karşısav" }, 
-{ A: "obligation" , B:"yükümlülük" }, 
-{ A: "open" , B:"aç" }, 
-{ A: "palmtop" , B:"avuçiçi" }, 
-{ A: "para" , B: "değer değiştiren" },
-{ A: "pozitif" , B: "artıl" },
-{ A: "prensip" , B: "ilke" },
-{ A: "prime" , B: "ilk" },
-{ A: "primer" , B: "birincil" },
-{ A: "procedural memory" , B: "işlevsel bellek" },
-{ A: "procedure" , B: "yöntem" },
-{ A: "process" , B: "süreç" },
-{ A: "prof" , B: "bilgen" },
-{ A: "profesör", B: "bilgen" },
-{ A: "prospektus" , B: "tanıtmalık" },
-{ A: "prostat" , B: "kestanecik" },
-{ A: "protection" , B: "koruma" },
-{ A: "protein" , B: "canlıcık yapıtaşı" },
-{ A: "pseudo" , B: "yapay" },
-{ A: "psikolojik" , B: "davranış bilimsel" },
-{ A: "quantum" , B: "belirlenemezlik" },
-{ A: "rağmen" , B:"tersine" }, 
-{ A: "rapor" , B: "bilgilendirme" },
-{ A: "rational" , B:"gerekçe" }, 
-{ A: "recognition" , B: "tanıma" },
-{ A: "recovery" , B: "iyileştirme" },
-{ A: "reel" , B: "gerçek" },
-{ A: "refakat" , B: "eşlik etmeler" },
-{ A: "refleks" , B: "tepkime" },
-{ A: "reset" , B:"temizle" }, 
-{ A: "rezonans" , B: "eştitreşim" },
-{ A: "ruhum" , B: "düşünebilmem" },
-{ A: "sadece" , B:"yanlızca" }, 
-{ A: "sancak" , B: "yelliksopa" },
-{ A: "save" , B:"yazarak belirle" }, 
-{ A: "scanner" , B:"tarayıcı" }, 
-{ A: "screen" , B:"görüntüleyen" }, 
-{ A: "select" , B:"seç" }, 
-{ A: "setup" , B:"kurulum" }, 
-{ A: "simetri" , B: "benzer" },
-{ A: "simetrik" , B: "benzeşik" },
-{ A: "sinüs" , B: "boşluk" },
-{ A: "sound" , B: "ses" },
-{ A: "suitablity" , B:"uygunluk" }, 
-{ A: "şiddet" , B: "zorbalık" },
-{ A: "tabî" , B:"doğal" }, 
-{ A: "telefon" , B:"iletişimleştirici" }, 
-{ A: "tomografi" , B: "kesit gösterim" },
-{ A: "ufki" , B: "yatay" },
-{ A: "ultra sound" , B: "duyumüstü" },
-{ A: "ünivers" , B: "evren" },
-{ A: "üniversite" , B: "bilimkent" },
-{ A: "vertikal" , B: "düşey" },
-{ A: "zaviye" , B: "açı" },
-{ A: "affirmation" , B:"olurlama" }, 
-{ A: "and" , B:"ve" }, 
-{ A: "approval" , B:"onay" }, 
-{ A: "asenkron" , B:"eşansız" }, 
-{ A: "aspect-ratio" , B:"görüntü oranı" }, 
-{ A: "assurance" , B:"güvence" }, 
-{ A: "attributes" , B:"nitelikler" }, 
-{ A: "border" , B:"sınır  " }, 
-{ A: "border-color" , B:"çerçeve boyası" }, 
-{ A: "box-shadow" , B:"gölge etkisi" }, 
-{ A: "box-sizing:" , B:"kutu boyutlama" }, 
-{ A: "charset" , B:"imge kümesi" }, 
-{ A: "col" , B:"dikit" }, 
-{ A: "consent" , B:"onay" }, 
-{ A: "constraint" , B:"kısıtlılık" }, 
-{ A: "copy" , B:"aynısına benzet" }, 
-{ A: "desktıop" , B:"masaüstü" }, 
-{ A: "double click" , B:"çift tıkla" }, 
-{ A: "dpcm" , B:"cm de noktacık sayısı" }, 
-{ A: "dpi" , B:"inçte noktacık sayısı" }, 
-{ A: "draw" , B:"çiz" }, 
-{ A: "event" , B:"etkinlik" }, 
-{ A: "extention" , B:"genişletme" }, 
-{ A: "extremity" , B:"uzantı" }, 
-{ A: "flaw" , B:"eksiklik" }, 
-{ A: "gap" , B:"aralık" }, 
-{ A: "get" , B:"al" }, 
-{ A: "hazırlama" , B:"sunulama" }, 
-{ A: "hemen" , B:"an bekletilmeden" }, 
-{ A: "hight " , B:"hükseklik" }, 
-{ A: "hight: 100vh" , B:"tam görüntüleyici" }, 
-{ A: "kayıt" , B:"yazarak belirleme" }, 
-{ A: "kopyala" , B:"aynısına benzet" }, 
-{ A: "landscape" , B:"yatay gösterim" }, 
-{ A: "laptop" , B:"dizüstü" }, 
-{ A: "lines" , B:"çizgiler" }, 
-{ A: "maaş" , B:"aşlık" }, 
-{ A: "makine" , B:"kolaylaştırıcı" }, 
-{ A: "manzara" , B:"yatay gösterim" }, 
-{ A: "max" , B:"en çok" }, 
-{ A: "max-highy" , B:"en çok yükseklik" }, 
-{ A: "max-width" , B:"en çuk genişlik" }, 
-{ A: "media" , B:"ortam" }, 
-{ A: "media-quary" , B:"ortam sorgula" }, 
-{ A: "min" , B:"en az" }, 
-{ A: "min-width" , B:"en az genişlik" }, 
-{ A: "mod" , B:"biçim" }, 
-{ A: "motor" , B:"döndüren" }, 
-{ A: "müeyyide" , B:"yaptırım" }, 
-{ A: "müsait" , B:"uğraşlı" }, 
-{ A: "negation" , B:"değilleme" }, 
-{ A: "objection" , B:"karşısav" }, 
-{ A: "obligation" , B:"yükümlülük" }, 
-{ A: "open" , B:"aç" }, 
-{ A: "or" , B:"vsya" }, 
-{ A: "orientation" , B:"konumlama" }, 
-{ A: "overflow: hidden" , B:"taşma yasak" }, 
-{ A: "palmtop" , B:"avuçiçi" }, 
-{ A: "portrait" , B:"düşey gösterim" }, 
-{ A: "rağmen" , B:"" }, 
-{ A: "rational" , B:"gerekçe" }, 
-{ A: "razı olsun" , B:"olur dilerim" }, 
-{ A: "redress" , B:"giderim" }, 
-{ A: "reset" , B:"temizle" }, 
-{ A: "rıza" , B:"olur" }, 
-{ A: "rica" , B:"istem" }, 
-{ A: "row" , B:"sıra" }, 
-{ A: "sadece" , B:"yanlızca" }, 
-{ A: "sait" , B:"uğraş" }, 
-{ A: "save" , B:"yazarak belirle" }, 
-{ A: "scanner" , B:"tarayıcı" }, 
-{ A: "scop" , B:"kapsam" }, 
-{ A: "select" , B:"seç" }, 
-{ A: "senkron" , B:"eşanlı" }, 
-{ A: "setup" , B:"kurulum" }, 
-{ A: "show" , B:"göster" }, 
-{ A: "solid" , B:"düz çizgi" }, 
-{ A: "suitablity" , B:"uygunluk" }, 
-{ A: "şükran" , B:"iyi ki varlar" }, 
-{ A: "şükür" , B:"varol" }, 
-{ A: "tabî" , B:"doğal" }, 
-{ A: "teâla" , B:"çok iyice" }, 
-{ A: "telefon" , B:"iletişimleştirici" }, 
-{ A: "teyit" , B:"güçlendirme" }, 
-{ A: "tornavida" , B:"burgaç" }, 
-{ A: "vida" , B:"burma" }, 
-{ A: "width " , B:"genişlik" }, 
-{ A: "width-hightiradius" , B:"çember tanım bileşenleri" }, 
+var YONETICI_GIZLISOZ = "kasim1973";
 
-
-
-{ A: "head" , B:"baş" }, 
-{ A: "body" , B:"beden" }, 
-{ A: "extremity" , B:"uzantı" }, 
-{ A: "snap" , B:"tutturma" }, 
-{ A: "cascade" , B:"ardışık" }, 
-{ A: "style" , B:"biçim" }, 
-{ A: "sheets" , B:"yazılgacçları" }, 
-{ A: "sheets" , B:"yazulgaç  " }, 
-{ A: "yaprak" , B:"yazıilgaç" }, 
-{ A: "kalıp" , B:"benzetilecek" }, 
-{ A: "basmakalıp" , B:"özgünsüz" }, 
-{ A: "kalibre" , B:"benzetilecek" }, 
-{ A: "dişi kalıp" , B:"dişi benzetilecek" }, 
-{ A: "trite" , B:"özgünsüz" }, 
-{ A: "javascript" , B:"javadili" }, 
-{ A: "dünya" , B:"yer" }, 
-{ A: "charset" , B:"imgeküme" }, 
-{ A: "matematik" , B:"çokluklar bilimi" }, 
-{ A: "matematik" , B:"tanımlar kümesi" }, 
-{ A: "resim" , B:"görünüm" }, 
-{ A: "arka resmi" , B:"arka görünüm" }, 
-{ A: "komut" , B:"buyruk" }, 
-{ A: "order" , B:"buyruk" }, 
-{ A: "emir" , B:"buyruk" }, 
-{ A: "amir" , B:"buyuran" }, 
-{ A: "memur" , B:"buyurulan" }, 
-{ A: "internasyonal" , B:"uluslararası" }, 
-{ A: "standart" , B:"öntanım" }, 
-{ A: "organizasyon" , B:"örgüt" }, 
-{ A: "type" , B:"tür" }, 
-{ A: "modifier" , B:"niteleyici" }, 
-{ A: "bold<b>" , B:"koyu" }, 
-{ A: "global" , B:"küresel" }, 
-{ A: "event" , B:"olay" }, 
-{ A: "attribut" , B:"özellikler" }, 
-{ A: "preface" , B:"önsöz" }, 
-{ A: "entrance" , B:"giriş" }, 
-{ A: "rağmen" , B:"tersine" }, 
-{ A: "word" , B:"sözcük" }, 
-{ A: "kelime" , B:"sözcük" }, 
-{ A: "set" , B:"küme" }, 
-{ A: "set of words" , B:"sözcükler kümesi" }, 
-{ A: "thing" , B:"şey" }, 
-{ A: "action" , B:"eylem" }, 
-{ A: "software" , B:"yazılım" }, 
-{ A: "hardware" , B:"donanım" }, 
-{ A: "two based" , B:"iki tabanlı" }, 
-{ A: "two based system  " , B:"iki tabanlı düzen" }, 
-{ A: "feeling" , B:"duygu" }, 
-{ A: "emotinal" , B:"duygusal" }, 
-{ A: "sensuality" , B:"duygusallık" }, 
-{ A: "insan" , B:"tanımlayabilen" }, 
-{ A: "compy" , B:"uymak" }, 
-{ A: "invalid" , B:"geçersiz" }, 
-{ A: "valid" , B:"geçerli" }, 
-{ A: "mandatory" , B:"zorunlu" }, 
-{ A: "autorized" , B:"yetkili" }, 
-{ A: "waiver" , B:"hakkını istememe" }, 
-{ A: "feragat" , B:"hakkını istememeler" }, 
-{ A: "breach" , B:"yoksayma" }, 
-{ A: "ihlal" , B:"yoksayma" }, 
-{ A: "default" , B:"varsayılan" }, 
-{ A: "temerrüt" , B:"direnimler" }, 
-{ A: "negligence" , B:"sorumsuzca kaçınma" }, 
-{ A: "ihmal" , B:"sorumsuzca kaçınma" }, 
-{ A: "tazmin" , B:"ödetme" }, 
-{ A: "tazminat" , B:"ödetmeler" }, 
-{ A: "compensation" , B:"ödetmeler11" }, 
-{ A: "table" , B:"tablo yap" }, 
-{ A: "link" , B:"bağlamtı yolu" }, 
-{ A: "language" , B:"konuşulandil" }, 
-{ A: "tongue" , B:"dil" }, 
-{ A: "thing modiefier" , B:"nesne niteleyici" }, 
-{ A: "action modifier" , B:"eylem niteleyici" }, 
-{ A: "sıfat" , B:"nesne niteleyici" }, 
-{ A: "zarf" , B:"eylem niteleyici" }, 
-{ A: "name" , B:"ad" }, 
-{ A: "thing name" , B:"şey adu" }, 
-{ A: "col" , B:"dikit" }, 
-{ A: "row" , B:"sıralık" }, 
-{ A: "concept" , B:"kavram" }, 
-{ A: "hight" , B:"yükseklik" }, 
-{ A: "color" , B:"boya" }, 
-{ A: "renk" , B:"boya" }, 
-{ A: "active" , B:"etgen" }, 
-{ A: "passive" , B:"edilgen" }, 
-{ A: "select" , B:"seç" }, 
-{ A: "get" , B:"al" }, 
-{ A: "reset" , B:"temizle" }, 
-{ A: "frame" , B:"çerçeve" }, 
-{ A: "border" , B:"sınır" }, 
-{ A: "noun modifier" , B:"ad niteley,c,si" }, 
-{ A: "verb modifier" , B:"eylem niteleyici" }, 
-{ A: "all" , B:"tümü" }, 
-{ A: "how" , B:"nasıl" }, 
-{ A: "bölüm" , B:"section" }, 
-{ A: "part of" , B:"bölümü" }, 
-{ A: "groggy" , B:"yorgun" }, 
-{ A: "cell" , B:"gözenek" }, 
-{ A: "stitch" , B:"dikiş" }, 
- 
-{ A: "zeka" , B: "düşünme yeteneği" }
-
-
- 
- 
-//... 2000 KELİMENİZ... EN SONDA VİRGÜL YOK
+// HAVUZ VERİSİ
+var sozverisi = [
+{ A: "universite", B: "bilim kent" },
+{ A: "kampus", B: "yerleske" },
+{ A: "harf", B: "sesadi" },
+{ A: "cebir", B: "sesadli islemler" },
+{ A: "border", B: "sınır" },
+{ A: "noun modifier", B: "ad niteleyicisi" },
+{ A: "verb modifier", B: "eylem niteleyici" },
+{ A: "all", B: "tümü" },
+{ A: "how", B: "nasıl" },
+{ A: "section", B: "bölüm" },
+{ A: "part of", B: "bölümü" },
+{ A: "groggy", B: "yorgun" },
+{ A: "cell", B: "gözenek" },
+{ A: "stitch", B: "dikiş" },
+{ A: "fonksiyon", B: "deger donusturen" },
+{ A: "computer", B: "bilgisayar" },
+{ A: "software", B: "yazılım" },
+{ A: "hardware", B: "donanım" },
+{ A: "network", B: "ağ" },
+{ A: "database", B: "veritabanı" }
 ];
 
-let mesajlar = [
-"1. HER YABANCI KOKENLI SOZCÜGE KARSILIK, EN AZ BIR TANE YALIN TURKCE SOZCÜK VARDIR.",
-"2. YALIN TURKCE ILE KONUS, ANLAS. BOYLECE HIZLI DÜSUN.",
-"3. YALIN TÜRKCENIN KORUNMASI, HER YURTSEVERIN SORUMLULUGUNDADIR.",
-"4. DILINI KORUYAMAYAN ULUSLAR, BAGIMSIZLIGINI KORUYAMAZ.",
-"5. DILINI KORUYABILEN ULUSLAR, OZDEGERLERINI, EKININI KORUR VE GELISTIR.",
-"6. DILINI KORU, BAGIMSIZLIGINI GÜVENCEYE AL.",
-"7. BAGIMSIZLIK YALIN DIL ILE VARLIGINI KORUR VE GELISTIR."
-];
+var yonetici = false;
 
-let mapA = {}, mapB = {};
-
-for(let i=0;i<sozluk.length;i++){
-let x = sozluk[i].A.toLowerCase();
-let y = sozluk[i].B.toLowerCase();
-if(!mapA[x]) mapA[x]=[]; mapA[x].push(sozluk[i]);
-if(!mapB[y]) mapB[y]=[]; mapB[y].push(sozluk[i]);
+// GERÇEK SÖZCÜK SAYISINI BİLDİREN İŞLEV
+function sayaciGuncelle() {
+document.getElementById('sayac').innerHTML = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
 }
 
-document.getElementById("toplam").innerText = sozluk.length;
-document.getElementById("yuruyen").innerText = mesajlar[new Date().getDay()];
-
-function bul(){
-let g = document.getElementById("ara").value.toLowerCase();
-if(g=="") return;
-let sonuc = (mapA[g]||[]).concat(mapB[g]||[]);
-if(sonuc.length>0){
-let h="";
-for(let i=0;i<sonuc.length;i++){
-h+=`<b>YABAN:</b> ${sonuc[i].A.toUpperCase()}<br><b>YALIN:</b> ${sonuc[i].B.toUpperCase()}<hr>`;
+function kucukHarfYalin(txt) {
+if (!txt) return '';
+return txt.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase()
+.replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
+.replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c')
+.trim();
 }
-document.getElementById("sonuc").innerHTML=h;
-}else{
-document.getElementById("sonuc").innerHTML="BULUNAMADI. ASAGIDAN ONERI GONDERIN.";
+
+function bulBulanSor() {
+var girdi = document.getElementById('girdi').value;
+var gosterici = document.getElementById('gosterici');
+var aranan = kucukHarfYalin(girdi);
+
+if (aranan === '') {
+gosterici.innerHTML = 'SÖZCÜK GİRİNİZ';
+return;
+}
+
+var bulunanA = '', bulunanB = '';
+for (var i = 0; i < sozverisi.length; i++) {
+var o = sozverisi[i];
+if (kucukHarfYalin(o.A) === aranan || kucukHarfYalin(o.B) === aranan) {
+bulunanA = o.A;
+bulunanB = o.B;
+break;
 }
 }
 
-function baska(){
-document.getElementById("ara").value="";
-document.getElementById("sonuc").innerHTML="";
-document.getElementById("oneriKutu").style.display="none";
-document.getElementById("ara").focus();
+if (bulunanA !== '') {
+gosterici.innerHTML = '1. ' + bulunanA + ', ' + bulunanB;
+setTimeout(temizleGirdi, 2500);
+} else {
+gosterici.innerHTML = 'BİLMİYORUM';
 }
-function oner(){ document.getElementById("oneriKutu").style.display="block"; }
-function onerGonder(){
-let y = document.getElementById("ara").value;
-let yl = document.getElementById("oneriMetin").value;
-if(yl.trim()=="") { alert("LUTFEN ONERI YAZIN"); return; }
-location.href=`mailto:cemilp@gmail.com?subject=Yalin Sozcuk&body=${y} - ${yl}`;
 }
-document.getElementById("ara").addEventListener("keypress", function(e){ if(e.key === "Enter") bul(); });
+
+// SÖZCÜKLÜĞÜ GÖSTERİNCE DİĞER BİLEŞENLERİ GİZLEYİP TÜM ALANI AÇMA
+function sozcukluguGoster() {
+if (!yonetici) {
+var sifre = prompt("Yönetici Gizli Sözünü girin:");
+if (sifre === YONETICI_GIZLISOZ) {
+yonetici = true;
+} else {
+alert("Hatalı gizli söz!");
+return;
+}
+}
+
+// Girdi, düğme ve sayacı gizle ki tüm alan görüntüleyiciye kalsın
+document.getElementById('girdi').style.display = 'none';
+document.getElementById('anaBtn').style.display = 'none';
+document.getElementById('sayac').style.display = 'none';
+document.getElementById('gosterBtn').style.display = 'none';
+
+var gosterici = document.getElementById('gosterici');
+if (sozverisi.length === 0) {
+gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
+} else {
+var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
+for (var i = 0; i < sozverisi.length; i++) {
+var s = sozverisi[i];
+dokum += (i + 1) + '. ' + s.A + ', ' + s.B + '\n';
+}
+gosterici.innerHTML = dokum;
+document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
+}
+}
+
+// YENİDEN ANA ARAMA EKRANINA DÖNÜŞ
+function sozcuklugeDon() {
+document.getElementById('girdi').style.display = 'block';
+document.getElementById('anaBtn').style.display = 'block';
+document.getElementById('sayac').style.display = 'block';
+document.getElementById('gosterBtn').style.display = 'block';
+
+document.getElementById('gosterici').innerHTML = 'HAZIR';
+temizleGirdi();
+}
+
+function temizleGirdi() {
+document.getElementById('girdi').value = '';
+document.getElementById('girdi').focus();
+}
+
+document.getElementById('anaBtn').addEventListener('click', bulBulanSor);
+document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
+document.getElementById('girdi').addEventListener('keyup', function(e) {
+if (e.key === 'Enter') bulBulanSor();
+});
+
+// SAYFA AÇILDIĞINDA SAYAÇ ÇALIŞIR
+sayaciGuncelle();
 </script>
 </body>
 </html>
