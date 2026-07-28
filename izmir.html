@@ -2666,36 +2666,6 @@ return txt.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase()
 .replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c')
 .trim();
 }
-
-function bulBulanSor() {
-var girdi = document.getElementById('girdi').value;
-var gosterici = document.getElementById('gosterici');
-var aranan = kucukHarfYalin(girdi);
-
-if (aranan === '') {
-gosterici.innerHTML = 'SÖZCÜK GİRİNİZ';
-return;
-}
-
-var bulunanA = '', bulunanB = '';
-for (var i = 0; i < sozverisi.length; i++) {
-var o = sozverisi[i];
-if (kucukHarfYalin(o.A) === aranan || kucukHarfYalin(o.B) === aranan) {
-bulunanA = o.A;
-bulunanB = o.B;
-break;
-}
-}
-
-if (bulunanA !== '') {
-gosterici.innerHTML = '1. ' + bulunanA + ', ' + bulunanB;
-setTimeout(temizleGirdi, 2500);
-} else {
-gosterici.innerHTML = 'BİLMİYORUM';
-}
-}
-
-// SÖZCÜKLÜĞÜ GÖSTERİNCE DİĞER BİLEŞENLERİ GİZLEYİP TÜM ALANI AÇMA
 function sozcukluguGoster() {
 if (!yonetici) {
 var sifre = prompt("Yönetici Gizli Sözünü girin:");
@@ -2706,6 +2676,26 @@ alert("Hatalı gizli söz!");
 return;
 }
 }
+
+document.getElementById('girdi').style.display = 'none';
+document.getElementById('anaBtn').style.display = 'none';
+document.getElementById('sayac').style.display = 'none';
+document.getElementById('gosterBtn').style.display = 'none';
+
+var gosterici = document.getElementById('gosterici');
+
+var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
+
+for (var i = 0; i < sozverisi.length; i++) {
+var s = sozverisi[i];
+dokum += (i + 1) + '. ' + s.A + ', ' + s.B + '\n';
+}
+
+gosterici.innerHTML = dokum;
+document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
+}
+
+
 
 // Girdi, düğme ve sayacı gizle ki tüm alan görüntüleyiciye kalsın
 document.getElementById('girdi').style.display = 'none';
