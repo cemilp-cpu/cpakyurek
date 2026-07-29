@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">     
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SÖZCÜKLÜK</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* EKRAAN TAM SIĞMA VE DIŞ KAYDIRMA ÇUBUĞUNU ENGELLEME */
 html, body {
 height: 100vh;
 overflow: hidden;
@@ -78,7 +77,6 @@ margin-bottom: 6px;
 flex-shrink: 0;
 }
 
-/* GÖRÜNTÜLEYİCİ ALANI */
 #gosterici {
 flex: 1;
 padding: 8px;
@@ -93,7 +91,6 @@ margin-bottom: 6px;
 position: relative;
 }
 
-/* EN ÜSTTE SABİT DURSUN DİYE YAPILAN SÖZCÜKLÜĞE DÖN DÜĞMESİ */
 .don-dugmesi {
 position: sticky;
 top: 0;
@@ -142,8 +139,9 @@ margin-bottom: 6px;
 
 <script>
 var YONETICI_GIZLISOZ = "kasim1973";
+var yonetici = false;
 
-// HAVUZ VERİSİ
+// SIRALI VE TÜM SÖZCÜK VERİSİ
 var sozverisi = [
 { A: "âla" , B:"çok iyi" },
 { A: "border-color" , B:"çerçeve boyası" },
@@ -1795,7 +1793,6 @@ var sozverisi = [
   
 ];
 
-// SAYFA YÜKLENİNCE ÇALIŞACAK İŞLEVLER
 window.onload = function() {
 guncelleSayac();
 
@@ -1808,18 +1805,18 @@ sozcukAra();
 });
 };
 
-// SÖZCÜK SAYISINI GÜNCELLEME
 function guncelleSayac() {
 document.getElementById('sayac').innerText = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
 }
 
-// ARAMA İŞLEVİ (KÜÇÜK HARFLİ VERİLERE UYUMLU VE BÜYÜK TÜRKÇE HARF DUYARLI)
 function sozcukAra() {
-var aranan = document.getElementById('girdi').value.trim().toLocaleUpperCase('tr-TR');
+var girdiElemani = document.getElementById('girdi');
+var aranan = girdiElemani.value.trim().toLocaleUpperCase('tr-TR');
 var gosterici = document.getElementById('gosterici');
 
 if (aranan === "") {
 gosterici.innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
+girdiElemani.focus();
 return;
 }
 
@@ -1839,9 +1836,12 @@ gosterici.innerHTML = bulunanlar.join('\n');
 } else {
 gosterici.innerHTML = "ARANAN SÖZCÜK BULUNAMADI.";
 }
+
+// ARAMA BİTTİKTEN SONRA KUTUYU SİLER VE İMLECİ YENİ YAZIM İÇİN HAZIR EDER:
+girdiElemani.value = '';
+girdiElemani.focus();
 }
 
-// TÜM SÖZCÜKLÜĞÜ GÖSTERME İŞLEVİ
 function sozcukluguGoster() {
 if (!yonetici) {
 var sifre = prompt("Yönetici Gizli Sözünü girin:");
@@ -1873,7 +1873,6 @@ document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
 }
 }
 
-// ARAMA EKRANINA GERİ DÖNME İŞLEVİ
 function sozcuklugeDon() {
 document.getElementById('girdi').style.display = 'block';
 document.getElementById('anaBtn').style.display = 'block';
@@ -1882,4 +1881,9 @@ document.getElementById('gosterBtn').style.display = 'block';
 
 var gosterici = document.getElementById('gosterici');
 gosterici.innerHTML = 'HAZIR';
+document.getElementById('girdi').focus();
 }
+</script>
+</body>
+</html>
+
