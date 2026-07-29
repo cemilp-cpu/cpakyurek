@@ -1782,108 +1782,152 @@ var sozverisi = [
 { A: "write" , B:"yaz" },
 { A: "zaviye" , B: "açı" },
 { A: "zeka" , B: "düşünme yeteneği" },
-{ A: "zırh" , B: "delinmez koruyucu" ,
+{ A: "zırh" , B: "delinmez koruyucu" }
 
 
-
-
-
-  
-
-  
 ];
 
-window.onload = function() {
-guncelleSayac();
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SÖZCÜKLÜK</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-document.getElementById('anaBtn').addEventListener('click', sozcukAra);
-document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
-document.getElementById('girdi').addEventListener('keypress', function(e) {
-if (e.key === 'Enter') {
-sozcukAra();
-}
-});
-};
-
-function guncelleSayac() {
-document.getElementById('sayac').innerText = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
-}
-
-function sozcukAra() {
-var girdiElemani = document.getElementById('girdi');
-var aranan = girdiElemani.value.trim().toLocaleUpperCase('tr-TR');
-var gosterici = document.getElementById('gosterici');
-
-if (aranan === "") {
-gosterici.innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
-girdiElemani.focus();
-return;
+html, body {
+height: 100vh;
+overflow: hidden;
+background: #e8e8e8;
+font-family: Arial, sans-serif;
+display: flex;
+flex-direction: column;
 }
 
-var bulunanlar = [];
-
-for (var i = 0; i < sozverisi.length; i++) {
-var a = String(sozverisi[i].A).toLocaleUpperCase('tr-TR');
-var b = String(sozverisi[i].B).toLocaleUpperCase('tr-TR');
-
-if (a.indexOf(aranan) !== -1 || b.indexOf(aranan) !== -1) {
-bulunanlar.push((i + 1) + '. ' + String(sozverisi[i].A).toLocaleUpperCase('tr-TR') + ' -> ' + String(sozverisi[i].B).toLocaleUpperCase('tr-TR'));
-}
-}
-
-if (bulunanlar.length > 0) {
-gosterici.innerHTML = bulunanlar.join('\n');
-} else {
-gosterici.innerHTML = "ARANAN SÖZCÜK BULUNAMADI.";
+.bayrak {
+background: #e30a17;
+color: #fff;
+padding: 8px;
+font-weight: bold;
+border-bottom: 3px solid #000;
+text-align: center;
+flex-shrink: 0;
 }
 
-// ARAMA BİTTİKTEN SONRA KUTUYU SİLER VE İMLECİ YENİ YAZIM İÇİN HAZIR EDER:
-girdiElemani.value = '';
-girdiElemani.focus();
+.ana-kapsayici {
+flex: 1;
+padding: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
 }
 
-function sozcukluguGoster() {
-if (!yonetici) {
-var sifre = prompt("Yönetici Gizli Sözünü girin:");
-if (sifre === YONETICI_GIZLISOZ) {
-yonetici = true;
-} else {
-alert("Hatalı gizli söz!");
-return;
-}
-}
-
-document.getElementById('girdi').style.display = 'none';
-document.getElementById('anaBtn').style.display = 'none';
-document.getElementById('sayac').style.display = 'none';
-document.getElementById('gosterBtn').style.display = 'none';
-
-var gosterici = document.getElementById('gosterici');
-
-if (sozverisi.length === 0) {
-gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
-} else {
-var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
-for (var i = 0; i < sozverisi.length; i++) {
-var s = sozverisi[i];
-dokum += (i + 1) + '. ' + String(s.A).toLocaleUpperCase('tr-TR') + ' -> ' + String(s.B).toLocaleUpperCase('tr-TR') + '\n';
-}
-gosterici.innerHTML = dokum;
-document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
-}
+.kutu {
+width: 100%;
+max-width: 650px;
+height: 100%;
+background: #fff;
+padding: 12px;
+border: 3px solid #000;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+text-align: center;
 }
 
-function sozcuklugeDon() {
-document.getElementById('girdi').style.display = 'block';
-document.getElementById('anaBtn').style.display = 'block';
-document.getElementById('sayac').style.display = 'block';
-document.getElementById('gosterBtn').style.display = 'block';
+h1 { font-size: 1.2rem; margin-bottom: 4px; flex-shrink: 0; }
+.felsefe { font-size: 0.8rem; font-weight: bold; background: #000; color: #fff; padding: 4px; margin-bottom: 8px; flex-shrink: 0; }
 
-var gosterici = document.getElementById('gosterici');
-gosterici.innerHTML = 'HAZIR';
-document.getElementById('girdi').focus();
+#girdi {
+width: 100%;
+padding: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+border: 3px solid #000;
+background: #ffff00;
+text-align: center;
+text-transform: uppercase;
+margin-bottom: 6px;
+flex-shrink: 0;
 }
-</script>
-</body>
-</html>
 
+.dugme {
+width: 100%;
+padding: 8px;
+font-size: 1rem;
+font-weight: bold;
+border: 2px solid #000;
+background: #000;
+color: #fff;
+cursor: pointer;
+margin-bottom: 6px;
+flex-shrink: 0;
+}
+
+#gosterici {
+flex: 1;
+padding: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+border: 3px solid #000;
+background: #ffff00;
+text-align: left;
+overflow-y: auto;
+white-space: pre-wrap;
+margin-bottom: 6px;
+position: relative;
+}
+
+.don-dugmesi {
+position: sticky;
+top: 0;
+z-index: 100;
+width: 100%;
+padding: 10px;
+background: #e30a17;
+color: #fff;
+font-size: 1.1rem;
+font-weight: bold;
+border: 2px solid #000;
+cursor: pointer;
+margin-bottom: 8px;
+box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+}
+
+.sayac {
+font-size: 0.85rem;
+font-weight: bold;
+background: #000;
+color: #fff;
+padding: 5px;
+flex-shrink: 0;
+margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+
+<div class="bayrak">1 MAYIS EMEK VE DAYANIŞMA YÜCELTİLSİN</div>
+
+<div class="ana-kapsayici">
+<div class="kutu">
+<h1>cpakyürek SANAL YÖRESİ</h1>
+<div class="felsefe">TANRI BİLİNEMEZ. İNSAN: TANIMLAYABİLEN.</div>
+
+<input type="text" id="girdi" placeholder="SÖZCÜĞÜ YAZIN..." autocomplete="off">
+<button type="button" class="dugme" id="anaBtn">BUL. BULUNUZ. BAŞKA SÖZCÜK SORUNUZ.</button>
+
+<div id="gosterici">HAZIR</div>
+
+<div class="sayac" id="sayac">Sözcüklükte: 0 sözcük</div>
+<button type="button" class="dugme" id="gosterBtn" style="background: #000080;">SÖZCÜKLÜĞÜ GÖSTER</button>
+</div>
+</div>
+
+<script>
+var YONETICI_GIZLISOZ = "kasim1973";
+var yonetici = false;
+
+// SIRALI VE TÜM SÖZCÜK VERİSİ
