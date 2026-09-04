@@ -41,6 +41,7 @@ body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-d
 Cemil Pakyürek (1968-1973) İTÜ
 </div>
 
+<!-- Soru giriş alanı -->
 <input type="text" id="soru-alani" class="girdi-alani" placeholder="SÖZCÜK YAZIN">
 
 <div class="dugme-satiri">
@@ -65,11 +66,9 @@ Cemil Pakyürek (1968-1973) İTÜ
 </div>
 </div>
 
-<!-- Arka Oda Paneli -->
 <div id="arka-oda-paneli" class="arka-oda">
 <label style="font-size: 16px !important;">Yönetici Görev Bildirimi</label>
 <p>Sözcüklerinizi aşağıdaki script etiketinin içerisindeki ilgili listelere ekleyebilirsiniz.</p>
-<button style="width:100%; margin-top:5px; font-size:15px !important; cursor:pointer; padding:8px;" onclick="tumunuTeklestirVeSirala()">Tüm Listeleri Tekleştir ve Abece Sırala</button>
 </div>
 
 <script> 
@@ -2497,13 +2496,7 @@ const sozlukTgid = [
 { A: " background: none;" , B: "arkası renksiz" } 
 
 ];
-
-const sozlukCokluk = [
-{ A: "adet", B: "tane" },
-{ A: "sinüs", B: "boşluk" }
-];
-
- let toplamGezerSayisi = 0;
+let toplamGezerSayisi = 0;
 
 window.onload = function() {
 sayacGuncelle();
@@ -2518,18 +2511,23 @@ document.getElementById('sayac-top').innerText = toplamSozcukSay();
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 }
 
-// Genel havuzda arama yapan ana buldurucu fonksiyon
+// İKİ YÖNLÜ arama yapan kusursuz buldurucu fonksiyonu
 function sozcukBul() {
-let aranan = document.getElementById('soru-alani').value.trim().toLowerCase();
+let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCase('tr');
 let ekran = document.getElementById('sonuc-ekrani');
 if(!aranan) { ekran.innerHTML = "Lütfen bir sözcük yazın."; return; }
 
 toplamGezerSayisi++;
 document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase();
 
-// Tüm dizileri tek bir arama havuzunda birleştiriyoruz
 let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk];
-let sonuclar = tumHavuz.filter(item => item.A.toLowerCase().startsWith(aranan));
+
+// Hem A (Yabancı/Kaynak) hem de B (Türkçe karşılık) üzerinden iki yönlü arama tetikleniyor
+let sonuclar = tumHavuz.filter(item => {
+let kelimeA = item.A.trim().toLocaleLowerCase('tr');
+let kelimeB = item.B.trim().toLocaleLowerCase('tr');
+return kelimeA.includes(aranan) || kelimeB.includes(aranan);
+});
 
 if(sonuclar.length > 0) {
 ekran.innerHTML = sonuclar.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
@@ -2539,7 +2537,6 @@ ekran.innerHTML = "Sözcük bulunamadı.";
 sayacGuncelle();
 }
 
-// İlgi alanı düğmelerine basıldığında ilgili diziyi süzüp gösterir
 function kategoriFiltre(ilgiliDizi, kategoriAdi) {
 let ekran = document.getElementById('sonuc-ekrani');
 toplamGezerSayisi++;
@@ -2553,15 +2550,19 @@ ekran.innerHTML = "Bu alanda sözcük bulunamadı.";
 sayacGuncelle();
 }
 
+// Alanı temizleyen ve imleci doğrudan soru kutusuna odaklayan (focus) fonksiyon
 function soruTemizle() {
-document.getElementById('soru-alani').value = '';
+let soruAlani = document.getElementById('soru-alani');
+soruAlani.value = '';
 document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.';
 document.getElementById('sayac-gezilen').innerText = '-';
 toplamGezerSayisi++;
 sayacGuncelle();
+
+// İmleci ekrana dokunmaya gerek kalmadan otomatik kutunun içine atar
+soruAlani.focus();
 }
 
-// kasim1973 gizli sözünü denetleyen yönetici arka oda kapısı
 function arkaOdaAc() {
 let oda = document.getElementById('arka-oda-paneli');
 if (oda.style.display === 'block') {
@@ -2575,23 +2576,13 @@ alert("Gizli söz yanlış!");
 }
 }
 }
-
-// Tekil bir diziyi tekleştirip abeceye dizen yardımcı fonksiyon
-function diziDuzenle(dizi) {
-let uniqueMap = {};
-dizi.forEach(item => { uniqueMap[item.A.toLowerCase()] = item; });
-let tekil = Object.values(uniqueMap);
-tekil.sort((a, b) => a.A.localeCompare(b.A, 'tr'));
-return tekil;
-}
-
-// Arka odadaki düğmeye basıldığında tüm dizileri arka planda sıraya dizer
-function tumunuTeklestirVeSirala() {
-// Bu işlem dizileri bellekte düzenler, kalıcı kılmak için kodu kaydetmeniz gerekir
-alert("Diziler abeceye göre dizildi ve mükerrerler temizlendi!");
-sayacGuncelle();
-}
 </script>
 
 </body>
 </html>
+const sozlukCokluk = [
+{ A: "adet", B: "tane" },
+{ A: "sinüs", B: "boşluk" }
+];
+
+ 
