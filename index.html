@@ -2495,6 +2495,11 @@ const sozlukTgid = [
 { A: " background: none;" , B: "arkası renksiz" } 
 
 ];
+let sozlukCokluk = [
+{ A: "adet", B: "tane" },
+{ A: "sinüs", B: "boşluk" }
+];
+
 let toplamGezerSayisi = 0;
 
 window.onload = function() {
@@ -2510,6 +2515,7 @@ document.getElementById('sayac-top').innerText = toplamSozcukSay();
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 }
 
+// Büyük A ve B harfiyle yazılmış nesneleri eksiksiz okuyan çift yönlü arama motoru
 function sozcukBul() {
 let aranan = document.getElementById('soru-alani').value.trim().toLowerCase();
 let ekran = document.getElementById('sonuc-ekrani');
@@ -2520,11 +2526,10 @@ document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase();
 
 let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk];
 
-// Çift yönlü ve harf duyarsız en yalın arama döngüsü
 let sonuclar = tumHavuz.filter(item => {
-let sol = (item.A || "").toString().toLowerCase();
-let sag = (item.B || "").toString().toLowerCase();
-return sol.includes(aranan) || sag.includes(aranan);
+let solTaraf = (item.A || "").toString().trim().toLowerCase();
+let sagTaraf = (item.B || "").toString().trim().toLowerCase();
+return solTaraf.includes(aranan) || sagTaraf.includes(aranan);
 });
 
 if(sonuclar.length > 0) {
@@ -2541,7 +2546,7 @@ toplamGezerSayisi++;
 document.getElementById('sayac-gezilen').innerText = kategoriAdi;
 
 if(ilgiliDizi.length > 0) {
-ekran.innerHTML = ilgiliDizi.map((item, i) => `${item.A} = ${item.B}`).join('<br>');
+ekran.innerHTML = ilgiliDizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
 } else {
 ekran.innerHTML = "Bu alanda sözcük bulunamadı.";
 }
@@ -2555,7 +2560,7 @@ document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.';
 document.getElementById('sayac-gezilen').innerText = '-';
 toplamGezerSayisi++;
 sayacGuncelle();
-soruAlani.focus(); // İmleci otomatik odaklayan satır
+soruAlani.focus(); // İmleci otomatik kutuya odaklar
 }
 
 function arkaOdaAc() {
@@ -2596,5 +2601,4 @@ alert("Tüm listeler kendi içinde başarıyla tekleştirildi ve abeceye dizildi
 </script>
 </body>
 </html>
-
  
