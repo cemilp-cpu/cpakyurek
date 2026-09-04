@@ -5,27 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Yalın Türkçe Sözcüklük</title>
 <style>
-* { box-sizing: border-box; font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; font-size: 20px !important; color: #000000; }
-body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; position: relative; }
-.yonetici-girisi { position: absolute; top: 10px; right: 10px; font-size: 13px !important; background: #2c3e50; color: #ffffff !important; border: 2px solid #000000; padding: 4px 8px; cursor: pointer; border-radius: 4px; z-index: 1000; }
-.ana-cerceve { width: 100%; max-width: 440px; background-color: #ffff00; border: 5px solid #000000; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0px 4px 15px rgba(0,0,0,0.2); }
-.baslik-alani { display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 16px !important; border-bottom: 3px solid #000000; padding-bottom: 6px; }
-.kizil-yildiz { width: 50px; height: 50px; margin-bottom: 4px; animation: parildama 1.5s infinite ease-in-out; }
-@keyframes parildama { 0% { opacity: 0.6; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.6; transform: scale(0.9); } }
-.girdi-alani { width: 100%; padding: 10px; text-align: center; border: 3px solid #000000; border-radius: 6px; text-transform: uppercase; background-color: #ffffff; }
-.dugme-satiri { display: flex; gap: 8px; }
-.btn { flex: 1; padding: 12px; color: #ffffff !important; border: 3px solid #000000; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
+* {
+box-sizing: border-box;
+font-family: 'Courier New', Courier, monospace !important;
+font-weight: bold !important;
+font-size: 20px !important;
+color: #000000;
+}
+body {
+margin: 0;
+padding: 5px;
+background-color: #dcdcdc;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+position: relative;
+}
+.yonetici-girisi {
+position: absolute;
+top: 10px;
+right: 10px;
+font-size: 13px !important;
+background: #2c3e50;
+color: #ffffff !important;
+border: 2px solid #000000;
+padding: 4px 8px;
+cursor: pointer;
+border-radius: 4px;
+z-index: 1000;
+}
+.ana-cerceve {
+width: 100%;
+max-width: 440px;
+background-color: #ffff00;
+border: 5px solid #000000;
+border-radius: 12px;
+padding: 12px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+.baslik-alani {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+border-bottom: 3px solid #000000;
+padding-bottom: 8px;
+text-align: center;
+}
+.kizil-yildiz {
+width: 24px;
+height: 24px;
+flex-shrink: 0;
+animation: parildama 1.5s infinite ease-in-out;
+}
+@keyframes parildama {
+0% { opacity: 0.6; transform: scale(0.9); }
+50% { opacity: 1; transform: scale(1.1); }
+100% { opacity: 0.6; transform: scale(0.9); }
+}
+.baslik-metni {
+font-size: 20px !important;
+line-height: 1.2;
+}
+.girdi-alani {
+width: 100%;
+padding: 10px;
+text-align: center;
+border: 3px solid #000000;
+border-radius: 6px;
+text-transform: uppercase;
+background-color: #ffffff;
+}
+.dugme-satiri {
+display: flex;
+gap: 8px;
+}
+.btn {
+flex: 1;
+padding: 12px;
+color: #ffffff !important;
+border: 3px solid #000000;
+border-radius: 6px;
+cursor: pointer;
+text-transform: uppercase;
+}
 .btn-bul { background-color: #005580; }
 .btn-sor { background-color: #e74c3c; }
-.kategori-satiri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-.btn-kat { padding: 6px; font-size: 15px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; }
+
+.kategori-satiri {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 5px;
+}
+.btn-kat {
+padding: 6px;
+font-size: 15px !important;
+color: #ffffff !important;
+border: 2px solid #000000;
+border-radius: 4px;
+cursor: pointer;
+}
 .btn-saglik { background-color: #2ecc71; }
 .btn-bilim { background-color: #9b59b6; }
 .btn-haklilik { background-color: #e67e22; }
 .btn-alt { grid-column: span 1.5; background-color: #2980b9; }
-.mavi-ekran { width: 100%; height: 100px; background-color: #aed6f1; border: 3px solid #3498db; border-radius: 6px; padding: 8px; overflow-y: auto; }
-.sayac-grubu { display: flex; gap: 6px; width: 100%; }
-.sayac-kutu { flex: 1; background-color: #ffffff; border: 2px solid #000000; padding: 6px 2px; border-radius: 6px; text-align: center; font-size: 13px !important; }
+
+.mavi-ekran {
+width: 100%;
+height: 100px;
+background-color: #aed6f1;
+border: 3px solid #3498db;
+border-radius: 6px;
+padding: 8px;
+overflow-y: auto;
+}
+.sayac-grubu {
+display: flex;
+gap: 6px;
+width: 100%;
+}
+.sayac-kutu {
+flex: 1;
+background-color: #ffffff;
+border: 2px solid #000000;
+padding: 6px 2px;
+border-radius: 6px;
+text-align: center;
+font-size: 13px !important;
+}
 .sayac-kutu span { font-size: 13px !important; }
 .arka-oda { display: none; width: 100%; max-width: 440px; background-color: #ffffff; border: 4px solid #2c3e50; border-radius: 8px; margin-top: 10px; padding: 10px; text-align: center; }
 </style>
@@ -36,8 +148,10 @@ body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-d
 
 <div class="ana-cerceve">
 <div class="baslik-alani">
-<svg class="kizil-yildiz" viewBox="0 0 24 24" fill="#ff0000"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/></svg>
-Cemil Pakyürek (1968-1973) İTÜ
+<svg class="kizil-yildiz" viewBox="0 0 24 24" fill="#ff0000">
+<path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/>
+</svg>
+<div class="baslik-metni">Cemil Pakyürek<br>(1968-1973) İTÜ</div>
 </div>
 
 <input type="text" id="soru-alani" class="girdi-alani" placeholder="SÖZCÜK YAZIN">
@@ -67,7 +181,6 @@ Cemil Pakyürek (1968-1973) İTÜ
 <div id="arka-oda-paneli" class="arka-oda">
 <label style="font-size: 16px !important;">Yönetici Görev Bildirimi</label>
 <p style="font-size: 14px !important; margin: 5px 0; color: #555;">Kelimeleriniz aşağıdaki listelerin içinde güvenle durmaktadır.</p>
-<button style="width:100%; margin-top:5px; font-size:15px !important; cursor:pointer; padding:8px;" onclick="tumunuTeklestirVeSirala()">Tüm Listeleri Tekleştir ve Abece Sırala</button>
 </div>
 
 <script> 
@@ -2573,12 +2686,7 @@ const sozlukTgid = [
 { A: " background: none;" , B: "arkası renksiz" } 
 
 ];
-let sozlukCokluk = [
-{ A: "adet", B: "tane" },
-{ A: "sinüs", B: "boşluk" }
-];
-
-let toplamGezerSayisi = 0;
+ let toplamGezerSayisi = 0;
 
 window.onload = function() {
 sayacGuncelle();
@@ -2593,7 +2701,6 @@ document.getElementById('sayac-top').innerText = toplamSozcukSay();
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 }
 
-// Büyük A ve B harfiyle yazılmış nesneleri eksiksiz okuyan çift yönlü arama motoru
 function sozcukBul() {
 let aranan = document.getElementById('soru-alani').value.trim().toLowerCase();
 let ekran = document.getElementById('sonuc-ekrani');
@@ -2605,9 +2712,9 @@ document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase();
 let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk];
 
 let sonuclar = tumHavuz.filter(item => {
-let solTaraf = (item.A || "").toString().trim().toLowerCase();
-let sagTaraf = (item.B || "").toString().trim().toLowerCase();
-return solTaraf.includes(aranan) || sagTaraf.includes(aranan);
+let sol = (item.A || "").toString().toLowerCase();
+let sag = (item.B || "").toString().toLowerCase();
+return sol.includes(aranan) || sag.includes(aranan);
 });
 
 if(sonuclar.length > 0) {
@@ -2638,7 +2745,7 @@ document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.';
 document.getElementById('sayac-gezilen').innerText = '-';
 toplamGezerSayisi++;
 sayacGuncelle();
-soruAlani.focus(); // İmleci otomatik kutuya odaklar
+soruAlani.focus();
 }
 
 function arkaOdaAc() {
@@ -2654,29 +2761,6 @@ alert("Gizli söz yanlış!");
 }
 }
 }
-
-function listeyiDuzenle(dizi) {
-let map = {};
-dizi.forEach(item => {
-let anahtar = (item.A || "").toString().toLowerCase();
-map[anahtar] = item;
-});
-let temiz = Object.values(map);
-temiz.sort((a, b) => (a.A || "").toString().localeCompare((b.A || "").toString(), 'tr'));
-return temiz;
-}
-
-function tumunuTeklestirVeSirala() {
-sozluk = listeyiDuzenle(sozluk);
-sozlukSaglik = listeyiDuzenle(sozlukSaglik);
-sozlukHaklilik = listeyiDuzenle(sozlukHaklilik);
-sozlukBilim = listeyiDuzenle(sozlukBilim);
-sozlukTgid = listeyiDuzenle(sozlukTgid);
-sozlukCokluk = listeyiDuzenle(sozlukCokluk);
-sayacGuncelle();
-alert("Tüm listeler kendi içinde başarıyla tekleştirildi ve abeceye dizildi!");
-}
 </script>
 </body>
 </html>
- 
