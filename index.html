@@ -28,7 +28,6 @@ body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-d
 .sayac-kutu { flex: 1; background-color: #ffffff; border: 2px solid #000000; padding: 6px 2px; border-radius: 6px; text-align: center; font-size: 13px !important; }
 .sayac-kutu span { font-size: 13px !important; }
 .arka-oda { display: none; width: 100%; max-width: 440px; background-color: #ffffff; border: 4px solid #2c3e50; border-radius: 8px; margin-top: 10px; padding: 10px; text-align: center; }
-.arka-oda p { font-size: 14px !important; margin: 5px 0; color: #555; }
 </style>
 </head>
 <body>
@@ -41,7 +40,6 @@ body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-d
 Cemil Pakyürek (1968-1973) İTÜ
 </div>
 
-<!-- Soru giriş alanı -->
 <input type="text" id="soru-alani" class="girdi-alani" placeholder="SÖZCÜK YAZIN">
 
 <div class="dugme-satiri">
@@ -68,7 +66,8 @@ Cemil Pakyürek (1968-1973) İTÜ
 
 <div id="arka-oda-paneli" class="arka-oda">
 <label style="font-size: 16px !important;">Yönetici Görev Bildirimi</label>
-<p>Sözcüklerinizi aşağıdaki script etiketinin içerisindeki ilgili listelere ekleyebilirsiniz.</p>
+<p style="font-size: 14px !important; margin: 5px 0; color: #555;">Kelimeleriniz aşağıdaki listelerin içinde güvenle durmaktadır.</p>
+<button style="width:100%; margin-top:5px; font-size:15px !important; cursor:pointer; padding:8px;" onclick="tumunuTeklestirVeSirala()">Tüm Listeleri Tekleştir ve Abece Sırala</button>
 </div>
 
 <script> 
@@ -2511,9 +2510,8 @@ document.getElementById('sayac-top').innerText = toplamSozcukSay();
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 }
 
-// İKİ YÖNLÜ arama yapan kusursuz buldurucu fonksiyonu
 function sozcukBul() {
-let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCase('tr');
+let aranan = document.getElementById('soru-alani').value.trim().toLowerCase();
 let ekran = document.getElementById('sonuc-ekrani');
 if(!aranan) { ekran.innerHTML = "Lütfen bir sözcük yazın."; return; }
 
@@ -2522,11 +2520,11 @@ document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase();
 
 let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk];
 
-// Hem A (Yabancı/Kaynak) hem de B (Türkçe karşılık) üzerinden iki yönlü arama tetikleniyor
+// Çift yönlü ve harf duyarsız en yalın arama döngüsü
 let sonuclar = tumHavuz.filter(item => {
-let kelimeA = item.A.trim().toLocaleLowerCase('tr');
-let kelimeB = item.B.trim().toLocaleLowerCase('tr');
-return kelimeA.includes(aranan) || kelimeB.includes(aranan);
+let sol = (item.A || "").toString().toLowerCase();
+let sag = (item.B || "").toString().toLowerCase();
+return sol.includes(aranan) || sag.includes(aranan);
 });
 
 if(sonuclar.length > 0) {
@@ -2543,14 +2541,13 @@ toplamGezerSayisi++;
 document.getElementById('sayac-gezilen').innerText = kategoriAdi;
 
 if(ilgiliDizi.length > 0) {
-ekran.innerHTML = ilgiliDizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
+ekran.innerHTML = ilgiliDizi.map((item, i) => `${item.A} = ${item.B}`).join('<br>');
 } else {
 ekran.innerHTML = "Bu alanda sözcük bulunamadı.";
 }
 sayacGuncelle();
 }
 
-// Alanı temizleyen ve imleci doğrudan soru kutusuna odaklayan (focus) fonksiyon
 function soruTemizle() {
 let soruAlani = document.getElementById('soru-alani');
 soruAlani.value = '';
@@ -2558,9 +2555,7 @@ document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.';
 document.getElementById('sayac-gezilen').innerText = '-';
 toplamGezerSayisi++;
 sayacGuncelle();
-
-// İmleci ekrana dokunmaya gerek kalmadan otomatik kutunun içine atar
-soruAlani.focus();
+soruAlani.focus(); // İmleci otomatik odaklayan satır
 }
 
 function arkaOdaAc() {
@@ -2576,13 +2571,30 @@ alert("Gizli söz yanlış!");
 }
 }
 }
-</script>
 
+function listeyiDuzenle(dizi) {
+let map = {};
+dizi.forEach(item => {
+let anahtar = (item.A || "").toString().toLowerCase();
+map[anahtar] = item;
+});
+let temiz = Object.values(map);
+temiz.sort((a, b) => (a.A || "").toString().localeCompare((b.A || "").toString(), 'tr'));
+return temiz;
+}
+
+function tumunuTeklestirVeSirala() {
+sozluk = listeyiDuzenle(sozluk);
+sozlukSaglik = listeyiDuzenle(sozlukSaglik);
+sozlukHaklilik = listeyiDuzenle(sozlukHaklilik);
+sozlukBilim = listeyiDuzenle(sozlukBilim);
+sozlukTgid = listeyiDuzenle(sozlukTgid);
+sozlukCokluk = listeyiDuzenle(sozlukCokluk);
+sayacGuncelle();
+alert("Tüm listeler kendi içinde başarıyla tekleştirildi ve abeceye dizildi!");
+}
+</script>
 </body>
 </html>
-const sozlukCokluk = [
-{ A: "adet", B: "tane" },
-{ A: "sinüs", B: "boşluk" }
-];
 
  
