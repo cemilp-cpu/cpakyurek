@@ -2477,16 +2477,54 @@ if (typeof sozlukBilim === 'undefined') { var sozlukBilim = []; }
 if (typeof sozlukTgid === 'undefined') { var sozlukTgid = []; }
 if (typeof sozlukCokluk === 'undefined') { var sozlukCokluk = []; }
 
-const KORUNAN_SINIR = 2416; // İlk 2416 sözcük için koruma sınırı
+const KORUNAN_SINIR = 2416;
 let toplamGezerSayisi = parseInt(localStorage.getItem('toplamGezer')) || 0;
-let aktifMod = "normal"; // Durum takibi
+let aktifMod = "normal";
+let tiklamaZamanlayici = null;
 
 window.onload = function() {
+// BUL ve SOR düğmelerini dikeyde yer kazanmak için küçültüyoruz
+let btnBul = document.querySelector('.btn-bul');
+let btnSor = document.querySelector('.btn-sor');
+if(btnBul) { btnBul.style.padding = '6px'; btnBul.style.fontSize = '16px'; }
+if(btnSor) { btnSor.style.padding = '6px'; btnSor.style.fontSize = '16px'; }
+
+// İki koca düğmeyi yer kazanmak adına tek bir düğmede birleştiriyoruz
+let eskiSatir = document.querySelector('.eksiltme-gurlesme-satiri');
+if (eskiSatir) {
+eskiSatir.innerHTML = `
+<button class="btn-eksgur" style="padding:4px; font-size:15px!important;" id="btn-birlesik">EKS (Tek) / GÜR (Çift)</button>
+<div class="etkin-imge-alani" style="font-size:12px!important;">
+<span id="durum-isigi" class="etkin-isik"></span><span id="durum-metni">ETKİN</span>
+</div>
+`;
+
+let birlesikBtn = document.getElementById('btn-birlesik');
+birlesikBtn.addEventListener('click', function() {
+if (tiklamaZamanlayici !== null) {
+clearTimeout(tiklamaZamanlayici);
+tiklamaZamanlayici = null;
+ekstGurAksiyon('Gürleştirme');
+} else {
+tiklamaZamanlayici = setTimeout(function() {
+tiklamaZamanlayici = null;
+ekstGurAksiyon('Eksiciklendirme');
+}, 300);
+}
+});
+}
+
+// Yanıt alanına (mavi ekrana) eski ihtişamlı yüksekliği geri veriliyor
+let maviEkran = document.getElementById('sonuc-ekrani');
+if(maviEkran) {
+maviEkran.style.flexGrow = '3';
+maviEkran.style.minHeight = '180px';
+}
+
 sayacGuncelle();
 };
 
 function toplamSozcukSay() {
-// .img hatası .length olarak tamamen düzeltildi
 return sozluk.length + sozlukSaglik.length + sozlukHaklilik.length + sozlukBilim.length + sozlukTgid.length + sozlukCokluk.length;
 }
 
@@ -2525,6 +2563,7 @@ let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCas
 let ekran = document.getElementById('sonuc-ekrani');
 if(!aranan) { ekran.innerHTML = "Lütfen bir sözcük yazın."; return; }
 
+// Sayaçların gerçek sayıları göstermesi için artırım ve hafızaya kayıt
 toplamGezerSayisi++;
 localStorage.setItem('toplamGezer', toplamGezerSayisi);
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
@@ -2594,7 +2633,7 @@ ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BİTTİ.<br>Sö
 aktifMod = tur;
 isik.style.backgroundColor = "#ff0000";
 metn.innerText = tur.toUpperCase();
-ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BAŞLADI.<br><br>Sözcük havuzları süzme kuralları devrede.<br><br><small style="font-size:12px!important;">Kapatmak için aynı düğmeye tekrar basın.</small>`;
+ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BAŞLADI.<br><br>Sözcük süzme kuralları devrede.<br><br><small style="font-size:12px!important;">Kapatmak için aynı şekilde tekrar tıklayın.</small>`;
 
 toplamGezerSayisi++;
 localStorage.setItem('toplamGezer', toplamGezerSayisi);
