@@ -2470,15 +2470,23 @@ let sozluk = [
 
  
 ];
+// --- SÖZLÜK ALT KATEGORİ GÜVENCELERİ ---
+if (typeof sozlukSaglik === 'undefined') { var sozlukSaglik = []; }
+if (typeof sozlukHaklilik === 'undefined') { var sozlukHaklilik = []; }
+if (typeof sozlukBilim === 'undefined') { var sozlukBilim = []; }
+if (typeof sozlukTgid === 'undefined') { var sozlukTgid = []; }
+if (typeof sozlukCokluk === 'undefined') { var sozlukCokluk = []; }
+
 const KORUNAN_SINIR = 2416; // İlk 2416 sözcük için koruma sınırı
 let toplamGezerSayisi = parseInt(localStorage.getItem('toplamGezer')) || 0;
-let aktifMod = "normal"; // Durum takibi ("normal", "Eksiciklendirme", "Gürleştirme")
+let aktifMod = "normal"; // Durum takibi
 
 window.onload = function() {
 sayacGuncelle();
 };
 
 function toplamSozcukSay() {
+// .img hatası .length olarak tamamen düzeltildi
 return sozluk.length + sozlukSaglik.length + sozlukHaklilik.length + sozlukBilim.length + sozlukTgid.length + sozlukCokluk.length;
 }
 
@@ -2524,7 +2532,6 @@ document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase();
 
 let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk];
 
-// Sadece TAM eşleşen sözcükleri getiren arama lojiği
 let sonuclar = tumHavuz.filter(item => {
 let sol = (item.A || "").toString().trim().toLocaleLowerCase('tr');
 return sol === aranan;
@@ -2570,27 +2577,24 @@ document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.';
 document.getElementById('sayac-gezilen').innerText = '-';
 toplamGezerSayisi++;
 localStorage.setItem('toplamGezer', toplamGezerSayisi);
-modKapat(); // Arama temizlendiğinde mod kesin ve tanımlı olarak sıfırlanır
+modKapat();
 sayacGuncelle();
 soruAlani.focus();
 }
 
-// Kesin Tanımlı Başlangıç ve Kapanış Noktası Olan Aksiyon Fonksiyonu
 function ekstGurAksiyon(tur) {
 let ekran = document.getElementById('sonuc-ekrani');
 let isik = document.getElementById('durum-isigi');
 let metn = document.getElementById('durum-metni');
 
 if (aktifMod === tur) {
-// TIKLANDIĞINDA KENDİNİ BİTİREN KESİN KAPANIŞ ADIMI
 modKapat();
 ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BİTTİ.<br>Sözcüklük normal durumuna döndü.`;
 } else {
-// BAŞLATMA ADIMI
 aktifMod = tur;
 isik.style.backgroundColor = "#ff0000";
 metn.innerText = tur.toUpperCase();
-ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BAŞLADI.<br><br>Sözcük havuzları süzme kuralları devrede.<br><br><small style="font-size:12px!important;">Bitirmek için aynı düğmeye tekrar basın.</small>`;
+ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BAŞLADI.<br><br>Sözcük havuzları süzme kuralları devrede.<br><br><small style="font-size:12px!important;">Kapatmak için aynı düğmeye tekrar basın.</small>`;
 
 toplamGezerSayisi++;
 localStorage.setItem('toplamGezer', toplamGezerSayisi);
@@ -2598,7 +2602,6 @@ sayacGuncelle();
 }
 }
 
-// Tüm modları varsayılana döndüren ve belirsiz uçları kapatan bitiş fonksiyonu
 function modKapat() {
 aktifMod = "normal";
 document.getElementById('durum-isigi').style.backgroundColor = "#00ff00";
