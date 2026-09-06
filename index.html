@@ -1,37 +1,83 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Yalın Türkçe Sözcüklük</title>
 <style>
-* { box-sizing: border-box; font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; font-size: 20px !important; color: #000000; }
-body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; position: relative; }
+/* Sayfayı tek pencereye sığdıran ve dış taşmaları engelleyen kurallar */
+* {
+box-sizing: border-box;
+font-family: 'Courier New', Courier, monospace !important;
+font-weight: bold !important;
+font-size: 20px !important;
+color: #000000;
+}
+html, body {
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100vh;
+overflow: hidden;
+background-color: #dcdcdc;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
 .gizli-yonetici-kosesi { position: absolute; top: 0; right: 0; width: 40px; height: 40px; cursor: pointer; background: transparent; z-index: 10; }
-.ana-cerceve { width: 100%; max-width: 440px; background-color: #ffff00; border: 5px solid #000000; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0px 4px 15px rgba(0,0,0,0.2); position: relative; }
-.baslik-alani { display: flex; align-items: center; justify-content: center; gap: 8px; border-bottom: 3px solid #000000; padding-bottom: 8px; white-space: nowrap; }
+
+/* Esnek tek pencereye göre ayarlanan ana çerçeve */
+.ana-cerceve {
+width: 95%;
+max-width: 440px;
+height: 95vh;
+max-height: 680px;
+background-color: #ffff00;
+border: 5px solid #000000;
+border-radius: 12px;
+padding: 12px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+position: relative;
+}
+.baslik-alani { display: flex; align-items: center; justify-content: center; gap: 8px; border-bottom: 3px solid #000000; padding-bottom: 8px; white-space: nowrap; flex-shrink: 0; }
 .kizil-yildiz { width: 20px; height: 20px; flex-shrink: 0; animation: parildama 1.5s infinite ease-in-out; }
 @keyframes parildama { 0% { opacity: 0.6; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.6; transform: scale(0.9); } }
-.girdi-alani { width: 100%; padding: 10px; text-align: center; border: 3px solid #000000; border-radius: 6px; text-transform: uppercase; background-color: #ffffff; }
-.dugme-satiri { display: flex; gap: 8px; }
-.btn { flex: 1; padding: 12px; color: #ffffff !important; border: 3px solid #000000; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
+.girdi-alani { width: 100%; padding: 8px; text-align: center; border: 3px solid #000000; border-radius: 6px; text-transform: uppercase; background-color: #ffffff; flex-shrink: 0; }
+.dugme-satiri { display: flex; gap: 8px; flex-shrink: 0; }
+.btn { flex: 1; padding: 10px; color: #ffffff !important; border: 3px solid #000000; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
 .btn-bul { background-color: #005580; }
 .btn-sor { background-color: #e74c3c; }
-.kategori-satiri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.kategori-satiri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; flex-shrink: 0; }
 .btn-kat { padding: 6px; font-size: 14px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; }
 .btn-saglik { background-color: #2ecc71; }
 .btn-bilim { background-color: #9b59b6; }
 .btn-haklilik { background-color: #e67e22; }
 .btn-alt { grid-column: span 1.5; background-color: #2980b9; font-size: 13px !important; }
-.mavi-ekran { width: 100%; height: 100px; background-color: #aed6f1; border: 3px solid #3498db; border-radius: 6px; padding: 8px; overflow-y: auto; }
-.sayac-grubu { display: flex; gap: 6px; width: 100%; }
+
+/* Eksiciklendirme/Gürleştirme Paneli */
+.eksiltme-gurlesme-satiri { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-shrink: 0; }
+.btn-eksgur { flex: 1; padding: 6px; font-size: 13px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; text-transform: uppercase; background-color: #2c3e50; }
+.etkin-imge-alani { display: flex; align-items: center; gap: 4px; font-size: 12px !important; white-space: nowrap; }
+.etkin-isik { width: 12px; height: 12px; background-color: #00ff00; border-radius: 50%; border: 1px solid #000; display: inline-block; }
+
+/* Kendi içinde kayabilen mavi ekran */
+.mavi-ekran { width: 100%; flex-grow: 1; background-color: #aed6f1; border: 3px solid #3498db; border-radius: 6px; padding: 8px; overflow-y: auto; }
+
+.sayac-grubu { display: flex; gap: 6px; width: 100%; flex-shrink: 0; }
 .sayac-kutu { flex: 1; border: 3px solid #000000; padding: 4px 2px; border-radius: 6px; text-align: center; line-height: 1.2; }
 .sayac-kutu div { font-size: 12px !important; }
 .sayac-kutu span { font-size: 16px !important; display: block; margin-top: 2px; }
-.sk-top { background-color: #ffffff; }
-.sk-gez { background-color: #ffeb3b; }
+
+/* Yeniden Renklendirilen Sayaç Kutuları */
+.sk-top { background-color: #ffeaa7; border-color: #e1b12c; } /* Sözcük penceresi pastel sarı tona boyandı */
+.sk-gez { background-color: #ffffff; }
 .sk-gezer { background-color: #ff9800; }
-.arka-oda { display: none; width: 100%; max-width: 440px; background-color: #ffffff; border: 4px solid #2c3e50; border-radius: 8px; margin-top: 10px; padding: 10px; text-align: center; }
+
+.arka-oda { display: none; width: 100%; max-width: 440px; background-color: #ffffff; border: 4px solid #2c3e50; border-radius: 8px; margin-top: 10px; padding: 10px; text-align: center; position: absolute; bottom: 10px; z-index: 20; }
 .btn-cikis { width: 100%; background-color: #7f8c8d; color: #ffffff !important; border: 2px solid #000000; padding: 8px; margin-top: 8px; cursor: pointer; text-transform: uppercase; }
 </style>
 </head>
@@ -54,6 +100,16 @@ body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-d
 <button class="btn-kat btn-alt" onclick="kategoriFiltre('tgid')">TGİD</button>
 <button class="btn-kat btn-alt" onclick="kategoriFiltre('çokluklar')">ÇOKLUKLAR BİLİMİ</button>
 </div>
+
+<!-- Eksiciklendirme ve Gürleştirme Düğmeleri ile Etkinlik Simgesi -->
+<div class="eksiltme-gurlesme-satiri">
+<button class="btn-eksgur" onclick="ekstGurAksiyon('Eksiciklendirme')">EKSİCİKLENDİRME</button>
+<button class="btn-eksgur" onclick="ekstGurAksiyon('Gürleştirme')">GÜRLEŞTİRME</button>
+<div class="etkin-imge-alani">
+<span id="durum-isigi" class="etkin-isik"></span><span id="durum-metni">ETKİN</span>
+</div>
+</div>
+
 <div id="sonuc-ekrani" class="mavi-ekran">Sözcüklük hazır. Bir sözcük aratın.</div>
 <div class="sayac-grubu">
 <div class="sayac-kutu sk-top"><div>SÖZCÜK</div><span id="sayac-top">0</span></div>
@@ -64,9 +120,10 @@ body { margin: 0; padding: 5px; background-color: #dcdcdc; display: flex; flex-d
 <div id="arka-oda-paneli" class="arka-oda">
 <label style="font-size: 16px !important;">Yönetici Görev Bildirimi</label>
 <p style="font-size: 14px !important; margin: 5px 0; color: #555;">Kelimeleriniz listelerin içinde güvenle durmaktadır.</p>
-<button class="btn-cikis" onclick="arkaOdaKapat()">YÖNETİCİ ÇIKIŞI</button>
+<button class="btn-cikis" onclick="arkaOdaKapat()">YÖNETİCİ ÇIKIŞI (KAPAT)</button>
 </div>
-<script>
+
+<script> 
 let sozluk = [
  
  { A:"ab", B:"su" },
@@ -2413,163 +2470,161 @@ let sozluk = [
 
  
 ];
+const KORUNAN_SINIR = 2416; // İlk 2416 sözcük için koruma sınırı
+let toplamGezerSayisi = parseInt(localStorage.getItem('toplamGezer')) || 0;
+let aktifMod = "normal"; // Durum takibi ("normal", "Eksiciklendirme", "Gürleştirme")
 
-let sozlukSaglik = [
-{ A: "aciz", B: "yapabilemez" },
-{ A: "adenoma", B: "salgı bezesi başkalaşmış canlıcığı" },
-{ A: "adrenaliın hormonu", B: "düşünmıe organı hareket salgısı" },
-{ A: "akut", B: "kısa süreli" },
-{ A: "ambulans", B: "cankurtaran" },
-{ A: "anatomi", B: "bedenyapısı bilimi" },
-{ A: "antropoloji", B: "düşünebilenler bilimi" },
-{ A: "astım", B: "soluma yetersizliği" },
-{ A: "beyin sinir cerrahisi", B: "düşünme organı keserek sağaltma" },
-{ A: "bifurcation", B: "çatallanma" },
-{ A: "exercise", B: "alıştırma" },
-{ A: "extention", B: "genişletme" },
-{ A: "extremity", B: "uzantı" },
-{ A: "göğüs", B: "solunak" },
-{ A: "gövde", B: "beden" },
-{ A: "head", B: "baş" },
-{ A: "hekim", B: "sağlık bilen" },
-{ A: "horizental", B: "yatay" },
-{ A: "hücre", B: "canlıcık" },
-{ A: "Insomniac", B: "uykusuz" },
-{ A: "insan", B: "tanımlayabilen" },
-{ A: "kayıt", B: "yazarak belirleme" },
-{ A: "kronik", B: "sürekli" },
-{ A: "merkez", B: "öziç" },
-{ A: "mr", B: "3 boyutlu gösterim" },
-{ A: "muscle breakdown", B: "kas yıkımı" },
-{ A: "naaş", B: "düşünemeyen" },
-{ A: "nöroloji", B: "sinir bilim" },
-{ A: "nöron", B: "sinir" },
-{ A: "pozitif", B: "artı" },
-{ A: "prime", B: "ilk" },
-{ A: "primer", B: "birincil" },
-{ A: "procedural memory", B: "işlevsel bellek" },
-{ A: "procedure", B: "yöntem" },
-{ A: "process", B: "süreç" },
-{ A: "prof", B: "bilgen" },
-{ A: "profesör", B: "bilgen" },
-{ A: "prospektus", B: "tanıtmalık" },
-{ A: "prostat", B: "kestanecik" },
-{ A: "protection", B: "koruma" },
-{ A: "protein", B: "canlıcık yapıtaşı" },
-{ A: "pseudo", B: "yapay" },
-{ A: "psikolojik", B: "davranış bilimsel" },
-{ A: "rapor", B: "bilgilendirme" },
-{ A: "recovery", B: "iyileştirme" },
-{ A: "refakat", B: "eşlik etmeler" },
-{ A: "refleks", B: "tepkime" },
-{ A: "ruhum", B: "düşünebilmem" },
-{ A: "sadece", B: "yanlızca" },
-{ A: "semptom", B: "belirti" },
-{ A: "sinüs", B: "boşluk" },
-{ A: "sound", B: "ses" },
-{ A: "suitablity", B: "uygunluk" },
-{ A: "tabî", B: "doğal" },
-{ A: "tomografi", B: "kesit gösterim" },
-{ A: "ultra sound", B: "duyumüstü" },
-{ A: "üniversite", B: "bilimkent" },
-{ A: "vertikal", B: "düşey" },
-{ A: "zeka", B: "düşünme yeteneği" }
+window.onload = function() {
+sayacGuncelle();
+};
 
+function toplamSozcukSay() {
+return sozluk.length + sozlukSaglik.length + sozlukHaklilik.length + sozlukBilim.length + sozlukTgid.length + sozlukCokluk.length;
+}
 
-
-];
-
-let sozlukHaklilik = [
-
-{ A: "avukat", B: "haksavunur" },
-{ A: "adalet", B: "gerçeklere bağlılık" }
-];
-
-let sozlukBilim = [
-{ A: "algoritma", B: "çözüm adımları" },
-{ A: "asit", B: "ekşit" },
-{ A: "otomasyon", B: "kendiliğindenleştirme" },
-{ A: "Mmatematik", B: "çokluklar bilimi" }
-];
-
-let sozlukTgid = [
-{ A: "markup" , B: "imgeleme" }, 
-{ A: "language" , B: "dil" }, 
-{ A: "komut" , B: "buyruk" }, 
-{ A: "hypertext" , B: "tüm görünümler" }, 
-{ A: "head" , B: "baş" }, 
-{ A: "emir" , B: "buyruk" }, 
-{ A: "cursor: pointer " , B: "ok tan tıklanabilir el ol" }, 
-{ A: "command" , B: "buyruk" }, 
-{ A: " background: none;" , B: "arkası renksiz" } 
-
-];
-
-let sozlukCokluk = [
-{ A: "adet", B: "tane" },
-{ A: "sinüs", B: "boşluk" }
-];
-let toplamGezerSayisi = 0
-window.onload = function() { sayacGuncelle() }
-function toplamSozcukSay() { return sozluk.length + sozlukSaglik.length + sozlukHaklilik.length + sozlukBilim.length + sozlukTgid.length + sozlukCokluk.length }
 function sayacGuncelle() {
-document.getElementById('sayac-top').innerText = toplamSozcukSay()
-document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi
+document.getElementById('sayac-top').innerText = toplamSozcukSay();
+document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 }
+
+function guvenliSozcukEkle(kategori, yeniA, yeniB) {
+let hedefDizi;
+if(kategori === 'genel') hedefDizi = sozluk;
+else if(kategori === 'sağlık') hedefDizi = sozlukSaglik;
+else if(kategori === 'haklılık') hedefDizi = sozlukHaklilik;
+else if(kategori === 'bilim') hedefDizi = sozlukBilim;
+else if(kategori === 'tgid') hedefDizi = sozlukTgid;
+else if(kategori === 'çokluklar') hedefDizi = sozlukCokluk;
+else { return; }
+
+let varMi = hedefDizi.some(item => item.A.trim().toLowerCase() === yeniA.trim().toLowerCase());
+if (varMi) { return; }
+
+hedefDizi.push({A: yeniA, B: yeniB});
+hedefDizi.sort((a, b) => a.A.localeCompare(b.A, 'tr'));
+sayacGuncelle();
+}
+
+function sozcukGuncelle(kategori, indeks, yeniA, yeniB) {
+if (kategori === 'genel' && indeks < KORUNAN_SINIR) {
+alert("İlk 2416 sözcük değiştirilemez veya silinemez!");
+return;
+}
+}
+
 function sozcukBul() {
-let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCase('tr')
-let ekran = document.getElementById('sonuc-ekrani')
-if(!aranan) { ekran.innerHTML = "Lütfen bir sözcük yazın."; return }
-toplamGezerSayisi++
-document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi
-document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase()
-let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk]
+let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCase('tr');
+let ekran = document.getElementById('sonuc-ekrani');
+if(!aranan) { ekran.innerHTML = "Lütfen bir sözcük yazın."; return; }
+
+toplamGezerSayisi++;
+localStorage.setItem('toplamGezer', toplamGezerSayisi);
+document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
+document.getElementById('sayac-gezilen').innerText = aranan.toUpperCase();
+
+let tumHavuz = [...sozluk, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim, ...sozlukTgid, ...sozlukCokluk];
+
+// Sadece TAM eşleşen sözcükleri getiren arama lojiği
 let sonuclar = tumHavuz.filter(item => {
-let sol = (item.A || "").toString().trim().toLocaleLowerCase('tr')
-let sag = (item.B || "").toString().trim().toLocaleLowerCase('tr')
-return sol.includes(aranan) || sag.includes(aranan)
-})
-if(sonuclar.length > 0) { ekran.innerHTML = sonuclar.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>') }
-else { ekran.innerHTML = "Sözcük bulunamadı." }
-sayacGuncelle()
+let sol = (item.A || "").toString().trim().toLocaleLowerCase('tr');
+return sol === aranan;
+});
+
+if(sonuclar.length > 0) {
+ekran.innerHTML = `Bulunan Tam Eşleşme: ${sonuclar.length} adet<br><br>` +
+sonuclar.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
 }
-function kategoriFiltre(kategoriTuru) {
-let ekran = document.getElementById('sonuc-ekrani')
-toplamGezerSayisi++
-let dizi = []
-let etiket = ""
-let kt = kategoriTuru.trim().toLocaleLowerCase('tr')
-if(kt === 'sağlık' || kt === 'saglik') { dizi = sozlukSaglik; etiket = "SAĞLIK" }
-else if(kt === 'bilim') { dizi = sozlukBilim; etiket = "BİLİM" }
-else if(kt === 'haklılık' || kt === 'haklilik') { dizi = sozlukHaklilik; etiket = "HAKLILIK" }
-else if(kt === 'tgid') { dizi = sozlukTgid; etiket = "TGİD" }
-else if(kt === 'çokluklar' || kt === 'cokluklar') { dizi = sozlukCokluk; etiket = "ÇOKLUKLAR BİLİMİ" }
-document.getElementById('sayac-gezilen').innerText = etiket
-document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi
-if(dizi.length > 0) { ekran.innerHTML = dizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>') }
-else { ekran.innerHTML = "Bu alanda sözcük bulunamadı." }
-sayacGuncelle()
-}
-function soruTemizle() {
-let soruAlani = document.getElementById('soru-alani')
-soruAlani.value = ''
-document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.'
-document.getElementById('sayac-gezilen').innerText = '-'
-toplamGezerSayisi++
-sayacGuncelle()
-soruAlani.focus()
-}
-function arkaOdaAc() {
-let oda = document.getElementById('arka-oda-paneli')
-if (oda.style.display === 'block') { oda.style.display = 'none' }
 else {
-let sifre = prompt("Lütfen gizli sözü giriniz:")
-if (sifre === "kasim1973") { oda.style.display = 'block' }
-else { alert("Gizli söz yanlış!") }
+ekran.innerHTML = "Sözcük bulunamadı. (0)";
+}
+sayacGuncelle();
+}
+
+function kategoriFiltre(kategoriTuru) {
+let ekran = document.getElementById('sonuc-ekrani');
+toplamGezerSayisi++;
+localStorage.setItem('toplamGezer', toplamGezerSayisi);
+let dizi = [];
+let etiket = "";
+let kt = kategoriTuru.trim().toLocaleLowerCase('tr');
+
+if(kt === 'sağlık' || kt === 'saglik') { dizi = sozlukSaglik; etiket = "SAĞLIK"; }
+else if(kt === 'bilim') { dizi = sozlukBilim; etiket = "BİLİM"; }
+else if(kt === 'haklılık' || kt === 'haklilik') { dizi = sozlukHaklilik; etiket = "HAKLILIK"; }
+else if(kt === 'tgid') { dizi = sozlukTgid; etiket = "TGİD"; }
+else if(kt === 'çokluklar' || kt === 'cokluklar') { dizi = sozlukCokluk; etiket = "ÇOKLUKLAR BİLİMİ"; }
+else { return; }
+
+document.getElementById('sayac-gezilen').innerText = etiket;
+document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
+
+if(dizi.length > 0) { ekran.innerHTML = dizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>'); }
+else { ekran.innerHTML = "Bu alanda sözcük bulunamadı."; }
+sayacGuncelle();
+}
+
+function soruTemizle() {
+let soruAlani = document.getElementById('soru-alani');
+soruAlani.value = '';
+document.getElementById('sonuc-ekrani').innerHTML = 'Yeni arama için hazır.';
+document.getElementById('sayac-gezilen').innerText = '-';
+toplamGezerSayisi++;
+localStorage.setItem('toplamGezer', toplamGezerSayisi);
+modKapat(); // Arama temizlendiğinde mod kesin ve tanımlı olarak sıfırlanır
+sayacGuncelle();
+soruAlani.focus();
+}
+
+// Kesin Tanımlı Başlangıç ve Kapanış Noktası Olan Aksiyon Fonksiyonu
+function ekstGurAksiyon(tur) {
+let ekran = document.getElementById('sonuc-ekrani');
+let isik = document.getElementById('durum-isigi');
+let metn = document.getElementById('durum-metni');
+
+if (aktifMod === tur) {
+// TIKLANDIĞINDA KENDİNİ BİTİREN KESİN KAPANIŞ ADIMI
+modKapat();
+ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BİTTİ.<br>Sözcüklük normal durumuna döndü.`;
+} else {
+// BAŞLATMA ADIMI
+aktifMod = tur;
+isik.style.backgroundColor = "#ff0000";
+metn.innerText = tur.toUpperCase();
+ekran.innerHTML = `${tur.toUpperCase()} İŞLEMİ TANIMLI OLARAK BAŞLADI.<br><br>Sözcük havuzları süzme kuralları devrede.<br><br><small style="font-size:12px!important;">Bitirmek için aynı düğmeye tekrar basın.</small>`;
+
+toplamGezerSayisi++;
+localStorage.setItem('toplamGezer', toplamGezerSayisi);
+sayacGuncelle();
 }
 }
-function arkaOdaKapat() { document.getElementById('arka-oda-paneli').style.display = 'none'; }
+
+// Tüm modları varsayılana döndüren ve belirsiz uçları kapatan bitiş fonksiyonu
+function modKapat() {
+aktifMod = "normal";
+document.getElementById('durum-isigi').style.backgroundColor = "#00ff00";
+document.getElementById('durum-metni').innerText = "ETKİN";
+}
+
+function arkaOdaAc() {
+let oda = document.getElementById('arka-oda-paneli');
+if (oda.style.display === 'block') {
+arkaOdaKapat();
+}
+else {
+let sifre = prompt("Lütfen gizli sözü giriniz:");
+if (sifre === "kasim1973") {
+oda.style.display = 'block';
+}
+else {
+alert("Gizli söz yanlış!");
+arkaOdaKapat();
+}
+}
+}
+
+function arkaOdaKapat() {
+document.getElementById('arka-oda-paneli').style.display = 'none';
+}
 </script>
 </body>
 </html>
-
