@@ -2470,8 +2470,7 @@ let sozluk = [
 
  
 ];
-// --- SÖZLÜK ALT KATEGORİ GÜVENCELERİ ---
-if (typeof sozluk === 'undefined') { var sozluk = []; }
+// --- SÖZLÜK ALT KATEGORİ GÜVENCELERİ (ÇAKIŞMASIZ) ---
 if (typeof sozlukSaglik === 'undefined') { var sozlukSaglik = []; }
 if (typeof sozlukHaklilik === 'undefined') { var sozlukHaklilik = []; }
 if (typeof sozlukBilim === 'undefined') { var sozlukBilim = []; }
@@ -2623,7 +2622,7 @@ document.getElementById('durum-metni').innerText = "ETKİN";
 
 function arkaOdaAc() {
 let oda = document.getElementById('arka-oda-paneli');
-if (oda.style.display === 'block') {
+if (oda.style.start === 'block' || oda.style.display === 'block') {
 arkaOdaKapat();
 }
 else {
