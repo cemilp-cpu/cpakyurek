@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -47,33 +47,33 @@ position: relative;
 .kizil-yildiz { width: 20px; height: 20px; flex-shrink: 0; animation: parildama 1.5s infinite ease-in-out; }
 @keyframes parildama { 0% { opacity: 0.6; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.6; transform: scale(0.9); } }
 .girdi-alani { width: 100%; padding: 8px; text-align: center; border: 3px solid #000000; border-radius: 6px; text-transform: uppercase; background-color: #ffffff; flex-shrink: 0; }
+
+/* DÜĞME BOYUTLARI DENGELENDİ */
 .dugme-satiri { display: flex; gap: 8px; flex-shrink: 0; }
-.btn { flex: 1; padding: 10px; color: #ffffff !important; border: 3px solid #000000; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
+.btn { flex: 1; padding: 6px 4px; font-size: 15px !important; color: #ffffff !important; border: 3px solid #000000; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
 .btn-bul { background-color: #005580; }
-.btn-sor { background-color: #e74c3c; }
+.btn-sor { background-color: #e74c3c; font-size: 13px !important; }
+
 .kategori-satiri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; flex-shrink: 0; }
-.btn-kat { padding: 6px; font-size: 14px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; }
+.btn-kat { padding: 4px 2px; font-size: 12px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; white-space: nowrap; }
 .btn-saglik { background-color: #2ecc71; }
 .btn-bilim { background-color: #9b59b6; }
 .btn-haklilik { background-color: #e67e22; }
-.btn-alt { grid-column: span 1.5; background-color: #2980b9; font-size: 13px !important; }
+.btn-alt { grid-column: span 1.5; background-color: #2980b9; font-size: 11px !important; }
 
-/* Eksiciklendirme/Gürleştirme Paneli */
 .eksiltme-gurlesme-satiri { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-shrink: 0; }
-.btn-eksgur { flex: 1; padding: 6px; font-size: 13px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; text-transform: uppercase; background-color: #2c3e50; }
-.etkin-imge-alani { display: flex; align-items: center; gap: 4px; font-size: 12px !important; white-space: nowrap; }
+.btn-eksgur { flex: 1; padding: 4px 2px; font-size: 13px !important; color: #ffffff !important; border: 2px solid #000000; border-radius: 4px; cursor: pointer; text-transform: uppercase; background-color: #2c3e50; }
+.etkin-imge-alani { display: flex; align-items: center; gap: 4px; font-size: 11px !important; white-space: nowrap; }
 .etkin-isik { width: 12px; height: 12px; background-color: #00ff00; border-radius: 50%; border: 1px solid #000; display: inline-block; }
 
-/* Kendi içinde kayabilen mavi ekran */
-.mavi-ekran { width: 100%; flex-grow: 1; background-color: #aed6f1; border: 3px solid #3498db; border-radius: 6px; padding: 8px; overflow-y: auto; }
+.mavi-ekran { width: 100%; flex-grow: 3; min-height: 180px; background-color: #aed6f1; border: 3px solid #3498db; border-radius: 6px; padding: 8px; overflow-y: auto; }
 
 .sayac-grubu { display: flex; gap: 6px; width: 100%; flex-shrink: 0; }
 .sayac-kutu { flex: 1; border: 3px solid #000000; padding: 4px 2px; border-radius: 6px; text-align: center; line-height: 1.2; }
 .sayac-kutu div { font-size: 12px !important; }
 .sayac-kutu span { font-size: 16px !important; display: block; margin-top: 2px; }
 
-/* Yeniden Renklendirilen Sayaç Kutuları */
-.sk-top { background-color: #ffeaa7; border-color: #e1b12c; } /* Sözcük penceresi pastel sarı tona boyandı */
+.sk-top { background-color: #ffeaa7; border-color: #e1b12c; }
 .sk-gez { background-color: #ffffff; }
 .sk-gezer { background-color: #ff9800; }
 
@@ -101,10 +101,9 @@ position: relative;
 <button class="btn-kat btn-alt" onclick="kategoriFiltre('çokluklar')">ÇOKLUKLAR BİLİMİ</button>
 </div>
 
-<!-- Eksiciklendirme ve Gürleştirme Düğmeleri ile Etkinlik Simgesi -->
+<!-- Eksiciklendirme ve Gürleştirme Birleşik Düğmesi -->
 <div class="eksiltme-gurlesme-satiri">
-<button class="btn-eksgur" onclick="ekstGurAksiyon('Eksiciklendirme')">EKSİCİKLENDİRME</button>
-<button class="btn-eksgur" onclick="ekstGurAksiyon('Gürleştirme')">GÜRLEŞTİRME</button>
+<button class="btn-eksgur" style="padding:4px; font-size:13px!important;" id="btn-birlesik">EKS (Tek) / GÜR (Çift)</button>
 <div class="etkin-imge-alani">
 <span id="durum-isigi" class="etkin-isik"></span><span id="durum-metni">ETKİN</span>
 </div>
@@ -123,7 +122,7 @@ position: relative;
 <button class="btn-cikis" onclick="arkaOdaKapat()">YÖNETİCİ ÇIKIŞI (KAPAT)</button>
 </div>
 
-<script> 
+<script>
 let sozluk = [
  
  { A:"ab", B:"su" },
@@ -2470,7 +2469,9 @@ let sozluk = [
 
  
 ];
+
 // --- SÖZLÜK ALT KATEGORİ GÜVENCELERİ ---
+if (typeof sozluk === 'undefined') { var sozluk = []; }
 if (typeof sozlukSaglik === 'undefined') { var sozlukSaglik = []; }
 if (typeof sozlukHaklilik === 'undefined') { var sozlukHaklilik = []; }
 if (typeof sozlukBilim === 'undefined') { var sozlukBilim = []; }
@@ -2483,23 +2484,8 @@ let aktifMod = "normal";
 let tiklamaZamanlayici = null;
 
 window.onload = function() {
-// BUL ve SOR düğmelerini dikeyde yer kazanmak için küçültüyoruz
-let btnBul = document.querySelector('.btn-bul');
-let btnSor = document.querySelector('.btn-sor');
-if(btnBul) { btnBul.style.padding = '6px'; btnBul.style.fontSize = '16px'; }
-if(btnSor) { btnSor.style.padding = '6px'; btnSor.style.fontSize = '16px'; }
-
-// İki koca düğmeyi yer kazanmak adına tek bir düğmede birleştiriyoruz
-let eskiSatir = document.querySelector('.eksiltme-gurlesme-satiri');
-if (eskiSatir) {
-eskiSatir.innerHTML = `
-<button class="btn-eksgur" style="padding:4px; font-size:15px!important;" id="btn-birlesik">EKS (Tek) / GÜR (Çift)</button>
-<div class="etkin-imge-alani" style="font-size:12px!important;">
-<span id="durum-isigi" class="etkin-isik"></span><span id="durum-metni">ETKİN</span>
-</div>
-`;
-
 let birlesikBtn = document.getElementById('btn-birlesik');
+if (birlesikBtn) {
 birlesikBtn.addEventListener('click', function() {
 if (tiklamaZamanlayici !== null) {
 clearTimeout(tiklamaZamanlayici);
@@ -2513,14 +2499,6 @@ ekstGurAksiyon('Eksiciklendirme');
 }
 });
 }
-
-// Yanıt alanına (mavi ekrana) eski ihtişamlı yüksekliği geri veriliyor
-let maviEkran = document.getElementById('sonuc-ekrani');
-if(maviEkran) {
-maviEkran.style.flexGrow = '3';
-maviEkran.style.minHeight = '180px';
-}
-
 sayacGuncelle();
 };
 
@@ -2551,19 +2529,11 @@ hedefDizi.sort((a, b) => a.A.localeCompare(b.A, 'tr'));
 sayacGuncelle();
 }
 
-function sozcukGuncelle(kategori, indeks, yeniA, yeniB) {
-if (kategori === 'genel' && indeks < KORUNAN_SINIR) {
-alert("İlk 2416 sözcük değiştirilemez veya silinemez!");
-return;
-}
-}
-
 function sozcukBul() {
 let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCase('tr');
 let ekran = document.getElementById('sonuc-ekrani');
 if(!aranan) { ekran.innerHTML = "Lütfen bir sözcük yazın."; return; }
 
-// Sayaçların gerçek sayıları göstermesi için artırım ve hafızaya kayıt
 toplamGezerSayisi++;
 localStorage.setItem('toplamGezer', toplamGezerSayisi);
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
@@ -2604,8 +2574,12 @@ else { return; }
 document.getElementById('sayac-gezilen').innerText = etiket;
 document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 
-if(dizi.length > 0) { ekran.innerHTML = dizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>'); }
-else { ekran.innerHTML = "Bu alanda sözcük bulunamadı."; }
+if(dizi.length > 0) {
+ekran.innerHTML = dizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
+}
+else {
+ekran.innerHTML = "Bu alanda sözcük bulunamadı.";
+}
 sayacGuncelle();
 }
 
@@ -2667,8 +2641,8 @@ arkaOdaKapat();
 function arkaOdaKapat() {
 document.getElementById('arka-oda-paneli').style.display = 'none';
 }
-
-
 </script>
 </body>
 </html>
+
+ 
