@@ -46,11 +46,9 @@ position: relative;
 .baslik-alani { display: flex; align-items: center; justify-content: center; gap: 8px; border-bottom: 3px solid #000000; padding-bottom: 8px; white-space: nowrap; flex-shrink: 0; }
 .kizil-yildiz { width: 20px; height: 20px; flex-shrink: 0; animation: parildama 1.5s infinite ease-in-out; }
 @keyframes parildama { 0% { opacity: 0.6; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.6; transform: scale(0.9); } }
-
-/* Soru Alanı: İmge özellikleri başlık ve yanıt alanıyla tamamen aynılaştırıldı */
 .girdi-alani { width: 100%; padding: 8px; text-align: center; border: 3px solid #000000; border-radius: 6px; text-transform: uppercase; background-color: #ffffff; flex-shrink: 0; }
 
-/* Kibarlaştırılmış ve Dengelenmiş Buton Satırları */
+/* DÜĞME BOYUTLARI VE YAZILAR DENGELENDİ */
 .dugme-satiri { display: flex; gap: 8px; flex-shrink: 0; }
 .btn { flex: 1; padding: 6px 4px; font-size: 15px !important; color: #ffffff !important; border: 3px solid #000000; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
 .btn-bul { background-color: #005580; }
@@ -68,10 +66,8 @@ position: relative;
 .etkin-imge-alani { display: flex; align-items: center; gap: 4px; font-size: 11px !important; white-space: nowrap; }
 .etkin-isik { width: 12px; height: 12px; background-color: #00ff00; border-radius: 50%; border: 1px solid #000; display: inline-block; }
 
-/* Yanıt Alanı (Mavi Ekran): İmge özellikleri başlık ve soru alanıyla tamamen aynılaştırıldı */
 .mavi-ekran { width: 100%; flex-grow: 3; min-height: 180px; background-color: #aed6f1; border: 3px solid #3498db; border-radius: 6px; padding: 8px; overflow-y: auto; }
 
-/* Sayaçlar Grubu */
 .sayac-grubu { display: flex; gap: 6px; width: 100%; flex-shrink: 0; }
 .sayac-kutu { flex: 1; border: 3px solid #000000; padding: 4px 2px; border-radius: 6px; text-align: center; line-height: 1.2; }
 .sayac-kutu div { font-size: 12px !important; }
@@ -100,11 +96,12 @@ position: relative;
 <div class="kategori-satiri">
 <button class="btn-kat btn-saglik" onclick="kategoriFiltre('sağlık')">SAĞLIK</button>
 <button class="btn-kat btn-bilim" onclick="kategoriFiltre('bilim')">BİLİM</button>
-<button class="btn-kat btn-kat-haklilik" class="btn-kat btn-haklilik" onclick="kategoriFiltre('haklılık')">HAKLILIK</button>
+<button class="btn-kat btn-haklilik" onclick="kategoriFiltre('haklılık')">HAKLILIK</button>
 <button class="btn-kat btn-alt" onclick="kategoriFiltre('tgid')">TGİD</button>
 <button class="btn-kat btn-alt" onclick="kategoriFiltre('çokluklar')">ÇOKLUKLAR BİLİMİ</button>
 </div>
 
+<!-- Eksiciklendirme ve Gürleştirme Birleşik Düğmesi -->
 <div class="eksiltme-gurlesme-satiri">
 <button class="btn-eksgur" id="btn-birlesik">EKS (Tek) / GÜR (Çift)</button>
 <div class="etkin-imge-alani">
@@ -126,6 +123,7 @@ position: relative;
 </div>
 
 <script>
+
 
 let sozluk = [
  
@@ -2473,7 +2471,7 @@ let sozluk = [
 
  
 ];
-// --- SÖZLÜK ALT KATEGORİ GÜVENCELERİ (ÇAKIŞMASIZ) ---
+// --- SESADLARININ (DEPOLARIN) TAM AYNIŞTIRILMASI VE GÜVENCESİ ---
 if (typeof sozlukSaglik === 'undefined') { var sozlukSaglik = []; }
 if (typeof sozlukHaklilik === 'undefined') { var sozlukHaklilik = []; }
 if (typeof sozlukBilim === 'undefined') { var sozlukBilim = []; }
@@ -2485,15 +2483,25 @@ let toplamGezerSayisi = parseInt(localStorage.getItem('toplamGezer')) || 0;
 let aktifMod = "normal";
 let tiklamaZamanlayici = null;
 
-// --- TÜRKÇE KONUŞTUĞUMUZU KESİN OLARAK ANLAYAN GÜRLETİCİ MOTORU ---
-function gurleticiOku(metin) {
+// --- TÜRKÇE KONUŞAN VEYA KESEN SEÇİCİ GÜRLETİCİ ---
+function gurleticiTrKonus(metin) {
 if ('speechSynthesis' in window) {
 window.speechSynthesis.cancel();
+let sesler = window.speechSynthesis.getVoices();
+// Sadece ve sadece saf Türkçe ses tanımı yüklüyse devreye girer
+let trSes = sesler.find(voice => voice.lang === 'tr-TR' || voice.lang.startsWith('tr'));
+
+if (trSes) {
 let temizMetin = metin.replace(/<[^>]*>/g, ' ').replace(/\d+-/g, '');
 let seslendirici = new SpeechSynthesisUtterance(temizMetin);
-seslendirici.lang = 'tr-TR'; // Türkçe dil kilidi kesin olarak devrede
+seslendirici.voice = trSes;
+seslendirici.lang = 'tr-TR';
 seslendirici.rate = 1.0;
 window.speechSynthesis.speak(seslendirici);
+} else {
+// Sistemde Türkçe ses motoru yoksa yabancı dilde okumaması için tamamen susar
+console.log("Sistemde Türkçe gürletici tanımı bulunamadı, ses kesildi.");
+}
 }
 }
 
@@ -2513,6 +2521,8 @@ ekstGurAksiyon('Eksiciklendirme');
 }
 });
 }
+// Ses listesinin tarayıcıda yüklenmesini tetikler
+if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
 sayacGuncelle();
 };
 
@@ -2527,12 +2537,13 @@ document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 
 function guvenliSozcukEkle(kategori, yeniA, yeniB) {
 let hedefDizi;
-if(kategori === 'genel') hedefDizi = sozluk;
-else if(kategori === 'sağlık') hedefDizi = sozlukSaglik;
-else if(kategori === 'haklılık') hedefDizi = sozlukHaklilik;
-else if(kategori === 'bilim') hedefDizi = sozlukBilim;
-else if(kategori === 'tgid') hedefDizi = sozlukTgid;
-else if(kategori === 'çokluklar') hedefDizi = sozlukCokluk;
+let kat = kategori.trim().toLowerCase();
+if(kat === 'genel') hedefDizi = sozluk;
+else if(kat === 'sağlık' || kat === 'saglik') hedefDizi = sozlukSaglik;
+else if(kat === 'haklılık' || kat === 'haklilik') hedefDizi = sozlukHaklilik;
+else if(kat === 'bilim') hedefDizi = sozlukBilim;
+else if(kat === 'tgid') hedefDizi = sozlukTgid;
+else if(kat === 'çokluklar' || kat === 'cokluklar' || kat === 'çokluklar bilimi') hedefDizi = sozlukCokluk;
 else { return; }
 
 let varMi = hedefDizi.some(item => item.A.trim().toLowerCase() === yeniA.trim().toLowerCase());
@@ -2543,7 +2554,7 @@ hedefDizi.sort((a, b) => a.A.localeCompare(b.A, 'tr'));
 sayacGuncelle();
 }
 
-// --- VAZGEÇİLMEZ ÇİFT YÖNLÜ ARAMA ÖZELLİĞİ (SİNYALİ DE İMİ DE KARŞILIKLI BULUR) ---
+// --- KESİNTİSİZ ÇİFT YÖNLÜ SÜZGEÇ (SİNYALDE İMİ, İMDE SİNYALİ ÇIKARIR) ---
 function sozcukBul() {
 let aranan = document.getElementById('soru-alani').value.trim().toLocaleLowerCase('tr');
 let ekran = document.getElementById('sonuc-ekrani');
@@ -2560,7 +2571,6 @@ let tumHavuz = [...havuzBase, ...sozlukSaglik, ...sozlukHaklilik, ...sozlukBilim
 let sonuclar = tumHavuz.filter(item => {
 let sol_taraf = (item.A || "").toString().trim().toLocaleLowerCase('tr');
 let sag_taraf = (item.B || "").toString().trim().toLocaleLowerCase('tr');
-// Hem sol tarafta hem sağ tarafta tam veya kısmi çift yönlü eşleşme arar
 return sol_taraf === aranan || sag_taraf === aranan || sol_taraf.includes(aranan) || sag_taraf.includes(aranan);
 });
 
@@ -2568,11 +2578,11 @@ if(sonuclar.length > 0) {
 let cikti = `Bulunan Tam Eşleşme: ${sonuclar.length} adet<br><br>` +
 sonuclar.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
 ekran.innerHTML = cikti;
-gurleticiOku(cikti);
+gurleticiTrKonus(cikti);
 }
 else {
 ekran.innerHTML = "Sözcük bulunamadı. (0)";
-gurleticiOku("Sözcük bulunamadı");
+gurleticiTrKonus("Sözcük bulunamadı");
 }
 sayacGuncelle();
 }
@@ -2589,7 +2599,7 @@ if(kt === 'sağlık' || kt === 'saglik') { dizi = sozlukSaglik; etiket = "SAĞLI
 else if(kt === 'bilim') { dizi = sozlukBilim; etiket = "BİLİM"; }
 else if(kt === 'haklılık' || kt === 'haklilik') { dizi = sozlukHaklilik; etiket = "HAKLILIK"; }
 else if(kt === 'tgid') { dizi = sozlukTgid; etiket = "TGİD"; }
-else if(kt === 'çokluklar' || kt === 'cokluklar') { dizi = sozlukCokluk; etiket = "ÇOKLUKLAR BİLİMİ"; }
+else if(kt === 'çokluklar' || kt === 'cokluklar' || kt === 'çokluklar bilimi') { dizi = sozlukCokluk; etiket = "ÇOKLUKLAR BİLİMİ"; }
 else { return; }
 
 document.getElementById('sayac-gezilen').innerText = etiket;
@@ -2598,7 +2608,7 @@ document.getElementById('sayac-toplam-gezer').innerText = toplamGezerSayisi;
 if(dizi.length > 0) {
 let cikti = dizi.map((item, i) => `${i+1}- ${item.A} = ${item.B}`).join('<br>');
 ekran.innerHTML = cikti;
-gurleticiOku(etiket + " alanı süzüldü.");
+gurleticiTrKonus(etiket + " deposu listelendi.");
 }
 else {
 ekran.innerHTML = "Bu alanda sözcük bulunamadı.";
@@ -2627,14 +2637,14 @@ if (aktifMod === tur) {
 modKapat();
 let bittiMetni = `${tur.toUpperCase()} İŞLEMİ BİTTİ.`;
 ekran.innerHTML = bittiMetni + "<br>Sözcüklük normal durumuna döndü.";
-gurleticiOku(bittiMetni);
+gurleticiTrKonus(bittiMetni);
 } else {
 aktifMod = tur;
 isik.style.backgroundColor = "#ff0000";
 metn.innerText = tur.toUpperCase();
 let basladiMetni = `${tur.toUpperCase()} İŞLEMİ BAŞLADI.`;
 ekran.innerHTML = basladiMetni + `<br><br>Sözcük süzme kuralları devrede.<br><br><small style='font-size:12px!important;'>Kapatmak için aynı şekilde tekrar tıklayın.</small>`;
-gurleticiOku(basladiMetni);
+gurleticiTrKonus(basladiMetni);
 
 toplamGezerSayisi++;
 localStorage.setItem('toplamGezer', toplamGezerSayisi);
