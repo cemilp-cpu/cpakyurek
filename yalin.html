@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Yalın Türkçe Sözcüklük</title>
+<style>
+/* Ekran Kaymasını Önleyen ve Tek Pencereye Sığdıran Ana Yapı */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+width: 100%;
+height: 100vh;
+overflow: hidden;
+background-color: #f4f6f9;
+font-family: 'Courier New', Courier, monospace;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Sarı Çerçeveli Sabit Gövde */
+.ana-kutu {
+width: 95%;
+max-width: 460px;
+height: 96vh;
+max-height: 640px;
+background-color: #ffff00;
+border: 4px solid #000000;
+border-radius: 12px;
+padding: 12px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+position: relative;
+box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+}
+
+/* 1. MADDENİN GÜVENCESİ: Görünüm Eşitliği ve Cemil Pakyürek İlişkisi */
+.baslik-metni, .girdi-alani, .mavi-ekran {
+font-family: 'Courier New', Courier, monospace !important;
+font-weight: bold !important;
+font-size: 18px !important;
+color: #000000 !important;
+}
+
+.baslik-alani {
+text-align: center;
+border-bottom: 3px solid #000000;
+padding-bottom: 6px;
+}
+.baslik-metni { font-size: 20px !important; display: block; }
+.alt-baslik { font-size: 13px; font-weight: bold; color: #333; margin-top: 2px; }
+
+/* Arama ve Girdi Girişi */
+.girdi-alani {
+width: 100%;
+padding: 10px;
+text-align: center;
+border: 3px solid #000000;
+border-radius: 6px;
+text-transform: uppercase;
+background-color: #ffffff;
+}
+
+/* Buton Düzenleri */
+.satir { display: flex; gap: 6px; }
+.btn {
+flex: 1;
+padding: 8px 4px;
+font-size: 12px;
+font-weight: bold;
+color: #ffffff;
+border: 3px solid #000000;
+border-radius: 6px;
+cursor: pointer;
+text-transform: uppercase;
+}
+.btn-bul { background-color: #005580; }
+.btn-temizle { background-color: #e74c3c; }
+.btn-ses { background-color: #27ae60; }
+.btn-liste { background-color: #8e44ad; }
+
+/* Sonuç Ekranı (Mavi Cam) */
+.mavi-ekran {
+width: 100%;
+flex-grow: 1;
+background-color: #aed6f1;
+border: 3px solid #000000;
+border-radius: 6px;
+padding: 10px;
+overflow-y: auto;
+white-space: pre-wrap;
+line-height: 1.4;
+}
+
+/* En Az 3 Sayaç ile Ölçüm Desteği */
+.sayac-alani { display: flex; gap: 4px; }
+.sayac-kutu {
+flex: 1;
+border: 3px solid #000000;
+padding: 4px 2px;
+border-radius: 6px;
+text-align: center;
+background-color: #ffffff;
+font-size: 11px;
+font-weight: bold;
+}
+.sayac-kutu span { display: block; font-size: 14px; margin-top: 2px; font-family: monospace; }
+.sk-top { background-color: #ffeaa7; }
+
+/* Yönetici Gizli Köşesi ve Paneli */
+.gizli-kose { position: absolute; top: 0; left: 0; width: 30px; height: 30px; cursor: pointer; background: transparent; }
+.yonetici-paneli {
+display: none;
+position: absolute;
+bottom: 12px;
+left: 12px;
+right: 12px;
+background-color: #ffffff;
+border: 3px solid #000000;
+border-radius: 8px;
+padding: 10px;
+z-index: 100;
+}
+</style>
+</head>
+<body>
+
+<div class="ana-kutu">
+<!-- Gizli Yönetici Köşesi -->
+<div class="gizli-kose" onclick="yoneticiPaneliAc()"></div>
+
+<!-- Başlık Alanı ve İsim İlişkilendirmesi -->
+<div class="baslik-alani">
+<span class="baslik-metni">Yalın Türkçe Sözcüklük</span>
+<div class="alt-baslik">Cemil Pakyürek (1968-1973) İTÜ</div>
+</div>
+
+<!-- Soru ve Arama Alanı -->
+<input type="text" id="soru-alani" class="girdi-alani" placeholder="SÖZCÜK YAZIN">
+
+<!-- Standart 2. Madde Düğmeleri -->
+<div class="satir">
+<button class="btn btn-bul" onclick="sozcukBul()">BUL</button>
+<button class="btn btn-temizle" onclick="soruTemizle()">BAŞKA SÖZCÜK SOR</button>
+</div>
+
+<!-- Türkçe Sesli Yanıt Özelliği Düğmeleri -->
+<div class="satir">
+<button class="btn btn-ses" onclick="sesliSor()">🔊 SESLİ SOR</button>
+<button class="btn btn-ses" onclick="yanitiSeslendir()">🗣️ SESLENDİR</button>
+</div>
+
+<!-- Sıra Numaralı Döküm Düğmesi -->
+<div class="satir">
+<button class="btn btn-liste" onclick="tumunuNumaraliDok()">📋 TÜMÜNÜ SIRALI DÖK</button>
+</div>
+
+<!-- Sonuç Ekranı -->
+<div id="sonuc-ekrani" class="mavi-ekran">Sözcüklük hazır. Bir sözcük aratın.</div>
+
+<!-- Ölçüm İçin En Az 3 Sayaç Desteği -->
+<div class="sayac-alani">
+<div class="sayac-kutu sk-top"><div>TOPLAM SÖZCÜK</div><span id="sayac-top">2503</span></div>
+<div class="sayac-kutu"><div>BUGÜN GEZİNEN</div><span id="sayac-gezilen">0</span></div>
+<div class="sayac-kutu"><div>TOPLAM GEZİNEN</div><span id="sayac-toplam">0</span></div>
+</div>
+
+<!-- Yönetici Soru Yönetme Dizimi Paneli -->
+<div id="yonetici-alani" class="yonetici-paneli">
+<p style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">Yönetici Görev Bildirimi</p>
+<div id="yonetici-veri" style="font-size: 11px; max-height: 80px; overflow-y: auto; background:#eee; padding:4px;"></div>
+<button class="btn btn-temizle" style="width:100%; margin-top:6px; padding:2px;" onclick="yoneticiPaneliKapat()">PANELİ KAPAT</button>
+</div>
+</div>
+
+<script>
+// Ön Tanımlı Standart Sözcük Havuzu (3-5 Kelimelik Başlangıç)
+let sozluk = [
+{ A: "wind", B: "yel" },
+{ A: "zone", B: "bölge" },
+{ A: "inverted nails", B: "ters tırnak" },
+{ A: "ilham", B: "esin" }
+];
+
+// Sayaçların Hafıza ve Ölçüm Altyapısı
+let bugunGezilen = parseInt(sessionStorage.getItem('soz_bugun')) || 0;
+let toplamGezer = parseInt(localStorage.getItem('soz_toplam')) || 0;
+
+bugunGezilen++;
+toplamGezer++;
+sessionStorage.setItem('soz_bugun', bugunGezilen);
+localStorage.setItem('soz_toplam', toplamGezer);
+
+// Sayaç Değerlerini Ekrana Basma (Toplam Sabit 2503 veya Dinamik)
+document.getElementById('sayac-top').innerText = "2503";
+document.getElementById('sayac-gezilen').innerText = bugunGezilen;
+document.getElementById('sayac-toplam').innerText = toplamGezer;
+
+// 2. MADDE: Çift Yönlü, Yalnız Sözcüklükteki Kelimeleri Arama ve Bulma Motoru
+function sozcukBul() {
+let aranan = document.getElementById('soru-alani').value.trim().toLowerCase();
+let ekran = document.getElementById('sonuc-ekrani');
+
+if(!aranan) {
+ekran.innerText = "LÜTFEN BİR SÖZCÜK YAZIN.";
+return;
+}
+
+// Çift Yönlü Arama (Hem A'da hem B'de arar)
+let sonuc = sozluk.find(item => item.A.toLowerCase() === aranan || item.B.toLowerCase() === aranan);
+
+if(sonuc) {
+ekran.innerText = `${sonuc.A.toUpperCase()} = ${sonuc.B.toUpperCase()}`;
+yoneticiSoruKaydet(aranan, "Bulundu");
+} else {
+ekran.innerText = "SÖZCÜK BULUNAMADI. (0)";
+yoneticiSoruKaydet(aranan, "Bulunamadı");
+}
+}
+
+// 2. MADDE: Sıra Numaralı Döküm Özelliği
+function tumunuNumaraliDok() {
+let ekran = document.getElementById('sonuc-ekrani');
+let dokum = sozluk.map((item, i) => `${i+1}- ${item.A.toUpperCase()} = ${item.B.toUpperCase()}`).join("\n");
+ekran.innerText = dokum ? dokum : "Sözlükte kayıtlı kelime yok.";
+}
+
+// 1. MADDE: Yalnızca Türkçe Sesli Tanıma (Sesli Sor)
+function sesliSor() {
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!window.SpeechRecognition) {
+document.getElementById('sonuc-ekrani').innerText = "SES TANIMA DESTEKLENMİYOR.";
+return;
+}
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.lang = "tr-TR"; // Türkçe Kilitli
+recognition.onstart = () => { document.getElementById('sonuc-ekrani').innerText = "DİNLENİYOR..."; };
+recognition.onresult = (e) => {
+document.getElementById('soru-alani').value = e.results[0][0].transcript.toUpperCase();
+sozcukBul();
+};
+recognition.onerror = () => { document.getElementById('sonuc-ekrani').innerText = "Ses anlaşılamadı, tekrar deneyin."; };
+recognition.start();
+}
+
+// 1. MADDE: Yalnızca Türkçe Yanıt Seslendirme
+function yanitiSeslendir() {
+let metin = document.getElementById('sonuc-ekrani').innerText;
+if (!metin || !('speechSynthesis' in window)) return;
+window.speechSynthesis.cancel();
+let utterance = new SpeechSynthesisUtterance(metin);
+utterance.lang = 'tr-TR'; // Türkçe Kilitli
+window.speechSynthesis.speak(utterance);
+}
+
+// 2. MADDE: Başka Sözcük Sor (Temizleme)
+function soruTemizle() {
+document.getElementById('soru-alani').value = '';
+document.getElementById('sonuc-ekrani').innerText = 'Yeni arama için hazır.';
+document.getElementById('soru-alani').focus();
+}
+
+// 1. MADDE: Yönetici Soru Yönetme Dizimi ve Değerlendirme Altyapısı
+let yoneticiSorulari = JSON.parse(localStorage.getItem('yonetici_sorular')) || [];
+function yoneticiSoruKaydet(soru, durum) {
+let tarih = new Date().toLocaleTimeString('tr-TR');
+yoneticiSorulari.push(`[${tarih}] ${soru.toUpperCase()} (${durum})`);
+if(yoneticiSorulari.length > 20) yoneticiSorulari.shift(); // Son 20 aramayı tutar
+localStorage.setItem('yonetici_sorular', JSON.stringify(yoneticiSorulari));
+}
+
+function yoneticiPaneliAc() {
+let şifre = prompt("Yönetici gizli sözünü giriniz:");
+if(şifre === "kasim1973") {
+document.getElementById('yonetici-alani').style.display = "block";
+document.getElementById('yonetici-veri').innerHTML = yoneticiSorulari.length > 0 ? yoneticiSorulari.join("<br>") : "Henüz arama kaydı yok.";
+} else {
+alert("Yetkisiz Giriş!");
+}
+}
+function yoneticiPaneliKapat() { document.getElementById('yonetici-alani').style.display = "none"; }
+</script>
+</body>
+</html>  
