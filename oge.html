@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>YABANCIYA YALIN TÜRKÇE SOZCUKLER</title>
+<style>
+body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
+.kutu{width:520px;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold}
+.k2{background:#002060;color:#fff;padding:8px;text-align:center;font-size:13px}
+.k3{background:#c00000;color:#fff;padding:8px;text-align:center;font-size:12px}
+.sayaçlar{display:flex;background:#333;color:#fff;font-size:11px;font-weight:bold}
+.sayaçlar div{flex:1;text-align:center;padding:8px 2px;border-right:1px solid #555}
+.sayaçlar div:last-child{border-right:none}
+.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold}
+.ic{background:#fff;padding:12px}
+input{width:100%;padding:9px;font-size:15px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
+.btns{display:flex;gap:4px;margin-top:8px}
+.btns button{flex:1;padding:9px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
+.bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
+#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;text-transform:uppercase;max-height:200px;overflow-y:auto} /* LISTE UZUN OLUNCA KAYDIRMA */
+#sonuc b{font-size:18px;color:#c00000}
+.bulunamadi{color:#b30000!important}
+#oneri{display:none;margin-top:10px}
+textarea{width:100%;padding:8px;box-sizing:border-box}
+.alt{background:#ffcc00;padding:8px;text-align:center;font-size:11px;color:#000;font-weight:bold}
+.alt.yildiz{color:#c00000;font-size:14px;margin-right:4px;cursor:pointer} /* TIKLANABILIR YAPILDI */
+.alt.yildiz:hover{text-decoration:underline} /* UZERINE GELINCE ALTI CIZILI */
+</style>
+</head>
+<body>
+
+<div class="kutu">
+<div class="k1">YABANCI KOKENLI SOZCUKLERE YALIN TURKCE SOZCUKLER ONERILMEKTEDIR.</div>
+<div class="k2">Bu bir sozluk degil. SOZCUKLUKTUR.<br>onerilen yalin turkce sozcukler sunulur.</div>
+<div class="k3">HER YABANCI SOZCUGE KARSILIK, YALIN TURKCE KARSILIK SOZCUK VARDIR</div>
+
+<div class="sayaçlar">
+<div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
+<div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
+<div>GÜNLÜK<br>ZİYARET<br><span id="gezmis">0</span></div>
+</div>
+
+<div class="ic">
+<input type="text" id="ara" placeholder="ornek: altin veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
+<div class="btns">
+<button class="bul" onclick="bul()">BUL</button>
+<button class="baska" onclick="baska()">BASKA SOZCUK</button>
+<button class="sil" onclick="sil()">SIL</button>
+<button class="oneri" onclick="oner()">ONERI GONDER</button>
+</div>
+<div id="sonuc"></div>
+<div id="oneri">
+<textarea id="oneriMetin" rows="2" placeholder="yalin turkce oneriniz"></textarea>
+<button class="oneri" onclick="onerGonder()">MAIL ILE GONDER</button>
+</div>
+</div>
+
+<div class="alt">
+<span class="yildiz" onclick="tumunuListele()">★</span>Cemil Pakyürek (1968-1973 İTÜ-E.E. BİLİMDALI)<br>
+Bulamadiklarinizi onerin. oneriniz yoneticiye gidecek. cemilp@gmail.com
+</div>
+</div>
+
+<script>
+// 1. SOZLUK VERISI: 118 ELEMENT
+let sozluk = [
+{ A: "Hidrojen", B: "ÖGECİK1" },{ A: "Helyum", B: "ÖGECİK2" },{ A: "Lityum", B: "ÖGECİK3" },{ A: "Berilyum", B: "ÖGECİK4" },{ A: "Bor", B: "ÖGECİK5" },{ A: "Karbon", B: "ÖGECİK6" },{ A: "Azot", B: "ÖGECİK7" },{ A: "Oksijen", B: "ÖGECİK8" },{ A: "Flor", B: "ÖGECİK9" },{ A: "Neon", B: "ÖGECİK10" },{ A: "Sodyum", B: "ÖGECİK11" },{ A: "Magnezyum", B: "ÖGECİK12" },{ A: "Alüminyum", B: "ÖGECİK13" },{ A: "Silisyum", B: "ÖGECİK14" },{ A: "Fosfor", B: "ÖGECİK15" },{ A: "Kükürt", B: "ÖGECİK16" },{ A: "Klor", B: "ÖGECİK17" },{ A: "Argon", B: "ÖGECİK18" },{ A: "Potasyum", B: "ÖGECİK19" },{ A: "Kalsiyum", B: "ÖGECİK20" },{ A: "Skandiyum", B: "ÖGECİK21" },{ A: "Titanyum", B: "ÖGECİK22" },{ A: "Vanadyum", B: "ÖGECİK23" },{ A: "Krom", B: "ÖGECİK24" },{ A: "Manganez", B: "ÖGECİK25" },{ A: "Demir", B: "ÖGECİK26" },{ A: "Kobalt", B: "ÖGECİK27" },{ A: "Nikel", B: "ÖGECİK28" },{ A: "Bakır", B: "ÖGECİK29" },{ A: "Çinko", B: "ÖGECİK30" },{ A: "Galyum", B: "ÖGECİK31" },{ A: "Germanyum", B: "ÖGECİK32" },{ A: "Arsenik", B: "ÖGECİK33" },{ A: "Selenyum", B: "ÖGECİK34" },{ A: "Brom", B: "ÖGECİK35" },{ A: "Kripton", B: "ÖGECİK36" },{ A: "Rubidyum", B: "ÖGECİK37" },{ A: "Stronsiyum", B: "ÖGECİK38" },{ A: "İtriyum", B: "ÖGECİK39" },{ A: "Zirkonyum", B: "ÖGECİK40" },{ A: "Niyobiyum", B: "ÖGECİK41" },{ A: "Molibden", B: "ÖGECİK42" },{ A: "Teknetyum", B: "ÖGECİK43" },{ A: "Rutenyum", B: "ÖGECİK44" },{ A: "Rodyum", B: "ÖGECİK45" },{ A: "Paladyum", B: "ÖGECİK46" },{ A: "Gümüş", B: "ÖGECİK47" },{ A: "Kadmiyum", B: "ÖGECİK48" },{ A: "İndiyum", B: "ÖGECİK49" },{ A: "Kalay", B: "ÖGECİK50" },{ A: "Antimon", B: "ÖGECİK51" },{ A: "Tellür", B: "ÖGECİK52" },{ A: "İyot", B: "ÖGECİK53" },{ A: "Ksenon", B: "ÖGECİK54" },{ A: "Sezyum", B: "ÖGECİK55" },{ A: "Baryum", B: "ÖGECİK56" },{ A: "Lantan", B: "ÖGECİK57" },{ A: "Seryum", B: "ÖGECİK58" },{ A: "Praseodim", B: "ÖGECİK59" },{ A: "Neodim", B: "ÖGECİK60" },{ A: "Prometyum", B: "ÖGECİK61" },{ A: "Samaryum", B: "ÖGECİK62" },{ A: "Evropiyum", B: "ÖGECİK63" },{ A: "Gadolinyum", B: "ÖGECİK64" },{ A: "Terbiyum", B: "ÖGECİK65" },{ A: "Disprosyum", B: "ÖGECİK66" },{ A: "Holmiyum", B: "ÖGECİK67" },{ A: "Erbiyum", B: "ÖGECİK68" },{ A: "Tuliyum", B: "ÖGECİK69" },{ A: "İterbiyum", B: "ÖGECİK70" },{ A: "Lutesyum", B: "ÖGECİK71" },{ A: "Hafniyum", B: "ÖGECİK72" },{ A: "Tantal", B: "ÖGECİK73" },{ A: "Tungsten", B: "ÖGECİK74" },{ A: "Renyum", B: "ÖGECİK75" },{ A: "Osmiyum", B: "ÖGECİK76" },{ A: "İridyum", B: "ÖGECİK77" },{ A: "Platin", B: "ÖGECİK78" },{ A: "Altın", B: "ÖGECİK79" },{ A: "Civa", B: "ÖGECİK80" },{ A: "Talyum", B: "ÖGECİK81" },{ A: "Kurşun", B: "ÖGECİK82" },{ A: "Bizmut", B: "ÖGECİK83" },{ A: "Polonyum", B: "ÖGECİK84" },{ A: "Astatin", B: "ÖGECİK85" },{ A: "Radon", B: "ÖGECİK86" },{ A: "Fransiyum", B: "ÖGECİK87" },{ A: "Radyum", B: "ÖGECİK88" },{ A: "Aktinyum", B: "ÖGECİK89" },{ A: "Toryum", B: "ÖGECİK90" },{ A: "Protaktinyum", B: "ÖGECİK91" },{ A: "Uranyum", B: "ÖGECİK92" },{ A: "Neptünyum", B: "ÖGECİK93" },{ A: "Plütonyum", B: "ÖGECİK94" },{ A: "Amerisyum", B: "ÖGECİK95" },{ A: "Küriyum", B: "ÖGECİK96" },{ A: "Berkelyum", B: "ÖGECİK97" },{ A: "Kaliforniyum", B: "ÖGECİK98" },{ A: "Einsteinyum", B: "ÖGECİK99" },{ A: "Fermiyum", B: "ÖGECİK100" },{ A: "Mendelevyum", B: "ÖGECİK101" },{ A: "Nobeliyum", B: "ÖGECİK102" },{ A: "Lawrensiyum", B: "ÖGECİK103" },{ A: "Rutherfordiyum", B: "ÖGECİK104" },{ A: "Dubnyum", B: "ÖGECİK105" },{ A: "Seaborgiyum", B: "ÖGECİK106" },{ A: "Bohriyum", B: "ÖGECİK107" },{ A: "Hassiyum", B: "ÖGECİK108" },{ A: "Meitneriyum", B: "ÖGECİK109" },{ A: "Darmstadtiyum", B: "ÖGECİK110" },{ A: "Röntgenyum", B: "ÖGECİK111" },{ A: "Kopernisyum", B: "ÖGECİK112" },{ A: "Nihonyum", B: "ÖGECİK113" },{ A: "Fleroviyum", B: "ÖGECİK114" },{ A: "Moskovyum", B: "ÖGECİK115" },{ A: "Livermoryum", B: "ÖGECİK116" },{ A: "Tennesin", B: "ÖGECİK117" },{ A: "Oganesson", B: "ÖGECİK118" }
+];
+
+let mapAtoB = {};
+let mapBtoA = {};
+
+// 2. YARDIMCI FONKSIYON: Buyuk kucuk ve turkce harf duzenleme
+function duzenle(kelime){
+return kelime.toLocaleLowerCase('tr-TR')
+.replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
+.replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
+}
+
+// 3. BASLATMA: Sayfa acilinca sozlugu ve sayaci kurar
+function baslat(){
+for(let i=0; i<sozluk.length; i++){
+let a = duzenle(sozluk[i].A);
+let b = duzenle(sozluk[i].B);
+mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
+mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
+}
+sayacGuncelle();
+}
+
+// 4. SAYAC: Gunluk ziyaret ve toplam kelime sayisini gunceller
+function sayacGuncelle(){
+let bugün = new Date().toISOString().split('T')[0];
+let kayitliTarih = localStorage.getItem("ziyaretTarihi");
+let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
+if(kayitliTarih!== bugün){
+ziyaretSayisi = 0;
+localStorage.setItem("ziyaretTarihi", bugün);
+}
+ziyaretSayisi++;
+localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
+document.getElementById("toplam").innerText = sozluk.length;
+document.getElementById("geziyor").innerText = 1;
+document.getElementById("gezmis").innerText = ziyaretSayisi;
+}
+
+// 5. BUL: Arama kutusundaki kelimeyi A veya B de arar
+function bul(){
+let giris = duzenle(document.getElementById("ara").value);
+let bulundu = mapAtoB[giris] || mapBtoA[giris];
+if(bulundu){
+if(mapAtoB[giris]){
+document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
+} else {
+document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
+}
+} else {
+document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
+}
+}
+
+// 6. BUTON FONKSIYONLARI
+function baska(){ // Kutuyu ve sonucu temizler
+document.getElementById("ara").value = "";
+document.getElementById("sonuc").innerHTML = "";
+document.getElementById("oneri").style.display = "none";
+document.getElementById("ara").focus();
+}
+function sil(){ // Sadece kutuyu temizler
+document.getElementById("ara").value = "";
+document.getElementById("ara").focus();
+}
+function oner(){ // Oneri kutusunu acar
+document.getElementById("oneri").style.display = "block";
+}
+function onerGonder(){ // Mail gonderir
+let yaban = document.getElementById("ara").value;
+let yalin = document.getElementById("oneriMetin").value;
+window.location.href = `mailto:cemilp@gmail.com?subject=Yeni Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
+}
+
+// 7. YENI FONKSIYON: Yildiza tiklayinca tum listeyi siralar
+function tumunuListele(){
+let liste = "<b>TUM SOZCUKLER 1-118:</b><br><br>";
+for(let i=0; i<sozluk.length; i++){
+liste += `${i+1}. ${sozluk[i].A} = ${sozluk[i].B}<br>`;
+}
+document.getElementById("sonuc").innerHTML = liste;
+}
+
+baslat(); // Sayfa yuklenince calis
+</script>
+</body>
+</html>
+
