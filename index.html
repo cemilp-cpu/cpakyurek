@@ -2868,5 +2868,19 @@ function arkaOdaKapat() {
 document.getElementById('arka-oda-paneli').style.display = 'none';
 }
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+let sayacDiv = document.getElementById('sayac');
+if(!sayacDiv){
+sayacDiv = document.createElement('div');
+sayacDiv.id = 'sayac';
+document.body.insertBefore(sayacDiv, document.body.firstChild);
+}
+sayacDiv.innerHTML = 'SÖZCÜK 4000+';
+sayacDiv.style.cssText = 'text-align:center; font-size:22px; font-weight:bold; color:#000; margin:8px 0;';
+});
+</script>
+
+ 
 </body>
 </html>
