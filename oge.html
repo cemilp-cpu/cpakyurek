@@ -308,91 +308,32 @@ liste += `${i+1}. ${sozluk[i].A} = ${sozluk[i].B}<br>`;
 }
 document.getElementById("sonuc").innerHTML = liste;
 }
-<!-- Default Statcounter code for sözcüklük https://cemilp-cpu-
-github.io/cpakyurek/ -->
-<script type="text/javascript">
-var sc_project=13354940;
-var sc_invisible=1;
-var sc_security="94bf4203";
-</script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="web statistics"
-href="https://statcounter.com/" target="_blank"><img class="statcounter"
-src="https://c.statcounter.com/13354940/0/94bf4203/1/" alt="web statistics"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- End of Statcounter Code -->
-
-
-
-
-
-<script>
-// Statcounter verisini çekip 3 kutuya yazdırıyoruz
-function updateCounters() {
-// Statcounter'ın kendi sayacı yüklenince çalışır
-setTimeout(function() {
-// GÜNLÜK ZİYARET - bugün gelenler
-var daily = document.querySelector('.statcounter img') ? '000001' : '000';
-
-// HAFTALIK ZİYARET - son 7 gün. Panelden bakmak lazım
-var weekly = '000';
-
-// TOPLAM KAYIT - toplam ziyaret
-var total = '000000';
+<!-- STATCOUNTER KODU -->
 <script type="text/javascript">
 var sc_project=13354940;
 var sc_invisible=1;
 var sc_security="94bf4203";
 </script>
 <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="web statistics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13354940/0/94bf4203/1/" alt="web statistics" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 
-// Buraya Statcounter API ile gerçek veri çekeceğiz.
-// Şimdilik sayaç çalışmaya başladı. 24 saat sonra panelde görünecek
-console.log("Statcounter aktif. Proje ID: 13354940");
-}, 3000);
+<!-- 3 SAYAÇ KODU -->
+<script>
+function updateCounters() {
+fetch('https://statcounter.com/p13354940/?guest=1')
+.then(res => res.text())
+.then(html => {
+let online = html.match(/Currently Online: (\d+)/);
+if(online) document.getElementById('online').textContent = online[1];
+
+let today = html.match(/Today: (\d+)/);
+if(today) document.getElementById('today').textContent = today[1];
+
+let total = html.match(/All Time: ([\d,]+)/);
+if(total) document.getElementById('total-words').textContent = total[1];
+}).catch(e => {});
 }
 updateCounters();
-<!-- Default Statcounter code for sözcüklük https://cemilp-cpu-
-github.io/cpakyurek/ -->
-<script type="text/javascript">
-var sc_project=13354940;
-
-<script>
-function updateCounters() {
-console.log("Statcounter aktif. Proje ID: 13354940");
-}
-setTimeout(updateCounters, 3000);
+setInterval(updateCounters, 60000);
 </script>
-
-var sc_invisible=1;
-var sc_security="94bf4203";
-</script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="web statistics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13354940/0/94bf4203/1/" alt="web statistics" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- STATCOUNTER KODU BİTİŞ -->
-<!-- 1. STATCOUNTER KODU BAŞLANGIÇ -->
-<script type="text/javascript">
-var sc_project=13354940;
-var sc_invisible=1;
-var sc_security="94bf4203";
-</script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="web statistics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13354940/0/94bf4203/1/" alt="web statistics" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-<!-- 1. STATCOUNTER KODU BİTİŞ -->
-
-<!-- 2. ZALFA KODU BAŞLANGIÇ -->
-<script>
-// Statcounter verisini çekip 3 kutuya yazdırıyoruz
-function updateCounters() {
-setTimeout(function() {
-console.log("Statcounter aktif. Proje ID: 13354940");
-}, 3000);
-}
-updateCounters();
-</script>
-<!-- ZALFA KODU BİTİŞ -->
-
 </body>
 </html>
