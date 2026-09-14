@@ -106,11 +106,7 @@ position: relative;
 <button class="btn btn-sor" onclick="soruTemizle()">BAŞKA SÖZCÜK SOR</button>
 </div>
 <div class="kategori-satiri">
-<button class="btn-kat btn-saglik" onclick="kategoriFiltre('sağlık')">SAĞLIK</button>
-<button class="btn-kat btn-bilim" onclick="kategoriFiltre('bilim')">BİLİM</button>
-<button class="btn-kat btn-haklilik" onclick="kategoriFiltre('haklılık')">HAKLILIK</button>
-<button class="btn-kat btn-alt" onclick="kategoriFiltre('tgid')">TGİD</button>
-<button class="btn-kat btn-alt" onclick="kategoriFiltre('çokluklar')">ÇOKLUKLAR BİLİMİ</button>
+
 </div>
 
 <div class="eksiltme-gurlesme-satiri">
@@ -138,6 +134,7 @@ window.onload = function(){
 document.getElementById("toplam").innerText = sozluk.length;
 }
 
+<div id="sayac" style="font-size:24px; font-weight:bold; margin-top:10px;">SÖZCÜK 4000+</div>
 
 
 let sozluk = [
