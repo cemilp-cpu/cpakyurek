@@ -2868,5 +2868,77 @@ function arkaOdaKapat() {
 document.getElementById('arka-oda-paneli').style.display = 'none';
 }
 </script>
+ziyaretSayisi++;
+localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
+document.getElementById("toplam").innerText = sozluk.length;
+document.getElementById("geziyor").innerText = 1;
+document.getElementById("gezmis").innerText = ziyaretSayisi;
+}
+
+function bul(){
+let giris = duzenle(document.getElementById("ara").value);
+let bulundu = mapAtoB[giris] || mapBtoA[giris];
+if(bulundu){
+if(mapAtoB[giris]){
+document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
+} else {
+document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
+}
+} else {
+document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
+}
+}
+
+function baska(){
+document.getElementById("ara").value = "";
+document.getElementById("sonuc").innerHTML = "";
+document.getElementById("oneri").style.display = "none";
+document.getElementById("ara").focus();
+}
+
+function sil(){
+document.getElementById("ara").value = "";
+document.getElementById("ara").focus();
+}
+
+function oner(){
+document.getElementById("oneri").style.display = "block";
+}
+
+function onerGonder(){
+let yaban = document.getElementById("ara").value;
+let yalin = document.getElementById("oneriMetin").value;
+window.location.href = `mailto:cemilp@gmail.com?subject=Yeni Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
+}
+
+window.onload = sayacGuncelle;
+</script>  
+ 
+<!-- STATCOUNTER KODU -->
+<script type="text/javascript">
+var sc_project=13354940;
+var sc_invisible=1;
+var sc_security="94bf4203";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+
+<!-- 3 SAYAÇ KODU -->
+<script>
+function updateCounters() {
+fetch('https://statcounter.com/p13354940/?guest=1')
+.then(res => res.text())
+.then(html => {
+let online = html.match(/Currently Online: (\d+)/);
+if(online) document.getElementById('online').textContent = online[1];
+
+let today = html.match(/Today: (\d+)/);
+if(today) document.getElementById('today').textContent = today[1];
+
+let total = html.match(/All Time: ([\d,]+)/);
+if(total) document.getElementById('total-words').textContent = total[1];
+}).catch(e => {});
+}
+updateCounters();
+setInterval(updateCounters, 60000);
 </body>
 </html>
