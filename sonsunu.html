@@ -1,0 +1,562 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yalın Türkçe Sözcüklük</title>
+
+<style>
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+padding:20px;
+background:#ffffff;
+color:#1f1f1f;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+.kutu{
+width:100%;
+max-width:700px;
+margin:0 auto;
+padding:10px;
+border:4px solid #1f1f1f;
+border-radius:18px;
+background:#ffffff;
+}
+
+.icAlan{
+padding:20px;
+border-radius:12px;
+background:#f7e84b;
+}
+
+h1{
+margin:0 0 8px;
+text-align:center;
+font-size:24px;
+line-height:1.35;
+}
+
+.yildiz{
+color:#c40000;
+}
+
+.bilgi{
+margin-bottom:12px;
+text-align:center;
+font-size:13px;
+}
+
+.sayaclar{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:8px;
+margin-bottom:14px;
+}
+
+.sayac{
+padding:7px 9px;
+border:2px solid #1f1f1f;
+border-radius:8px;
+background:#ffffff;
+font-size:12px;
+font-weight:bold;
+text-align:center;
+}
+
+.dilAlan{
+margin-bottom:10px;
+text-align:center;
+}
+
+.dil{
+padding:7px 14px;
+border:2px solid #1f1f1f;
+border-radius:7px;
+background:#ffffff;
+color:#1f1f1f;
+font-weight:bold;
+cursor:pointer;
+}
+
+.dil.aktif{
+background:#1f1f1f;
+color:#f7e84b;
+}
+
+#girdi,
+#sonuc{
+width:100%;
+border:3px solid #1f1f1f;
+border-radius:10px;
+background:#ffffff;
+color:#1f1f1f;
+font-family:Arial,Helvetica,sans-serif;
+font-size:20px;
+font-weight:bold;
+}
+
+#girdi{
+display:block;
+marg
+in-bottom:10px;
+padding:12px;
+}
+
+#sonuc{
+min-height:58px;
+margin-top:10px;
+padding:12px;
+line-height:1.5;
+white-space:pre-wrap;
+}
+
+.dugmeler{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:6px;
+}
+
+.dugme{
+padding:10px 13px;
+border:0;
+border-radius:8px;
+background:#1f1f1f;
+color:#ffffff;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.dugme:hover{
+opacity:.85;
+}
+
+#sesBtn{
+background:#7a4e00;
+}
+
+#kopyaBtn{
+background:#2c6e49;
+}
+
+.hata{
+color:#c40000;
+}
+
+.oneri{
+display:none;
+margin-top:12px;
+padding-top:12px;
+border-top:2px solid #1f1f1f;
+}
+
+.oneri p{
+margin:0 0 8px;
+font-size:14px;
+font-weight:bold;
+}
+
+#oneriMetni{
+width:100%;
+min-height:70px;
+padding:9px;
+border:2px solid #1f1f1f;
+border-radius:8px;
+resize:vertical;
+font:16px Arial,Helvetica,sans-serif;
+}
+
+footer{
+margin-top:14px;
+text-align:center;
+color:#555555;
+font-size:11px;
+}
+
+@media(max-width:520px){
+body{
+padding:8px;
+}
+
+.icAlan{
+padding:12px;
+}
+
+h1{
+font-size:20px;
+}
+
+.sayac{
+font-size:11px;
+}
+
+.dugme{
+width:100%;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="kutu">
+<div class="icAlan">
+
+<h1>
+<span class="yildiz">★</span>
+YABANCI KÖKENLİ SÖZCÜKLERE KARŞI,<br>
+ÖNERİLEN YALIN TÜRKÇE SÖZCÜKLER
+</h1>
+
+<div class="bilgi">
+1973 - İTÜ - Yüksek Yetkilendirilmiş Eksiciksel Kurgulamacı Cemil Pakyürek
+</div>
+
+<div class="sayaclar">
+<div class="sayac" id="toplamSozcukSayaci">TOPLAM SÖZCÜK: 0</div>
+<div class="sayac" id="bugunGezilenSayaci">BUGÜN GEZİLEN: 0</div>
+<div class="sayac" id="toplamGezilenSayaci">TOPLAM GEZİLEN: 0</div>
+</div>
+
+<div class="dilAlan">
+<button class="dil aktif" id="trBtn" onclick="dilSec('tr-TR')">TR</button>
+<button class="dil" id="enBtn" onclick="dilSec('en-US')">EN</button>
+</div>
+
+<input
+id="girdi"
+type="text"
+placeholder="Bir sözcük yazın..."
+autocomplete="off"
+>
+
+<div class="dugmeler">
+<button class="dugme" onclick="sozcukBul()">BUL</button>
+<button class="dugme" onclick="temizle()">BAŞKA SÖZCÜK SOR</button>
+<button class="dugme" id="sesBtn" onclick="sesliSor()">🎤 SESLİ SOR</button>
+<button class="dugme" id="kopyaBtn" onclick="tumunuKopyala()">TÜMÜNÜ KOPYALA</button>
+</div>
+
+<div id="sonuc"></div>
+
+<div class="oneri" id="oneriKutusu">
+<p>Bu sözcük bulunamadı. Önerinizi yazabilirsiniz:</p>
+<textarea id="oneriMetni" placeholder="Önerilen yalın Türkçe karşılık..."></textarea>
+<button class="dugme" onclick="oneriGonder()">ÖNERİYİ GÖNDER</button>
+</div>
+
+<script>
+const sozcukler = [
+{A:"atom",B:"ögecik"},
+{A:"proton",B:"artıcık"},
+{A:"nötron",B:"ağırcık"},
+{A:"elektron",B:"eksicik"},
+{A:"molekül",B:"bileşikcik"},
+{A:"fizik",B:"ögeciksel itişim"},
+{A:"kimya",B:"ögeciksel birleşim"},
+{A:"matematik",B:"çokluklar bilimi"},
+{A:"harf",B:"sesadı"},
+{A:"cebir",B:"sesadlı işlemler"},
+{A:"hesap",B:"sayış"},
+{A:"hesaplaşma",B:"salışma"},
+{A:"yapay zeka",B:"öngörüleri geliştirilmiş araç"},
+{A:"televizyon",B:"sanalgı"},
+{A:"radyo",B:"ünalgı"},
+{A:"teknik",B:"kurgu"},
+{A:"teknoloji",B:"kurgulama bilimi"},
+{A:"mühendis",B:"kurgulamacı"},
+{A:"teori",B:"kuram"},
+{A:"pratik",B:"uygulama"},
+{A:"arkeoloji",B:"başlangıca yönelen bilim"},
+{A:"insan",B:"tanımlayabilen"},
+{A:"hücre",B:"canlıcık"},
+{A:"hayvan",B:"haycan"},
+{A:"felsefe",B:"bilimsevme"},
+{A:"filozof",B:"bilimsever"},
+{A:"evren",B:"bitimsizlikbaşlangıçsızlık"},
+{A:"biyoloji",B:"canlılık bilimi"},
+{A:"tarih",B:"geleceği aydınlatma"},
+{A:"sözlük",B:"sözcüklük"},
+{A:"bilgisayar",B:"bilgi işler doğrultusunda"},
+{A:"tanrı",B:"bilinemez"},
+{A:"din",B:"inançlar"},
+{A:"sanat",B:"beğeni oluşturma"},
+{A:"zanaat",B:"beğenilen yapabilme"},
+{A:"kod",B:"buyruk"},
+{A:"anahtar",B:"açkı"},
+{A:"transistör",B:"akım denetler"},
+{A:"adalet",B:"gerçeklere bağlılık"},
+{A:"wifi",B:"telsiz bağlılık"},
+{A:"hukuk",B:"haklılık"},
+{A:"kamera",B:"görüntüleyici"},
+{A:"monitör",B:"ekran"},
+{A:"display",B:"ekran"},
+{A:"iştirak",B:"katılım"},
+{A:"katalog",B:"seçginler"},
+{A:"keyifli",B:"istediğince"},
+{A:"sinüs",B:"boşluk"},
+{A:"kosinüs",B:"komşuboşluk"},
+{A:"tanjant",B:"eğim"},
+{A:"trigonometri",B:"açılar bilimi"},
+{A:"aritmetik",B:"toplama çıkarma"},
+{A:"geometri",B:"biçimler bilimi"},
+{A:"fonksiyon",B:"değer dönüştüren"},
+{A:"entegral",B:"boyutsuzlaştırılmış toplam"},
+{A:"diferansiyel denklem",B:"noktasallaştırılmış denklem"},
+{A:"mikrofon",B:"eksiciklendirici"},
+{A:"hoparlör",B:"gürletici"},
+{A:"gurme",B:"tatbilir"},
+{A:"anormal",B:"tanımlanmamış"},
+{A:"@",B:"iyia"},
+{A:"virgül",B:"kuyruklu nokta"},
+{A:"makine",B:"kolaylaştırıcı"},
+{A:"tornavida",B:"burgaç"},
+{A:"makina mühendisi",B:"kolaylaştırıcı kurgulamacısı"},
+{A:"kuantum",B:"belirlenemezlik"},
+{A:"yemek aralığı",B:"yemek molası"}
+];
+
+
+
+const arama = document.getElementById("girdi");
+const sonuc = document.getElementById("sonuc");
+const oneriKutusu = document.getElementById("oneriKutusu");
+
+let konusmaDili = "tr-TR";
+let sonAranan = "";
+
+function kucult(metin){
+return metin
+.toLocaleLowerCase("tr-TR")
+.trim()
+.replace(/\s+/g," ");
+}
+
+function bugun(){
+return new Date().toISOString().slice(0,10);
+}
+
+function sayaclariGuncelle(){
+const tarih = localStorage.getItem("bugunTarihi");
+let bugunGezilen = Number(localStorage.getItem("bugunGezilen") || 0);
+let toplamGezilen = Number(localStorage.getItem("toplamGezilen") || 0);
+
+if(tarih !== bugun()){
+bugunGezilen = 0;
+localStorage.setItem("bugunTarihi",bugun());
+localStorage.setItem("bugunGezilen","0");
+}
+
+document.getElementById("toplamSozcukSayaci").textContent =
+"TOPLAM SÖZCÜK: " + sozcukler.length;
+
+document.getElementById("bugunGezilenSayaci").textContent =
+"BUGÜN GEZİLEN: " + bugunGezilen;
+
+document.getElementById("toplamGezilenSayaci").textContent =
+"TOPLAM GEZİLEN: " + toplamGezilen;
+}
+
+function gezintiSay(){
+let bugunGezilen = Number(localStorage.getItem("bugunGezilen") || 0);
+let toplamGezilen = Number(localStorage.getItem("toplamGezilen") || 0);
+
+if(localStorage.getItem("bugunTarihi") !== bugun()){
+bugunGezilen = 0;
+localStorage.setItem("bugunTarihi",bugun());
+}
+
+bugunGezilen++;
+toplamGezilen++;
+
+localStorage.setItem("bugunGezilen",bugunGezilen);
+localStorage.setItem("toplamGezilen",toplamGezilen);
+
+sayaclariGuncelle();
+}
+
+function dilSec(dil){
+konusmaDili = dil;
+
+document.getElementById("trBtn").classList.toggle(
+"aktif",
+dil === "tr-TR"
+);
+
+document.getElementById("enBtn").classList.toggle(
+"aktif",
+dil === "en-US"
+);
+}
+
+function sozcukBul(){
+const aranan = kucult(arama.value);
+
+oneriKutusu.style.display = "none";
+sonuc.className = "";
+
+if(!aranan){
+sonuc.textContent = "Lütfen bir sözcük yazın.";
+return;
+}
+
+sonAranan = arama.value.trim();
+gezintiSay();
+
+const bulunanlar = [];
+
+sozcukler.forEach(function(cift){
+const a = kucult(cift.A);
+const b = kucult(cift.B);
+
+if(a === aranan){
+bulunanlar.push(cift.A + " = " + cift.B);
+}
+
+if(b === aranan){
+bulunanlar.push(cift.B + " = " + cift.A);
+}
+});
+
+if(bulunanlar.length === 0){
+sonuc.className = "hata";
+sonuc.textContent =
+"Bulunamadı: " + sonAranan;
+
+oneriKutusu.style.display = "block";
+document.getElementById("oneriMetni").value = "";
+return;
+}
+
+sonuc.innerHTML = bulunanlar
+.map(function(kayit,index){
+return (index + 1) + ". " + kayit;
+})
+.join("<br>");
+}
+
+function temizle(){
+arama.value = "";
+sonuc.textContent = "";
+sonuc.className = "";
+oneriKutusu.style.display = "none";
+arama.focus();
+}
+
+function sesliSor(){
+const Tanima =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+if(!Tanima){
+sonuc.textContent =
+"Bu tarayıcı sesli soru özelliğini desteklemiyor.";
+return;
+}
+
+const tanima = new Tanima();
+tanima.lang = konusmaDili;
+tanima.interimResults = false;
+tanima.maxAlternatives = 1;
+
+sonuc.textContent = "Dinliyorum...";
+
+tanima.start();
+
+tanima.onresult = function(olay){
+arama.value =
+olay.results[0][0].transcript.trim();
+
+sozcukBul();
+};
+
+tanima.onerror = function(){
+sonuc.textContent =
+"Ses alınamadı. Lütfen yeniden deneyin.";
+};
+}
+
+function tumunuKopyala(){
+const kod =
+"<!DOCTYPE html>\n" +
+document.documentElement.outerHTML;
+
+navigator.clipboard.writeText(kod)
+.then(function(){
+sonuc.className = "";
+sonuc.textContent =
+"HTML kodunun tamamı panoya kopyalandı.";
+})
+.catch(function(){
+const alan = document.createElement("textarea");
+alan.value = kod;
+document.body.appendChild(alan);
+alan.select();
+
+try{
+document.execCommand("copy");
+sonuc.textContent =
+"HTML kodunun tamamı panoya kopyalandı.";
+}catch(hata){
+sonuc.textContent =
+"Kod otomatik kopyalanamadı.";
+}
+
+alan.remove();
+});
+}
+
+function oneriGonder(){
+const oneri =
+document.getElementById("oneriMetni").value.trim();
+
+if(!oneri){
+sonuc.textContent =
+"Lütfen bir öneri yazın.";
+return;
+}
+
+const konu =
+encodeURIComponent("Yalın Türkçe sözcük önerisi");
+
+const govde = encodeURIComponent(
+"Bulunamayan sözcük: " + sonAranan +
+"\nÖnerilen karşılık: " + oneri
+);
+
+window.location.href =
+"mailto:cemilp@gmail.com?subject=" +
+konu + "&body=" + govde;
+}
+
+arama.addEventListener("keydown",function(olay){
+if(olay.key === "Enter"){
+sozcukBul();
+}
+});
+
+sayaclariGuncelle();
+</script>
+
+</div>
+</div>
+
+<footer>
+Cemil Pakyürek — Yalın Türkçe Sözcüklük
+</footer>
+
+</body>
+</html>
+
