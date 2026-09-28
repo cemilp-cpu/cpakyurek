@@ -5,23 +5,12 @@
 <title>YABANCIYA YALIN TÜRKÇE SöZCüKLER</title>
 <style>
 body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:0;box-sizing:border-box;}
-
-/* DÜZELTİLDİ: Çerçevenin ekrana tam oturmasını sağlar ve alt başlığın taşmasını engeller */
 .kutu {
-width: 100%;
-max-width: 600px;
-min-height: calc(100vh - 20px);
-margin: 10px auto;
-border: 3px solid #000;
-border-radius: 8px;
-overflow: hidden;
-box-shadow: 0 4px 15px rgba(0,0,0,.4);
-background: #fff;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+width: 100%; max-width: 600px; min-height: calc(100vh - 20px); margin: 10px auto;
+border: 3px solid #000; border-radius: 8px; overflow: hidden;
+box-shadow: 0 4px 15px rgba(0,0,0,.4); background: #fff;
+display: flex; flex-direction: column; justify-content: space-between;
 }
-
 .k1{background:#ffcc00;color:#000;padding:12px;text-align:center;font-size:18px;font-weight:bold}
 .k2{background:#002060;color:#fff;padding:10px;text-align:center;font-size:14px}
 .k3{background:#c00000;color:#fff;padding:10px;text-align:center;font-size:13px}
@@ -29,9 +18,8 @@ justify-content: space-between;
 .sayaçlar div{flex:1;text-align:center;padding:10px 2px;border-right:1px solid #555}
 .sayaçlar div:last-child{border-right:none}
 .sayaçlar span{color:#ffcc00;font-size:20px;display:block;font-weight:bold}
-
 .ic{background:#fff;padding:20px;flex-grow:1;display:flex;flex-direction:column;justify-content:flex-start;}
-input{width:100%;padding:12px;font-size:16px;font-weight:bold;border:1px solid #000;box-sizing:border-box;text-transform:uppercase;} /* DÜZELTİLDİ: Soru alanındaki yazıyı yanıttaki gibi otomatik büyük harf yapar */
+input{width:100%;padding:12px;font-size:16px;font-weight:bold;border:1px solid #000;box-sizing:border-box;text-transform:uppercase;}
 .btns{display:flex;gap:6px;margin-top:10px}
 .btns button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
@@ -42,10 +30,13 @@ input{width:100%;padding:12px;font-size:16px;font-weight:bold;border:1px solid #
 #oneri{margin-top:12px}
 textarea{width:100%;padding:10px;box-sizing:border-box}
 
-/* DÜZELTİLDİ: Taban yazısı üst başlık niteliğine ve kalitesine (18px) kalıcı olarak yükseltildi */
 .alt{background:#ffcc00;padding:12px;text-align:center;font-size:18px;color:#000;font-weight:bold;margin-top:auto;}
 .alt.yildiz{color:#c00000;font-size:22px;margin-right:6px;cursor:pointer;vertical-align:middle;}
 .alt.yildiz:hover{text-decoration:underline}
+
+/* Anımsatıcı İç Alan Tasarımı */
+.anim-kutu {background:#fff3cd; border:2px dashed #ffc107; padding:10px; margin-top:5px; border-radius:4px;}
+.anim-btn {background:#0d7a0d; color:#fff; border:none; padding:5px 10px; font-weight:bold; cursor:pointer; margin-top:5px;}
 
 .liste-2sutun{column-count:2; column-gap:15px;}
 .liste-2sutun div{break-inside:avoid; margin-bottom:4px;}
@@ -61,8 +52,8 @@ textarea{width:100%;padding:10px;box-sizing:border-box}
 
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
-<div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
-<div>TOPLAM<br>ZİYARET<br><span id="gezmis">0</span></div>
+<div>BUGÜN<br>GEZEN<br><span id="geziyor">1</span></div>
+<div>TOPLAM<br>GEZEN<br><span id="gezmis">0</span></div> <!-- DÜZELTİLDİ: Toplam Gezen yapıldı -->
 </div>
 
 <div class="ic">
@@ -2596,22 +2587,15 @@ let aramaSayaci = 0;
 function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
 
 function baslat(){
-mapAtoB = {};
-mapBtoA = {};
+mapAtoB = {}; mapBtoA = {};
 for(let i=0; i<sozluk.length; i++){
-let a = duzenle(sozluk[i].A);
-let b = duzenle(sozluk[i].B);
-
-if(!mapAtoB[a]) mapAtoB[a] = [];
-mapAtoB[a].push({A: sozluk[i].A, B: sozluk[i].B});
-
-if(!mapBtoA[b]) mapBtoA[b] = [];
-mapBtoA[b].push({A: sozluk[i].A, B: sozluk[i].B});
+let a = duzenle(sozluk[i].A); let b = duzenle(sozluk[i].B);
+if(!mapAtoB[a]) mapAtoB[a] = []; mapAtoB[a].push({A: sozluk[i].A, B: sozluk[i].B});
+if(!mapBtoA[b]) mapBtoA[b] = []; mapBtoA[b].push({A: sozluk[i].A, B: sozluk[i].B});
 }
 document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("geziyor").innerText = 1;
 
-// Kilitlenmeyen yerel ziyaret sayacı: İnternet olmasa da asla donmaz
 let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
 ziyaretSayisi++;
 localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
@@ -2621,30 +2605,22 @@ document.getElementById("gezmis").innerText = ziyaretSayisi;
 function bul(){
 let girisKutusu = document.getElementById("ara");
 let girisDuzenli = duzenle(girisKutusu.value);
-
 let sonuclarA = mapAtoB[girisDuzenli];
 let sonuclarB = mapBtoA[girisDuzenli];
 
 if(sonuclarA || sonuclarB){
 let listeHTML = "";
 let eslesmeler = sonuclarA || sonuclarB;
-
-// DÜZELTİLDİ: Soru alanındaki ham yazıyı yanıt alanındaki gibi büyük ve temiz niteliğe eşitler
 let hamBaslik = sonuclarA ? eslesmeler[0].A : eslesmeler[0].B;
 girisKutusu.value = hamBaslik.toUpperCase();
 
-// Çoklu yanıtların sıra numarasıyla listelenmesi kurgusu
 if(eslesmeler.length > 1) {
 if(sonuclarA) {
 listeHTML += `<b>YABAN:</b> ${eslesmeler[0].A.toUpperCase()}<br><b>YALIN KARŞILIKLAR:</b><br>`;
-for(let i=0; i<eslesmeler.length; i++) {
-listeHTML += `${i+1}. ${eslesmeler[i].B.toUpperCase()}<br>`;
-}
+for(let i=0; i<eslesmeler.length; i++) { listeHTML += `${i+1}. ${eslesmeler[i].B.toUpperCase()}<br>`; }
 } else {
 listeHTML += `<b>YALIN:</b> ${eslesmeler[0].B.toUpperCase()}<br><b>YABAN KARŞILIKLAR:</b><br>`;
-for(let i=0; i<eslesmeler.length; i++) {
-listeHTML += `${i+1}. ${eslesmeler[i].A.toUpperCase()}<br>`;
-}
+for(let i=0; i<eslesmeler.length; i++) { listeHTML += `${i+1}. ${eslesmeler[i].A.toUpperCase()}<br>`; }
 }
 } else {
 if(sonuclarA){
@@ -2657,31 +2633,39 @@ listeHTML = `<b>YALIN:</b> ${eslesmeler[0].B.toUpperCase()}<br><b>YABAN:</b> ${e
 document.getElementById("sonuc").innerHTML = listeHTML;
 aramaSayaci++;
 
-// İnternet bağımsız kesin anımsatıcı tetikleyici (Her 10 aramada bir)
+// Tarayıcı engeline takılmayan yeni iç alan anımsatıcı tetikleyicisi
 if(aramaSayaci % 10 === 0){
-setTimeout(costurucuDusunmeSorisi, 1200);
+setTimeout(costurucuDusunmeSorisi, 1000);
 }
 } else {
 document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
 }
 }
 
+/* DÜZELTİLDİ: Tarayıcı engelini aşan, sonuç kutusunun içinde açılan güvenli anımsatıcı */
 function costurucuDusunmeSorisi() {
 let rastgeleIndis = Math.floor(Math.random() * sozluk.length);
 let oge = sozluk[rastgeleIndis];
 
-let mesaj = `★ SÖZCÜKLÜK DÜŞÜNCE VE COŞKULAMA ALANI ★\n\n` +
-`Yabancı Sözcük: "${oge.A.toUpperCase()}"\n` +
-`Sözcüklük Önerisi: "${oge.B.toUpperCase()}"\n\n` +
-`Bu yabancı sözcük için Sizin başka bir Türkçe öneriniz var mı?\n\n` +
-`Varsa buraya yazarak bizimle paylaşın:`;
+let icerik = document.getElementById("sonuc").innerHTML;
+let sorunHTML = `<div class="anim-kutu">` +
+`<span style="color:#c00000;">★ ANIMSATICI SORU ★</span><br>` +
+`YABANCI: "${oge.A.toUpperCase()}" | ÖNERİ: "${oge.B.toUpperCase()}"<br>` +
+`BU SÖZCÜK İÇİN SİZİN BAŞKA BİR ÖNERİNİZ VAR MI?<br>` +
+`<input type="text" id="animCevap" placeholder="Varsa buraya yazın..." style="margin-top:5px; padding:6px; font-size:14px;"><br>` +
+`<button class="anim-btn" onclick="animKatkiGonder('${oge.A.toUpperCase()}')">GÖRÜŞÜ İLET</button>` +
+`</div>`;
 
-let kullaniciKatkisi = prompt(mesaj);
+document.getElementById("sonuc").innerHTML = icerik + sorunHTML;
+}
 
-if (kullaniciKatkisi !== null && kullaniciKatkisi.trim() !== "") {
-document.getElementById("ara").value = oge.A.toUpperCase();
-document.getElementById("oneriMetin").value = kullaniciKatkisi;
+function animKatkiGonder(yabanSözcuk) {
+let katki = document.getElementById("animCevap").value;
+if(katki.trim() !== "") {
+document.getElementById("ara").value = yabanSözcuk;
+document.getElementById("oneriMetin").value = katki;
 document.getElementById("oneri").style.display = "block";
+document.getElementById("sonuc").innerHTML = "ÖNERİNİZ AŞAĞIDAKİ ALANA AKTARILDI. MAIL ILE GONDER DÜĞMESİNE BASABİLİRSİNİZ.";
 }
 }
 
@@ -2692,15 +2676,11 @@ function onerGonder(){let yaban = document.getElementById("ara").value; let yali
 
 function tumunuListele(){
 let liste = `<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`;
-for(let i=0; i<sozluk.length; i++){
-liste += `<div>${i+1}. ${sozluk[i].A.toUpperCase()} = ${sozluk[i].B.toUpperCase()}</div>`;
-}
-liste += `</div>`;
-document.getElementById("sonuc").innerHTML = liste;
+for(let i=0; i<sozluk.length; i++){ liste += `<div>${i+1}. ${sozluk[i].A.toUpperCase()} = ${sozluk[i].B.toUpperCase()}</div>`; }
+liste += `</div>`; document.getElementById("sonuc").innerHTML = liste;
 }
 
 baslat();
 </script>
 </body>
 </html>
-
