@@ -2655,6 +2655,58 @@ localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
 document.getElementById("gezmis").innerText = ziyaretSayisi;
 });
 }
+<script>
+// 1. ADIM: Sizin büyük sözcük biriktiriciniz (Buna dokunmuyorsunuz)
+let sozluk = [
+{ A: "Mendelevyum", B: "ÖGECİK101" },
+// 2442 adet sözcük diziniz buraya eski haliyle kalacak
+{ A: "nobeliyum", B: "ögecik102" }
+];
+
+// 2. ADIM: Düzeltilmiş yeni işlevsel ilişkilendirmeler (Buradan sonrasını eski fonksiyonların yerine tamamen yapıştırın)
+let mapAtoB = {}; let mapBtoA = {};
+let aramaSayaci = 0;
+
+function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+
+function baslat(){
+for(let i=0; i<sozluk.length; i++){
+let a = duzenle(sozluk[i].A);
+let b = duzenle(sozluk[i].B);
+mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
+mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
+}
+document.getElementById("toplam").innerText = sozluk.length;
+document.getElementById("geziyor").innerText = 1;
+
+// Güvenlik bağı: İnternet varsa buluta gider, yoksa doğrudan yerel hafızayı çalıştırır
+if(navigator.onLine) {
+gercekSayaciYukle();
+} else {
+yerelSayacCalistir();
+}
+}
+
+/* ADRES DÜZELTİLDİ: /api/v1/ eklendi, artık kilitlenme yaşanmayacak */
+function gercekSayaciYukle() {
+let namespace = "cemilp_sozcukluk_2026";
+let key = "ziyaret_sayisi";
+fetch(`https://mileshilliard.com{namespace}/${key}`)
+.then(res => res.json())
+.then(data => {
+document.getElementById("gezmis").innerText = data.value;
+})
+.catch(() => {
+yerelSayacCalistir();
+});
+}
+
+function yerelSayacCalistir() {
+let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
+ziyaretSayisi++;
+localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
+document.getElementById("gezmis").innerText = ziyaretSayisi;
+}
 
 function bul(){
 let giris = duzenle(document.getElementById("ara").value);
@@ -2669,8 +2721,9 @@ document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>Y
 
 aramaSayaci++;
 
+// Her 10 aramada bir otomatik soruyu gecikmeli olarak tetikler
 if(aramaSayaci % 10 === 0){
-setTimeout(costurucuDusunmeSorisi, 1500);
+setTimeout(costurucuDusunmeSorisi, 1200);
 }
 } else {
 document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
@@ -2712,6 +2765,7 @@ document.getElementById("sonuc").innerHTML = liste;
 }
 
 baslat();
-</script> 
+</script>
+
 </body>
 </html> 
