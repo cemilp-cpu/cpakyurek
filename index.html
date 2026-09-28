@@ -2724,20 +2724,51 @@ localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
 document.getElementById("gezmis").innerText = ziyaretSayisi;
 }
 
+/* DÜZELTİLDİ: Arama alanındaki yazı, BUL eylemiyle birlikte yanıt alanındaki düzgün ve büyük harf niteliğine dönüştürülür */
 function bul(){
-let giris = duzenle(document.getElementById("ara").value);
-let bulundu = mapAtoB[giris] || mapBtoA[giris];
+let girisKutusu = document.getElementById("ara");
+let girisDuzenli = duzenle(girisKutusu.value);
 
-if(bulundu){
-if(mapAtoB[giris]){
-document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
+let sonuclarA = mapAtoB[girisDuzenli];
+let sonuclarB = mapBtoA[girisDuzenli];
+
+if(sonuclarA || sonuclarB){
+let listeHTML = "";
+let eslesmeler = sonuclarA || sonuclarB;
+
+// Çoklu yanıt durumu varsa sıra numaralı dizi yapar
+if(eslesmeler.length > 1) {
+// Arama alanındaki yazıyı yanıt alanındaki gibi büyük ve düzgün niteliğe dönüştürüyoruz
+girisKutusu.value = sonuclarA ? eslesmeler[0].A.toUpperCase() : eslesmeler[0].B.toUpperCase();
+
+if(sonuclarA) {
+listeHTML += `<b>YABAN:</b> ${eslesmeler[0].A}<br><b>YALIN KARŞILIKLAR:</b><br>`;
+for(let i=0; i<eslesmeler.length; i++) {
+listeHTML += `${i+1}. ${eslesmeler[i].B}<br>`;
+}
 } else {
-document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
+listeHTML += `<b>YALIN:</b> ${eslesmeler[0].B}<br><b>YABAN KARŞILIKLAR:</b><br>`;
+for(let i=0; i<eslesmeler.length; i++) {
+listeHTML += `${i+1}. ${eslesmeler[i].A}<br>`;
+}
+}
+} else {
+// TEKLİ SONUÇ: Arama kutusundaki yazıyı bulununca yanıt alanındaki büyük/düzgün harf niteliğiyle eşitliyoruz
+if(sonuclarA){
+girisKutusu.value = eslesmeler[0].A.toUpperCase(); // Arama kutusunu büyük harf yapar
+listeHTML = `<b>YABAN:</b> ${eslesmeler[0].A}<br><b>YALIN:</b> ${eslesmeler[0].B}`;
+} else {
+girisKutusu.value = eslesmeler[0].B.toUpperCase(); // Arama kutusunu büyük harf yapar
+listeHTML = `<b>YALIN:</b> ${eslesmeler[0].B}<br><b>YABAN:</b> ${eslesmeler[0].A}`;
+}
 }
 
+document.getElementById("sonuc").innerHTML = listeHTML;
+
+// Arama sayacı artık sorunsuz ilerler ve kilitlenmez
 aramaSayaci++;
 
-// Her 10 aramada bir otomatik soruyu gecikmeli olarak tetikler
+// 10 aramada bir anımsatıcı soru kendiliğinden açılır
 if(aramaSayaci % 10 === 0){
 setTimeout(costurucuDusunmeSorisi, 1200);
 }
@@ -2745,6 +2776,7 @@ setTimeout(costurucuDusunmeSorisi, 1200);
 document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
 }
 }
+
 
 function costurucuDusunmeSorisi() {
 let rastgeleIndis = Math.floor(Math.random() * sozluk.length);
