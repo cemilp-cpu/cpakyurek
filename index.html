@@ -6,7 +6,7 @@
 <style>
 body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:0;box-sizing:border-box;}
 
-/* DÜZELTİLDİ: Tasarımın aşırı yayılmasını önler, ekrana tam sığdırır ve alt başlığın taşmasını engeller */
+/* DÜZELTİLDİ: Çerçevenin ekrana tam oturmasını sağlar ve alt başlığın taşmasını engeller */
 .kutu {
 width: 100%;
 max-width: 600px;
@@ -31,18 +31,20 @@ justify-content: space-between;
 .sayaçlar span{color:#ffcc00;font-size:20px;display:block;font-weight:bold}
 
 .ic{background:#fff;padding:20px;flex-grow:1;display:flex;flex-direction:column;justify-content:flex-start;}
-input{width:100%;padding:12px;font-size:16px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
+input{width:100%;padding:12px;font-size:16px;font-weight:bold;border:1px solid #000;box-sizing:border-box;text-transform:uppercase;} /* DÜZELTİLDİ: Soru alanındaki yazıyı yanıttaki gibi otomatik büyük harf yapar */
 .btns{display:flex;gap:6px;margin-top:10px}
 .btns button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
+
 #sonuc{margin-top:12px;padding:12px;background:#f2f2f2;min-height:60px;border:1px solid #ccc;font-weight:bold;font-size:15px;color:#000;text-transform:uppercase;max-height:300px;overflow-y:auto;line-height:1.6}
 #sonuc b{font-size:19px;color:#c00000}
 .bulunamadi{color:#b30000!important}
 #oneri{margin-top:12px}
 textarea{width:100%;padding:10px;box-sizing:border-box}
 
-.alt{background:#ffcc00;padding:12px;text-align:center;font-size:12px;color:#000;font-weight:bold;margin-top:auto;}
-.alt.yildiz{color:#c00000;font-size:15px;margin-right:4px;cursor:pointer}
+/* DÜZELTİLDİ: Taban yazısı üst başlık niteliğine ve kalitesine (18px) kalıcı olarak yükseltildi */
+.alt{background:#ffcc00;padding:12px;text-align:center;font-size:18px;color:#000;font-weight:bold;margin-top:auto;}
+.alt.yildiz{color:#c00000;font-size:22px;margin-right:6px;cursor:pointer;vertical-align:middle;}
 .alt.yildiz:hover{text-decoration:underline}
 
 .liste-2sutun{column-count:2; column-gap:15px;}
@@ -60,11 +62,11 @@ textarea{width:100%;padding:10px;box-sizing:border-box}
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
 <div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
-<div>TOPLAM<br>ZİYARET<br><span id="gezmis">Yükleniyor...</span></div>
+<div>TOPLAM<br>ZİYARET<br><span id="gezmis">0</span></div>
 </div>
 
 <div class="ic">
-<input type="text" id="ara" placeholder="ornek: atom veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
+<input type="text" id="ara" placeholder="ORNEK: ATOM VEYA OGECIK79" onkeypress="if(event.key=='Enter') bul()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
 <button class="baska" onclick="baska()">BASKA SOZCUK</button>
@@ -85,7 +87,7 @@ Bulamadiklarinizi onerin. oneriniz yoneticiye gidecek. cemilp@gmail.com
 </div>
 </div>
 
-<script> 
+<script>
 let sozluk = [
  
 { A: "Mendelevyum", B: "ÖGECİK101" },
@@ -2589,142 +2591,33 @@ let sozluk = [
  
 ];
 let mapAtoB = {}; let mapBtoA = {};
-function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-function baslat(){
-for(let i=0; i<sozluk.length; i++){
-let a = duzenle(sozluk[i].A);
-let b = duzenle(sozluk[i].B);
-mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
-mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
-}
-document.getElementById("toplam").innerText = sozluk.length;
-document.getElementById("geziyor").innerText = 1;
-
-// Bilgi işler ağı varsa bulut sayacını yükler, yoksa doğrudan yerel hafızaya geçer
-if(navigator.onLine) {
-gercekSayaciYukle();
-} else {
-let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
-ziyaretSayisi++;
-localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
-document.getElementById("gezmis").innerText = ziyaretSayisi;
-}
-}
-
-
-
-function bul(){let giris = duzenle(document.getElementById("ara").value); let bulundu = mapAtoB[giris] || mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;} else {document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}} else {document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;}}
-function baska(){document.getElementById("ara").value = ""; document.getElementById("sonuc").innerHTML = ""; document.getElementById("oneri").style.display = "none"; document.getElementById("ara").focus();}
-function sil(){document.getElementById("ara").value = ""; document.getElementById("ara").focus();}
-function oner(){document.getElementById("oneri").style.display = "block";}
-function onerGonder(){let yaban = document.getElementById("ara").value; let yalin = document.getElementById("oneriMetin").value; window.location.href = `mailto:cemilp@://gmail.com Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
-
-function tumunuListele(){
-let liste = `<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`;
-for(let i=0; i<sozluk.length; i++){
-liste += `<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;
-}
-liste += `</div>`;
-document.getElementById("sonuc").innerHTML = liste;
-}
-
-baslat();
-</script>
-<script>
-// 1. ADIM: Sizin büyük sözcük biriktiriciniz (Buna hiç dokunmuyorsunuz)
-let sozluk = [
-{ A: "Mendelevyum", B: "ÖGECİK101" },
-...
-{ A: "nobeliyum", B: "ögecik102" }
-];
-
-// 2. ADIM: Yeni eklenen işlevsel ilişkilendirmeler (Buradan sonrasını aynen yapıştırıyorsunuz)
-let mapAtoB = {}; let mapBtoA = {};
 let aramaSayaci = 0;
 
 function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
 
 function baslat(){
+mapAtoB = {};
+mapBtoA = {};
 for(let i=0; i<sozluk.length; i++){
 let a = duzenle(sozluk[i].A);
 let b = duzenle(sozluk[i].B);
-mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
-mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
-}
-document.getElementById("toplam").innerText = sozluk.length;
-document.getElementById("geziyor").innerText = 1;
-gercekSayaciYukle();
-}
 
-function gercekSayaciYukle() {
-let namespace = "cemilp_sozcukluk_2026";
-let key = "ziyaret_sayisi";
-fetch(`https://mileshilliard.com{namespace}/${key}`)
-.then(res => res.json())
-.then(data => {
-document.getElementById("gezmis").innerText = data.value;
-})
-.catch(() => {
-let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
-ziyaretSayisi++;
-localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
-document.getElementById("gezmis").innerText = ziyaretSayisi;
-});
-}
-<script>
-// 1. ADIM: Sizin büyük sözcük biriktiriciniz (Buna dokunmuyorsunuz)
-let sozluk = [
-{ A: "Mendelevyum", B: "ÖGECİK101" },
-// 2442 adet sözcük diziniz buraya eski haliyle kalacak
-{ A: "nobeliyum", B: "ögecik102" }
-];
+if(!mapAtoB[a]) mapAtoB[a] = [];
+mapAtoB[a].push({A: sozluk[i].A, B: sozluk[i].B});
 
-// 2. ADIM: Düzeltilmiş yeni işlevsel ilişkilendirmeler (Buradan sonrasını eski fonksiyonların yerine tamamen yapıştırın)
-let mapAtoB = {}; let mapBtoA = {};
-let aramaSayaci = 0;
-
-function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-
-function baslat(){
-for(let i=0; i<sozluk.length; i++){
-let a = duzenle(sozluk[i].A);
-let b = duzenle(sozluk[i].B);
-mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
-mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
+if(!mapBtoA[b]) mapBtoA[b] = [];
+mapBtoA[b].push({A: sozluk[i].A, B: sozluk[i].B});
 }
 document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("geziyor").innerText = 1;
 
-// Güvenlik bağı: İnternet varsa buluta gider, yoksa doğrudan yerel hafızayı çalıştırır
-if(navigator.onLine) {
-gercekSayaciYukle();
-} else {
-yerelSayacCalistir();
-}
-}
-
-/* ADRES DÜZELTİLDİ: /api/v1/ eklendi, artık kilitlenme yaşanmayacak */
-function gercekSayaciYukle() {
-let namespace = "cemilp_sozcukluk_2026";
-let key = "ziyaret_sayisi";
-fetch(`https://mileshilliard.com{namespace}/${key}`)
-.then(res => res.json())
-.then(data => {
-document.getElementById("gezmis").innerText = data.value;
-})
-.catch(() => {
-yerelSayacCalistir();
-});
-}
-
-function yerelSayacCalistir() {
+// Kilitlenmeyen yerel ziyaret sayacı: İnternet olmasa da asla donmaz
 let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
 ziyaretSayisi++;
 localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
 document.getElementById("gezmis").innerText = ziyaretSayisi;
 }
 
-/* DÜZELTİLDİ: Arama alanındaki yazı, BUL eylemiyle birlikte yanıt alanındaki düzgün ve büyük harf niteliğine dönüştürülür */
 function bul(){
 let girisKutusu = document.getElementById("ara");
 let girisDuzenli = duzenle(girisKutusu.value);
@@ -2736,39 +2629,35 @@ if(sonuclarA || sonuclarB){
 let listeHTML = "";
 let eslesmeler = sonuclarA || sonuclarB;
 
-// Çoklu yanıt durumu varsa sıra numaralı dizi yapar
-if(eslesmeler.length > 1) {
-// Arama alanındaki yazıyı yanıt alanındaki gibi büyük ve düzgün niteliğe dönüştürüyoruz
-girisKutusu.value = sonuclarA ? eslesmeler[0].A.toUpperCase() : eslesmeler[0].B.toUpperCase();
+// DÜZELTİLDİ: Soru alanındaki ham yazıyı yanıt alanındaki gibi büyük ve temiz niteliğe eşitler
+let hamBaslik = sonuclarA ? eslesmeler[0].A : eslesmeler[0].B;
+girisKutusu.value = hamBaslik.toUpperCase();
 
+// Çoklu yanıtların sıra numarasıyla listelenmesi kurgusu
+if(eslesmeler.length > 1) {
 if(sonuclarA) {
-listeHTML += `<b>YABAN:</b> ${eslesmeler[0].A}<br><b>YALIN KARŞILIKLAR:</b><br>`;
+listeHTML += `<b>YABAN:</b> ${eslesmeler[0].A.toUpperCase()}<br><b>YALIN KARŞILIKLAR:</b><br>`;
 for(let i=0; i<eslesmeler.length; i++) {
-listeHTML += `${i+1}. ${eslesmeler[i].B}<br>`;
+listeHTML += `${i+1}. ${eslesmeler[i].B.toUpperCase()}<br>`;
 }
 } else {
-listeHTML += `<b>YALIN:</b> ${eslesmeler[0].B}<br><b>YABAN KARŞILIKLAR:</b><br>`;
+listeHTML += `<b>YALIN:</b> ${eslesmeler[0].B.toUpperCase()}<br><b>YABAN KARŞILIKLAR:</b><br>`;
 for(let i=0; i<eslesmeler.length; i++) {
-listeHTML += `${i+1}. ${eslesmeler[i].A}<br>`;
+listeHTML += `${i+1}. ${eslesmeler[i].A.toUpperCase()}<br>`;
 }
 }
 } else {
-// TEKLİ SONUÇ: Arama kutusundaki yazıyı bulununca yanıt alanındaki büyük/düzgün harf niteliğiyle eşitliyoruz
 if(sonuclarA){
-girisKutusu.value = eslesmeler[0].A.toUpperCase(); // Arama kutusunu büyük harf yapar
-listeHTML = `<b>YABAN:</b> ${eslesmeler[0].A}<br><b>YALIN:</b> ${eslesmeler[0].B}`;
+listeHTML = `<b>YABAN:</b> ${eslesmeler[0].A.toUpperCase()}<br><b>YALIN:</b> ${eslesmeler[0].B.toUpperCase()}`;
 } else {
-girisKutusu.value = eslesmeler[0].B.toUpperCase(); // Arama kutusunu büyük harf yapar
-listeHTML = `<b>YALIN:</b> ${eslesmeler[0].B}<br><b>YABAN:</b> ${eslesmeler[0].A}`;
+listeHTML = `<b>YALIN:</b> ${eslesmeler[0].B.toUpperCase()}<br><b>YABAN:</b> ${eslesmeler[0].A.toUpperCase()}`;
 }
 }
 
 document.getElementById("sonuc").innerHTML = listeHTML;
-
-// Arama sayacı artık sorunsuz ilerler ve kilitlenmez
 aramaSayaci++;
 
-// 10 aramada bir anımsatıcı soru kendiliğinden açılır
+// İnternet bağımsız kesin anımsatıcı tetikleyici (Her 10 aramada bir)
 if(aramaSayaci % 10 === 0){
 setTimeout(costurucuDusunmeSorisi, 1200);
 }
@@ -2777,24 +2666,22 @@ document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMAD
 }
 }
 
-
 function costurucuDusunmeSorisi() {
 let rastgeleIndis = Math.floor(Math.random() * sozluk.length);
 let oge = sozluk[rastgeleIndis];
 
 let mesaj = `★ SÖZCÜKLÜK DÜŞÜNCE VE COŞKULAMA ALANI ★\n\n` +
-`Yabancı Sözcük: "${oge.A}"\n` +
-`Sözcüklük Önerisi: "${oge.B}"\n\n` +
+`Yabancı Sözcük: "${oge.A.toUpperCase()}"\n` +
+`Sözcüklük Önerisi: "${oge.B.toUpperCase()}"\n\n` +
 `Bu yabancı sözcük için Sizin başka bir Türkçe öneriniz var mı?\n\n` +
 `Varsa buraya yazarak bizimle paylaşın:`;
 
 let kullaniciKatkisi = prompt(mesaj);
 
 if (kullaniciKatkisi !== null && kullaniciKatkisi.trim() !== "") {
-document.getElementById("ara").value = oge.A;
+document.getElementById("ara").value = oge.A.toUpperCase();
 document.getElementById("oneriMetin").value = kullaniciKatkisi;
 document.getElementById("oneri").style.display = "block";
-alert("Farklı düşünceniz için teşekkürler! Önerinizi doğrudan iletmek için aşağıdaki 'MAIL ILE GONDER' düğmesini kullanabilirsiniz.");
 }
 }
 
@@ -2806,7 +2693,7 @@ function onerGonder(){let yaban = document.getElementById("ara").value; let yali
 function tumunuListele(){
 let liste = `<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`;
 for(let i=0; i<sozluk.length; i++){
-liste += `<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;
+liste += `<div>${i+1}. ${sozluk[i].A.toUpperCase()} = ${sozluk[i].B.toUpperCase()}</div>`;
 }
 liste += `</div>`;
 document.getElementById("sonuc").innerHTML = liste;
@@ -2814,6 +2701,6 @@ document.getElementById("sonuc").innerHTML = liste;
 
 baslat();
 </script>
-
 </body>
-</html> 
+</html>
+
