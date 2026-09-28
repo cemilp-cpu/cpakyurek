@@ -2574,7 +2574,6 @@ let sozluk = [
 ];
 let mapAtoB = {}; let mapBtoA = {};
 function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-
 function baslat(){
 for(let i=0; i<sozluk.length; i++){
 let a = duzenle(sozluk[i].A);
@@ -2584,24 +2583,19 @@ mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
 }
 document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("geziyor").innerText = 1;
-gercekSayaciYukle();
-}
 
-function gercekSayaciYukle() {
-let namespace = "cemilp_sozcukluk_2026";
-let key = "ziyaret_sayisi";
-fetch(`https://mileshilliard.com{namespace}/${key}`)
-.then(res => res.json())
-.then(data => {
-document.getElementById("gezmis").innerText = data.value;
-})
-.catch(() => {
+// Bilgi işler ağı varsa bulut sayacını yükler, yoksa doğrudan yerel hafızaya geçer
+if(navigator.onLine) {
+gercekSayaciYukle();
+} else {
 let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
 ziyaretSayisi++;
 localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
 document.getElementById("gezmis").innerText = ziyaretSayisi;
-});
 }
+}
+
+
 
 function bul(){let giris = duzenle(document.getElementById("ara").value); let bulundu = mapAtoB[giris] || mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;} else {document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}} else {document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;}}
 function baska(){document.getElementById("ara").value = ""; document.getElementById("sonuc").innerHTML = ""; document.getElementById("oneri").style.display = "none"; document.getElementById("ara").focus();}
