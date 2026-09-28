@@ -2620,5 +2620,104 @@ document.getElementById("sonuc").innerHTML = liste;
 
 baslat();
 </script>
+<script>
+// 1. ADIM: Sizin büyük sözcük biriktiriciniz (Buna hiç dokunmuyorsunuz)
+let sozluk = [
+{ A: "Mendelevyum", B: "ÖGECİK101" },
+...
+{ A: "nobeliyum", B: "ögecik102" }
+];
+
+// 2. ADIM: Yeni eklenen işlevsel ilişkilendirmeler (Buradan sonrasını aynen yapıştırıyorsunuz)
+let mapAtoB = {}; let mapBtoA = {};
+let aramaSayaci = 0;
+
+function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+
+function baslat(){
+for(let i=0; i<sozluk.length; i++){
+let a = duzenle(sozluk[i].A);
+let b = duzenle(sozluk[i].B);
+mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
+mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
+}
+document.getElementById("toplam").innerText = sozluk.length;
+document.getElementById("geziyor").innerText = 1;
+gercekSayaciYukle();
+}
+
+function gercekSayaciYukle() {
+let namespace = "cemilp_sozcukluk_2026";
+let key = "ziyaret_sayisi";
+fetch(`https://mileshilliard.com{namespace}/${key}`)
+.then(res => res.json())
+.then(data => {
+document.getElementById("gezmis").innerText = data.value;
+})
+.catch(() => {
+let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
+ziyaretSayisi++;
+localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
+document.getElementById("gezmis").innerText = ziyaretSayisi;
+});
+}
+
+function bul(){
+let giris = duzenle(document.getElementById("ara").value);
+let bulundu = mapAtoB[giris] || mapBtoA[giris];
+
+if(bulundu){
+if(mapAtoB[giris]){
+document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
+} else {
+document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
+}
+
+aramaSayaci++;
+
+if(aramaSayaci % 10 === 0){
+setTimeout(costurucuDusunmeSorisi, 1500);
+}
+} else {
+document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
+}
+}
+
+function costurucuDusunmeSorisi() {
+let rastgeleIndis = Math.floor(Math.random() * sozluk.length);
+let oge = sozluk[rastgeleIndis];
+
+let mesaj = `★ SÖZCÜKLÜK DÜŞÜNCE VE COŞKULAMA ALANI ★\n\n` +
+`Yabancı Sözcük: "${oge.A}"\n` +
+`Sözcüklük Önerisi: "${oge.B}"\n\n` +
+`Bu yabancı sözcük için Sizin başka bir Türkçe öneriniz var mı?\n\n` +
+`Varsa buraya yazarak bizimle paylaşın:`;
+
+let kullaniciKatkisi = prompt(mesaj);
+
+if (kullaniciKatkisi !== null && kullaniciKatkisi.trim() !== "") {
+document.getElementById("ara").value = oge.A;
+document.getElementById("oneriMetin").value = kullaniciKatkisi;
+document.getElementById("oneri").style.display = "block";
+alert("Farklı düşünceniz için teşekkürler! Önerinizi doğrudan iletmek için aşağıdaki 'MAIL ILE GONDER' düğmesini kullanabilirsiniz.");
+}
+}
+
+function baska(){document.getElementById("ara").value = ""; document.getElementById("sonuc").innerHTML = ""; document.getElementById("oneri").style.display = "none"; document.getElementById("ara").focus();}
+function sil(){document.getElementById("ara").value = ""; document.getElementById("ara").focus();}
+function oner(){document.getElementById("oneri").style.display = "block";}
+function onerGonder(){let yaban = document.getElementById("ara").value; let yalin = document.getElementById("oneriMetin").value; window.location.href = `mailto:cemilp@://gmail.com Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
+
+function tumunuListele(){
+let liste = `<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`;
+for(let i=0; i<sozluk.length; i++){
+liste += `<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;
+}
+liste += `</div>`;
+document.getElementById("sonuc").innerHTML = liste;
+}
+
+baslat();
+</script> 
 </body>
 </html> 
