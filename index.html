@@ -7,7 +7,7 @@
 body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:0;box-sizing:border-box;}
 .kutu{width:100%;max-width:600px;min-height:calc(100vh - 20px);margin:10px auto;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4);background:#fff;display:flex;flex-direction:column;justify-content:space-between;}
 
-/* 3 KUŞAK - İSTEDİĞİN RENKLER */
+/* 3 KUŞAK - KIRMIZI / MAVİ / KAHVE KOYU - BOLD */
 .k1{background:#c00000;color:#fff;padding:14px;text-align:center;font-size:20px;font-weight:bold}
 .k2{background:#002060;color:#fff;padding:12px;text-align:center;font-size:16px;font-weight:bold}
 .k3{background:#5D4037;color:#ffeb38;padding:12px;text-align:center;font-size:16px;font-weight:bold}
@@ -18,13 +18,10 @@ body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;al
 .sayaçlar span{color:#ffcc00;font-size:22px;display:block;font-weight:bold}
 
 .ic{background:#fff;padding:20px;flex-grow:1;display:flex;flex-direction:column;justify-content:flex-start;}
-/* SORU ALANI BÜYÜTÜLDÜ */
-input{width:100%;padding:14px;font-size:18px;font-weight:bold;border:2px solid #000;box-sizing:border-box}
+input{width:100%;padding:14px;font-size:18px;font-weight:bold;border:2px solid #000;box-sizing:border-box;text-transform:none}
 .btns{display:flex;gap:6px;margin-top:10px}
 .btns button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
-
-/* YANIT ALANI BÜYÜTÜLDÜ VE KALINLAŞTIRILDI */
 #sonuc{margin-top:12px;padding:14px;background:#f2f2f2;min-height:80px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;text-transform:uppercase;max-height:300px;overflow-y:auto;line-height:1.7}
 #sonuc b{font-size:20px;color:#c00000}
 .bulunamadi{color:#b30000!important}
@@ -32,7 +29,6 @@ input{width:100%;padding:14px;font-size:18px;font-weight:bold;border:2px solid #
 textarea{width:100%;padding:10px;box-sizing:border-box;font-size:16px;font-weight:bold}
 .alt{background:#ffcc00;padding:12px;text-align:center;font-size:12px;color:#000;font-weight:bold;margin-top:auto;}
 .alt.yildiz{color:#c00000;font-size:16px;margin-right:4px;cursor:pointer}
-.alt.yildiz:hover{text-decoration:underline}
 .liste-2sutun{column-count:2; column-gap:15px;}
 .liste-2sutun div{break-inside:avoid; margin-bottom:4px;}
 </style>
@@ -43,11 +39,13 @@ textarea{width:100%;padding:10px;box-sizing:border-box;font-size:16px;font-weigh
 <div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.<br>Önerilen yalın türkçe sözcükler sunulur.</div>
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR</div>
+
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
 <div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
-<div>TOPLAM<br>ZİYARET<br><span id="gezmis">...</span></div>
+<div>TOPLAM<br>GEÇEN<br><span id="gezmis">...</span></div>
 </div>
+
 <div class="ic">
 <input type="text" id="ara" placeholder="örnek: atom veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
 <div class="btns">
@@ -2594,7 +2592,6 @@ let sozluk = [
 ];
 let mapAtoB = {}; let mapBtoA = {};
 function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-
 function baslat(){
 for(let i=0;i<sozluk.length;i++){
 let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
@@ -2607,9 +2604,10 @@ gercekSayaciYukle();
 }
 
 function gercekSayaciYukle(){
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-sozcukluk-2026/toplam-ziyaret')
+fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu.github.io-cpakuyurek-toplam-gecen')
 .then(r=>r.json()).then(d=>{
-document.getElementById("gezmis").innerText = d.count;
+let sayi = d.count!== undefined? d.count : d.value;
+document.getElementById("gezmis").innerText = sayi;
 }).catch(()=>{
 let s=parseInt(localStorage.getItem("ziyaretSayisi"))||0; s++;
 localStorage.setItem("ziyaretSayisi",s);
@@ -2623,7 +2621,6 @@ function sil(){document.getElementById("ara").value=""; document.getElementById(
 function oner(){document.getElementById("oneri").style.display="block";}
 function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@gmail.com?subject=Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
 function tumunuListele(){let liste=`<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`; for(let i=0;i<sozluk.length;i++){liste+=`<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;} liste+=`</div>`; document.getElementById("sonuc").innerHTML=liste;}
-
 baslat();
 </script>
 </body>
