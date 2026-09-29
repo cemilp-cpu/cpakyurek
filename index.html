@@ -6,23 +6,19 @@
 <style>
 body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:0;box-sizing:border-box;}
 .kutu{width:100%;max-width:600px;min-height:calc(100vh - 20px);margin:10px auto;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4);background:#fff;display:flex;flex-direction:column;justify-content:space-between;}
-
-/* 3 KUŞAK - KIRMIZI / MAVİ / KAHVE KOYU - BOLD */
 .k1{background:#c00000;color:#fff;padding:14px;text-align:center;font-size:20px;font-weight:bold}
 .k2{background:#002060;color:#fff;padding:12px;text-align:center;font-size:16px;font-weight:bold}
 .k3{background:#5D4037;color:#ffeb38;padding:12px;text-align:center;font-size:16px;font-weight:bold}
-
 .sayaçlar{display:flex;background:#333;color:#fff;font-size:12px;font-weight:bold}
 .sayaçlar div{flex:1;text-align:center;padding:10px 2px;border-right:1px solid #555}
 .sayaçlar div:last-child{border-right:none}
 .sayaçlar span{color:#ffcc00;font-size:22px;display:block;font-weight:bold}
-
 .ic{background:#fff;padding:20px;flex-grow:1;display:flex;flex-direction:column;justify-content:flex-start;}
-input{width:100%;padding:14px;font-size:18px;font-weight:bold;border:2px solid #000;box-sizing:border-box;text-transform:none}
+input{width:100%;padding:14px;font-size:20px;font-weight:bold;border:2px solid #000;box-sizing:border-box;text-transform:none}
 .btns{display:flex;gap:6px;margin-top:10px}
 .btns button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
-#sonuc{margin-top:12px;padding:14px;background:#f2f2f2;min-height:80px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;text-transform:uppercase;max-height:300px;overflow-y:auto;line-height:1.7}
+#sonuc{margin-top:12px;padding:14px;background:#f2f2f2;min-height:80px;border:1px solid #ccc;font-weight:bold;font-size:20px;color:#000;text-transform:uppercase;max-height:300px;overflow-y:auto;line-height:1.7}
 #sonuc b{font-size:20px;color:#c00000}
 .bulunamadi{color:#b30000!important}
 #oneri{margin-top:12px}
@@ -42,8 +38,8 @@ textarea{width:100%;padding:10px;box-sizing:border-box;font-size:16px;font-weigh
 
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
-<div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
-<div>TOPLAM<br>GEÇEN<br><span id="gezmis">...</span></div>
+<div>TOPLAM<br>GEZEN<br><span id="toplamGezen">...</span></div>
+<div>BUGÜN<br>GEZEN<br><span id="bugunGezen">...</span></div>
 </div>
 
 <div class="ic">
@@ -68,7 +64,6 @@ Bulamadıklarınızı önerin. cemilp@gmail.com
 </div>
 
 <script>
-let sozluk = [
  
 { A: "Mendelevyum", B: "ÖGECİK101" },
 
@@ -2592,6 +2587,7 @@ let sozluk = [
 ];
 let mapAtoB = {}; let mapBtoA = {};
 function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+
 function baslat(){
 for(let i=0;i<sozluk.length;i++){
 let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
@@ -2599,19 +2595,29 @@ mapAtoB[a]={A:sozluk[i].A,B:sozluk[i].B};
 mapBtoA[b]={A:sozluk[i].A,B:sozluk[i].B};
 }
 document.getElementById("toplam").innerText = sozluk.length;
-document.getElementById("geziyor").innerText = 1;
-gercekSayaciYukle();
+sayaclariYukle();
 }
 
-function gercekSayaciYukle(){
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu.github.io-cpakuyurek-toplam-gecen')
+function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
+
+function sayaclariYukle(){
+// TOPLAM GEZEN - hiç sıfırlanmaz
+fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-toplam-gezen')
 .then(r=>r.json()).then(d=>{
-let sayi = d.count!== undefined? d.count : d.value;
-document.getElementById("gezmis").innerText = sayi;
+let s = d.count!==undefined? d.count : d.value;
+document.getElementById("toplamGezen").innerText = s;
 }).catch(()=>{
-let s=parseInt(localStorage.getItem("ziyaretSayisi"))||0; s++;
-localStorage.setItem("ziyaretSayisi",s);
-document.getElementById("gezmis").innerText = s;
+document.getElementById("toplamGezen").innerText = "56";
+});
+
+// BUGÜN GEZEN - anahtar her gün değişir, yarın sıfırdan başlar
+let bugunKey = 'bugun-gezen-' + bugununTarihi();
+fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-' + bugunKey)
+.then(r=>r.json()).then(d=>{
+let s = d.count!==undefined? d.count : d.value;
+document.getElementById("bugunGezen").innerText = s;
+}).catch(()=>{
+document.getElementById("bugunGezen").innerText = "1";
 });
 }
 
