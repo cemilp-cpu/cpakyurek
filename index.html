@@ -4,11 +4,12 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DH4NV3825F"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
 
-  gtag('config', 'G-DH4NV3825F'); 
+gtag('config', 'G-DH4NV3825F');
+</script>
 <meta charset="UTF-8">
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
 <style>
@@ -2716,49 +2717,40 @@ let sozluk = [
 
  
 ];
-let mapAtoB = {}; let mapBtoA = {};
-function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-
-function baslat(){
-for(let i=0;i<sozluk.length;i++){
-let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
-mapAtoB[a]={A:sozluk[i].A,B:sozluk[i].B};
-mapBtoA[b]={A:sozluk[i].A,B:sozluk[i].B};
+function bul() {
+let aranan = document.getElementById("ara").value.trim();
+let sonucDiv = document.getElementById("sonuc");
+if(aranan === "") {
+sonucDiv.innerHTML = "Lütfen bir sözcük girin.";
+return;
 }
-document.getElementById("toplam").innerText = sozluk.length;
-sayaclariYukle();
+sonucDiv.innerHTML = "<b>" + aranan + "</b> için arama yapılıyor...";
 }
 
-function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
-
-function sayaclariYukle(){
-// TOPLAM GEZEN - hiç sıfırlanmaz
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-toplam-gezen')
-.then(r=>r.json()).then(d=>{
-let s = d.count!==undefined? d.count : d.value;
-document.getElementById("toplamGezen").innerText = s;
-}).catch(()=>{
-document.getElementById("toplamGezen").innerText = "56";
-});
-
-// BUGÜN GEZEN - anahtar her gün değişir, yarın sıfırdan başlar
-let bugunKey = 'bugun-gezen-' + bugununTarihi();
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-' + bugunKey)
-.then(r=>r.json()).then(d=>{
-let s = d.count!==undefined? d.count : d.value;
-document.getElementById("bugunGezen").innerText = s;
-}).catch(()=>{
-document.getElementById("bugunGezen").innerText = "1";
-});
+function baska() {
+document.getElementById("ara").value = "";
+document.getElementById("sonuc").innerHTML = "";
 }
 
-function bul(){let giris=duzenle(document.getElementById("ara").value); let bulundu=mapAtoB[giris]||mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;}else{document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}}else{document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;}}
-function baska(){document.getElementById("ara").value=""; document.getElementById("sonuc").innerHTML=""; document.getElementById("oneri").style.display="none"; document.getElementById("ara").focus();}
-function sil(){document.getElementById("ara").value=""; document.getElementById("ara").focus();}
-function oner(){document.getElementById("oneri").style.display="block";}
-function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@gmail.com?subject=Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
-function tumunuListele(){let liste=`<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`; for(let i=0;i<sozluk.length;i++){liste+=`<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;} liste+=`</div>`; document.getElementById("sonuc").innerHTML=liste;}
-baslat();
+function sil() {
+document.getElementById("ara").value = "";
+document.getElementById("sonuc").innerHTML = "";
+document.getElementById("oneri").style.display = "none";
+}
+
+function oner() {
+let oneridiv = document.getElementById("oneri");
+oneridiv.style.display = oneridiv.style.display === "none" ? "block" : "none";
+}
+
+function onerGonder() {
+let metin = document.getElementById("oneriMetin").value;
+window.location.href = "mailto:cemilp@gmail.com?subject=Öneri&body=" + encodeURIComponent(metin);
+}
+
+function tumunuListele() {
+// Liste görünümü
+}
 </script>
 </body>
 </html>
