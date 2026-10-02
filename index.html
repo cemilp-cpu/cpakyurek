@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -6,28 +6,26 @@
 <style>
 body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
 .kutu{width:520px;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4)}
-
-.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold} /* SARI ZEMIN SIYAH YAZI */
-
+.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold}
 .k2{background:#002060;color:#fff;padding:8px;text-align:center;font-size:13px}
 .k3{background:#c00000;color:#fff;padding:8px;text-align:center;font-size:12px}
-
 .sayaçlar{display:flex;background:#333;color:#fff;font-size:11px;font-weight:bold}
 .sayaçlar div{flex:1;text-align:center;padding:8px 2px;border-right:1px solid #555}
 .sayaçlar div:last-child{border-right:none}
-.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold} /* RAKAM BUYUDU */
-
+.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold}
 .ic{background:#fff;padding:12px}
 input{width:100%;padding:9px;font-size:15px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
 .btns{display:flex;gap:4px;margin-top:8px}
 .btns button{flex:1;padding:9px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
-#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;text-transform:uppercase}
+#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:16px;color:#000;text-transform:uppercase;max-height:250px;overflow-y:auto;line-height:1.6} /* DUSEY LISTE ICIN */
 #sonuc b{font-size:18px;color:#c00000}
 .bulunamadi{color:#b30000!important}
 #oneri{display:none;margin-top:10px}
 textarea{width:100%;padding:8px;box-sizing:border-box}
-.alt{background:#ffcc00;padding:8px;text-align:center;font-size:11px}
+.alt{background:#ffcc00;padding:8px;text-align:center;font-size:11px;color:#000;font-weight:bold}
+.alt.yildiz{color:#c00000;font-size:14px;margin-right:4px;cursor:pointer}
+.alt.yildiz:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -44,10 +42,10 @@ textarea{width:100%;padding:8px;box-sizing:border-box}
 </div>
 
 <div class="ic">
-<input type="text" id="ara" placeholder="ornek: altin veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
+<input type="text" id="ara" placeholder="ornek: atom veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
-<button class="baska" onclick="baska()">BASKA SOZCUK SOR</button>
+<button class="baska" onclick="baska()">BASKA SOZCUK</button>
 <button class="sil" onclick="sil()">SIL</button>
 <button class="oneri" onclick="oner()">ONERI GONDER</button>
 </div>
@@ -58,7 +56,10 @@ textarea{width:100%;padding:8px;box-sizing:border-box}
 </div>
 </div>
 
-<div class="alt">Bulamadiklarinizi onerin. oneriniz yoneticiye gidecek.<br>cemilp@gmail.com</div>
+<div class="alt">
+<span class="yildiz" onclick="tumunuListele()">★</span>Cemil Pakyürek (1968-1973 İTÜ-E.E. BİLİMDALI)<br>
+Bulamadiklarinizi onerin. oneriniz yoneticiye gidecek. cemilp@gmail.com
+</div>
 </div>
 
 <script>
@@ -5390,18 +5391,21 @@ let sozluk = [
 ];
 let mapAtoB = {};
 let mapBtoA = {};
+
+function duzenle(kelime){
+return kelime.toLocaleLowerCase('tr-TR')
+.replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
+.replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
+}
+
+function baslat(){
 for(let i=0; i<sozluk.length; i++){
 let a = duzenle(sozluk[i].A);
 let b = duzenle(sozluk[i].B);
 mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
 mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
 }
-
-// DUZENLE FONKSIYONU CAPSLOCK'U DA YOK EDIYOR
-function duzenle(kelime){
-return kelime.toLocaleLowerCase('tr-TR') // TR buyuk I sorunu icin
-.replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
-.replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
+sayacGuncelle();
 }
 
 function sayacGuncelle(){
@@ -5414,7 +5418,7 @@ localStorage.setItem("ziyaretTarihi", bugün);
 }
 ziyaretSayisi++;
 localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
-document.getElementById("toplam").innerText = sozluk.length;
+document.getElementById("toplam").innerText = sozluk.length; // 124 olacak
 document.getElementById("geziyor").innerText = 1;
 document.getElementById("gezmis").innerText = ziyaretSayisi;
 }
@@ -5455,7 +5459,16 @@ let yalin = document.getElementById("oneriMetin").value;
 window.location.href = `mailto:cemilp@gmail.com?subject=Yeni Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
 }
 
-window.onload = sayacGuncelle;
+// YENI: YILDIZA TIKLAYINCA DUSEY LISTE
+function tumunuListele(){
+let liste = "<b>TUM SOZCUKLER 1-" + sozluk.length + ":</b><br><br>";
+for(let i=0; i<sozluk.length; i++){
+liste += `${i+1}. <b>${sozluk[i].A}</b> = ${sozluk[i].B}<br>`; // DUSEY VE KALIN
+}
+document.getElementById("sonuc").innerHTML = liste;
+}
+
+baslat();
 </script>
 </body>
 </html>
