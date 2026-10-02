@@ -2,139 +2,69 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SÖZCÜKLÜK</title>
+<title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
+
+<!-- Google Analytics İzleme Buyruk Öbekleri (Buradaki G-XXXXXXXXXX alanlarını kendi kimliğinizle değiştirin) -->
+<script async src="https://googletagmanager.com"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DH4NV3825F');
+</script>
+
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-height: 100vh;
-overflow: hidden;
-background: #e8e8e8;
-font-family: Arial, sans-serif;
-display: flex;
-flex-direction: column;
-}
-
-.bayrak {
-background: #e30a17;
-color: #fff;
-padding: 8px;
-font-weight: bold;
-border-bottom: 3px solid #000;
-text-align: center;
-flex-shrink: 0;
-}
-
-.ana-kapsayici {
-flex: 1;
-padding: 10px;
-display: flex;
-justify-content: center;
-align-items: center;
-overflow: hidden;
-}
-
-.kutu {
-width: 100%;
-max-width: 650px;
-height: 100%;
-background: #fff;
-padding: 12px;
-border: 3px solid #000;
-border-radius: 10px;
-display: flex;
-flex-direction: column;
-text-align: center;
-}
-
-h1 { font-size: 1.2rem; margin-bottom: 4px; flex-shrink: 0; }
-.felsefe { font-size: 0.8rem; font-weight: bold; background: #000; color: #fff; padding: 4px; margin-bottom: 8px; flex-shrink: 0; }
-
-#girdi {
-width: 100%;
-padding: 8px;
-font-size: 1.1rem;
-font-weight: bold;
-border: 3px solid #000;
-background: #ffff00;
-text-align: center;
-text-transform: uppercase;
-margin-bottom: 6px;
-flex-shrink: 0;
-}
-
-.dugme {
-width: 100%;
-padding: 8px;
-font-size: 1rem;
-font-weight: bold;
-border: 2px solid #000;
-background: #000;
-color: #fff;
-cursor: pointer;
-margin-bottom: 6px;
-flex-shrink: 0;
-}
-
-#gosterici {
-flex: 1;
-padding: 8px;
-font-size: 1.1rem;
-font-weight: bold;
-border: 3px solid #000;
-background: #ffff00;
-text-align: left;
-overflow-y: auto;
-white-space: pre-wrap;
-margin-bottom: 6px;
-position: relative;
-}
-
-.don-dugmesi {
-position: sticky;
-top: 0;
-z-index: 100;
-width: 100%;
-padding: 10px;
-background: #e30a17;
-color: #fff;
-font-size: 1.1rem;
-font-weight: bold;
-border: 2px solid #000;
-cursor: pointer;
-margin-bottom: 8px;
-box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
-}
-
-.sayac {
-font-size: 0.85rem;
-font-weight: bold;
-background: #000;
-color: #fff;
-padding: 5px;
-flex-shrink: 0;
-margin-bottom: 6px;
-}
+body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
+.kutu{width:520px;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold}
+.k2{background:#002060;color:#fff;padding:8px;text-align:center;font-size:13px}
+.k3{background:#c00000;color:#fff;padding:8px;text-align:center;font-size:12px}
+.sayaçlar{display:flex;background:#333;color:#fff;font-size:11px;font-weight:bold}
+.sayaçlar div{flex:1;text-align:center;padding:8px 2px;border-right:1px solid #555}
+.sayaçlar div:last-child{border-right:none}
+.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold}
+.ic{background:#fff;padding:12px}
+input{width:100%;padding:9px;font-size:15px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
+.btns{display:flex;gap:4px;margin-top:8px}
+.btns button{flex:1;padding:9px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
+.bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
+#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;}
+#sonuc b{font-size:18px;color:#c00000}
+.bulunamadi{color:#b30000!important}
+#oneri{display:none;margin-top:10px}
+textarea{width:100%;padding:8px;box-sizing:border-box}
+.alt{background:#ffcc00;padding:8px;text-align:center;font-size:11px}
 </style>
 </head>
 <body>
 
-<div class="bayrak">1 MAYIS EMEK VE DAYANIŞMA YÜCELTİLSİN</div>
-
-<div class="ana-kapsayici">
 <div class="kutu">
-<h1>cpakyürek SANAL YÖRESİ</h1>
-<div class="felsefe">TANRI BİLİNEMEZ. İNSAN: TANIMLAYABİLEN.</div>
+<div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDIR.</div>
+<div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.<br>Önerilen yalın türkçe sözcükler sunulur.</div>
+<div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR</div>
 
-<input type="text" id="girdi" placeholder="SÖZCÜĞÜ YAZIN..." autocomplete="off">
-<button type="button" class="dugme" id="anaBtn">BUL. BULUNUZ. BAŞKA SÖZCÜK SORUNUZ.</button>
-
-<div id="gosterici">HAZIR</div>
-
-<div class="sayac" id="sayac">Sözcüklükte: 0 sözcük</div>
-<button type="button" class="dugme" id="gosterBtn" style="background: #000080;">SÖZCÜKLÜĞÜ GÖSTER</button>
+<div class="sayaçlar">
+<div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
+<div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
+<div>GÜNLÜK<br>ZİYARET<br><span id="gezmis">0</span></div>
 </div>
+
+<div class="ic">
+<input type="text" id="ara" placeholder="örnek: mendelevyum veya ögecik101" onkeypress="if(event.key=='Enter') bul()">
+<div class="btns">
+<button class="bul" onclick="bul()">BUL</button>
+<button class="baska" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
+<button class="sil" onclick="sil()">SİL</button>
+<button class="oneri" onclick="oner()">ÖNERİ GÖNDER</button>
+</div>
+<div id="sonuc"></div>
+<div id="oneri">
+<textarea id="oneriMetin" rows="2" placeholder="yalın türkçe öneriniz"></textarea>
+<button class="oneri" onclick="onerGonder()">MAİL İLE GÖNDER</button>
+</div>
+</div>
+
+<div class="alt">Bulamadıklarınızı önerin. Öneriniz yöneticiye gidecek.<br>cemilp@gmail.com</div>
 </div>
 
 <script>
@@ -5464,96 +5394,78 @@ let sozluk = [
 
  
 ];
-window.onload = function() {
-guncelleSayac();
+let mapAtoB = {};
+let mapBtoA = {};
 
-document.getElementById('anaBtn').addEventListener('click', sozcukAra);
-document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
-document.getElementById('girdi').addEventListener('keypress', function(e) {
-if (e.key === 'Enter') {
-sozcukAra();
-}
-});
-};
-
-function guncelleSayac() {
-document.getElementById('sayac').innerText = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
+for(let i=0; i<sozluk.length; i++){
+let a = duzenle(sozluk[i].A);
+let b = duzenle(sozluk[i].B);
+mapAtoB[a] = { yaban: sozluk[i].A, yalin: sozluk[i].B };
+mapBtoA[b] = { yaban: sozluk[i].A, yalin: sozluk[i].B };
 }
 
-function sozcukAra() {
-var girdiElemani = document.getElementById('girdi');
-var aranan = girdiElemani.value.trim().toLocaleUpperCase('tr-TR');
-var gosterici = document.getElementById('gosterici');
+function duzenle(kelime){
+if(!kelime) return "";
+return kelime.toString().toLocaleLowerCase('tr-TR').trim();
+}
 
-if (aranan === "") {
-gosterici.innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
-girdiElemani.focus();
+function sayacGuncelle(){
+let bugün = new Date().toISOString().split('T')[0];
+let kayitliTarih = localStorage.getItem("ziyaretTarihi");
+let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
+
+if(kayitliTarih !== bugün){
+ziyaretSayisi = 0;
+localStorage.setItem("ziyaretTarihi", bugün);
+}
+ziyaretSayisi++;
+localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
+
+document.getElementById("toplam").innerText = sozluk.length;
+document.getElementById("geziyor").innerText = 1;
+document.getElementById("gezmis").innerText = ziyaretSayisi;
+}
+
+function bul(){
+let giris = duzenle(document.getElementById("ara").value);
+if(giris === "") {
+document.getElementById("sonuc").innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
 return;
 }
 
-var bulunanlar = [];
+let bulundu = mapAtoB[giris] || mapBtoA[giris];
 
-for (var i = 0; i < sozverisi.length; i++) {
-var a = String(sozverisi[i].A).toLocaleUpperCase('tr-TR');
-var b = String(sozverisi[i].B).toLocaleUpperCase('tr-TR');
-
-if (a.indexOf(aranan) !== -1 || b.indexOf(aranan) !== -1) {
-bulunanlar.push((i + 1) + '. ' + String(sozverisi[i].A).toLocaleUpperCase('tr-TR') + ' -> ' + String(sozverisi[i].B).toLocaleUpperCase('tr-TR'));
-}
-}
-
-if (bulunanlar.length > 0) {
-gosterici.innerHTML = bulunanlar.join('\n');
+if(bulundu){
+document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.yaban.toUpperCase()}<br><b>YALIN:</b> ${bulundu.yalin.toUpperCase()}`;
 } else {
-gosterici.innerHTML = "ARANAN SÖZCÜK BULUNAMADI.";
-}
-
-// ARAMA BİTTİKTEN SONRA KUTUYU SİLER VE İMLECİ YENİ YAZIM İÇİN HAZIR EDER:
-girdiElemani.value = '';
-girdiElemani.focus();
-}
-
-function sozcukluguGoster() {
-if (!yonetici) {
-var sifre = prompt("Yönetici Gizli Sözünü girin:");
-if (sifre === YONETICI_GIZLISOZ) {
-yonetici = true;
-} else {
-alert("Hatalı gizli söz!");
-return;
+document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
 }
 }
 
-document.getElementById('girdi').style.display = 'none';
-document.getElementById('anaBtn').style.display = 'none';
-document.getElementById('sayac').style.display = 'none';
-document.getElementById('gosterBtn').style.display = 'none';
-
-var gosterici = document.getElementById('gosterici');
-
-if (sozverisi.length === 0) {
-gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
-} else {
-var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
-for (var i = 0; i < sozverisi.length; i++) {
-var s = sozverisi[i];
-dokum += (i + 1) + '. ' + String(s.A).toLocaleUpperCase('tr-TR') + ' -> ' + String(s.B).toLocaleUpperCase('tr-TR') + '\n';
-}
-gosterici.innerHTML = dokum;
-document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
-}
+function baska(){
+document.getElementById("ara").value = "";
+document.getElementById("sonuc").innerHTML = "";
+document.getElementById("oneri").style.display = "none";
+document.getElementById("ara").focus();
 }
 
-function sozcuklugeDon() {
-document.getElementById('girdi').style.display = 'block';
-document.getElementById('anaBtn').style.display = 'block';
-document.getElementById('sayac').style.display = 'block';
-document.getElementById('gosterBtn').style.display = 'block';
-
-var gosterici = document.getElementById('gosterici');
-gosterici.innerHTML = 'HAZIR';
-document.getElementById('girdi').focus();
+function sil(){
+document.getElementById("ara").value = "";
+document.getElementById("ara").focus();
 }
+
+function oner(){
+document.getElementById("oneri").style.display = "block";
+}
+
+function onerGonder(){
+let yaban = document.getElementById("ara").value;
+let yalin = document.getElementById("oneriMetin").value;
+window.location.href = `mailto:cemilp@://gmail.com Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
+}
+
+window.onload = sayacGuncelle;
 </script>
 </body>
 </html>
+
