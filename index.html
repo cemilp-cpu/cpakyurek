@@ -3,137 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SÖZCÜKLÜK</title>
+<title>YALIN TÜRKÇE SÖZCÜK ÖNERİLERİ</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-height: 100vh;
-overflow: hidden;
-background: #e8e8e8;
+body {
 font-family: Arial, sans-serif;
-display: flex;
-flex-direction: column;
-}
-
-.bayrak {
-background: #e30a17;
-color: #fff;
-padding: 8px;
-font-weight: bold;
-border-bottom: 3px solid #000;
-text-align: center;
-flex-shrink: 0;
-}
-
-.ana-kapsayici {
-flex: 1;
-padding: 10px;
+background-color: #c5d8e8;
 display: flex;
 justify-content: center;
 align-items: center;
-overflow: hidden;
+padding: 20px;
 }
-
-.kutu {
-width: 100%;
-max-width: 650px;
-height: 100%;
-background: #fff;
-padding: 12px;
-border: 3px solid #000;
-border-radius: 10px;
+.ana-kutu {
+width: 700px;
+background-color: #dbe7f3;
+padding: 25px;
+border-radius: 20px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.ust-banner {
+background-color: #4a4a4a;
+color: #f5ab35;
+text-align: center;
+padding: 8px;
+font-weight: bold;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+letter-spacing: 1px;
+}
+.ana-baslik-kutusu {
+background-color: #ffd834;
+color: #d32f2f;
+text-align: center;
+padding: 20px;
+font-size: 20px;
+font-weight: bold;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+margin-bottom: 25px;
+line-height: 1.4;
+}
+.girdi-satiri {
 display: flex;
-flex-direction: column;
-text-align: center;
+gap: 15px;
+margin-bottom: 25px;
 }
-
-h1 { font-size: 1.2rem; margin-bottom: 4px; flex-shrink: 0; }
-.felsefe { font-size: 0.8rem; font-weight: bold; background: #000; color: #fff; padding: 4px; margin-bottom: 8px; flex-shrink: 0; }
-
-#girdi {
-width: 100%;
-padding: 8px;
-font-size: 1.1rem;
-font-weight: bold;
-border: 3px solid #000;
-background: #ffff00;
-text-align: center;
-text-transform: uppercase;
-margin-bottom: 6px;
-flex-shrink: 0;
-}
-
-.dugme {
-width: 100%;
-padding: 8px;
-font-size: 1rem;
-font-weight: bold;
-border: 2px solid #000;
-background: #000;
-color: #fff;
-cursor: pointer;
-margin-bottom: 6px;
-flex-shrink: 0;
-}
-
-#gosterici {
+.girdi-kutusu {
 flex: 1;
-padding: 8px;
-font-size: 1.1rem;
-font-weight: bold;
-border: 3px solid #000;
-background: #ffff00;
-text-align: left;
-overflow-y: auto;
-white-space: pre-wrap;
-margin-bottom: 6px;
-position: relative;
+padding: 12px 20px;
+font-size: 16px;
+border: 1px solid #ccc;
+border-radius: 15px;
+outline: none;
 }
-
-.don-dugmesi {
-position: sticky;
-top: 0;
-z-index: 100;
-width: 100%;
-padding: 10px;
-background: #e30a17;
-color: #fff;
-font-size: 1.1rem;
-font-weight: bold;
-border: 2px solid #000;
+.buton-ara {
+background-color: #4b8b54;
+color: white;
+border: none;
+padding: 12px 25px;
+font-size: 16px;
+border-radius: 15px;
 cursor: pointer;
-margin-bottom: 8px;
-box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
-}
-
-.sayac {
-font-size: 0.85rem;
 font-weight: bold;
-background: #000;
-color: #fff;
-padding: 5px;
-flex-shrink: 0;
-margin-bottom: 6px;
+}
+.buton-temizle {
+background-color: #e75a40;
+color: white;
+border: none;
+padding: 12px 25px;
+font-size: 16px;
+border-radius: 15px;
+cursor: pointer;
+font-weight: bold;
+}
+.sonuc-alani {
+background-color: #e8f0f8;
+min-height: 100px;
+border-radius: 15px;
+padding: 20px;
+font-size: 16px;
+color: #555;
+position: relative;
+margin-bottom: 10px;
+}
+.toplam-sozcuk-rozeti {
+position: absolute;
+bottom: 15px;
+right: 15px;
+background-color: #edd94c;
+color: #444;
+padding: 6px 15px;
+border-radius: 12px;
+font-weight: bold;
+font-size: 14px;
 }
 </style>
 </head>
 <body>
 
-<div class="bayrak">1 MAYIS EMEK VE DAYANIŞMA YÜCELTİLSİN</div>
+<div class="ana-kutu">
+<div class="ust-banner">★ CEMİL PAKYÜREK / 1973 / İTÜ ★</div>
+<div class="ana-baslik-kutusu">
+YABANCI KÖKENLİ BİLİM SÖZCÜKLERİNE<br>YALIN TÜRKÇE SÖZCÜK ÖNERİLERİ
+</div>
 
-<div class="ana-kapsayici">
-<div class="kutu">
-<h1>cpakyürek SANAL YÖRESİ</h1>
-<div class="felsefe">TANRI BİLİNEMEZ. İNSAN: TANIMLAYABİLEN.</div>
+<div class="girdi-satiri">
+<input type="text" id="aramaKutusu" class="girdi-kutusu" placeholder="motor veya döndüren yaz" oninput="harfleriBuyut(this)">
+<button class="buton-ara" onclick="sozcukAra()">➤ Ara</button>
+<button class="buton-temizle" onclick="temizle()">☧ BAŞKA SORU SOR</button>
+</div>
 
-<input type="text" id="girdi" placeholder="SÖZCÜĞÜ YAZIN..." autocomplete="off">
-<button type="button" class="dugme" id="anaBtn">BUL. BULUNUZ. BAŞKA SÖZCÜK SORUNUZ.</button>
-
-<div id="gosterici">HAZIR</div>
-
-<div class="sayac" id="sayac">Sözcüklükte: 0 sözcük</div>
-<button type="button" class="dugme" id="gosterBtn" style="background: #000080;">SÖZCÜKLÜĞÜ GÖSTER</button>
+<div class="sonuc-alani">
+<div id="metinEkrani">Kelime yazıp Ara tuşuna basın.</div>
+<div class="toplam-sozcuk-rozeti" id="sayacEkrani">TOPLAM SÖZCÜK: 0</div>
 </div>
 </div>
 
@@ -5464,97 +5445,55 @@ let sozluk = [
 
  
 ];
-window.onload = function() {
-guncelleSayac();
-
-document.getElementById('anaBtn').addEventListener('click', sozcukAra);
-document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
-document.getElementById('girdi').addEventListener('keypress', function(e) {
-if (e.key === 'Enter') {
-sozcukAra();
-}
-});
-};
-
-function guncelleSayac() {
-document.getElementById('sayac').innerText = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
+function harfleriBuyut(eleman) {
+let konum = eleman.selectionStart;
+eleman.value = eleman.value.toLocaleUpperCase('tr-TR');
+eleman.setSelectionRange(konum, konum);
 }
 
+// Sayfa ilk açıldığında havuzdaki sözcük sayısını ekrana yazar
+function sayaciBaslat() {
+document.getElementById("sayacEkrani").innerText = "TOPLAM SÖZCÜK: " + veriHavuzu.length;
+}
+
+// Sözcük Arama İşlevi (Harf büyüklüğüne ve A/B yapısına tam uyumlu)
 function sozcukAra() {
-var girdiElemani = document.getElementById('girdi');
-var aranan = girdiElemani.value.trim().toLocaleUpperCase('tr-TR');
-var gosterici = document.getElementById('gosterici');
+let aranan = document.getElementById("aramaKutusu").value.trim().toLocaleUpperCase('tr-TR');
+let ekran = document.getElementById("metinEkrani");
 
 if (aranan === "") {
-gosterici.innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
-girdiElemani.focus();
+ekran.innerText = "Lütfen bir sözcük yazınız.";
 return;
 }
 
-var bulunanlar = [];
+// A veya B alanlarında büyük/küçük harf fark etmeksizin arama yapar
+let sonuc = veriHavuzu.find(o => {
+let degerA = String(o.A || o.yabanci || "").toLocaleUpperCase('tr-TR');
+let degerB = String(o.B || o.turkce || "").toLocaleUpperCase('tr-TR');
+return degerA === aranan || degerB === aranan;
+});
 
-for (var i = 0; i < sozverisi.length; i++) {
-var a = String(sozverisi[i].A).toLocaleUpperCase('tr-TR');
-var b = String(sozverisi[i].B).toLocaleUpperCase('tr-TR');
+if (sonuc) {
+let yabanciMetin = String(sonuc.A || sonuc.yabanci).toLocaleUpperCase('tr-TR');
+let turkceMetin = String(sonuc.B || sonuc.turkce).toLocaleUpperCase('tr-TR');
 
-if (a.indexOf(aranan) !== -1 || b.indexOf(aranan) !== -1) {
-bulunanlar.push((i + 1) + '. ' + String(sozverisi[i].A).toLocaleUpperCase('tr-TR') + ' -> ' + String(sozverisi[i].B).toLocaleUpperCase('tr-TR'));
-}
-}
-
-if (bulunanlar.length > 0) {
-gosterici.innerHTML = bulunanlar.join('\n');
+ekran.innerHTML = "<b>Yabancı Sözcük:</b> " + yabanciMetin +
+"<br><b>Yalın Türkçe Karşılığı:</b> " + turkceMetin;
 } else {
-gosterici.innerHTML = "ARANAN SÖZCÜK BULUNAMADI.";
-}
-
-// ARAMA BİTTİKTEN SONRA KUTUYU SİLER VE İMLECİ YENİ YAZIM İÇİN HAZIR EDER:
-girdiElemani.value = '';
-girdiElemani.focus();
-}
-
-function sozcukluguGoster() {
-if (!yonetici) {
-var sifre = prompt("Yönetici Gizli Sözünü girin:");
-if (sifre === YONETICI_GIZLISOZ) {
-yonetici = true;
-} else {
-alert("Hatalı gizli söz!");
-return;
+ekran.innerText = "Aranan sözcük bulunamadı.";
 }
 }
 
-document.getElementById('girdi').style.display = 'none';
-document.getElementById('anaBtn').style.display = 'none';
-document.getElementById('sayac').style.display = 'none';
-document.getElementById('gosterBtn').style.display = 'none';
-
-var gosterici = document.getElementById('gosterici');
-
-if (sozverisi.length === 0) {
-gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
-} else {
-var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
-for (var i = 0; i < sozverisi.length; i++) {
-var s = sozverisi[i];
-dokum += (i + 1) + '. ' + String(s.A).toLocaleUpperCase('tr-TR') + ' -> ' + String(s.B).toLocaleUpperCase('tr-TR') + '\n';
-}
-gosterici.innerHTML = dokum;
-document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
-}
+// Temizleme İşlevi
+function temizle() {
+document.getElementById("aramaKutusu").value = "";
+document.getElementById("metinEkrani").innerText = "Kelime yazıp Ara tuşuna basın.";
 }
 
-function sozcuklugeDon() {
-document.getElementById('girdi').style.display = 'block';
-document.getElementById('anaBtn').style.display = 'block';
-document.getElementById('sayac').style.display = 'block';
-document.getElementById('gosterBtn').style.display = 'block';
-
-var gosterici = document.getElementById('gosterici');
-gosterici.innerHTML = 'HAZIR';
-document.getElementById('girdi').focus();
-}
+// Sayfa yüklendiğinde otomatik çalışır
+window.onload = sayaciBaslat;
 </script>
+
 </body>
 </html>
 
