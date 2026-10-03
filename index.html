@@ -1,28 +1,34 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>YABANCIYA YALIN TÜRKÇE SOZCUKLER</title>
+<title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
+
+<!-- Google Analytics İzleme Buyruk Öbekleri (Buradaki G-XXXXXXXXXX alanlarını kendi kimliğinizle değiştirin) -->
+<script async src="https://googletagmanager.com"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XXXXXXXXXX');
+</script>
+
 <style>
 body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
 .kutu{width:520px;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4)}
-
-.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold} /* SARI ZEMIN SIYAH YAZI */
-
+.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold}
 .k2{background:#002060;color:#fff;padding:8px;text-align:center;font-size:13px}
 .k3{background:#c00000;color:#fff;padding:8px;text-align:center;font-size:12px}
-
 .sayaçlar{display:flex;background:#333;color:#fff;font-size:11px;font-weight:bold}
 .sayaçlar div{flex:1;text-align:center;padding:8px 2px;border-right:1px solid #555}
 .sayaçlar div:last-child{border-right:none}
-.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold} /* RAKAM BUYUDU */
-
+.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold}
 .ic{background:#fff;padding:12px}
 input{width:100%;padding:9px;font-size:15px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
 .btns{display:flex;gap:4px;margin-top:8px}
 .btns button{flex:1;padding:9px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
-#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;text-transform:uppercase}
+#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;}
 #sonuc b{font-size:18px;color:#c00000}
 .bulunamadi{color:#b30000!important}
 #oneri{display:none;margin-top:10px}
@@ -33,9 +39,9 @@ textarea{width:100%;padding:8px;box-sizing:border-box}
 <body>
 
 <div class="kutu">
-<div class="k1">YABANCI KOKENLI SOZCUKLERE YALIN TURKCE SOZCUKLER ONERILMEKTEDIR.</div>
-<div class="k2">Bu bir sozluk degil. SOZCUKLUKTUR.<br>onerilen yalin turkce sozcukler sunulur.</div>
-<div class="k3">HER YABANCI SOZCUGE KARSILIK, YALIN TURKCE KARSILIK SOZCUK VARDIR</div>
+<div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDIR.</div>
+<div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.<br>Önerilen yalın türkçe sözcükler sunulur.</div>
+<div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR</div>
 
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
@@ -44,21 +50,21 @@ textarea{width:100%;padding:8px;box-sizing:border-box}
 </div>
 
 <div class="ic">
-<input type="text" id="ara" placeholder="ornek: altin veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
+<input type="text" id="ara" placeholder="örnek: mendelevyum veya ögecik101" onkeypress="if(event.key=='Enter') bul()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
-<button class="baska" onclick="baska()">BASKA SOZCUK SOR</button>
-<button class="sil" onclick="sil()">SIL</button>
-<button class="oneri" onclick="oner()">ONERI GONDER</button>
+<button class="baska" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
+<button class="sil" onclick="sil()">SİL</button>
+<button class="oneri" onclick="oner()">ÖNERİ GÖNDER</button>
 </div>
 <div id="sonuc"></div>
 <div id="oneri">
-<textarea id="oneriMetin" rows="2" placeholder="yalin turkce oneriniz"></textarea>
-<button class="oneri" onclick="onerGonder()">MAIL ILE GONDER</button>
+<textarea id="oneriMetin" rows="2" placeholder="yalın türkçe öneriniz"></textarea>
+<button class="oneri" onclick="onerGonder()">MAİL İLE GÖNDER</button>
 </div>
 </div>
 
-<div class="alt">Bulamadiklarinizi onerin. oneriniz yoneticiye gidecek.<br>cemilp@gmail.com</div>
+<div class="alt">Bulamadıklarınızı önerin. Öneriniz yöneticiye gidecek.<br>cemilp@gmail.com</div>
 </div>
 
 <script>
@@ -2545,30 +2551,31 @@ let sozluk = [
 ];
 let mapAtoB = {};
 let mapBtoA = {};
+
 for(let i=0; i<sozluk.length; i++){
 let a = duzenle(sozluk[i].A);
 let b = duzenle(sozluk[i].B);
-mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
-mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
+mapAtoB[a] = { yaban: sozluk[i].A, yalin: sozluk[i].B };
+mapBtoA[b] = { yaban: sozluk[i].A, yalin: sozluk[i].B };
 }
 
-// DUZENLE FONKSIYONU CAPSLOCK'U DA YOK EDIYOR
 function duzenle(kelime){
-return kelime.toLocaleLowerCase('tr-TR') // TR buyuk I sorunu icin
-.replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u')
-.replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
+if(!kelime) return "";
+return kelime.toString().toLocaleLowerCase('tr-TR').trim();
 }
 
 function sayacGuncelle(){
 let bugün = new Date().toISOString().split('T')[0];
 let kayitliTarih = localStorage.getItem("ziyaretTarihi");
 let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
-if(kayitliTarih!== bugün){
+
+if(kayitliTarih !== bugün){
 ziyaretSayisi = 0;
 localStorage.setItem("ziyaretTarihi", bugün);
 }
 ziyaretSayisi++;
 localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
+
 document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("geziyor").innerText = 1;
 document.getElementById("gezmis").innerText = ziyaretSayisi;
@@ -2576,15 +2583,17 @@ document.getElementById("gezmis").innerText = ziyaretSayisi;
 
 function bul(){
 let giris = duzenle(document.getElementById("ara").value);
-let bulundu = mapAtoB[giris] || mapBtoA[giris];
-if(bulundu){
-if(mapAtoB[giris]){
-document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
-} else {
-document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
+if(giris === "") {
+document.getElementById("sonuc").innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
+return;
 }
+
+let bulundu = mapAtoB[giris] || mapBtoA[giris];
+
+if(bulundu){
+document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.yaban.toUpperCase()}<br><b>YALIN:</b> ${bulundu.yalin.toUpperCase()}`;
 } else {
-document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. ASAGIDAN ONERI GONDERIN.</span>`;
+document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
 }
 }
 
@@ -2607,12 +2616,13 @@ document.getElementById("oneri").style.display = "block";
 function onerGonder(){
 let yaban = document.getElementById("ara").value;
 let yalin = document.getElementById("oneriMetin").value;
-window.location.href = `mailto:cemilp@gmail.com?subject=Yeni Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
+window.location.href = `mailto:cemilp@://gmail.com Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
 }
 
 window.onload = sayacGuncelle;
 </script>
 </body>
 </html>
+
 
  
