@@ -3,73 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
-
-<!-- Google Analytics İzleme Buyruk Öbekleri (Buradaki G-XXXXXXXXXX alanlarını kendi kimliğinizle değiştirin) -->
-<script async src="https://googletagmanager.com"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-XXXXXXXXXX');
-</script>
-
 <style>
-body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
-.kutu{width:520px;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4)}
-.k1{background:#ffcc00;color:#000;padding:10px;text-align:center;font-size:16px;font-weight:bold}
-.k2{background:#002060;color:#fff;padding:8px;text-align:center;font-size:13px}
-.k3{background:#c00000;color:#fff;padding:8px;text-align:center;font-size:12px}
-.sayaçlar{display:flex;background:#333;color:#fff;font-size:11px;font-weight:bold}
-.sayaçlar div{flex:1;text-align:center;padding:8px 2px;border-right:1px solid #555}
+body{background:#dcdcdc;font-family:Arial;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:0;box-sizing:border-box;}
+.kutu{width:100%;max-width:600px;min-height:calc(100vh - 20px);margin:10px auto;border:3px solid #000;border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4);background:#fff;display:flex;flex-direction:column;justify-content:space-between;}
+.k1{background:#c00000;color:#fff;padding:14px;text-align:center;font-size:20px;font-weight:bold}
+.k2{background:#002060;color:#fff;padding:12px;text-align:center;font-size:16px;font-weight:bold}
+.k3{background:#5D4037;color:#ffeb38;padding:12px;text-align:center;font-size:16px;font-weight:bold}
+.sayaçlar{display:flex;background:#333;color:#fff;font-size:12px;font-weight:bold}
+.sayaçlar div{flex:1;text-align:center;padding:10px 2px;border-right:1px solid #555}
 .sayaçlar div:last-child{border-right:none}
-.sayaçlar span{color:#ffcc00;font-size:18px;display:block;font-weight:bold}
-.ic{background:#fff;padding:12px}
-input{width:100%;padding:9px;font-size:15px;font-weight:bold;border:1px solid #000;box-sizing:border-box}
-.btns{display:flex;gap:4px;margin-top:8px}
-.btns button{flex:1;padding:9px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:12px}
+.sayaçlar span{color:#ffcc00;font-size:22px;display:block;font-weight:bold}
+.ic{background:#fff;padding:20px;flex-grow:1;display:flex;flex-direction:column;justify-content:flex-start;}
+input{width:100%;padding:14px;font-size:20px;font-weight:bold;border:2px solid #000;box-sizing:border-box;text-transform:none}
+.btns{display:flex;gap:6px;margin-top:10px}
+.btns button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
 .bul{background:#0d7a0d}.baska{background:#e67300}.sil{background:#b30000}.oneri{background:#0d7a0d}
-#sonuc{margin-top:10px;padding:10px;background:#f2f2f2;min-height:45px;border:1px solid #ccc;font-weight:bold;font-size:18px;color:#000;}
-#sonuc b{font-size:18px;color:#c00000}
+#sonuc{margin-top:12px;padding:14px;background:#f2f2f2;min-height:80px;border:1px solid #ccc;font-weight:bold;font-size:20px;color:#000;text-transform:uppercase;max-height:300px;overflow-y:auto;line-height:1.7}
+#sonuc b{font-size:20px;color:#c00000}
 .bulunamadi{color:#b30000!important}
-#oneri{display:none;margin-top:10px}
-textarea{width:100%;padding:8px;box-sizing:border-box}
-.alt{background:#ffcc00;padding:8px;text-align:center;font-size:11px}
+#oneri{margin-top:12px}
+textarea{width:100%;padding:10px;box-sizing:border-box;font-size:16px;font-weight:bold}
+.alt{background:#ffcc00;padding:12px;text-align:center;font-size:12px;color:#000;font-weight:bold;margin-top:auto;}
+.alt.yildiz{color:#c00000;font-size:16px;margin-right:4px;cursor:pointer}
+.liste-2sutun{column-count:2; column-gap:15px;}
+.liste-2sutun div{break-inside:avoid; margin-bottom:4px;}
 </style>
 </head>
 <body>
-
 <div class="kutu">
-<div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDIR.</div>
+<div>
+<div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.<br>Önerilen yalın türkçe sözcükler sunulur.</div>
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR</div>
 
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
-<div>GEZİYOR<br>OLAN<br><span id="geziyor">1</span></div>
-<div>GÜNLÜK<br>ZİYARET<br><span id="gezmis">0</span></div>
+<div>TOPLAM<br>GEZEN<br><span id="toplamGezen">...</span></div>
+<div>BUGÜN<br>GEZEN<br><span id="bugunGezen">...</span></div>
 </div>
 
 <div class="ic">
-<input type="text" id="ara" placeholder="örnek: mendelevyum veya ögecik101" onkeypress="if(event.key=='Enter') bul()">
+<input type="text" id="ara" placeholder="örnek: atom veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
-<button class="baska" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
+<button class="baska" onclick="baska()">BAŞKA SÖZCÜK</button>
 <button class="sil" onclick="sil()">SİL</button>
 <button class="oneri" onclick="oner()">ÖNERİ GÖNDER</button>
 </div>
 <div id="sonuc"></div>
-<div id="oneri">
+<div id="oneri" style="display:none;">
 <textarea id="oneriMetin" rows="2" placeholder="yalın türkçe öneriniz"></textarea>
-<button class="oneri" onclick="onerGonder()">MAİL İLE GÖNDER</button>
+<button class="oneri" onclick="onerGonder()">MAIL İLE GÖNDER</button>
 </div>
 </div>
-
-<div class="alt">Bulamadıklarınızı önerin. Öneriniz yöneticiye gidecek.<br>cemilp@gmail.com</div>
+</div>
+<div class="alt">
+<span class="yildiz" onclick="tumunuListele()">★</span>Cemil Pakyürek (1968-1973 İTÜ-E.E. BİLİMDALI)<br>
+Bulamadıklarınızı önerin. cemilp@gmail.com
+</div>
 </div>
 
 <script>
-let sozluk = [
- 
+let sozluk = [ 
 { A: "Mendelevyum", B: "ÖGECİK101" },
 
  
@@ -109,7 +104,8 @@ let sozluk = [
 {  A: "consumption" , B: "tüketim" }, 
 {  A: "çare" , B: "umar" }, 
 {  A: "çek" , B: "ödeme buyruğu" }, 
-{  A: "çüp" , B: "atık" }, 
+{  A: "çöp" , B: "atık" }, 
+{  A: "çöplük" , B: "atık alanı" },  
 {  A: "dahil" , B: "içerir" }, 
 {  A: "daim" , B: "süren" }, 
 {  A: "dark" , B: "koyu" }, 
@@ -2538,91 +2534,223 @@ let sozluk = [
 { A:"zikir", B:"anma"},
 { A:"ziya", B:"ışık"},
 { A:"ziyade" , B:"çok" },
-{ A:"ziyade", B:"çok"},
+{ A:"kolektor", B:"toplayıcı"},
 { A:"ziyaret", B:"görüşme"},
 { A:"zodyak", B:"burçlar kuşağı"},
 { A:"zoe", B:"bitimsiz yaşam"},
 { A:"zonal", B:"bölgesel"},
+
+{ A:"karakteristik", B:"kütütüklemenin özdeğeri"},
+{ A:"mantis", B:"kütükcük"},
+{ A:"polinom", B:"çok terimli"},
+{ A:"relational", B:"ilişkisel"},
+{ A:"secretion", B:"salgı"},
+{ A:"exhaustion", B:"tükenme"},
+{ A:"fatigue", B:"yorgunluk"},
+{ A:"zoom", B:"yakınlaşma"},
+{ A:"sandboxed", B:"korumalı"},
+{ A:"laptop", B:"dizüstü"},
+{ A:"desktop", B:"masaüstü"},
+{ A:"heat", B:"ısı"},
+ { A:"gazete", B:"günce"},
+{ A:"diyot", B:"tek yönlü iletir"},
+{ A:"dimmer", B:"karartıcı"},
+{ A:"kontör", B:"mış gibi deode"},
+{ A:"kantar", B:"ağırtartı"},
+{ A:"rectifier", B:"doğrultucu"},
+{ A:"baz", B:"denetçi"},
+{ A:"emiter", B:"yayızı"}, 
 { A:"zone", B:"bölge"},
-{ A: "Nobeliyum", B: "ÖGECİK102" }
+{ A:"telafi", B:"karşılık"},
+{ A:"model", B:"örneklik"},
+{ A:"hata", B:"yanlış"},
+{ A:"cisim", B:"nesne"},
+{ A:"laboratuvar", B:"deney işliği"},
+{ A:"ibaret", B:"içerilenler"},
+{ A:"pürüz", B:"engelcik"},
+{ A:"seyir", B:"gidiş"},
+{ A:"seyri", B:"gidişi"},
+{ A:"koordinat", B:"yer belirtme"},
+{ A:"aslında", B:"kökeninde"},
+{ A:"referans", B:"başvurulan"},
+{ A:"ritmi", B:"uyumu"},
+{ A:"tempo", B:"uyum"},
+{ A:"periyodik", B:"dönemsel"},
+{ A:"geometri", B:"biçimler bilimi"},
+{ A:"geometrik", B:"biçimler bilimsel"},
+{ A:"muhteşem", B:"gösterişlş"},
+{ A:"monist", B:"tekyöneticili"},
+{ A:"derebeylik", B:"toprakağallığı"},
+{ A:"ability", B:"yapabilirlik"},
+{ A:"abort", B:"geçersiz"},
+{ A:"absolute reality", B:"koşulsuz gerçeklik"},
+{ A:"absract", B:"soyut"},
+{ A:"aciz", B:"yapabilemez"},
+{ A:"adalet", B:"gerçeklere bağlılık"},
+{ A:"adam", B:"tanımlayabilen er"},
+{ A:"adapt", B:"uyarlamak"},
+{ A:"adbloker", B:"tanıtım engellenmiş"},
+{ A:"ademoğlu", B:"tanımlayabilenoğlu"},
+{ A:"âdet", B:"gelenek"},
+{ A:"adeta", B:"sanki"},
+{ A:"adjust", B:"ayarlamak"},
+{ A:"adress bus", B:"yer imi yolu"},
+{ A:"aeresol", B:"hava çözüt"},
+{ A:"afak", B:"ufuklar"},
+{ A:"afaroz", B:"dışlama"},
+{ A:"affirmation", B:"onaylama"},
+{ A:"afiş", B:"yapışduyur"},
+{ A:"afişe", B:"ilişkilendirerek"},
+{ A:"ahir", B:"sonraki"},
+{ A:"ahşap", B:"odun"},
+{ A:"aid", B:"gereç"},
+{ A:"aile", B:"birlikte geçinenler"},
+{ A:"ajans", B:"yetkilendirilmiş sözcü"},
+{ A:"akademi", B:"bilimkent"},
+{ A:"akıllıca", B:"usluca"},
+{ A:"aklıselim", B:"iyi düşünce"},
+{ A:"akort", B:"ayar"},
+{ A:"aks", B:"dönme doğrultusu"},
+{ A:"akustik", B:"ses bilim"},
+{ A:"akut", B:"kısa süreli"},
+{ A:"âla", B:"çok iyi"},
+{ A:"alabros", B:"fırçamsı"},
+{ A:"alaşım", B:"özdek karışımı"},
+{ A:"âlem", B:"evren"},
+{ A:"alet", B:"araç"},
+{ A:"alfabe", B:"abece"},
+{ A:"alfabetik", B:"abecesel"},
+{ A:"algoritma", B:"çözüm adımları"},
+{ A:"allah", B:"bilinemez"},
+{ A:"allotrop", B:"farklı bileşikleşmeler"},
+{ A:"alloy", B:"özdek karışımı"},
+{ A:"alternatif", B:"değişken"},
+{ A:"alternatif", B:"seçenek"},
+{ A:"altimetre", B:"yükseklik ölçer"},
+{ A:"amaç", B:"varış"},
+{ A:"ambulans", B:"cankurtaran"},
+{ A:"amir", B:"buyuran"},
+{ A:"amorf", B:"biçimsiz"},
+{ A:"amortisör", B:"titreştirmez"},
+{ A:"amplifikatör", B:"yükseltici"},
+{ A:"amplitüt", B:"genlik"},
+{ A:"anafor", B:"burgaç"},
+{ A:"analitik", B:"çözümleyerek"},
+{ A:"analiz", B:"çözümleme"},
+{ A:"analog", B:"benzetilmiş"},
+{ A:"anarşi", B:"düzen karşıtlığı"},
+{ A:"anarşist", B:"düzen tanımaz"},
+{ A:"anatomi", B:"beden yapısı bilimi"},
+{ A:"ancient", B:"çook yaşlı"},
+{ A:"anfi", B:"yükseltili öğretilik"},
+{ A:"anket", B:"sormaca"},
+{ A:"anormal", B:"tanımlanmamış"},
+{ A:"anten", B:"duyarga"},
+{ A:"eksen", B:"dönme doğrultusu"},
+{ A:"normal", B:"tanımlanmış"},
+{ A:"notron", B:"ağırcık" },
+{ A:"nü", B:"çiplak" },
+{ A:"yıldırım", B:"yere eksicik boşalması"},
+{ A:"şimşek", B:"bulutlararası eksicik boşalması"},
+{ A:"gurme", B:"tatbilir"},
+{ A:"gurme", B:"tadbilir"},
+{ A:"appetite", B:"iştah"},
+{ A:"st0machless", B:"iştahsız"},
+{ A:"least significant bit", B:"en önemsiz 01 olabilen"},
+{ A:"most important bit", B:"en önemli 01 olabilen"},
+{ A:"negatif", B:"olumsuz"},
+{ A:"pozitif", B:"olumlu"},
+{ A:"integer", B:"tamsayı"},
+{ A:"exponantial", B:"üstel"},
+{ A:"exponantial", B:"üssel"},
+{ A:"number", B:"sayı"},
+{ A:"şaka", B:"güldür düşündür"},
+{ A:"espiri", B:"güldür düşündür"},
+{ A:"hexadecimal", B:"onaltılı"},
+{ A:"octal", B:"sekizli"},
+{ A:"thousands", B:"binlerce"},
+{ A:"thousand", B:"bin"},
+{ A:"percent", B:"yüzdelik"},
+{ A:"desimal", B:"ondalıklı"},
+{ A:"işaretsiz", B:"imsiz"},
+{ A:"unsigned", B:"imsiz"},
+{ A:"işaretli", B:"imli"},
+{ A:"signed", B:"imli"},
+{ A:"mountly", B:"aylık"},
+{ A:"analitik", B:"çözümlenmiş"},
+{ A:"report", B:"bilgilendirme"},
+{ A:"dayly", B:"günlük"},
+{ A:"trafik", B:"devinirlik"},
+{ A:"page", B:"yazıtlık"},
+{ A:"views", B:"görüntülenişler"},
+{ A:"previous", B:"önceki"},
+{ A:"unique", B:"tekil"},
+{ A:"visit", B:"görüşme"},
+{ A:"ziyaret", B:"görüşme"},
+{ A:"first teme", B:"ilk kez"},
+{ A:"returning visits", B:"yinelenen görüşmeler"},
+{ A:"breakdown", B:"döküm"},
+{ A:"missing", B:"eksilen"},
+{ A:"important", B:"önemli"},
+{ A:"customer", B:"satın alıcı"},
+{ A:"perfect time", B:"eksiksiz zaman"},
+{ A:"mükemmel", B:"eksiksiz"},
+{ A:"knowing", B:"bilerek"},
+{ A:"follow up", B:"izlemek"},
+{ A:"haystack", B:"saman yığını"},
+{ A:"needle", B:"ince delici"},
+{ A:"iğne", B:"ince delici"},
+{ A:"get notified", B:"bildirim alma"},
+{ A:"set alerts", B:"uyarıcıları ayarla"}, 
+ 
+{ A: "nobeliyum", B: "ögecik102" }
   
 
  
 ];
-let mapAtoB = {};
-let mapBtoA = {};
+let mapAtoB = {}; let mapBtoA = {};
+function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
 
-for(let i=0; i<sozluk.length; i++){
-let a = duzenle(sozluk[i].A);
-let b = duzenle(sozluk[i].B);
-mapAtoB[a] = { yaban: sozluk[i].A, yalin: sozluk[i].B };
-mapBtoA[b] = { yaban: sozluk[i].A, yalin: sozluk[i].B };
+function baslat(){
+for(let i=0;i<sozluk.length;i++){
+let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
+mapAtoB[a]={A:sozluk[i].A,B:sozluk[i].B};
+mapBtoA[b]={A:sozluk[i].A,B:sozluk[i].B};
 }
-
-function duzenle(kelime){
-if(!kelime) return "";
-return kelime.toString().toLocaleLowerCase('tr-TR').trim();
-}
-
-function sayacGuncelle(){
-let bugün = new Date().toISOString().split('T')[0];
-let kayitliTarih = localStorage.getItem("ziyaretTarihi");
-let ziyaretSayisi = parseInt(localStorage.getItem("ziyaretSayisi")) || 0;
-
-if(kayitliTarih !== bugün){
-ziyaretSayisi = 0;
-localStorage.setItem("ziyaretTarihi", bugün);
-}
-ziyaretSayisi++;
-localStorage.setItem("ziyaretSayisi", ziyaretSayisi);
-
 document.getElementById("toplam").innerText = sozluk.length;
-document.getElementById("geziyor").innerText = 1;
-document.getElementById("gezmis").innerText = ziyaretSayisi;
+sayaclariYukle();
 }
 
-function bul(){
-let giris = duzenle(document.getElementById("ara").value);
-if(giris === "") {
-document.getElementById("sonuc").innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
-return;
+function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
+
+function sayaclariYukle(){
+// TOPLAM GEZEN - hiç sıfırlanmaz
+fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-toplam-gezen')
+.then(r=>r.json()).then(d=>{
+let s = d.count!==undefined? d.count : d.value;
+document.getElementById("toplamGezen").innerText = s;
+}).catch(()=>{
+document.getElementById("toplamGezen").innerText = "56";
+});
+
+// BUGÜN GEZEN - anahtar her gün değişir, yarın sıfırdan başlar
+let bugunKey = 'bugun-gezen-' + bugununTarihi();
+fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-' + bugunKey)
+.then(r=>r.json()).then(d=>{
+let s = d.count!==undefined? d.count : d.value;
+document.getElementById("bugunGezen").innerText = s;
+}).catch(()=>{
+document.getElementById("bugunGezen").innerText = "1";
+});
 }
 
-let bulundu = mapAtoB[giris] || mapBtoA[giris];
-
-if(bulundu){
-document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.yaban.toUpperCase()}<br><b>YALIN:</b> ${bulundu.yalin.toUpperCase()}`;
-} else {
-document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
-}
-}
-
-function baska(){
-document.getElementById("ara").value = "";
-document.getElementById("sonuc").innerHTML = "";
-document.getElementById("oneri").style.display = "none";
-document.getElementById("ara").focus();
-}
-
-function sil(){
-document.getElementById("ara").value = "";
-document.getElementById("ara").focus();
-}
-
-function oner(){
-document.getElementById("oneri").style.display = "block";
-}
-
-function onerGonder(){
-let yaban = document.getElementById("ara").value;
-let yalin = document.getElementById("oneriMetin").value;
-window.location.href = `mailto:cemilp@://gmail.com Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
-}
-
-window.onload = sayacGuncelle;
+function bul(){let giris=duzenle(document.getElementById("ara").value); let bulundu=mapAtoB[giris]||mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;}else{document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}}else{document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;}}
+function baska(){document.getElementById("ara").value=""; document.getElementById("sonuc").innerHTML=""; document.getElementById("oneri").style.display="none"; document.getElementById("ara").focus();}
+function sil(){document.getElementById("ara").value=""; document.getElementById("ara").focus();}
+function oner(){document.getElementById("oneri").style.display="block";}
+function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@gmail.com?subject=Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
+function tumunuListele(){let liste=`<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`; for(let i=0;i<sozluk.length;i++){liste+=`<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;} liste+=`</div>`; document.getElementById("sonuc").innerHTML=liste;}
+baslat();
 </script>
 </body>
 </html>
-
-
- 
