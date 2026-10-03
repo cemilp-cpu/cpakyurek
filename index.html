@@ -4,39 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>YALIN TÜRKÇE SÖZCÜKLÜK</title>
-<style>
-body{margin:0;background:#d0d0d0;display:flex;justify-content:center;font-family:Arial}
-.kutu{width:100%;max-width:500px;background:#fff;border:3px solid #000;border-radius:12px;overflow:hidden;margin:10px}
-.say{display:flex;background:#333;color:#fff;text-align:center;font-size:10px;font-weight:bold}
-.say div{flex:1;padding:8px}
-.say span{color:#ffeb3b;font-size:22px;display:block}
-#ara,#sonuc{font-family:'Courier New',monospace!important;font-weight:bold!important;font-size:18px!important;text-transform:uppercase!important}
-#ara{width:100%;padding:12px;border:2px solid #000;box-sizing:border-box}
-#sonuc{background:#e3f2fd;padding:12px;min-height:50px;margin-top:8px;border:1px solid #ccc}
-button{flex:1;padding:10px;border:none;color:#fff;font-weight:bold;cursor:pointer}
-</style>
 </head>
-<body>
-<div class="kutu">
-<div style="background:#FF9A8B!important;color:#fff!important;padding:12px;text-align:center;font-weight:bold">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
-<div style="background:#A5D6A7!important;color:#000!important;padding:10px;text-align:center;font-weight:bold">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.<br>Önerilen yalın türkçe sözcükler sunulur.</div>
-<div style="background:#B39DDB!important;color:#fff!important;padding:10px;text-align:center;font-weight:bold;font-size:13px">HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE VAR</div>
-
-<div class="say">
-<div>TOPLAM<br>SÖZCÜK<br><span id="toplam">3</span></div>
-<div style="border-left:1px solid #666;border-right:1px solid #666">TOPLAM<br>GEZEN<br><span id="tgezen">56</span></div>
-<div>BUGÜN<br>GEZEN<br><span id="bgezen">1</span></div>
+<body style="margin:0;background:#ccc;display:flex;justify-content:center">
+<div style="width:100%;max-width:480px;background:#fff;border:3px solid #000;border-radius:12px;overflow:hidden;margin:10px;font-family:Arial">
+<div style="background:#FF8A80;padding:12px;text-align:center;color:#fff;font-weight:bold">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
+<div style="background:#A5D6A7;padding:10px;text-align:center;font-weight:bold">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
+<div style="background:#B39DDB;padding:10px;text-align:center;color:#fff;font-weight:bold">HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE VAR</div>
+<div style="display:flex;background:#333;color:#fff;text-align:center;font-size:11px;font-weight:bold">
+<div style="flex:1;padding:8px">TOPLAM SÖZCÜK<br><span id="toplam" style="color:yellow;font-size:22px">3</span></div>
+<div style="flex:1;padding:8px;border-left:1px solid #666;border-right:1px solid #666">TOPLAM GEZEN<br><span id="tgezen" style="color:yellow;font-size:22px">56</span></div>
+<div style="flex:1;padding:8px">BUGÜN GEZEN<br><span id="bgezen" style="color:yellow;font-size:22px">1</span></div>
 </div>
-
 <div style="padding:12px">
-<input id="ara" placeholder="SORU ALANI - ÖRNEK: AB" onkeypress="if(event.key==='Enter')bul()">
-<div style="display:flex;gap:4px;margin-top:6px">
-<button style="background:#222" onclick="bul()">BUL</button>
-<button style="background:#900" onclick="ara.value='';sonuc.innerHTML=''">SİL</button>
+<input id="ara" style="width:100%;padding:12px;border:2px solid #000;box-sizing:border-box;font-weight:bold;text-transform:uppercase" placeholder="SORU ALANI">
+<div style="display:flex;gap:5px;margin-top:6px">
+<button style="flex:1;padding:10px;background:#222;color:#fff;font-weight:bold;border:none" onclick="bul()">BUL</button>
+<button style="flex:1;padding:10px;background:#900;color:#fff;font-weight:bold;border:none" onclick="ara.value='';sonuc.innerHTML='';ara.focus()">BAŞKA SÖZCÜK SOR</button>
 </div>
-<div id="sonuc"></div>
+<div id="sonuc" style="background:#e3f2fd;padding:12px;min-height:40px;margin-top:8px;font-family:'Courier New',monospace;font-weight:bold;text-transform:uppercase;border:1px solid #999"></div>
 </div>
-<div style="background:#ffcc00;padding:6px;text-align:center;font-size:11px;font-weight:bold">★ Cemil Pakyürek</div>
 </div>
 <script>
 let sozluk = [ 
@@ -2679,11 +2665,14 @@ let sozluk = [
 { A:"set alerts", B:"uyarıcıları ayarla"}, 
  
 { A: "nobeliyum", B: "ögecik102" }
- document.getElementById("toplam").innerText=sozluk.length;
-function bul(){let v=document.getElementById("ara").value.toUpperCase();let f=sozluk.find(x=>x.A.toUpperCase()===v||x.B.toUpperCase()===v);document.getElementById("sonuc").innerHTML=f?`YABAN: ${f.A.toUpperCase()}<br>YALIN: ${f.B.toUpperCase()}`:"BULUNAMADI";}
+],
+document.getElementById("toplam").innerText=liste.length;
+var t=parseInt(localStorage.getItem("tgezen")||"56")+1;localStorage.setItem("tgezen",t);document.getElementById("tgezen").innerText=t;
+var b=parseInt(localStorage.getItem("bgezen")||"0")+1;localStorage.setItem("bgezen",b);document.getElementById("bgezen").innerText=b;
+function bul(){var v=ara.value.toUpperCase().trim();if(!v){sonuc.innerHTML="SORU YAZ";return;}var f=liste.find(x=>x.a.toUpperCase()==v);sonuc.innerHTML=f?"YABAN: "+f.a.toUpperCase()+"<br>YALIN: "+f.b.toUpperCase():"BULUNAMADI";}
 </script>
 </body>
-</html> 
+</html>
 
  
 ];
