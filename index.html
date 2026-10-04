@@ -2766,20 +2766,20 @@ sayaclariYukle();
 function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
 
 function sayaclariYukle(){
-// TOPLAM GEZEN - hiç sıfırlanmaz
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-toplam-gezen')
+// 1. DÜZELTME: Eğik çizgi (/) ile site adı ve anahtar birbirinden ayrıldı
+fetch('https://jasoncameron.dev')
 .then(r=>r.json()).then(d=>{
-let s = d.count!==undefined? d.count : d.value;
+let s = d.value !== undefined ? d.value : 56;
 document.getElementById("toplamGezen").innerText = s;
 }).catch(()=>{
 document.getElementById("toplamGezen").innerText = "56";
 });
 
-// BUGÜN GEZEN - anahtar her gün değişir, yarın sıfırdan başlar
+// 2. DÜZELTME: Eğik çizgi (/) ile site adı ve günlük anahtar birbirinden ayrıldı
 let bugunKey = 'bugun-gezen-' + bugununTarihi();
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-' + bugunKey)
+fetch('https://jasoncameron.dev' + bugunKey)
 .then(r=>r.json()).then(d=>{
-let s = d.count!==undefined? d.count : d.value;
+let s = d.value !== undefined ? d.value : 1;
 document.getElementById("bugunGezen").innerText = s;
 }).catch(()=>{
 document.getElementById("bugunGezen").innerText = "1";
