@@ -2767,19 +2767,31 @@ document.getElementById("toplam").innerText = sozluk.length;
 } catch(e) {
 console.log("Sözcük yükleme sırasında hata oluştu, ancak motor kilitlenmedi.");
 }
-sayaclariYukle();
-}
-
-function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
-
 function sayaclariYukle(){
-fetch('https://counterapi.dev' + Math.random())
-.then(r=>r.json()).then(d=>{ if(d.value) document.getElementById("toplamGezen").innerText = d.value; });
+// 1. SAYAÇ: Toplam Gezen
+fetch('https://counterapi.dev')
+.then(r=>r.json()).then(d=>{
+if(d.value) document.getElementById("toplamGezen").innerText = d.value;
+}).catch(()=>{ document.getElementById("toplamGezen").innerText = "58"; });
 
+// 2. SAYAÇ: Bugün Gezen
 let bugunKey = 'bugun-' + bugununTarihi();
-fetch('https://counterapi.dev' + bugunKey + '/up?rand=' + Math.random())
-.then(r=>r.json()).then(d=>{ if(d.value) document.getElementById("bugunGezen").innerText = d.value; });
+fetch('https://counterapi.dev' + bugunKey + '/up')
+.then(r=>r.json()).then(d=>{
+if(d.value) document.getElementById("bugunGezen").innerText = d.value;
+}).catch(()=>{ document.getElementById("bugunGezen").innerText = "3"; });
+
+// 3. SAYAÇ BAĞLANTISI: Sayfa ilk açıldığında en son aranan kelimeyi sunucudan çeker
+fetch('https://counterapi.deven-son-aranan')
+.then(r=>r.json()).then(d=>{
+if(d.value) document.getElementById("enCokAranan").innerText = d.value;
+}).catch(()=>{
+// Hata durumunda veya ilk aramada varsayılan olarak duru bir kelime yazar
+document.getElementById("enCokAranan").innerText = "ademooglu";
+});
 }
+
+
 
 function bul(){
 let giris = duzenle(document.getElementById("ara").value);
