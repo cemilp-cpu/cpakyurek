@@ -2756,46 +2756,62 @@ let mapAtoB = {}; let mapBtoA = {};
 function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
 
 function baslat(){
+// Eğer sözlük yüklenirken parantez hatası varsa kodu korumaya alır
+try {
 for(let i=0;i<sozluk.length;i++){
 let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
 mapAtoB[a]={A:sozluk[i].A,B:sozluk[i].B};
 mapBtoA[b]={A:sozluk[i].A,B:sozluk[i].B};
 }
 document.getElementById("toplam").innerText = sozluk.length;
+} catch(e) {
+console.log("Sözcük yükleme sırasında hata oluştu, ancak motor kilitlenmedi.");
+}
 sayaclariYukle();
 }
 
 function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
 
 function sayaclariYukle(){
-// YENİ SERVİS: Toplam Gezen Sayacı (Her yenilemede otomatik artar)
-fetch('https://counterapi.dev')
-.then(r=>r.json()).then(d=>{
-document.getElementById("toplamGezen").innerText = d.value;
-}).catch(()=>{
-document.getElementById("toplamGezen").innerText = "57";
-});
+fetch('https://counterapi.dev' + Math.random())
+.then(r=>r.json()).then(d=>{ if(d.value) document.getElementById("toplamGezen").innerText = d.value; });
 
-// YENİ SERVİS: Bugün Gezen Sayacı (Her yenilemede otomatik artar)
 let bugunKey = 'bugun-' + bugununTarihi();
-fetch('https://counterapi.dev' + bugunKey + '/up')
-.then(r=>r.json()).then(d=>{
-document.getElementById("bugunGezen").innerText = d.value;
-}).catch(()=>{
-document.getElementById("bugunGezen").innerText = "2";
-});
+fetch('https://counterapi.dev' + bugunKey + '/up?rand=' + Math.random())
+.then(r=>r.json()).then(d=>{ if(d.value) document.getElementById("bugunGezen").innerText = d.value; });
 }
-
 
 function bul(){
 let giris = duzenle(document.getElementById("ara").value);
 
+// 3. SAYAÇ: En çok aranan kelimeyi üstteki turkuaz kutuya anında yazar
 if(giris.length > 0) {
 document.getElementById("enCokAranan").innerText = giris;
-if(typeof gtag === 'function') {
-gtag('event', 'arama_yapildi', {'aranan_sozcuk': giris});
+}
+
+let bulundu = mapAtoB[giris]||mapBtoA[giris];
+if(bulundu){
+if(mapAtoB[giris]){
+document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
+}else{
+document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
+}
+}else{
+if(giris.length > 0) document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
 }
 }
+
+function baska(){
+if(sozluk.length === 0) return;
+let rastgele = sozluk[Math.floor(Math.random() * sozluk.length)];
+document.getElementById("ara").value = rastgele.A;
+bul();
+}
+function sil(){document.getElementById("ara").value=""; document.getElementById("sonuc").innerHTML=""; document.getElementById("ara").focus();}
+function oner(){document.getElementById("oneri").style.display="block";}
+function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@://gmail.com Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
+function tumunuListele(){let liste=`<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`; for(let i=0;i<sozluk.length;i++){liste+=`<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;} liste+=`</div>`; document.getElementById("sonuc").innerHTML=liste;}
+baslat();
 </script>
 </body>
-</html> 
+</html>
