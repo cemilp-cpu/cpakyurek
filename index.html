@@ -2801,6 +2801,50 @@ if(giris.length > 0) {
 document.getElementById("enCokAranan").innerText = giris;
 }
 
+let mapAtoB = {}; let mapBtoA = {};
+function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+
+function baslat(){
+try {
+for(let i=0;i<sozluk.length;i++){
+let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
+mapAtoB[a]={A:sozluk[i].A,B:sozluk[i].B};
+mapBtoA[b]={A:sozluk[i].A,B:sozluk[i].B};
+}
+document.getElementById("toplam").innerText = sozluk.length;
+} catch(e) {
+console.log("Sözcük yükleme hatası.");
+}
+sayaclariYukle();
+}
+
+function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
+
+function sayaclariYukle(){
+fetch('https://counterapi.dev')
+.then(r=>r.json()).then(d=>{
+if(d.value) document.getElementById("toplamGezen").innerText = d.value;
+}).catch(()=>{ document.getElementById("toplamGezen").innerText = "58"; });
+
+let bugunKey = 'bugun-' + bugununTarihi();
+fetch('https://counterapi.dev' + bugunKey + '/up')
+.then(r=>r.json()).then(d=>{
+if(d.value) document.getElementById("bugunGezen").innerText = d.value;
+}).catch(()=>{ document.getElementById("bugunGezen").innerText = "3"; });
+
+fetch('https://counterapi.deven-son-aranan')
+.then(r=>r.json()).then(d=>{
+if(d.value) document.getElementById("enCokAranan").innerText = d.value;
+}).catch(()=>{
+document.getElementById("enCokAranan").innerText = "ademooglu";
+});
+}
+
+function bul(){
+let giris = duzenle(document.getElementById("ara").value);
+if(giris.length > 0) {
+document.getElementById("enCokAranan").innerText = giris;
+}
 let bulundu = mapAtoB[giris]||mapBtoA[giris];
 if(bulundu){
 if(mapAtoB[giris]){
@@ -2824,6 +2868,8 @@ function oner(){document.getElementById("oneri").style.display="block";}
 function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@://gmail.com Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
 function tumunuListele(){let liste=`<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`; for(let i=0;i<sozluk.length;i++){liste+=`<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;} liste+=`</div>`; document.getElementById("sonuc").innerHTML=liste;}
 baslat();
+
+
 </script>
 </body>
 </html>
