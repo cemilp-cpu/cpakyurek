@@ -2766,25 +2766,24 @@ sayaclariYukle();
 function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
 
 function sayaclariYukle(){
-// 1. DÜZELTME: Eğik çizgi (/) ile site adı ve anahtar birbirinden ayrıldı
-fetch('https://jasoncameron.dev')
+// YENİ SERVİS: Toplam Gezen Sayacı (Her yenilemede otomatik artar)
+fetch('https://counterapi.dev')
 .then(r=>r.json()).then(d=>{
-let s = d.value !== undefined ? d.value : 56;
-document.getElementById("toplamGezen").innerText = s;
+document.getElementById("toplamGezen").innerText = d.value;
 }).catch(()=>{
-document.getElementById("toplamGezen").innerText = "56";
+document.getElementById("toplamGezen").innerText = "57";
 });
 
-// 2. DÜZELTME: Eğik çizgi (/) ile site adı ve günlük anahtar birbirinden ayrıldı
-let bugunKey = 'bugun-gezen-' + bugununTarihi();
-fetch('https://jasoncameron.dev' + bugunKey)
+// YENİ SERVİS: Bugün Gezen Sayacı (Her yenilemede otomatik artar)
+let bugunKey = 'bugun-' + bugununTarihi();
+fetch('https://counterapi.dev' + bugunKey + '/up')
 .then(r=>r.json()).then(d=>{
-let s = d.value !== undefined ? d.value : 1;
-document.getElementById("bugunGezen").innerText = s;
+document.getElementById("bugunGezen").innerText = d.value;
 }).catch(()=>{
-document.getElementById("bugunGezen").innerText = "1";
+document.getElementById("bugunGezen").innerText = "2";
 });
 }
+
 
 function bul(){let giris=duzenle(document.getElementById("ara").value); let bulundu=mapAtoB[giris]||mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;}else{document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}}else{document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;}}
 function baska(){document.getElementById("ara").value=""; document.getElementById("sonuc").innerHTML=""; document.getElementById("oneri").style.display="none"; document.getElementById("ara").focus();}
