@@ -2790,21 +2790,11 @@ document.getElementById("bugunGezen").innerText = "2";
 function bul(){
 let giris = duzenle(document.getElementById("ara").value);
 
-// 3. SAYAÇ VERİ BAĞLAYICISI: Aranan kelimeyi ekrandaki yeni turkuaz kutuya yazar ve Analytics'e uçurur
 if(giris.length > 0) {
 document.getElementById("enCokAranan").innerText = giris;
-if(typeof gtag === 'function') gtag('event', 'arama_yapildi', {'aranan_sozcuk': giris});
+if(typeof gtag === 'function') {
+gtag('event', 'arama_yapildi', {'aranan_sozcuk': giris});
 }
-
-let bulundu = mapAtoB[giris]||mapBtoA[giris];
-if(bulundu){
-if(mapAtoB[giris]){
-document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;
-}else{
-document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;
-}
-}else{
-document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
 }
 </script>
 </body>
