@@ -5,7 +5,26 @@
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
 
  
+<!-- Google Analytics Sayaç Kodları (Son Güncel Biçim) -->
+<script async src="https://googletagmanager.com"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
 
+var isLocalhost = window.location.hostname === "localhost" ||
+window.location.hostname === "127.0.0.1" ||
+window.location.protocol === "file:";
+
+if (isLocalhost) {
+// Yerel test modu (Lenovo bilgisayarınız için)
+gtag('config', 'G-5VQ5QKQ867', { 'debug_mode': true, 'send_page_view': true });
+console.log("Analytics: Yerel sınama etkin.");
+} else {
+// Canlı mod (GitHub Pages için)
+gtag('config', 'G-5VQ5QKQ867');
+}
+</scrip>
 <style>
 body { background:#dcdcdc; font-family:Arial; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; padding:0; }
 .kutu { width:100%; max-width:600px; min-height:calc(100vh - 20px); margin:10px auto; border:3px solid #000; border-radius:8px; overflow:hidden; }
