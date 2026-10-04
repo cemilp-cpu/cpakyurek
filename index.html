@@ -92,7 +92,8 @@ textarea{width:100%;padding:10px;box-sizing:border-box;font-size:16px;font-weigh
 </div>
 
 <div class="ic">
-<input type="text" id="ara" placeholder="örnek: atom veya ögecik79" onkeypress="if(event.key=='Enter') bul()">
+<input type="text" id="ara" placeholder="örnek: atom veya ögecik79" onkeypress="if(event.key=='Enter') bul()" onclick="this.value=''; this.focus();">
+
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
 <button class="baska" onclick="baska()">BAŞKA SÖZCÜK</button>
@@ -2793,9 +2794,12 @@ document.getElementById("enCokAranan").innerText = "ademooglu";
 
 function bul(){
 let giris = duzenle(document.getElementById("ara").value);
+
+// DÜZELTME 1: Sadece kullanıcı kutuya elle bir şey yazıp BUL'a basarsa EN ÇOK ARANAN değişir
 if(giris.length > 0) {
 document.getElementById("enCokAranan").innerText = giris;
 }
+
 let bulundu = mapAtoB[giris]||mapBtoA[giris];
 if(bulundu){
 if(mapAtoB[giris]){
@@ -2806,14 +2810,23 @@ document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YAB
 }else{
 if(giris.length > 0) document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
 }
+
+// DÜZELTME 3: BUL işleminden sonra imleç otomatik olarak kutunun içinde kalır
+document.getElementById("ara").focus();
 }
 
 function baska(){
 if(sozluk.length === 0) return;
 let rastgele = sozluk[Math.floor(Math.random() * sozluk.length)];
+
+// DÜZELTME 1 VE 3: Başka sözcük doğrudan sonucu basar, üstteki EN ÇOK ARANAN kutusunu asla bozmaz!
 document.getElementById("ara").value = rastgele.A;
-bul();
+document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${rastgele.A}<br><b>YALIN:</b> ${rastgele.B}`;
+
+// İmleci alanda tutar
+document.getElementById("ara").focus();
 }
+
 function sil(){document.getElementById("ara").value=""; document.getElementById("sonuc").innerHTML=""; document.getElementById("ara").focus();}
 function oner(){document.getElementById("oneri").style.display="block";}
 function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@://gmail.com Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
