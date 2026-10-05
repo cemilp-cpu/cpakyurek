@@ -2859,6 +2859,22 @@ baslat();
 
 
 
+
 </script>
+<script>
+// CountAPI kullanarak toplam ziyaretçi sayısını çekme ve artırma
+// "cpakyurek-sözcüklük" kısmını sitenize özel benzersiz bir anahtar olarak tanımladık
+fetch('https://countapi.xyz')
+.then(res => res.json())
+.then(res => {
+// Sitenizdeki TOPLAM GEZEN elementini bulup sayıyı yazar
+// Eğer HTML'deki ilgili elementin ID'si farklıysa burayı güncelleyebilirsiniz
+const toplamGezenElement = document.getElementById('toplam-gezen');
+if(toplamGezenElement) {
+toplamGezenElement.innerText = res.value;
+}
+})
+.catch(err => console.error("Sayaç yüklenemedi:", err));
+</script> 
 </body>
 </html>
