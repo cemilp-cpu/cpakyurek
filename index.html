@@ -2788,23 +2788,32 @@ sayaclariYukle();
 
 function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
 
-function sayaclariYukle(){
-// TOPLAM - 6'dan başlatıyoruz
-document.getElementById("toplamGezen").innerHTML =
-'<img src="https://hits.sh/cemilp-cpu.github.io/cpakyurek.svg?view=total&label=%20&extraCount=56&color=007ec6" style="height:22px">';
+<script>
+async function sayaclariYukle(){
+const gun = new Date().toISOString().slice(0,10);
+const NS = "cemilp-cpu-cpakyurek-gercek";
+const toplamEl = document.getElementById("toplamGezen");
+const bugunEl = document.getElementById("bugunGezen");
 
-// BUGÜN - her gün sıfırdan sayar
-document.getElementById("bugunGezen").innerHTML =
-'<img src="https://hits.sh/cemilp-cpu.github.io/cpakyurek.svg?view=today&label=%20&extraCount=0&color=green" style="height:22px">';
+try{
+const sayildi = localStorage.getItem('sayildi-'+gun);
+let toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/`).then(r=>r.json()).then(d=>d.count||0);
+let bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/`).then(r=>r.json()).then(d=>d.count||0);
+
+if(!sayildi){
+toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/up`).then(r=>r.json()).then(d=>d.count);
+bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/up`).then(r=>r.json()).then(d=>d.count);
+localStorage.setItem('sayildi-'+gun, '1');
 }
-
-function bul(){let giris=duzenle(document.getElementById("ara").value); let bulundu=mapAtoB[giris]||mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;}else{document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}}else{document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;}}
-function baska(){document.getElementById("ara").value=""; document.getElementById("sonuc").innerHTML=""; document.getElementById("oneri").style.display="none"; document.getElementById("ara").focus();}
-function sil(){document.getElementById("ara").value=""; document.getElementById("ara").focus();}
-function oner(){document.getElementById("oneri").style.display="block";}
-function onerGonder(){let yaban=document.getElementById("ara").value; let yalin=document.getElementById("oneriMetin").value; window.location.href=`mailto:cemilp@gmail.com?subject=Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;}
-function tumunuListele(){let liste=`<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`; for(let i=0;i<sozluk.length;i++){liste+=`<div>${i+1}. ${sozluk[i].A} = ${sozluk[i].B}</div>`;} liste+=`</div>`; document.getElementById("sonuc").innerHTML=liste;}
-baslat();
+toplamEl.innerText = toplam;
+bugunEl.innerText = bugun;
+}catch(e){
+toplamEl.innerText = "0";
+bugunEl.innerText = "0";
+}
+}
+sayaclariYukle();
+</script>
 </script>
 </body>
 </html>index.htmlndex.html
