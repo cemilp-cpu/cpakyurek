@@ -2789,24 +2789,13 @@ sayaclariYukle();
 function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
 
 function sayaclariYukle(){
-// TOPLAM GEZEN - hiç sıfırlanmaz
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-toplam-gezen')
-.then(r=>r.json()).then(d=>{
-let s = d.count!==undefined? d.count : d.value;
-document.getElementById("toplamGezen").innerText = s;
-}).catch(()=>{
-document.getElementById("toplamGezen").innerText = "56";
-});
+// TOPLAM - 6'dan başlatıyoruz
+document.getElementById("toplamGezen").innerHTML =
+'<img src="https://hits.sh/cemilp-cpu.github.io/cpakyurek.svg?view=total&label=%20&extraCount=56&color=007ec6" style="height:22px">';
 
-// BUGÜN GEZEN - anahtar her gün değişir, yarın sıfırdan başlar
-let bugunKey = 'bugun-gezen-' + bugununTarihi();
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-' + bugunKey)
-.then(r=>r.json()).then(d=>{
-let s = d.count!==undefined? d.count : d.value;
-document.getElementById("bugunGezen").innerText = s;
-}).catch(()=>{
-document.getElementById("bugunGezen").innerText = "1";
-});
+// BUGÜN - her gün sıfırdan sayar
+document.getElementById("bugunGezen").innerHTML =
+'<img src="https://hits.sh/cemilp-cpu.github.io/cpakyurek.svg?view=today&label=%20&extraCount=0&color=green" style="height:22px">';
 }
 
 function bul(){let giris=duzenle(document.getElementById("ara").value); let bulundu=mapAtoB[giris]||mapBtoA[giris]; if(bulundu){if(mapAtoB[giris]){document.getElementById("sonuc").innerHTML=`<b>YABAN:</b> ${bulundu.A}<br><b>YALIN:</b> ${bulundu.B}`;}else{document.getElementById("sonuc").innerHTML=`<b>YALIN:</b> ${bulundu.B}<br><b>YABAN:</b> ${bulundu.A}`;}}else{document.getElementById("sonuc").innerHTML=`<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;}}
