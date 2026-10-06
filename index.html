@@ -2773,73 +2773,96 @@ let sozluk = [
 
  
 ];
-let mapAtoB = {}; let mapBtoA = {};
-function duzenle(kelime){return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+window.onload = function() {
+guncelleSayac();
 
-function baslat(){
-for(let i=0;i<sozluk.length;i++){
-let a=duzenle(sozluk[i].A); let b=duzenle(sozluk[i].B);
-mapAtoB[a]={A:sozluk[i].A,B:sozluk[i].B};
-mapBtoA[b]={A:sozluk[i].A,B:sozluk[i].B};
+document.getElementById('anaBtn').addEventListener('click', sozcukAra);
+document.getElementById('gosterBtn').addEventListener('click', sozcukluguGoster);
+document.getElementById('girdi').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+sozcukAra();
 }
-document.getElementById("toplam").innerText = sozluk.length;
-sayaclariYukle();
+});
+};
+
+function guncelleSayac() {
+document.getElementById('sayac').innerText = 'Sözcüklükte: ' + sozverisi.length + ' sözcük';
 }
 
-function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
+function sozcukAra() {
+var girdiElemani = document.getElementById('girdi');
+var aranan = girdiElemani.value.trim().toLocaleUpperCase('tr-TR');
+var gosterici = document.getElementById('gosterici');
 
-<script>
-async function sayaclariYukle(){
-const gun = new Date().toISOString().slice(0,10);
-const NS = "cemilp-cpu-cpakyurek-gercek";
-const toplamEl = document.getElementById("toplamGezen");
-const bugunEl = document.getElementById("bugunGezen");
+if (aranan === "") {
+gosterici.innerHTML = "LÜTFEN BİR SÖZCÜK YAZIN.";
+girdiElemani.focus();
+return;
+}
 
-try{
-const sayildi = localStorage.getItem('sayildi-'+gun);
-let toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/`).then(r=>r.json()).then(d=>d.count||0);
-let bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/`).then(r=>r.json()).then(d=>d.count||0);
+var bulunanlar = [];
 
-if(!sayildi){
-toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/up`).then(r=>r.json()).then(d=>d.count);
-bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/up`).then(r=>r.json()).then(d=>d.count);
-localStorage.setItem('sayildi-'+gun, '1');
-}
-toplamEl.innerText = toplam;
-bugunEl.innerText = bugun;
-}catch(e){
-toplamEl.innerText = "0";
-bugunEl.innerText = "0";
-}
-}
-sayaclariYukle();
-</script>
-<script>
-async function sayaclariYukle(){
-const gun = new Date().toISOString().slice(0,10);
-const NS = "cemilp-cpu-cpakyurek-gercek";
-const toplamEl = document.getElementById("toplamGezen");
-const bugunEl = document.getElementById("bugunGezen");
+for (var i = 0; i < sozverisi.length; i++) {
+var a = String(sozverisi[i].A).toLocaleUpperCase('tr-TR');
+var b = String(sozverisi[i].B).toLocaleUpperCase('tr-TR');
 
-try{
-const sayildi = localStorage.getItem('sayildi-'+gun);
-let toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/`).then(r=>r.json()).then(d=>d.count||0);
-let bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/`).then(r=>r.json()).then(d=>d.count||0);
+if (a.indexOf(aranan) !== -1 || b.indexOf(aranan) !== -1) {
+bulunanlar.push((i + 1) + '. ' + String(sozverisi[i].A).toLocaleUpperCase('tr-TR') + ' -> ' + String(sozverisi[i].B).toLocaleUpperCase('tr-TR'));
+}
+}
 
-if(!sayildi){
-toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/up`).then(r=>r.json()).then(d=>d.count);
-bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/up`).then(r=>r.json()).then(d=>d.count);
-localStorage.setItem('sayildi-'+gun, '1');
+if (bulunanlar.length > 0) {
+gosterici.innerHTML = bulunanlar.join('\n');
+} else {
+gosterici.innerHTML = "ARANAN SÖZCÜK BULUNAMADI.";
 }
-toplamEl.innerText = toplam;
-bugunEl.innerText = bugun;
-}catch(e){
-toplamEl.innerText = "0";
-bugunEl.innerText = "0";
+
+// ARAMA BİTTİKTEN SONRA KUTUYU SİLER VE İMLECİ YENİ YAZIM İÇİN HAZIR EDER:
+girdiElemani.value = '';
+girdiElemani.focus();
+}
+
+function sozcukluguGoster() {
+if (!yonetici) {
+var sifre = prompt("Yönetici Gizli Sözünü girin:");
+if (sifre === YONETICI_GIZLISOZ) {
+yonetici = true;
+} else {
+alert("Hatalı gizli söz!");
+return;
 }
 }
-sayaclariYukle();
-</script>
+
+document.getElementById('girdi').style.display = 'none';
+document.getElementById('anaBtn').style.display = 'none';
+document.getElementById('sayac').style.display = 'none';
+document.getElementById('gosterBtn').style.display = 'none';
+
+var gosterici = document.getElementById('gosterici');
+
+if (sozverisi.length === 0) {
+gosterici.innerHTML = 'HENÜZ SÖZCÜK YOK.';
+} else {
+var dokum = '<button type="button" class="don-dugmesi" id="donBtn">SÖZCÜKLÜĞE DÖN</button>\n';
+for (var i = 0; i < sozverisi.length; i++) {
+var s = sozverisi[i];
+dokum += (i + 1) + '. ' + String(s.A).toLocaleUpperCase('tr-TR') + ' -> ' + String(s.B).toLocaleUpperCase('tr-TR') + '\n';
+}
+gosterici.innerHTML = dokum;
+document.getElementById('donBtn').addEventListener('click', sozcuklugeDon);
+}
+}
+
+function sozcuklugeDon() {
+document.getElementById('girdi').style.display = 'block';
+document.getElementById('anaBtn').style.display = 'block';
+document.getElementById('sayac').style.display = 'block';
+document.getElementById('gosterBtn').style.display = 'block';
+
+var gosterici = document.getElementById('gosterici');
+gosterici.innerHTML = 'HAZIR';
+document.getElementById('girdi').focus();
+}
 </script>
 </body>
 </html>
