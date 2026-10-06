@@ -2814,6 +2814,32 @@ bugunEl.innerText = "0";
 }
 sayaclariYukle();
 </script>
+<script>
+async function sayaclariYukle(){
+const gun = new Date().toISOString().slice(0,10);
+const NS = "cemilp-cpu-cpakyurek-gercek";
+const toplamEl = document.getElementById("toplamGezen");
+const bugunEl = document.getElementById("bugunGezen");
+
+try{
+const sayildi = localStorage.getItem('sayildi-'+gun);
+let toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/`).then(r=>r.json()).then(d=>d.count||0);
+let bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/`).then(r=>r.json()).then(d=>d.count||0);
+
+if(!sayildi){
+toplam = await fetch(`https://api.counterapi.dev/v1/${NS}/toplam/up`).then(r=>r.json()).then(d=>d.count);
+bugun = await fetch(`https://api.counterapi.dev/v1/${NS}/bugun-${gun}/up`).then(r=>r.json()).then(d=>d.count);
+localStorage.setItem('sayildi-'+gun, '1');
+}
+toplamEl.innerText = toplam;
+bugunEl.innerText = bugun;
+}catch(e){
+toplamEl.innerText = "0";
+bugunEl.innerText = "0";
+}
+}
+sayaclariYukle();
+</script>
 </script>
 </body>
-</html>index.htmlndex.html
+</html>
