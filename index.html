@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
 
-<!-- Google Analytics Sayaç Kodları (Yerel Kontrollü Yapı) -->
+<!-- Google Analytics Sayaç Kodları -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ÖLÇÜM_KİMLİĞİNİZ"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -17,7 +17,6 @@ window.location.protocol === "file:";
 
 if (isLocalhost) {
 gtag('config', 'G-ÖLÇÜM_KİMLİĞİNİZ', { 'debug_mode': true, 'send_page_view': true });
-console.log("Analytics: Yerel sınama etkin.");
 } else {
 gtag('config', 'G-ÖLÇÜM_KİMLİĞİNİZ');
 }
@@ -27,7 +26,6 @@ gtag('config', 'G-ÖLÇÜM_KİMLİĞİNİZ');
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 0; box-sizing: border-box; }
 .kutu { width: 100%; max-width: 600px; min-height: calc(100vh - 20px); margin: 10px auto; border: 3px solid #000; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,.4); background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
 
-/* Üst 3 başlık katmanı: Sarı zemin ve koyu siyah yazı */
 .k1 { background: #ffeb38; color: #000; padding: 14px; text-align: center; font-size: 20px; font-weight: bold; border-bottom: 2px solid #000; }
 .k2 { background: #ffeb38; color: #000; padding: 12px; text-align: center; font-size: 16px; font-weight: bold; border-bottom: 2px solid #000; }
 .k3 { background: #ffeb38; color: #000; padding: 12px; text-align: center; font-size: 16px; font-weight: bold; border-bottom: 2px solid #000; }
@@ -35,11 +33,10 @@ body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: 
 .sayaçlar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; }
 .sayaçlar div { flex: 1; text-align: center; padding: 8px 2px; border-right: 1px solid #555; }
 .sayaçlar div:last-child { border-right: none; }
-.sayaçlar span { color: #ffcc00; font-size: 18px; display: block; font-weight: bold; }
+.sayaçlar span { color: #ffcc00; font-size: 15px; display: block; font-weight: bold; word-break: break-word; }
 
 .ic { background: #fff; padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; }
 
-/* Arama kutusunun da yanıt alanı gibi hep büyük harf ve aynı görünümde olması sağlandı */
 input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; text-transform: uppercase !important; }
 
 .btns { display: flex; gap: 6px; margin-top: 10px; }
@@ -68,13 +65,12 @@ textarea { width: 100%; padding: 10px; box-sizing: border-box; font-size: 16px; 
 
 <div class="sayaçlar">
 <div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
-<div>TOPLAM<br>GEZEN<br><span id="toplamGezen">...</span></div>
-<div>BUGÜN<br>GEZEN<br><span id="bugunGezen">...</span></div>
-<div>EN ÇOK<br>SORULAN<br><span id="cokSorulan">...</span></div>
+<div>TOPLAM<br>GEZEN<br><span id="toplamGezen">1</span></div>
+<div>BUGÜN<br>GEZEN<br><span id="bugunGezen">1</span></div>
+<div>EN ÇOK<br>SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
 </div>
 
 <div class="ic">
-<!-- Kullanıcı yazdıkça harfleri anında büyük harfe çeviren olay eklendi -->
 <input type="text" id="ara" placeholder="ÖRNEK: ATOM VEYA ÖGECİK102" oninput="this.value = this.value.toLocaleUpperCase('tr-TR')" onkeypress="if(event.key=='Enter') bul()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
@@ -2756,43 +2752,74 @@ mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
 mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
 }
 document.getElementById("toplam").innerText = sozluk.length;
-sayaclariYukle();
+sayaclariGuncelle();
 }
 
 function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
 
-function sayaclariYukle(){
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-toplam-gezen')
-.then(r => r.json()).then(d => {
-let s = d.count !== undefined ? d.count : d.value;
-document.getElementById("toplamGezen").innerText = s;
-}).catch(() => {
-document.getElementById("toplamGezen").innerText = "0";
-});
+function sayaclariGuncelle(){
+// Toplam gezen sayısını gerçeğe uygun şekilde artır
+let toplamGezen = parseInt(localStorage.getItem('cemilp_toplam_gezen') || '0') + 1;
+localStorage.setItem('cemilp_toplam_gezen', toplamGezen);
+document.getElementById("toplamGezen").innerText = toplamGezen;
 
-let bugunKey = 'bugun-gezen-' + bugununTarihi();
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-' + bugunKey)
-.then(r => r.json()).then(d => {
-let s = d.count !== undefined ? d.count : d.value;
-document.getElementById("bugunGezen").innerText = s;
-}).catch(() => {
-document.getElementById("bugunGezen").innerText = "0";
-});
+// Bugün gezen sayısını gerçeğe uygun şekilde yönet
+let bugunTarih = bugununTarihi();
+let kayitliTarih = localStorage.getItem('cemilp_tarih');
+let bugunGezen = parseInt(localStorage.getItem('cemilp_bugun_gezen') || '0');
 
-fetch('https://abacus.jasoncameron.dev/hit/cemilp-cpu-en-cok-sorulan')
-.then(r => r.json()).then(d => {
-let s = d.count !== undefined ? d.count : d.value;
-document.getElementById("cokSorulan").innerText = s;
-}).catch(() => {
-document.getElementById("cokSorulan").innerText = "0";
-});
+if (kayitliTarih !== bugunTarih) {
+bugunGezen = 1;
+localStorage.setItem('cemilp_tarih', bugunTarih);
+} else {
+bugunGezen += 1;
+}
+localStorage.setItem('cemilp_bugun_gezen', bugunGezen);
+document.getElementById("bugunGezen").innerText = bugunGezen;
+
+enCokSorulaniGoster();
+}
+
+function kelimeTetikle(kelimeMetni) {
+if (!kelimeMetni) return;
+let arananKey = kelimeMetni.toLocaleUpperCase('tr-TR');
+let arananlar = JSON.parse(localStorage.getItem('cemilp_arananlar') || '{}');
+
+if (!arananlar[arananKey]) {
+arananlar[arananKey] = 1;
+} else {
+arananlar[arananKey]++;
+}
+localStorage.setItem('cemilp_arananlar', JSON.stringify(arananlar));
+enCokSorulaniGoster();
+}
+
+function enCokSorulaniGoster() {
+let arananlar = JSON.parse(localStorage.getItem('cemilp_arananlar') || '{}');
+let enCokKelime = "YOK";
+let enCokSayi = 0;
+
+for (let kelime in arananlar) {
+if (arananlar[kelime] > enCokSayi) {
+enCokSayi = arananlar[kelime];
+enCokKelime = kelime;
+}
+}
+
+if (enCokSayi > 0) {
+document.getElementById("cokSorulan").innerHTML = `${enCokKelime}<br>(${enCokSayi} DEFA)`;
+} else {
+document.getElementById("cokSorulan").innerText = "YOK (0)";
+}
 }
 
 function bul(){
-let giris = duzenle(document.getElementById("ara").value);
+let hamGiris = document.getElementById("ara").value;
+let giris = duzenle(hamGiris);
 let bulundu = mapAtoB[giris] || mapBtoA[giris];
 
 if(bulundu){
+kelimeTetikle(hamGiris.trim());
 if(mapAtoB[giris]){
 document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A.toLocaleUpperCase('tr-TR')}<br><b>YALIN:</b> ${bulundu.B.toLocaleUpperCase('tr-TR')}`;
 }else{
@@ -2838,4 +2865,5 @@ baslat();
 </script>
 </body>
 </html>
+
 
