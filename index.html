@@ -3,95 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
-
-<!-- Google Analytics Sayaç Kodları -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ÖLÇÜM_KİMLİĞİNİZ"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-var isLocalhost = window.location.hostname === "localhost" ||
-window.location.hostname === "127.0.0.1" ||
-window.location.protocol === "file:";
-
-if (isLocalhost) {
-gtag('config', 'G-ÖLÇÜM_KİMLİĞİNİZ', { 'debug_mode': true, 'send_page_view': true });
-} else {
-gtag('config', 'G-ÖLÇÜM_KİMLİĞİNİZ');
-}
-</script>
-
 <style>
-body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 0; box-sizing: border-box; }
-.kutu { width: 100%; max-width: 600px; min-height: calc(100vh - 20px); margin: 10px auto; border: 3px solid #000; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,.4); background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
-
-.k1 { background: #ffeb38; color: #000; padding: 14px; text-align: center; font-size: 20px; font-weight: bold; border-bottom: 2px solid #000; }
-.k2 { background: #ffeb38; color: #000; padding: 12px; text-align: center; font-size: 16px; font-weight: bold; border-bottom: 2px solid #000; }
-.k3 { background: #ffeb38; color: #000; padding: 12px; text-align: center; font-size: 16px; font-weight: bold; border-bottom: 2px solid #000; }
-
-.sayaçlar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; }
-.sayaçlar div { flex: 1; text-align: center; padding: 8px 2px; border-right: 1px solid #555; }
-.sayaçlar div:last-child { border-right: none; }
-.sayaçlar span { color: #ffcc00; font-size: 15px; display: block; font-weight: bold; word-break: break-word; }
-
-.ic { background: #fff; padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; }
-
-input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; text-transform: uppercase !important; }
-
+body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+.kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.k1,.k2,.k3 { background: #ffeb38; padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; }
+.sayaclar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; }
+.sayaclar div { flex: 1; text-align: center; padding: 8px 2px; border-right: 1px solid #555; }
+.sayaclar span { color: #ffcc00; font-size: 15px; display: block; }
+.ic { background: #fff; padding: 20px; flex-grow: 1; }
+input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; }
 .btns { display: flex; gap: 6px; margin-top: 10px; }
-.btns button { flex: 1; padding: 12px; border: none; color: #fff; font-weight: bold; cursor: pointer; font-size: 13px; }
-.bul { background: #0d7a0d; } .baska { background: #e67300; } .sil { background: #b30000; } .oneri { background: #0d7a0d; }
-
-#sonuc { margin-top: 12px; padding: 14px; background: #f2f2f2; min-height: 80px; border: 1px solid #ccc; font-weight: bold !important; font-size: 20px !important; color: #000; text-transform: uppercase !important; max-height: 300px; overflow-y: auto; line-height: 1.7; }
-#sonuc b { font-size: 20px !important; font-weight: bold !important; color: #c00000; }
-.bulunamadi { color: #b30000 !important; }
-#oneri { margin-top: 12px; }
-textarea { width: 100%; padding: 10px; box-sizing: border-box; font-size: 16px; font-weight: bold; }
-
-.alt { background: #ffcc00; padding: 12px; text-align: center; font-size: 12px; color: #000; font-weight: bold; margin-top: auto; }
-.alt.yildiz { color: #c00000; font-size: 16px; margin-right: 4px; cursor: pointer; }
-.liste-2sutun { column-count: 2; column-gap: 15px; }
-.liste-2sutun div { break-inside: avoid; margin-bottom: 4px; }
+.btns button { flex: 1; padding: 12px; border: none; color: #fff; font-weight: bold; cursor: pointer; }
+.bul { background: #0d7a0d; }.baska { background: #e67300; }.sil { background: #b30000; }.oneri { background: #0d7a0d; }
+#sonuc { margin-top: 12px; padding: 14px; background: #f2f2f2; min-height: 80px; border: 1px solid #ccc; font-size: 20px; font-weight: bold; }
+.alt { background: #ffcc00; padding: 12px; text-align: center; font-size: 12px; font-weight: bold; }
 </style>
 </head>
 <body>
-
 <div class="kutu">
-<div>
 <div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
-<div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.<br>Önerilen yalın türkçe sözcükler sunulur.</div>
+<div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR</div>
-
-<div class="sayaçlar">
-<div>TOPLAM<br>SÖZCÜK<br><span id="toplam">0</span></div>
-<div>TOPLAM<br>GEZEN<br><span id="toplamGezen">1</span></div>
-<div>BUGÜN<br>GEZEN<br><span id="bugunGezen">1</span></div>
-<div>EN ÇOK<br>SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
+<div class="sayaclar">
+<div>TOPLAM SÖZCÜK<br><span id="toplam">0</span></div>
+<div>TOPLAM GEZEN<br><span id="toplamGezen">1</span></div>
+<div>BUGÜN GEZEN<br><span id="bugunGezen">1</span></div>
+<div>EN ÇOK SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
 </div>
-
 <div class="ic">
-<input type="text" id="ara" placeholder="ÖRNEK: ATOM VEYA ÖGECİK102" oninput="this.value = this.value.toLocaleUpperCase('tr-TR')" onkeypress="if(event.key=='Enter') bul()">
+<input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')" onkeypress="if(event.key=='Enter')bul()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
-<button class="baska" onclick="baska()">BAŞKA SÖZCÜK</button>
+<button class="baska" onclick="baska()">BAŞKA</button>
 <button class="sil" onclick="sil()">SİL</button>
-<button class="oneri" onclick="oner()">ÖNERİ GÖNDER</button>
+<button class="oneri" onclick="oner()">ÖNERİ</button>
 </div>
 <div id="sonuc"></div>
-<div id="oneri" style="display:none;">
-<textarea id="oneriMetin" rows="2" placeholder="YALIN TÜRKÇE ÖNERİNİZ"></textarea>
-<button class="oneri" onclick="onerGonder()">MAİL İLE GÖNDER</button>
 </div>
+<div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ-E.E.)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
-</div>
-
-<div class="alt">
-<span class="yildiz" onclick="tumunuListele()">★</span>Cemil Pakyürek (1968-1973 İTÜ-E.E. BİLİMDALI)<br>
-Bulamadıklarınızı önerin. cemilp@gmail.com
-</div>
-</div>
-
 <script>
 let sozluk = [ 
 { A:"zoom", B:"yakınlaşma"},
@@ -2751,133 +2701,15 @@ Son.
  { A: "heading" , B: "başlık" } 
 
 ];
-let mapAtoB = {};
-let mapBtoA = {};
-
-function duzenle(kelime){
-return kelime.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
-}
-
-function baslat(){
-for(let i=0; i<sozluk.length; i++){
-let a = duzenle(sozluk[i].A);
-let b = duzenle(sozluk[i].B);
-mapAtoB[a] = {A: sozluk[i].A, B: sozluk[i].B};
-mapBtoA[b] = {A: sozluk[i].A, B: sozluk[i].B};
-}
-document.getElementById("toplam").innerText = sozluk.length;
-sayaclariGuncelle();
-}
-
-function bugununTarihi(){ return new Date().toISOString().slice(0,10); }
-
-function sayaclariGuncelle(){
-// Toplam gezen sayısını gerçeğe uygun şekilde artır
-let toplamGezen = parseInt(localStorage.getItem('cemilp_toplam_gezen') || '0') + 1;
-localStorage.setItem('cemilp_toplam_gezen', toplamGezen);
-document.getElementById("toplamGezen").innerText = toplamGezen;
-
-// Bugün gezen sayısını gerçeğe uygun şekilde yönet
-let bugunTarih = bugununTarihi();
-let kayitliTarih = localStorage.getItem('cemilp_tarih');
-let bugunGezen = parseInt(localStorage.getItem('cemilp_bugun_gezen') || '0');
-
-if (kayitliTarih !== bugunTarih) {
-bugunGezen = 1;
-localStorage.setItem('cemilp_tarih', bugunTarih);
-} else {
-bugunGezen += 1;
-}
-localStorage.setItem('cemilp_bugun_gezen', bugunGezen);
-document.getElementById("bugunGezen").innerText = bugunGezen;
-
-enCokSorulaniGoster();
-}
-
-function kelimeTetikle(kelimeMetni) {
-if (!kelimeMetni) return;
-let arananKey = kelimeMetni.toLocaleUpperCase('tr-TR');
-let arananlar = JSON.parse(localStorage.getItem('cemilp_arananlar') || '{}');
-
-if (!arananlar[arananKey]) {
-arananlar[arananKey] = 1;
-} else {
-arananlar[arananKey]++;
-}
-localStorage.setItem('cemilp_arananlar', JSON.stringify(arananlar));
-enCokSorulaniGoster();
-}
-
-function enCokSorulaniGoster() {
-let arananlar = JSON.parse(localStorage.getItem('cemilp_arananlar') || '{}');
-let enCokKelime = "YOK";
-let enCokSayi = 0;
-
-for (let kelime in arananlar) {
-if (arananlar[kelime] > enCokSayi) {
-enCokSayi = arananlar[kelime];
-enCokKelime = kelime;
-}
-}
-
-if (enCokSayi > 0) {
-document.getElementById("cokSorulan").innerHTML = `${enCokKelime}<br>(${enCokSayi} DEFA)`;
-} else {
-document.getElementById("cokSorulan").innerText = "YOK (0)";
-}
-}
-
-function bul(){
-let hamGiris = document.getElementById("ara").value;
-let giris = duzenle(hamGiris);
-let bulundu = mapAtoB[giris] || mapBtoA[giris];
-
-if(bulundu){
-kelimeTetikle(hamGiris.trim());
-if(mapAtoB[giris]){
-document.getElementById("sonuc").innerHTML = `<b>YABAN:</b> ${bulundu.A.toLocaleUpperCase('tr-TR')}<br><b>YALIN:</b> ${bulundu.B.toLocaleUpperCase('tr-TR')}`;
-}else{
-document.getElementById("sonuc").innerHTML = `<b>YALIN:</b> ${bulundu.B.toLocaleUpperCase('tr-TR')}<br><b>YABAN:</b> ${bulundu.A.toLocaleUpperCase('tr-TR')}`;
-}
-}else{
-document.getElementById("sonuc").innerHTML = `<span class="bulunamadi">BULUNAMADI. AŞAĞIDAN ÖNERİ GÖNDERİN.</span>`;
-}
-}
-
-function baska(){
-document.getElementById("ara").value = "";
-document.getElementById("sonuc").innerHTML = "";
-document.getElementById("oneri").style.display = "none";
-document.getElementById("ara").focus();
-}
-
-function sil(){
-document.getElementById("ara").value = "";
-document.getElementById("ara").focus();
-}
-
-function oner(){
-document.getElementById("oneri").style.display = "block";
-}
-
-function onerGonder(){
-let yaban = document.getElementById("ara").value;
-let yalin = document.getElementById("oneriMetin").value;
-window.location.href = `mailto:cemilp@gmail.com?subject=Sozcuk Onerisi&body=YABAN: ${yaban}%0AYALIN ONERI: ${yalin}`;
-}
-
-function tumunuListele(){
-let liste = `<b>TUM SOZCUKLER 1-${sozluk.length}:</b><br><br><div class="liste-2sutun">`;
-for(let i=0; i<sozluk.length; i++){
-liste += `<div>${i+1}. ${sozluk[i].A.toLocaleUpperCase('tr-TR')} = ${sozluk[i].B.toLocaleUpperCase('tr-TR')}</div>`;
-}
-liste += `</div>`;
-document.getElementById("sonuc").innerHTML = liste;
-}
-
+let mapAtoB={}; let mapBtoA={};
+function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+function baslat(){for(let i=0;i<sozluk.length;i++){let a=duzenle(sozluk[i].A);let b=duzenle(sozluk[i].B);mapAtoB[a]=sozluk[i];mapBtoA[b]=sozluk[i];}document.getElementById("toplam").innerText=sozluk.length;}
+function bul(){let g=duzenle(document.getElementById("ara").value);let b=mapAtoB[g]||mapBtoA[g];document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;}
+function baska(){document.getElementById("ara").value="";document.getElementById("sonuc").innerHTML="";}
+function sil(){baska();}
+function oner(){window.location.href=`mailto:cemilp@gmail.com?subject=Oneri&body=${document.getElementById("ara").value}`;}
 baslat();
 </script>
 </body>
 </html>
-
 
