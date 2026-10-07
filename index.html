@@ -3,49 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
-
-<!-- Umami Cloud - Doğru Kod -->
+<title>SÖZCÜKLÜK - SÜRÜM 20</title>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="cemilpak"></script>
-
 <style>
-body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-.kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
-.k1,.k2,.k3 { background: #ffeb38; padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; }
-.sayaclar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; }
-.sayaclar div { flex: 1; text-align: center; padding: 8px 2px; border-right: 1px solid #555; }
-.sayaclar span { color: #ffcc00; font-size: 15px; display: block; }
-.ic { background: #fff; padding: 20px; flex-grow: 1; }
-input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; }
-.btns { display: flex; gap: 6px; margin-top: 10px; }
-.btns button { flex: 1; padding: 12px; border: none; color: #fff; font-weight: bold; cursor: pointer; }
-.bul { background: #0d7a0d; }.baska { background: #e67300; }.sil { background: #b30000; }.oneri { background: #0d7a0d; }
-#sonuc { margin-top: 12px; padding: 14px; background: #f2f2f2; min-height: 80px; border: 1px solid #ccc; font-size: 20px; font-weight: bold; }
-.alt { background: #ffcc00; padding: 12px; text-align: center; font-size: 12px; font-weight: bold; }
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif!important;font-size:11.5px!important;font-weight:bold!important;line-height:1.25!important}
+html,body{height:100%}body{background:#9bb6d6;display:flex;justify-content:center;align-items:center;padding:5px}
+.kutu{width:100%;max-width:360px;height:96vh;max-height:640px;border:2px solid #000;border-radius:4px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.sari{background:#ffeb38;text-align:center;padding:5px 4px;border-bottom:1.5px solid #000}
+.sayaclar{display:flex;background:#222;color:#fff;border-bottom:1.5px solid #000}.sayaclar>div{flex:1;text-align:center;padding:4px 1px;border-right:1px solid #444}.sayaclar span{color:#ffeb38;display:block}
+.ic{flex:1;display:flex;flex-direction:column;padding:6px;gap:5px;overflow:hidden}input#ara{width:100%;border:1.5px solid #000;padding:7px}
+.btns{display:flex;gap:4px}.btns button{flex:1;padding:7px 0;border:none;color:#fff;cursor:pointer}.bul{background:#2a7a2a}.baska{background:#d67a1a}.sil{background:#a52a2a}.oneri{background:#2a5a8a}
+#sonuc{flex:1;border:1px solid #888;background:#f2f2f2;padding:6px;overflow:auto;white-space:pre-wrap}
+.alt{background:#ffeb38;text-align:center;padding:5px 3px;border-top:1.5px solid #000}
 </style>
 </head>
 <body>
 <div class="kutu">
-<div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
-<div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
-<div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR</div>
+<div class="sari">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER - SÜRÜM 20</div>
+<div class="sari">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
+<div class="sari">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE SÖZCÜK VARDIR</div>
 <div class="sayaclar">
-<div>TOPLAM SÖZCÜK<br><span id="toplam">0</span></div>
-<div>TOPLAM GEZEN<br><span id="toplamGezen">1</span></div>
-<div>BUGÜN GEZEN<br><span id="bugunGezen">1</span></div>
-<div>EN ÇOK SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
+<div>TOPLAM SÖZCÜK<span id="toplam">0</span></div>
+<div>TOPLAM GEZEN<span>1</span></div>
+<div>BUGÜN GEZEN<span>1</span></div>
+<div>EN ÇOK SORULAN<span>YOK (0)</span></div>
 </div>
 <div class="ic">
-<input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')" onkeypress="if(event.key=='Enter')bul()">
-<div class="btns">
-<button class="bul" onclick="bul()">BUL</button>
-<button class="baska" onclick="baska()">BAŞKA</button>
-<button class="sil" onclick="sil()">SİL</button>
-<button class="oneri" onclick="oner()">ÖNERİ</button>
-</div>
+<input id="ara" placeholder="SÖZCÜK YAZIN" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')" onkeypress="if(event.key==='Enter')bul()">
+<div class="btns"><button class="bul" onclick="bul()">BUL</button><button class="baska" onclick="baska()">BAŞKA</button><button class="sil" onclick="sil()">SİL</button><button class="oneri" onclick="oner()">ÖNERİ</button></div>
 <div id="sonuc"></div>
 </div>
-<div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ-E.E.)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
+<div class="alt">★ Cemil Pakyürek - SÜRÜM 20<br>cemilp@gmail.com<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
 <script>
 let sozluk = [ 
@@ -2606,13 +2594,10 @@ let sozluk = [
 {  A: "ab" , B: "su" }
 
 ];
-let mapAtoB={}; let mapBtoA={};
-function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-function baslat(){for(let i=0;i<sozluk.length;i++){let a=duzenle(sozluk[i].A);let b=duzenle(sozluk[i].B);mapAtoB[a]=sozluk[i];mapBtoA[b]=sozluk[i];}document.getElementById("toplam").innerText=sozluk.length;}
-function bul(){let g=duzenle(document.getElementById("ara").value);let b=mapAtoB[g]||mapBtoA[g];document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;}
-function baska(){document.getElementById("ara").value="";document.getElementById("sonuc").innerHTML="";}
-function sil(){baska();}
-function oner(){let kelime=document.getElementById("ara").value; window.location.href=`mailto:cemilp@gmail.com?subject=Öneri: ${encodeURIComponent(kelime)}&body=Merhaba Cemil Bey, ${encodeURIComponent(kelime)} için önerim:`;}
+let mA={},mB={};function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+function baslat(){let s=0;for(let i=0;i<sozluk.length;i++){try{mA[duzenle(sozluk[i].A)]=sozluk[i];mB[duzenle(sozluk[i].B)]=sozluk[i];s++;}catch(e){}}document.getElementById("toplam").innerText=s;}
+function bul(){let g=duzenle(document.getElementById("ara").value);let b=mA[g]||mB[g];document.getElementById("sonuc").innerText=b?`YABAN: ${b.A.toUpperCase()}\nYALIN: ${b.B.toUpperCase()}`:`BULUNAMADI`;}
+function baska(){ara.value="";sonuc.innerText="";}function sil(){baska();}function oner(){location.href=`mailto:cemilp@gmail.com?subject=Öneri:${encodeURIComponent(ara.value)}`;}
 baslat();
 </script>
 </body>
