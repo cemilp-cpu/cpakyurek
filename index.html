@@ -2,10 +2,11 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
 
-<!-- Umami Cloud Canlı Sayaç İzleme İmgesi -->
-<script defer src="https://umami.is" data-website-id="cemilpak"></script>
+<!-- Umami Cloud - Doğru Kod -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="cemilpak"></script>
 
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
@@ -15,7 +16,7 @@ body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: 
 .sayaclar div { flex: 1; text-align: center; padding: 8px 2px; border-right: 1px solid #555; }
 .sayaclar span { color: #ffcc00; font-size: 15px; display: block; }
 .ic { background: #fff; padding: 20px; flex-grow: 1; }
-input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; }
+input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; }
 .btns { display: flex; gap: 6px; margin-top: 10px; }
 .btns button { flex: 1; padding: 12px; border: none; color: #fff; font-weight: bold; cursor: pointer; }
 .bul { background: #0d7a0d; }.baska { background: #e67300; }.sil { background: #b30000; }.oneri { background: #0d7a0d; }
@@ -2687,9 +2688,10 @@ function baslat(){for(let i=0;i<sozluk.length;i++){let a=duzenle(sozluk[i].A);le
 function bul(){let g=duzenle(document.getElementById("ara").value);let b=mapAtoB[g]||mapBtoA[g];document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;}
 function baska(){document.getElementById("ara").value="";document.getElementById("sonuc").innerHTML="";}
 function sil(){baska();}
-function oner(){window.location.href=`mailto:cemilp@://gmail.com{document.getElementById("ara").value}`;}
+function oner(){let kelime=document.getElementById("ara").value; window.location.href=`mailto:cemilp@gmail.com?subject=Öneri: ${encodeURIComponent(kelime)}&body=Merhaba Cemil Bey, ${encodeURIComponent(kelime)} için önerim:`;}
 baslat();
 </script>
 </body>
 </html>
+
 
