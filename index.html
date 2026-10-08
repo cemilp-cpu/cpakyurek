@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SÖZCÜKLÜK - SÜRÜM 20</title>
+<title>Sözlük değil, SÖZCÜKLÜK </title>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="cemilpak"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif!important;font-size:11.5px!important;font-weight:bold!important;line-height:1.25!important}
@@ -19,22 +19,17 @@ html,body{height:100%}body{background:#9bb6d6;display:flex;justify-content:cente
 </head>
 <body>
 <div class="kutu">
-<div class="sari">YABANCI KÖKENLİ SÖZCÜKLERE YALIN TÜRKÇE SÖZCÜKLER - SÜRÜM 20</div>
+<div class="sari">YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜK ÖNERİLERİ</div>
 <div class="sari">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
-<div class="sari">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE SÖZCÜK VARDIR</div>
+<div class="sari">HER YABANCI KÖKENLİ SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE SÖZCÜK ÖNERİSİ VARDIR</div>
 <div class="sayaclar">
 <div>TOPLAM SÖZCÜK<span id="toplam">0</span></div>
 <div>TOPLAM GEZEN<span>1</span></div>
 <div>BUGÜN GEZEN<span>1</span></div>
-<div>EN ÇOK SORULAN<span>YOK (0)</span></div>
+<div>EN ÇOK SORULAN<span></span></div>
 </div>
 <div class="ic">
-<input id="ara" placeholder="SÖZCÜK YAZIN" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')" onkeypress="if(event.key==='Enter')bul()">
-<div class="btns"><button class="bul" onclick="bul()">BUL</button><button class="baska" onclick="baska()">BAŞKA</button><button class="sil" onclick="sil()">SİL</button><button class="oneri" onclick="oner()">ÖNERİ</button></div>
-<div id="sonuc"></div>
-</div>
-<div class="alt">★ Cemil Pakyürek - SÜRÜM 20<br>cemilp@gmail.com<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
-</div>
+<input id="ara" placeholder="YALIN TÜRKÇE ÖNERİSİNİ ÖĞRENECEĞİNİZSÖZCÜK SORUN</div>
 <script>
 let sozluk = [ 
 { A:"zoom", B:"yakınlaşma"},
