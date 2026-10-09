@@ -2736,6 +2736,7 @@ let sozluk = [
 ];
 let mapAtoB={}; let mapBtoA={};
 function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+document.getElementById("toplamGezen").innerText = "ÖLÇÜLÜYOR"; document.getElementById("bugunGezen").innerText = "ÖLÇÜLÜYOR";
 function baslat(){
 for(let i=0;i<sozluk.length;i++){
 let a=duzenle(sozluk[i].A);
