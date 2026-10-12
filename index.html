@@ -55,6 +55,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 </div>
 <div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ-E.E.)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
+
 <script>
 let sozluk = [ 
 { A:"zoom", B:"yakınlaşma"},
@@ -3287,66 +3288,109 @@ let sozluk = [
  
  
 ];
-let mapAtoB={}; let mapBtoA={};
-function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
-function baslat(){
-for(let i=0;i<sozluk.length;i++){
-let a=duzenle(sozluk[i].A);
-let b=duzenle(sozluk[i].B);
-mapAtoB[a]=sozluk[i];
-mapBtoA[b]=sozluk[i];
+let mapAtoB = {};
+let mapBtoA = {};
+let temizlenmisSozluk = [];
+
+function duzenle(k) {
+if(!k) return "";
+return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
 }
-document.getElementById("toplam").innerText=sozluk.length;
-document.getElementById("ara").focus();
+
+// BAŞLATMA FONKSİYONU: Mükerrerliği önleyen yeni sesadlı anlatım (formül)
+function baslat() {
+mapAtoB = {};
+mapBtoA = {};
+temizlenmisSozluk = [];
+let benzersizKelimeler = new Set();
+
+for (let i = 0; i < sozluk.length; i++) {
+let aDuzenli = duzenle(sozluk[i].A);
+let bDuzenli = duzenle(sozluk[i].B);
+
+// Eğer bu yabancı kelime listede daha önce yoksa hafızaya temiz ekleme yapar
+if (!benzersizKelimeler.has(aDuzenli)) {
+benzersizKelimeler.add(aDuzenli);
+temizlenmisSozluk.push(sozluk[i]); // Orjinal lahıyı korur
+
+mapAtoB[aDuzenli] = sozluk[i];
+mapBtoA[bDuzenli] = sozluk[i];
+} else {
+console.warn(`Tekrar eden mükerrer sözcük engellendi: ${aDuzenli}`);
+}
+}
+
+// Toplam sözcük sayısını temizlenmiş gerçek sayıya eşitler
+document.getElementById("toplam").innerText = temizlenmisSozluk.length;
+
+// Sayfa açıldığında arama kutusuna otomatik odaklanır
+setTimeout(() => { document.getElementById("ara").focus(); }, 50);
+
 abeceOlustur();
 abeceDokum();
 }
-function bul(){
-let g=duzenle(document.getElementById("ara").value);
-if(g === "") { abeceDokum(); return; }
-let b=mapAtoB[g]||mapBtoA[g];
-document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;
+
+function bul() {
+let g = duzenle(document.getElementById("ara").value);
+if (g === "") { abeceDokum(); return; }
+let b = mapAtoB[g] || mapBtoA[g];
+document.getElementById("sonuc").innerHTML = b ? `<b>YABAN:</b> ${b.A.toUpperCase('tr-TR')}<br><b>YALIN:</b> ${b.B.toUpperCase('tr-TR')}` : `<span style="color:red">BULUNAMADI</span>`;
+
+// Bulma işleminden sonra da odağı kaybetme
+document.getElementById("ara").focus();
 }
-function baska(){
-document.getElementById("ara").value="";
+
+// BAŞKA SORU SOR VE SİL İŞLEMLERİNDE KESİN İMLEÇ ODAKLAMA
+function baska() {
+document.getElementById("ara").value = "";
 abeceDokum();
-document.getElementById("ara").focus();
-}
-function sil(){baska();}
-function oner(){window.location.href=`mailto:cemilp@://gmail.com{document.getElementById("ara").value}`;}
-
-function abeceOlustur(){
-let harfler="ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
-let html="";
-for(let i=0;i<harfler.length;i++){
-html+=`<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
-}
-document.getElementById("harfler").innerHTML=html;
-}
-function harfDöküm(harf){
-let html=`<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
-let bulundu=false;
-for(let i=0;i<sozluk.length;i++){
-if(sozluk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)){
-html+=`• <b>${sozluk[i].A}</b> = ${sozluk[i].B}<br>`;
-bulundu=true;
-}
-}
-if(!bulundu) html+="<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
-html+="</div>";
-document.getElementById("sonuc").innerHTML=html;
-document.getElementById("ara").focus();
+// Odaklanma gecikmeli tetiklenerek kesin sonuç verir
+setTimeout(() => { document.getElementById("ara").focus(); }, 30);
 }
 
-function abeceDokum(){
-let sirali = [...sozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
+function sil() { baska(); }
+
+function oner() {
+window.location.href = `mailto:cemilp@://gmail.com{encodeURIComponent(document.getElementById("ara").value)}`;
+}
+
+function abeceOlustur() {
+let harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+let html = "";
+for (let i = 0; i < harfler.length; i++) {
+html += `<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
+}
+document.getElementById("harfler").innerHTML = html;
+}
+
+function harfDöküm(harf) {
+let html = `<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
+let bulundu = false;
+for (let i = 0; i < temizlenmisSozluk.length; i++) {
+if (temizlenmisSozluk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)) {
+html += `• <b>${temizlenmisSozluk[i].A}</b> = ${temizlenmisSozluk[i].B}<br>`;
+bulundu = true;
+}
+}
+if (!bulundu) html += "<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
+html += "</div>";
+document.getElementById("sonuc").innerHTML = html;
+
+// Harfe tıklandıktan sonra imleci doğrudan tekrar arama kutusuna atar
+setTimeout(() => { document.getElementById("ara").focus(); }, 30);
+}
+
+function abeceDokum() {
+let sirali = [...temizlenmisSozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
 let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
-for(let i=0; i<sirali.length; i++){
+for (let i = 0; i < sirali.length; i++) {
 html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
 }
 html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
+
+// Sistemi çalıştır
 baslat();
 </script>
 </body>
