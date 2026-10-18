@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>YABANCIYA YALIN TÜRKÇE SÖZCÜKLER</title>
+
+<!-- Umami Cloud Canlı Sayaç İzleme İmgesi -->
 <script defer src="https://umami.is" data-website-id="cemilpak"></script>
+
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 .kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
@@ -39,7 +42,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div>EN ÇOK SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
 </div>
 <div class="ic">
-<input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toUpperCase()">
+<input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
 <button class="baska" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
@@ -47,6 +50,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <button class="oneri" onclick="oner()">ÖNERİ</button>
 </div>
 <div id="sonuc"></div>
+
 <div class="abece-kutusu">
 <span class="abece-baslik">BULDURUCU ABECESİ İLE DÖKÜM ALIN:</span>
 <div id="harfler"></div>
@@ -54,6 +58,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 </div>
 <div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ E. E FAK. Yüksek lisanslı , eksiciklenme, eksiciksel bilimdalından, yüksek yetkililendirilmiş)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
+
 <script>
 let sozluk = [ 
 { A:"zoom", B:"yakınlaşma"},
@@ -4428,114 +4433,120 @@ let sozluk = [
 let mapAtoB = {};
 let mapBtoA = {};
 let temizlenmisSozluk = [];
-function temizle(str) {
-if(!str) return "";
-return str.toString().trim().toUpperCase().replace(/İ/g,'I').replace(/Ş/g,'S').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ö/g,'O').replace(/Ç/g,'C');
+
+function duzenle(k) {
+if(!k) return "";
+return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
 }
+
 function baslat() {
 mapAtoB = {};
 mapBtoA = {};
 temizlenmisSozluk = [];
 let benzersizKelimeler = new Set();
+
 for (let i = 0; i < sozcuk.length; i++) {
-let aDuzenli = temizle(sozcuk[i].A);
-if (!benzersizKelimeler.has(aDuzenli)) {
-benzersizKelimeler.add(aDuzenli);
+let aDuzenli = duzenle(sozcuk[i].A);
+let bDuzenli = duzenle(sozcuk[i].B);
+
+if (!benzersizKelimeler.has(aDuzenli + "-" + bDuzenli)) {
+benzersizKelimeler.add(aDuzenli + "-" + bDuzenli);
 temizlenmisSozluk.push(sozcuk[i]);
-mapAtoB[aDuzenli] = sozcuk[i];
+
+if (!mapAtoB[aDuzenli]) mapAtoB[aDuzenli] = [];
+mapAtoB[aDuzenli].push(sozcuk[i]);
+
+if (!mapBtoA[bDuzenli]) mapBtoA[bDuzenli] = [];
+mapBtoA[bDuzenli].push(sozcuk[i]);
 }
 }
+
 document.getElementById("toplam").innerText = temizlenmisSozluk.length;
 abeceOlustur();
 abeceDokum();
 setTimeout(function() { document.getElementById("ara").focus(); }, 50);
 }
+
 function bul() {
-let qIn = document.getElementById("ara");
-let rOut = document.getElementById("sonuc");
-let g = qIn.value.trim();
+let g = duzenle(document.getElementById("ara").value);
 if (g === "") { abeceDokum(); return; }
-let gDuzenli = temizle(g);
-let matches = [];
-sozcuk.forEach(function(item) {
-let aDuzenli = temizle(item.A);
-let bDuzenli = temizle(item.B);
-if (aDuzenli === gDuzenli || bDuzenli === gDuzenli) {
-let karsilik = (aDuzenli === gDuzenli) ? item.B : item.A;
-if (!matches.includes(karsilik)) matches.push(karsilik);
-}
-});
-matches.sort(function(x, y) { return x.localeCompare(y, 'tr'); });
-if (matches.length > 0) {
-let outHtml = "";
-matches.forEach(function(word, index) {
+
+let matches = mapAtoB[g] || mapBtoA[g];
+
+if (matches && matches.length > 0) {
+let html = "";
+matches.forEach(function(b, index) {
 let numStr = matches.length > 1 ? " (" + (index + 1) + ")" : "";
-outHtml += "<b>YABAN:</b> " + g.toUpperCase() + "<br><b>YALIN" + numStr + ":</b> " + word.toUpperCase() + "<br><br>";
+html += "<b>YABAN:</b> " + b.A.toUpperCase('tr-TR') + "<br><b>YALIN" + numStr + ":</b> " + b.B.toUpperCase('tr-TR') + "<br><br>";
 });
-rOut.innerHTML = outHtml;
+document.getElementById("sonuc").innerHTML = html;
 } else {
-rOut.innerHTML = "<div class='yonetici-kutu'><div>Sözcük bulunamadı. Önerinizi yazıp doğrudan yöneticiye ulaştırabilirsiniz:</div><input type='text' id='onerilenKelime' placeholder='Türkçe karşılık öneriniz...'><button onclick='yoneticiyeGonder()'>Yöneticiye Ulaştır</button></div>";
+document.getElementById("sonuc").innerHTML = "<div class='yonetici-kutu'><div>Sözcük bulunamadı. Önerinizi yazıp doğrudan yöneticiye ulaştırabilirsiniz:</div><input type='text' id='onerilenKelime' placeholder='Yalın Türkçe karşılık öneriniz...'><button onclick='yoneticiyeGonder()'>Yöneticiye Ulaştır</button></div>";
 }
-qIn.focus();
+document.getElementById("ara").focus();
 }
+
 function yoneticiyeGonder() {
 let val = document.getElementById("onerilenKelime").value.trim();
 if(!val) return;
 alert('"' + val + '" öneriniz yöneticiye başarıyla ulaştırılmıştır.');
 baska();
 }
+
 function baska() {
-let qIn = document.getElementById("ara");
-qIn.value = "";
+document.getElementById("ara").value = "";
 abeceDokum();
-setTimeout(function() { qIn.focus(); }, 30);
+setTimeout(function() { document.getElementById("ara").focus(); }, 30);
 }
+
 function sil() { baska(); }
+
 function oner() {
-let qIn = document.getElementById("ara");
-window.location.href = "mailto:cemilp@://gmail.com Onerisi&body=" + encodeURIComponent(qIn.value);
+window.location.href = "mailto:cemilp@://gmail.com Önerisi&body=" + encodeURIComponent(document.getElementById("ara").value);
 }
+
 function abeceOlustur() {
 let harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
 let html = "";
 for (let i = 0; i < harfler.length; i++) {
-html += "<span class='abece-tusu' onclick='harfDokum(\"" + harfler[i] + "\")'>" + harfler[i] + "</span>";
+html += "<span class='abece-tusu' onclick='harfDöküm(\"" + harfler[i] + "\")'>" + harfler[i] + "</span>";
 }
 document.getElementById("harfler").innerHTML = html;
 }
-function harfDokum(harf) {
-let rOut = document.getElementById("sonuc");
-let qIn = document.getElementById("ara");
+
+function harfDöküm(harf) {
 let sonuclar = [];
 temizlenmisSozluk.forEach(function(item) {
-if (temizle(item.A).startsWith(harf)) {
+if (item.A.trim().toUpperCase('tr-TR').startsWith(harf)) {
 sonuclar.push(item);
 }
 });
 sonuclar.sort(function(x, y) { return x.A.localeCompare(y.A, 'tr'); });
-let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>" + harf + " HARFI DOKUMU:</b><br>";
+
+let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>" + harf + " HARFİ DÖKÜMÜ:</b><br>";
 if (sonuclar.length > 0) {
 sonuclar.forEach(function(item) {
 html += "• <b>" + item.A + "</b> = " + item.B + "<br>";
 });
 } else {
-html += "<span style='color:red;'>Bu harfle baslayan sozcuk bulunamadi.</span>";
+html += "<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
 }
 html += "</div>";
-rOut.innerHTML = html;
-setTimeout(function() { qIn.focus(); }, 30);
+document.getElementById("sonuc").innerHTML = html;
+setTimeout(function() { document.getElementById("ara").focus(); }, 30);
 }
+
 function abeceDokum() {
-let rOut = document.getElementById("sonuc");
 let sirali = [...temizlenmisSozluk].sort(function(x, y) { return x.A.localeCompare(y.A, 'tr'); });
 let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
 for (let i = 0; i < sirali.length; i++) {
 html += "• <b>" + sirali[i].A + "</b> = " + sirali[i].B + "<br>";
 }
 html += "</div>";
-rOut.innerHTML = html;
+document.getElementById("sonuc").innerHTML = html;
 }
-window.onload = baslat;
+
+baslat();
 </script>
 </body>
 </html>
