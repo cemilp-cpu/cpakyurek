@@ -4474,9 +4474,15 @@ let b = mapAtoB[g] || mapBtoA[g];
 document.getElementById("sonuc").innerHTML = b ? `<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}` : `<span style="color:red">Bulunamadı</span>`;
 }
 
+function baska(){
+document.getElementById("ara").value="";
+abeceDokum();
+document.getElementById("ara").focus();
+}
 
-let gDuzenli = duzenle(g);
-let matches = [];
+function sil(){baska();}
+function oner(){window.location.href="mailto:cemilpp@://gmail.com"+document.getElementById("ara").value;}
+
 
 sozcuk.forEach(function(item) {
 let aDuzenli = duzenle(item.A);
