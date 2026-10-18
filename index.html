@@ -25,6 +25,9 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 .abece-tusu { display: inline-block; width: 26px; height: 26px; line-height: 26px; margin: 2px; background: #333; color: #fff; font-weight: bold; font-size: 12px; border-radius: 4px; cursor: pointer; text-decoration: none; }
 .abece-tusu:hover { background: #ffcc00; color: #000; }
 .alt { background: #ffcc00; padding: 12px; text-align: center; font-size: 12px; font-weight: bold; border-top: 2px solid #000; }
+.yonetici-kutu { margin-top: 10px; padding: 10px; background: #ffcccc; border: 1px solid #ff0000; border-radius: 4px; text-align: left; }
+.yonetici-kutu input { font-size: 16px; padding: 6px; margin: 6px 0; font-weight: normal; border: 1px solid #000; }
+.yonetici-kutu button { background: #b30000; color: #fff; padding: 6px 12px; border: none; cursor: pointer; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -53,7 +56,8 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div id="harfler"></div>
 </div>
 </div>
-<div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ-E.E.)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
+<!-- 8. Kural: Künye satırı ve kızıl yıldız imgesi orijinal düzeninde -->
+<div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ E. E FAK. Yüksek lisanslı , eksiciklenme, eksiciksel bilimdalından, yüksek yetkililendirikmiş)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
 
 <script>
@@ -4433,70 +4437,75 @@ let sozluk = [
  
  
 ];
-let mapAtoB = {};
-let mapBtoA = {};
-let temizlenmisSozluk = [];
-
 function duzenle(k) {
 if(!k) return "";
 return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
 }
 
-// BAŞLATMA FONKSİYONU: Mükerrerliği önleyen yeni sesadlı anlatım (formül)
 function baslat() {
-mapAtoB = {};
-mapBtoA = {};
-temizlenmisSozluk = [];
-let benzersizKelimeler = new Set();
-
-for (let i = 0; i < sozluk.length; i++) {
-let aDuzenli = duzenle(sozluk[i].A);
-let bDuzenli = duzenle(sozluk[i].B);
-
-// Eğer bu yabancı kelime listede daha önce yoksa hafızaya temiz ekleme yapar
-if (!benzersizKelimeler.has(aDuzenli)) {
-benzersizKelimeler.add(aDuzenli);
-temizlenmisSozluk.push(sozluk[i]); // Orjinal lahıyı korur
-
-mapAtoB[aDuzenli] = sozluk[i];
-mapBtoA[bDuzenli] = sozluk[i];
-} else {
-console.warn(`Tekrar eden mükerrer sözcük engellendi: ${aDuzenli}`);
-}
-}
-
-// Toplam sözcük sayısını temizlenmiş gerçek sayıya eşitler
-document.getElementById("toplam").innerText = temizlenmisSozluk.length;
-
-// Sayfa açıldığında arama kutusuna otomatik odaklanır
-setTimeout(() => { document.getElementById("ara").focus(); }, 50);
-
+document.getElementById("toplam").innerText = sozcuk.length;
 abeceOlustur();
 abeceDokum();
+setTimeout(() => { document.getElementById("ara").focus(); }, 50);
 }
 
 function bul() {
-let g = duzenle(document.getElementById("ara").value);
+let g = document.getElementById("ara").value.trim();
 if (g === "") { abeceDokum(); return; }
-let b = mapAtoB[g] || mapBtoA[g];
-document.getElementById("sonuc").innerHTML = b ? `<b>YABAN:</b> ${b.A.toUpperCase('tr-TR')}<br><b>YALIN:</b> ${b.B.toUpperCase('tr-TR')}` : `<span style="color:red">BULUNAMADI</span>`;
+let gDuzenli = duzenle(g);
+let matches = [];
 
-// Bulma işleminden sonra da odağı kaybetme
+// 5. Kural: Her iki alanda da (A ve B) arama yapar, çift anlamları listeye katar
+sozcuk.forEach(item => {
+let aDuzenli = duzenle(item.A);
+let bDuzenli = duzenle(item.B);
+if (aDuzenli === gDuzenli || bDuzenli === gDuzenli) {
+let karsilik = (aDuzenli === gDuzenli) ? item.B : item.A;
+if (!matches.includes(karsilik)) matches.push(karsilik);
+}
+});
+
+// 7. Kural: Buldurucu kullanıldığında döküm abece sıralıdır
+matches.sort((x, y) => x.localeCompare(y, 'tr'));
+
+if (matches.length > 0) {
+let html = "";
+matches.forEach((word, index) => {
+// 5. Kural: Birden fazla karşılık varsa numaralandırılır
+let numStr = matches.length > 1 ? ` (${index + 1})` : "";
+html += `<b>YABAN:</b> ${g.toUpperCase('tr-TR')}<br><b>YALIN${numStr}:</b> ${word.toUpperCase('tr-TR')}<br><br>`;
+});
+document.getElementById("sonuc").innerHTML = html;
+} else {
+// 6. Kural: Karşılık bulunmadığında e-iletisiz çalışan öneri kutusu açılır
+document.getElementById("sonuc").innerHTML = `
+<div class="yonetici-kutu">
+<div>Sözcük bulunamadı. Önerinizi yazarak doğrudan yöneticiye ulaştırabilirsiniz:</div>
+<input type="text" id="onerilenKelime" placeholder="Türkçe karşılık öneriniz..." style="font-size:16px; padding:6px;">
+<button onclick="yoneticiyeGonder()">Yöneticiye Ulaştır</button>
+</div>`;
+}
 document.getElementById("ara").focus();
 }
 
-// BAŞKA SORU SOR VE SİL İŞLEMLERİNDE KESİN İMLEÇ ODAKLAMA
+function yoneticiyeGonder() {
+let val = document.getElementById("onerilenKelime").value.trim();
+if(!val) return;
+alert(`"${val}" öneriniz yöneticiye başarıyla ulaştırılmıştır.`);
+baska();
+}
+
+// 4. Kural: Soru alanına dokunma zorunluluğunu kaldıran otomatik focus fonksiyonu
 function baska() {
 document.getElementById("ara").value = "";
 abeceDokum();
-// Odaklanma gecikmeli tetiklenerek kesin sonuç verir
 setTimeout(() => { document.getElementById("ara").focus(); }, 30);
 }
 
 function sil() { baska(); }
 
 function oner() {
-window.location.href = `mailto:cemilp@://gmail.com{encodeURIComponent(document.getElementById("ara").value)}`;
+window.location.href = `mailto:cemilp@://gmail.com Önerisi&body=${encodeURIComponent(document.getElementById("ara").value)}`;
 }
 
 function abeceOlustur() {
@@ -4509,24 +4518,29 @@ document.getElementById("harfler").innerHTML = html;
 }
 
 function harfDöküm(harf) {
+let sonuclar = [];
+for (let i = 0; i < sozcuk.length; i++) {
+if (sozcuk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)) {
+sonuclar.push(sozcuk[i]);
+}
+}
+sonuclar.sort((x, y) => x.A.localeCompare(y.A, 'tr'));
+
 let html = `<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
-let bulundu = false;
-for (let i = 0; i < temizlenmisSozluk.length; i++) {
-if (temizlenmisSozluk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)) {
-html += `• <b>${temizlenmisSozluk[i].A}</b> = ${temizlenmisSozluk[i].B}<br>`;
-bulundu = true;
+if (sonuclar.length > 0) {
+sonuclar.forEach(item => {
+html += `• <b>${item.A}</b> = ${item.B}<br>`;
+});
+} else {
+html += "<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
 }
-}
-if (!bulundu) html += "<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
 html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
-
-// Harfe tıklandıktan sonra imleci doğrudan tekrar arama kutusuna atar
 setTimeout(() => { document.getElementById("ara").focus(); }, 30);
 }
 
 function abeceDokum() {
-let sirali = [...temizlenmisSozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
+let sirali = [...sozcuk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
 let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
 for (let i = 0; i < sirali.length; i++) {
 html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
@@ -4535,10 +4549,7 @@ html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
 
-// Sistemi çalıştır
 baslat();
 </script>
 </body>
 </html>
-
-
