@@ -4466,33 +4466,53 @@ document.getElementById("toplam").innerText=sozluk.length;
 document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
-
-function bul(){
-let g = duzenle(document.getElementById("ara").value);
-if(g == "") { abeceDokum(); return; }
-let b = mapAtoB[g] || mapBtoA[g];
-document.getElementById("sonuc").innerHTML = b ? `<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}` : `<span style="color:red">Bulunamadı</span>`;
 }
-
+function bul(){
+let g=duzenle(document.getElementById("ara").value);
+if(g === "") { abeceDokum(); return; }
+let b=mapAtoB[g]||mapBtoA[g];
+document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;
+}
 function baska(){
 document.getElementById("ara").value="";
 abeceDokum();
 document.getElementById("ara").focus();
 }
-
 function sil(){baska();}
-function oner(){window.location.href="mailto:cemilpp@://gmail.com"+document.getElementById("ara").value;}
+function oner(){window.location.href=`mailto:cemilp@://gmail.com{document.getElementById("ara").value}`;}
+
+function abeceOlustur(){
+let harfler="ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+let html="";
+for(let i=0;i<harfler.length;i++){
+html+=`<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
+}
+document.getElementById("harfler").innerHTML=html;
+}
+function harfDöküm(harf){
+let html=`<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
+let bulundu=false;
+for(let i=0;i<sozluk.length;i++){
+if(sozluk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)){
+html+=`• <b>${sozluk[i].A}</b> = ${sozluk[i].B}<br>`;
+bulundu=true;
+}
+}
+if(!bulundu) html+="<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
+html+="</div>";
+document.getElementById("sonuc").innerHTML=html;
+document.getElementById("ara").focus();
+}
 
 function abeceDokum(){
 let sirali = [...sozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
-let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal'>";
+let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
 for(let i=0; i<sirali.length; i++){
-html += `<b>${sirali[i].A}</b> - ${sirali[i].B}<br>`;
+html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
 }
 html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
-
 baslat();
 </script>
 </body>
