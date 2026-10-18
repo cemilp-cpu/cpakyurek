@@ -4467,23 +4467,36 @@ document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
 }
-4470: function bul() {
-4471: let qIn = document.getElementById("ara");
-4472: let rOut = document.getElementById("sonuc");
-4473: let g = qIn.value.trim();
-4474: if (g === "") { abeceDokum(); return; }
-4475: let gDuzenli = duzenle(g);
-4476: let matches = [];
-4477:
-4478: // Hem A hem B alanında arama yapıp eşleşen tüm farklı karşılıkları toplar
-4479: sozcuk.forEach(function(item) {
-4480: let aDuzenli = duzenle(item.A);
-4481: let bDuzenli = duzenle(item.B);
-4482: if (aDuzenli === gDuzenli || bDuzenli === gDuzenli) {
-4483: let karsilik = (aDuzenli === gDuzenli) ? item.B : item.A;
-4484: if (!matches.includes(karsilik)) { matches.push(karsilik); }
-4485: }
-4486: });
+function bul() {
+let qIn = document.getElementById("ara");
+let rOut = document.getElementById("sonuc");
+let g = qIn.value.trim();
+
+if (g === "") { abeceDokum(); return; }
+
+let gDuzenli = duzenle(g);
+let matches = [];
+
+sozcuk.forEach(function(item) {
+let aDuzenli = duzenle(item.A);
+let bDuzenli = duzenle(item.B);
+
+if (aDuzenli === gDuzenli || bDuzenli === gDuzenli) {
+let karsilik = (aDuzenli === gDuzenli) ? item.B : item.A;
+if (!matches.includes(karsilik)) {
+matches.push(karsilik);
+}
+}
+});
+
+if (matches.length > 0) {
+rOut.innerHTML = `<b>Sonuçlar:</b> ${matches.join(", ")}`;
+} else {
+rOut.innerHTML = `<span style="color:red">Bulunamadı</span>`;
+}
+}
+
+
 
  
 // Bulunan sonuçları abece sırasına dizer
