@@ -4430,7 +4430,6 @@ let sozluk = [
 { A: "takas" , B: "bire bir değişme" },
 { A: "tedarik" , B: "sağlamalar" }
 ];
-
 let mapAtoB = {};
 let mapBtoA = {};
 let temizlenmisSozluk = [];
@@ -4440,7 +4439,6 @@ if(!k) return "";
 return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
 }
 
-// 1. Kural: Sayacı anında dolduran ve kilitlenmeyi çözen tetikleme sistemi
 function baslat() {
 mapAtoB = {};
 mapBtoA = {};
@@ -4471,7 +4469,6 @@ if (g === "") { abeceDokum(); return; }
 let gDuzenli = duzenle(g);
 let matches = [];
 
-// 5. Kural: Çoklu karşılıkları bulur ve numaralandırma için listeye hazırlar
 sozcuk.forEach(item => {
 let aDuzenli = duzenle(item.A);
 let bDuzenli = duzenle(item.B);
@@ -4481,19 +4478,16 @@ if (!matches.includes(karsilik)) matches.push(karsilik);
 }
 });
 
-// 7. Kural: Buldurucu dökümü alfabetik sıralıdır
 matches.sort((x, y) => x.localeCompare(y, 'tr'));
 
 if (matches.length > 0) {
-let html = "";
+let outHtml = "";
 matches.forEach((word, index) => {
-// 5. Kural Devamı: Birden fazla karşılık varsa numaralandırır
 let numStr = matches.length > 1 ? ` (${index + 1})` : "";
-html += `<b>YABAN:</b> ${g.toUpperCase('tr-TR')}<br><b>YALIN${numStr}:</b> ${word.toUpperCase('tr-TR')}<br><br>`;
+outHtml += `<b>YABAN:</b> ${g.toUpperCase('tr-TR')}<br><b>YALIN${numStr}:</b> ${word.toUpperCase('tr-TR')}<br><br>`;
 });
-document.getElementById("sonuc").innerHTML = html;
+document.getElementById("sonuc").innerHTML = outHtml;
 } else {
-// 6. Kural: Karşılık bulunmadığında çalışan e-iletisiz yönetici öneri kutusu
 document.getElementById("sonuc").innerHTML = `
 <div class="yonetici-kutu">
 <div>Sözcük bulunamadı. Önerinizi yazıp doğrudan yöneticiye ulaştırabilirsiniz:</div>
@@ -4511,7 +4505,6 @@ alert(`"${val}" öneriniz yöneticiye başarıyla ulaştırılmıştır.`);
 baska();
 }
 
-// 4. Kural: Başka sözcük sor butonuna tıklandığında kesin odağı sağlar
 function baska() {
 document.getElementById("ara").value = "";
 abeceDokum();
@@ -4528,12 +4521,12 @@ function abeceOlustur() {
 let harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
 let html = "";
 for (let i = 0; i < harfler.length; i++) {
-html += `<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
+html += `<span class="abece-tusu" onclick="harfDokum('${harfler[i]}')">${harfler[i]}</span>`;
 }
 document.getElementById("harfler").innerHTML = html;
 }
 
-function harfDöküm(harf) {
+function harfDokum(harf) {
 let sonuclar = [];
 temizlenmisSozluk.forEach(item => {
 if (item.A.trim().toUpperCase('tr-TR').startsWith(harf)) {
@@ -4565,8 +4558,7 @@ html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
 
-// Sayfa yüklenir yüklenmez baslat fonksiyonunu tetikleyen kesin çözüm satırı
 window.onload = baslat;
 </script>
 </body>
-</html> 
+</html>
