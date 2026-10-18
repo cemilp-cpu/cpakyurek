@@ -4467,12 +4467,13 @@ document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
 }
-function bul() {
-let qIn = document.getElementById("ara");
-let rOut = document.getElementById("sonuc");
-let g = qIn.value.trim();
+function bul(){
+let g = duzenle(document.getElementById("ara").value);
+if(g == "") { abeceDokum(); return; }
+let b = mapAtoB[g] || mapBtoA[g];
+document.getElementById("sonuc").innerHTML = b ? `<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}` : `<span style="color:red">Bulunamadı</span>`;
+}
 
-if (g === "") { abeceDokum(); return; }
 
 let gDuzenli = duzenle(g);
 let matches = [];
