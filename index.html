@@ -4467,12 +4467,47 @@ document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
 }
-function bul(){
-let g=duzenle(document.getElementById("ara").value);
-if(g === "") { abeceDokum(); return; }
-let b=mapAtoB[g]||mapBtoA[g];
-document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;
+function bul() {
+let qIn = document.getElementById("ara");
+let rOut = document.getElementById("sonuc");
+let g = qIn.value.trim();
+if (g === "") { abeceDokum(); return; }
+let gDuzenli = duzenle(g);
+let matches = [];
+
+// Hem A hem B alanında arama yapıp eşleşen tüm farklı karşılıkları toplar
+sozcuk.forEach(function(item) {
+let aDuzenli = duzenle(item.A);
+let bDuzenli = duzenle(item.B);
+if (aDuzenli === gDuzenli || bDuzenli === gDuzenli) {
+let karsilik = (aDuzenli === gDuzenli) ? item.B : item.A;
+if (!matches.includes(karsilik)) matches.push(karsilik);
 }
+});
+
+// Bulunan sonuçları abece sırasına dizer
+matches.sort(function(x, y) { return x.localeCompare(y, 'tr'); });
+bul değer dönüştüreni bul değiş
+
+
+
+if (matches.length > 0) {
+let outHtml = "";
+matches.forEach(function(word, index) {
+// Birden fazla karşılık varsa numaralandırır
+let numStr = matches.length > 1 ? " (" + (index + 1) + ")" : "";
+// <br> buyruğu ile her bir karşılığın alt alta yeni bir satırda yazılması sağlandı
+outHtml += "<b>YABAN:</b> " + g.toUpperCase('tr-TR') + " &nbsp;&nbsp; <b>YALIN" + numStr + ":</b> " + word.toUpperCase('tr-TR') + "<br>";
+});
+rOut.innerHTML = outHtml;
+} else {
+rOut.innerHTML = `<span style="color:red">BULUNAMADI</span>`;
+}
+qIn.focus();
+}
+
+
+ 
 function baska(){
 document.getElementById("ara").value="";
 abeceDokum();
