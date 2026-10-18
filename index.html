@@ -39,7 +39,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div>EN ÇOK SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
 </div>
 <div class="ic">
-<input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')">
+<input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toUpperCase()">
 <div class="btns">
 <button class="bul" onclick="bul()">BUL</button>
 <button class="baska" onclick="baska()">BAŞKA SÖZCÜK SOR</button>
@@ -4428,9 +4428,9 @@ let sozluk = [
 let mapAtoB = {};
 let mapBtoA = {};
 let temizlenmisSozluk = [];
-function duzenle(k) {
-if(!k) return "";
-return k.toLowerCase().replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
+function temizle(str) {
+if(!str) return "";
+return str.toString().trim().toUpperCase().replace(/İ/g,'I').replace(/Ş/g,'S').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ö/g,'O').replace(/Ç/g,'C');
 }
 function baslat() {
 mapAtoB = {};
@@ -4438,13 +4438,11 @@ mapBtoA = {};
 temizlenmisSozluk = [];
 let benzersizKelimeler = new Set();
 for (let i = 0; i < sozcuk.length; i++) {
-let aDuzenli = duzenle(sozcuk[i].A);
-let bDuzenli = duzenle(sozcuk[i].B);
+let aDuzenli = temizle(sozcuk[i].A);
 if (!benzersizKelimeler.has(aDuzenli)) {
 benzersizKelimeler.add(aDuzenli);
 temizlenmisSozluk.push(sozcuk[i]);
 mapAtoB[aDuzenli] = sozcuk[i];
-mapBtoA[bDuzenli] = sozcuk[i];
 }
 }
 document.getElementById("toplam").innerText = temizlenmisSozluk.length;
@@ -4457,11 +4455,11 @@ let qIn = document.getElementById("ara");
 let rOut = document.getElementById("sonuc");
 let g = qIn.value.trim();
 if (g === "") { abeceDokum(); return; }
-let gDuzenli = duzenle(g);
+let gDuzenli = temizle(g);
 let matches = [];
 sozcuk.forEach(function(item) {
-let aDuzenli = duzenle(item.A);
-let bDuzenli = duzenle(item.B);
+let aDuzenli = temizle(item.A);
+let bDuzenli = temizle(item.B);
 if (aDuzenli === gDuzenli || bDuzenli === gDuzenli) {
 let karsilik = (aDuzenli === gDuzenli) ? item.B : item.A;
 if (!matches.includes(karsilik)) matches.push(karsilik);
@@ -4510,12 +4508,12 @@ let rOut = document.getElementById("sonuc");
 let qIn = document.getElementById("ara");
 let sonuclar = [];
 temizlenmisSozluk.forEach(function(item) {
-if (item.A.trim().toUpperCase().startsWith(harf)) {
+if (temizle(item.A).startsWith(harf)) {
 sonuclar.push(item);
 }
 });
 sonuclar.sort(function(x, y) { return x.A.localeCompare(y.A, 'tr'); });
-let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>" + harf + " HARFI DÖKÜMÜ:</b><br>";
+let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>" + harf + " HARFI DOKUMU:</b><br>";
 if (sonuclar.length > 0) {
 sonuclar.forEach(function(item) {
 html += "• <b>" + item.A + "</b> = " + item.B + "<br>";
