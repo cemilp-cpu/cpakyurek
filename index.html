@@ -25,9 +25,6 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 .abece-tusu { display: inline-block; width: 26px; height: 26px; line-height: 26px; margin: 2px; background: #333; color: #fff; font-weight: bold; font-size: 12px; border-radius: 4px; cursor: pointer; text-decoration: none; }
 .abece-tusu:hover { background: #ffcc00; color: #000; }
 .alt { background: #ffcc00; padding: 12px; text-align: center; font-size: 12px; font-weight: bold; border-top: 2px solid #000; }
-.yonetici-kutu { margin-top: 5px; padding: 8px; background: #ffcccc; border: 1px solid #ff0000; border-radius: 4px; font-size: 14px; font-weight: normal; text-align: left; }
-.yonetici-kutu input { font-size: 14px; padding: 6px; margin: 4px 0; font-weight: normal; border: 1px solid #000; height: auto; width: 100%; }
-.yonetici-kutu button { background: #b30000; color: #fff; padding: 4px 8px; border: none; cursor: pointer; font-weight: bold; font-size: 13px; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -56,9 +53,8 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div id="harfler"></div>
 </div>
 </div>
-<div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ E. E FAK. Yüksek lisanslı , eksiciklenme, eksiciksel bilimdalından, yüksek yetkililendirilmiş)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
+<div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ-E.E.)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
-
 <script>
 let sozluk = [ 
 { A:"zoom", B:"yakınlaşma"},
@@ -4430,123 +4426,66 @@ let sozluk = [
 { A: "takas" , B: "bire bir değişme" },
 { A: "tedarik" , B: "sağlamalar" }
 ];
-let mapAtoB = {};
-let mapBtoA = {};
-let temizlenmisSozluk = [];
-
-function duzenle(k) {
-if(!k) return "";
-return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();
+let mapAtoB={}; let mapBtoA={};
+function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+function baslat(){
+for(let i=0;i<sozluk.length;i++){
+let a=duzenle(sozluk[i].A);
+let b=duzenle(sozluk[i].B);
+mapAtoB[a]=sozluk[i];
+mapBtoA[b]=sozluk[i];
 }
-
-function baslat() {
-mapAtoB = {};
-mapBtoA = {};
-temizlenmisSozluk = [];
-let benzersizKelimeler = new Set();
-
-for (let i = 0; i < sozcuk.length; i++) {
-let aDuzenli = duzenle(sozcuk[i].A);
-let bDuzenli = duzenle(sozcuk[i].B);
-
-if (!benzersizKelimeler.has(aDuzenli + "-" + bDuzenli)) {
-benzersizKelimeler.add(aDuzenli + "-" + bDuzenli);
-temizlenmisSozluk.push(sozcuk[i]);
-
-if (!mapAtoB[aDuzenli]) mapAtoB[aDuzenli] = [];
-mapAtoB[aDuzenli].push(sozcuk[i]);
-
-if (!mapBtoA[bDuzenli]) mapBtoA[bDuzenli] = [];
-mapBtoA[bDuzenli].push(sozcuk[i]);
-}
-}
-
-document.getElementById("toplam").innerText = temizlenmisSozluk.length;
+document.getElementById("toplam").innerText=sozluk.length;
+document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
-setTimeout(function() { document.getElementById("ara").focus(); }, 50);
 }
-
-function bul() {
-let g = duzenle(document.getElementById("ara").value);
-if (g === "") { abeceDokum(); return; }
-
-let matches = mapAtoB[g] || mapBtoA[g];
-
-if (matches && matches.length > 0) {
-let html = "";
-matches.forEach(function(b, index) {
-let numStr = matches.length > 1 ? " (" + (index + 1) + ")" : "";
-html += "<b>YABAN:</b> " + b.A.toUpperCase('tr-TR') + "<br><b>YALIN" + numStr + ":</b> " + b.B.toUpperCase('tr-TR') + "<br><br>";
-});
-document.getElementById("sonuc").innerHTML = html;
-} else {
-document.getElementById("sonuc").innerHTML = "<div class='yonetici-kutu'><div>Sözcük bulunamadı. Önerinizi yazıp doğrudan yöneticiye ulaştırabilirsiniz:</div><input type='text' id='onerilenKelime' placeholder='Yalın Türkçe karşılık öneriniz...'><button onclick='yoneticiyeGonder()'>Yöneticiye Ulaştır</button></div>";
+function bul(){
+let g=duzenle(document.getElementById("ara").value);
+if(g === "") { abeceDokum(); return; }
+let b=mapAtoB[g]||mapBtoA[g];
+document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;
 }
+function baska(){
+document.getElementById("ara").value="";
+abeceDokum();
+document.getElementById("ara").focus();
+}
+function sil(){baska();}
+function oner(){window.location.href=`mailto:cemilp@://gmail.com{document.getElementById("ara").value}`;}
+
+function abeceOlustur(){
+let harfler="ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+let html="";
+for(let i=0;i<harfler.length;i++){
+html+=`<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
+}
+document.getElementById("harfler").innerHTML=html;
+}
+function harfDöküm(harf){
+let html=`<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
+let bulundu=false;
+for(let i=0;i<sozluk.length;i++){
+if(sozluk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)){
+html+=`• <b>${sozluk[i].A}</b> = ${sozluk[i].B}<br>`;
+bulundu=true;
+}
+}
+if(!bulundu) html+="<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
+html+="</div>";
+document.getElementById("sonuc").innerHTML=html;
 document.getElementById("ara").focus();
 }
 
-function yoneticiyeGonder() {
-let val = document.getElementById("onerilenKelime").value.trim();
-if(!val) return;
-alert('"' + val + '" öneriniz yöneticiye başarıyla ulaştırılmıştır.');
-baska();
-}
-
-function baska() {
-document.getElementById("ara").value = "";
-abeceDokum();
-setTimeout(function() { document.getElementById("ara").focus(); }, 30);
-}
-
-function sil() { baska(); }
-
-function oner() {
-window.location.href = "mailto:cemilp@://gmail.com Önerisi&body=" + encodeURIComponent(document.getElementById("ara").value);
-}
-
-function abeceOlustur() {
-let harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
-let html = "";
-for (let i = 0; i < harfler.length; i++) {
-// Kritik harfDöküm ismi harfDokum yapılarak kilit kırıldı
-html += "<span class='abece-tusu' onclick='harfDokum(\"" + harfler[i] + "\")'>" + harfler[i] + "</span>";
-}
-document.getElementById("harfler").innerHTML = html;
-}
-
-function harfDokum(harf) {
-let sonuclar = [];
-temizlenmisSozluk.forEach(function(item) {
-if (item.A.trim().toUpperCase('tr-TR').startsWith(harf)) {
-sonuclar.push(item);
-}
-});
-sonuclar.sort(function(x, y) { return x.A.localeCompare(y.A, 'tr'); });
-
-let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>" + harf + " HARFİ DÖKÜMÜ:</b><br>";
-if (sonuclar.length > 0) {
-sonuclar.forEach(function(item) {
-html += "• <b>" + item.A + "</b> = " + item.B + "<br>";
-});
-} else {
-html += "<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
-}
-html += "</div>";
-document.getElementById("sonuc").innerHTML = html;
-setTimeout(function() { document.getElementById("ara").focus(); }, 30);
-}
-
-function abeceDokum() {
-let sirali = [...temizlenmisSozluk].sort(function(x, y) { return x.A.localeCompare(y.A, 'tr'); });
+function abeceDokum(){
+let sirali = [...sozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
 let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
-for (let i = 0; i < sirali.length; i++) {
-html += "• <b>" + sirali[i].A + "</b> = " + sirali[i].B + "<br>";
+for(let i=0; i<sirali.length; i++){
+html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
 }
 html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
-
 baslat();
 </script>
 </body>
