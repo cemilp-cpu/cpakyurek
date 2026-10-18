@@ -4423,13 +4423,6 @@ let sozluk = [
 { A: "system engineer" , B: "düzenek kurgulamacı" },
 { A: "takas" , B: "bire bir değişme" },
 { A: "tedarik" , B: "sağlamalar" }
-
- 
- 
- 
- 
- 
-];
 const qIn = document.getElementById('ara');
 const rOut = document.getElementById('sonuc');
 
@@ -4446,11 +4439,13 @@ if (g === "") { abeceDokum(); return; }
 let matches = [];
 
 sozcuk.forEach(item => {
+if (item && item.A && item.B) {
 let upperA = item.A.trim().toUpperCase('tr-TR');
 let upperB = item.B.trim().toUpperCase('tr-TR');
 if (upperA === g || upperB === g) {
 let karsilik = (upperA === g) ? item.B : item.A;
 if (!matches.includes(karsilik)) matches.push(karsilik);
+}
 }
 });
 
@@ -4497,16 +4492,18 @@ function abeceOlustur() {
 let harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
 let html = "";
 for (let i = 0; i < harfler.length; i++) {
-html += `<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
+html += `<span class="abece-tusu" onclick="harfDokum('${harfler[i]}')">${harfler[i]}</span>`;
 }
 document.getElementById("harfler").innerHTML = html;
 }
 
-function harfDöküm(harf) {
+function harfDokum(harf) {
 let sonuclar = [];
 sozcuk.forEach(item => {
+if (item && item.A) {
 if (item.A.trim().toUpperCase('tr-TR').startsWith(harf)) {
 sonuclar.push(item);
+}
 }
 });
 sonuclar.sort((x, y) => x.A.localeCompare(y.A, 'tr'));
@@ -4525,7 +4522,12 @@ setTimeout(() => { qIn.focus(); }, 30);
 }
 
 function abeceDokum() {
-let sirali = [...sozcuk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
+let sirali = [];
+sozcuk.forEach(item => {
+if (item && item.A && item.B) sirali.push(item);
+});
+sirali.sort((x, y) => x.A.localeCompare(y.A, 'tr'));
+
 let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
 sirali.forEach(item => {
 html += `• <b>${item.A}</b> = ${item.B}<br>`;
@@ -4538,3 +4540,10 @@ baslat();
 </script>
 </body>
 </html>
+
+ 
+ 
+ 
+ 
+ 
+];
