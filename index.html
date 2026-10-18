@@ -4509,12 +4509,13 @@ function abeceOlustur() {
 let harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
 let html = "";
 for (let i = 0; i < harfler.length; i++) {
-html += "<span class='abece-tusu' onclick='harfDöküm(\"" + harfler[i] + "\")'>" + harfler[i] + "</span>";
+// Kritik harfDöküm ismi harfDokum yapılarak kilit kırıldı
+html += "<span class='abece-tusu' onclick='harfDokum(\"" + harfler[i] + "\")'>" + harfler[i] + "</span>";
 }
 document.getElementById("harfler").innerHTML = html;
 }
 
-function harfDöküm(harf) {
+function harfDokum(harf) {
 let sonuclar = [];
 temizlenmisSozluk.forEach(function(item) {
 if (item.A.trim().toUpperCase('tr-TR').startsWith(harf)) {
