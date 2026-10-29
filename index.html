@@ -55,6 +55,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 </div>
 <div class="alt">★ Cemil Pakyürek (1968-1973 İTÜ-E.E.)<br>cemilp@gmail.com - 0532.3719749<br>SAĞLIK DİLEKLERİM VE SAYGILARIMLA</div>
 </div>
+
 <script>
 let sozluk = [ 
 
@@ -3775,11 +3776,21 @@ let sozluk = [
 function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
 
 function baslat(){
-document.getElementById("toplam").innerText=sozluk.length;
+document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
 }
+
+function bul(){
+let g = duzenle(document.getElementById("ara").value);
+if(g === "") { abeceDokum(); return; }
+
+if (typeof umami !== 'undefined') {
+umami.track('arama', { sozcuk: document.getElementById("ara").value.toUpperCase('tr-TR') });
+}
+
+let eslesenler = sozluk.filter(item => duzenle(item.A) === g || duzenle(item.B) === g);
 
 if(eslesenler.length > 0){
 let html = `<div style='max-height:220px; overflow-y:auto; font-size:16px; font-weight:normal; text-align:left; margin-top:5px;'><b>BULUNAN YANITLAR (${eslesenler.length}):</b><br><ol style='margin:5px 0 0 20px; padding:0;'>`;
@@ -3790,6 +3801,7 @@ html += `</ol></div>`;
 document.getElementById("sonuc").innerHTML = html;
 } else {
 document.getElementById("sonuc").innerHTML = `<span style="color:red">BULUNAMADI</span>`;
+}
 }
 
 function baska(){
@@ -3834,7 +3846,9 @@ html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
 html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
+
 baslat();
 </script>
 </body>
 </html>
+
