@@ -3773,7 +3773,7 @@ let sozluk = [
 
  
 ];
-function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
 document.getElementById("toplam").innerText = sozluk.length;
