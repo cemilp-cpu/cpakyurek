@@ -3781,26 +3781,15 @@ abeceOlustur();
 abeceDokum();
 }
 
-function bul(){
-let g=duzenle(document.getElementById("ara").value);
-if(g === "") { abeceDokum(); return; }
-
-// Umami Olayı (Event) gönderimi
-if (typeof umami !== 'undefined') {
-umami.track('arama', { sozcuk: document.getElementById("ara").value.toUpperCase('tr-TR') });
-}
-
-// Yalnızca tam eşleşen sözcükleri bulmak için '===' kullanıyoruz
-let eslesenler = sozluk.filter(item => duzenle(item.A) === g || duzenle(item.B) === g);
-
 if(eslesenler.length > 0){
-
-
-
- 
+let html = `<div style='max-height:220px; overflow-y:auto; font-size:16px; font-weight:normal; text-align:left; margin-top:5px;'><b>BULUNAN YANITLAR (${eslesenler.length}):</b><br><ol style='margin:5px 0 0 20px; padding:0;'>`;
+for(let i=0; i<eslesenler.length; i++){
+html += `<li style='margin-bottom:6px;'><b>YABAN:</b> ${eslesenler[i].A.toUpperCase()} = <b>YALIN:</b> ${eslesenler[i].B.toUpperCase()}</li>`;
+}
+html += `</ol></div>`;
+document.getElementById("sonuc").innerHTML = html;
 } else {
 document.getElementById("sonuc").innerHTML = `<span style="color:red">BULUNAMADI</span>`;
-}
 }
 
 function baska(){
