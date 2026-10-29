@@ -5,7 +5,7 @@
 <title>YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER</title>
 
 <!-- Umami Cloud Canlı Sayaç İzleme İmgesi -->
-<script defer src="https://cloud.umami.is/script.js" data-website-id="215f6c6e-ac5f-4ca7-b82b-5b41294e9822"></script> 
+<script defer src="https://cloud.umami.is/script.js" data-website-id="215f6c6e-ac5f-4ca7-b82b-5b41294e9822"></script>
 
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
@@ -19,7 +19,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 .btns { display: flex; gap: 6px; margin-top: 10px; }
 .btns button { flex: 1; padding: 12px; border: none; color: #fff; font-weight: bold; cursor: pointer; }
 .bul { background: #0d7a0d; }.baska { background: #b30000; }.sil { background: #666; }.oneri { background: #0d7a0d; }
-#sonuc { margin-top: 12px; padding: 14px; background: #f2f2f2; min-height: 80px; border: 1px solid #ccc; font-size: 20px; font-weight: bold; }
+#sonuc { margin-top: 12px; padding: 14px; background: #f2f2f2; min-height: 80px; border: 1px solid #ccc; font-size: 18px; font-weight: bold; }
 .abece-kutusu { margin-top: 15px; padding: 10px; border: 2px solid #000; border-radius: 4px; background: #f9f9f9; text-align: center; }
 .abece-baslik { font-weight: bold; font-size: 12px; margin-bottom: 8px; display: block; color: #333; }
 .abece-tusu { display: inline-block; width: 26px; height: 26px; line-height: 26px; margin: 2px; background: #333; color: #fff; font-weight: bold; font-size: 12px; border-radius: 4px; cursor: pointer; text-decoration: none; }
@@ -34,9 +34,9 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
 <div class="sayaclar">
 <div>TOPLAM SÖZCÜK<br><span id="toplam">0</span></div>
-<div>TOPLAM GEZEN<br><span id="toplamGezen">1</span></div>
-<div>BUGÜN GEZEN<br><span id="bugunGezen">1</span></div>
-<div>EN ÇOK SORULAN<br><span id="cokSorulan">YOK (0)</span></div>
+<div>TOPLAM GEZEN<br><span id="toplamGezen">...</span></div>
+<div>BUGÜN GEZEN<br><span id="bugunGezen">...</span></div>
+<div>EN ÇOK SORULAN<br><span id="cokSorulan" style="font-size:13px;">UMAMİ'DE</span></div>
 </div>
 <div class="ic">
 <input type="text" id="ara" placeholder="ATOM VEYA ÖGECİK" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')">
@@ -3772,31 +3772,45 @@ let sozluk = [
 
  
 ];
-let mapAtoB={}; let mapBtoA={};
 function duzenle(k){return k.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').trim();}
+
 function baslat(){
-for(let i=0;i<sozluk.length;i++){
-let a=duzenle(sozluk[i].A);
-let b=duzenle(sozluk[i].B);
-mapAtoB[a]=sozluk[i];
-mapBtoA[b]=sozluk[i];
-}
 document.getElementById("toplam").innerText=sozluk.length;
 document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
 }
+
 function bul(){
 let g=duzenle(document.getElementById("ara").value);
 if(g === "") { abeceDokum(); return; }
-let b=mapAtoB[g]||mapBtoA[g];
-document.getElementById("sonuc").innerHTML=b?`<b>YABAN:</b> ${b.A.toUpperCase()}<br><b>YALIN:</b> ${b.B.toUpperCase()}`:`<span style="color:red">BULUNAMADI</span>`;
+
+// Umami Olayı (Event) gönderimi
+if (typeof umami !== 'undefined') {
+umami.track('arama', { sozcuk: document.getElementById("ara").value.toUpperCase('tr-TR') });
 }
+
+// Birden fazla eşleşen yanıtı bulmak için filtreleme
+let eslesenler = sozluk.filter(item => duzenle(item.A).includes(g) || duzenle(item.B).includes(g));
+
+if(eslesenler.length > 0){
+let html = `<div style='max-height:220px; overflow-y:auto; font-size:16px; font-weight:normal; text-align:left; margin-top:5px;'><b>BULUNAN YANITLAR (${eslesenler.length}):</b><br><ol style='margin:5px 0 0 20px; padding:0;'>`;
+for(let i=0; i<eslesenler.length; i++){
+html += `<li style='margin-bottom:6px;'><b>YABAN:</b> ${eslesenler[i].A.toUpperCase()} = <b>YALIN:</b> ${eslesenler[i].B.toUpperCase()}</li>`;
+}
+html += `</ol></div>`;
+document.getElementById("sonuc").innerHTML = html;
+} else {
+document.getElementById("sonuc").innerHTML = `<span style="color:red">BULUNAMADI</span>`;
+}
+}
+
 function baska(){
 document.getElementById("ara").value="";
 abeceDokum();
 document.getElementById("ara").focus();
 }
+
 function sil(){baska();}
 function oner(){window.location.href=`mailto:cemilp@gmail.com`;}
 
@@ -3808,6 +3822,7 @@ html+=`<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler
 }
 document.getElementById("harfler").innerHTML=html;
 }
+
 function harfDöküm(harf){
 let html=`<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
 let bulundu=false;
@@ -3825,7 +3840,7 @@ document.getElementById("ara").focus();
 
 function abeceDokum(){
 let sirali = [...sozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
-let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLER (ABECESEL):</b><br>";
+let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLÜK (ABECESEL):</b><br>";
 for(let i=0; i<sirali.length; i++){
 html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
 }
