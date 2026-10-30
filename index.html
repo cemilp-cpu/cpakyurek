@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER</title>
 
-<!-- Umami İzleme Kodu (Raporlama İçin Arkada Çalışmaya Devam Ediyor) -->
+<!-- Umami İzleme Kodu (Arka Planda Raporlamaya Devam Ediyor) -->
 <script defer src="https://umami.is" data-website-id="215f6c6e-ac5f-4ca7-b82b-5b41294e9822"></script>
 
 <style>
@@ -35,12 +35,12 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
 
-<!-- Orijinal Dörtlü Şık Siyah Sayaç Bandınız Aynen Korundu -->
+<!-- Gelişmiş 4'lü Sayaç Bandı Tasarımı -->
 <div class="sayaclar">
-<div>TOPLAM SÖZCÜK<br><span id="toplam">0</span></div>
-<div>TOPLAM GEZEN<br><span id="toplamGezen">0</span></div>
-<div>BUGÜN GEZEN<br><span id="bugunGezen">0</span></div>
-<div>EN ÇOK SORULAN<br><span id="cokSorulan" style="font-size:13px;">UMAMİ'DE</span></div>
+<div>TOPLAM KİŞİ<br><span id="sayacKisi">0</span></div>
+<div>TOPLAM GİRİŞ<br><span id="sayacGiris">0</span></div>
+<div>TOPLAM ARAMA<br><span id="sayacArama">0</span></div>
+<div>EN ÇOK ARANAN<br><span id="sayacEnCok" style="font-size:13px; margin-top:4px;">YALIN</span></div>
 </div>
 
 <div class="ic">
@@ -3797,48 +3797,63 @@ let sozluk = [
 function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
-document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
-yerelSayaclariCalistir();
+gelişmişSayaçMotoru();
 }
 
-// Görünümü bozmadan kutuları içeriden canlandıran akıllı yerel motor
-function yerelSayaclariCalistir() {
-let tSimdi = new Date();
-let bugunTarih = tSimdi.getFullYear() + "-" + (tSimdi.getMonth() + 1) + "-" + tSimdi.getDate();
+// Taban puanları tamamen 0 (sıfır) yapılmış akıllı istatistik motoru
+function gelişmişSayaçMotoru() {
+// 1. KURAL: TOPLAM KİŞİ (Farklı Ziyaretçi) - Sıfırdan başlar
+let yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
+let toplamKisi = parseInt(localStorage.getItem("s_toplam_kisi")) || 0;
 
-// Sizin gerçek panel verileriniz olan 36 görüşü taban puan alarak başlatır
-let toplamZiyaret = parseInt(localStorage.getItem("s_toplam")) || 36;
-let bugunZiyaret = parseInt(localStorage.getItem("s_bugun")) || 0;
-let sonZiyaretTarihi = localStorage.getItem("s_tarih") || "";
-
-if (sonZiyaretTarihi !== bugunTarih) {
-bugunZiyaret = 0;
-localStorage.setItem("s_tarih", bugunTarih);
+if (!yeniKisiMi) {
+toplamKisi += 1;
+localStorage.setItem("s_eski_ziyaretci", "evet");
+localStorage.setItem("s_toplam_kisi", toplamKisi);
 }
 
-toplamZiyaret += 1;
-bugunZiyaret += 1;
+// 2. KURAL: TOPLAM GİRİŞ (Her yenilemede artar) - Sıfırdan başlar
+let toplamGiris = parseInt(localStorage.getItem("s_toplam_giris")) || 0;
+toplamGiris += 1;
+localStorage.setItem("s_toplam_giris", toplamGiris);
 
-localStorage.setItem("s_toplam", toplamZiyaret);
-localStorage.setItem("s_bugun", bugunZiyaret);
+// 3. KURAL: TOPLAM ARAMA verisini yükle
+let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
 
-// Orijinal kutucukların içini sayılarla doldurur
-document.getElementById("toplamGezen").innerText = toplamZiyaret;
-document.getElementById("bugunGezen").innerText = bugunZiyaret;
+// Sayaçları kutulara yazdır
+document.getElementById("sayacKisi").innerText = toplamKisi;
+document.getElementById("sayacGiris").innerText = toplamGiris;
+document.getElementById("sayacArama").innerText = toplamArama;
+
+enCokArananıYazdır();
 }
 
 function bul(){
-let g = duzenle(document.getElementById("ara").value);
-if(g === "") { abeceDokum(); return; }
+let arananSozcuk = document.getElementById("ara").value.trim().toUpperCase('tr-TR');
+if(arananSozcuk === "") { abeceDokum(); return; }
 
-// Aramaları yine Umami panelinizden (Events kısmından) gizlice izlemeye devam edersiniz
+// Umami Raporlama Tetikleyicisi
 if (typeof umami !== 'undefined') {
-umami.track('arama', { sozcuk: document.getElementById("ara").value.toUpperCase('tr-TR') });
+umami.track('arama', { sozcuk: arananSozcuk });
 }
 
+// Kural 3: Her kelime arandığında Toplam Arama sayısını 1 artırır
+let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
+topramaArama = toplamArama + 1;
+localStorage.setItem("s_toplam_arama", topramaArama);
+document.getElementById("sayacArama").innerText = topramaArama;
+
+// Kural 4: Kelime listesini hafızaya kaydeder ve lideri hesaplar
+let aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
+aramaGecmisi[arananSozcuk] = (aramaGecmisi[arananSozcuk] || 0) + 1;
+localStorage.setItem("s_arama_gecmisi", JSON.stringify(aramaGecmisi));
+
+enCokArananıYazdır();
+
+let g = duzenle(document.getElementById("ara").value);
 let eslesenler = sozluk.filter(item => duzenle(item.A) === g || duzenle(item.B) === g);
 
 if(eslesenler.length > 0){
@@ -3850,6 +3865,25 @@ html += `</ol></div>`;
 document.getElementById("sonuc").innerHTML = html;
 } else {
 document.getElementById("sonuc").innerHTML = `<span style="color:red">BULUNAMADI</span>`;
+}
+}
+
+function enCokArananıYazdır() {
+let aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
+let enCokKelime = "YALIN";
+let enYuksekSkor = 0;
+
+for (let kelime in aramaGecmisi) {
+if (aramaGecmisi[kelime] > enYuksekSkor) {
+enYuksekSkor = aramaGecmisi[kelime];
+enCokKelime = kelime;
+}
+}
+
+if (enYuksekSkor > 0) {
+document.getElementById("sayacEnCok").innerText = enCokKelime + " (" + enYuksekSkor + ")";
+} else {
+document.getElementById("sayacEnCok").innerText = "YALIN";
 }
 }
 
@@ -3900,6 +3934,7 @@ baslat();
 </script>
 </body>
 </html>
+
  
 
 
