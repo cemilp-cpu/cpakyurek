@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER</title>
 
-<!-- Umami İzleme Kodu (Arka Planda Raporlamaya Devam Ediyor) -->
+<!-- Umami İzleme Kodu -->
 <script defer src="https://umami.is" data-website-id="215f6c6e-ac5f-4ca7-b82b-5b41294e9822"></script>
 
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 .kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
 .k1,.k2,.k3 { background: #ffeb38; padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; }
-/* Sayaç Bandı ve Yazı Netliği Ayarları */
-.sayaclar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
-.sayaclar div { flex: 1; text-align: center; padding: 10px 1px; border-right: 1px solid #555; line-height: 1.4; }
+/* Yeni Geniş ve Okunaklı Sayaç Tasarımı */
+.sayaclar { display: flex; background: #333; color: #fff; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+.sayaclar div { flex: 1; text-align: center; padding: 12px 2px; border-right: 2px solid #555; line-height: 1.4; }
 .sayaclar div:last-child { border-right: none; }
-.sayaclar span { color: #ffffff; font-size: 18px; display: block; font-weight: bold; margin-top: 4px; }
+.sayaclar span { color: #ffffff; font-size: 22px; display: block; font-weight: bold; margin-top: 4px; }
 .ic { background: #fff; padding: 20px; }
 input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; }
 .btns { display: flex; gap: 6px; margin-top: 10px; }
@@ -34,14 +34,14 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div class="kutu">
 <div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
-<div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
+<!-- Toplam Sözcük Sayısı İstediğiniz Gibi Sarı Panonun 3. Satırına Taşındı -->
+<div class="k3">TOPLAM SÖZCÜK: <span id="toplam" style="color:red; font-size:18px;">0</span> .......... HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE VARDIR .......... 29 EKİM 2026</div>
 
-<!-- Net, Ayrık ve İri Yazılı 4'lü Sayaç Alanı -->
+<!-- Rahatlayan ve İrileşen 3'lü Yeni Siyah Bant -->
 <div class="sayaclar">
-<div>SÖZCÜK<br><span id="toplam">0</span></div>
-<div>KİŞİ<br><span id="sayacKisi">0</span></div>
-<div>GİRİŞ<br><span id="sayacGiris">0</span></div>
-<div>ARAMA / EN ÇOK<br><span id="sayacArama" style="font-size:11px; font-weight:bold; color:#fff; display:inline;">0</span> <span id="sayacEnCok" style="font-size:11px; color:#ffcc00; font-weight:bold; display:inline; margin-top:0;">(YALIN)</span></div>
+<div>TOPLAM KİŞİ<br><span id="sayacKisi">0</span></div>
+<div>TOPLAM GİRİŞ<br><span id="sayacGiris">0</span></div>
+<div>ARAMA / EN ÇOK<br><span id="sayacArama" style="font-size:18px; display:block; margin-top:4px;">0 ARAMA</span><span id="sayacEnCok" style="font-size:11px; color:#ffcc00; font-weight:bold; display:block; margin-top:2px;">(YALIN)</span></div>
 </div>
 
 <div class="ic">
@@ -64,7 +64,6 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 
 <script>
 let sozluk = [
-
 
 	
  
@@ -3795,13 +3794,12 @@ let sozluk = [
 					 
 
 
- 
 ];
 
 function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
-// Toplam sözcük sayısını birinci kutuya basar
+// Kelime sayısını yukarıdaki yeni yerine (sarı alana) üfler
 if(document.getElementById("toplam")) {
 document.getElementById("toplam").innerText = sozluk.length;
 }
@@ -3811,9 +3809,7 @@ abeceDokum();
 gelişmişSayaçMotoru();
 }
 
-// Taban puanları tamamen 0 (sıfır) yapılmış akıllı istatistik motoru
 function gelişmişSayaçMotoru() {
-// 1. KURAL: KİŞİ (Farklı Ziyaretçi) - Sıfırdan başlar
 let yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
 let toplamKisi = parseInt(localStorage.getItem("s_toplam_kisi")) || 0;
 
@@ -3823,15 +3819,12 @@ localStorage.setItem("s_eski_ziyaretci", "evet");
 localStorage.setItem("s_toplam_kisi", toplamKisi);
 }
 
-// 2. KURAL: GİRİŞ (Her yenilemede artar) - Sıfırdan başlar
 let toplamGiris = parseInt(localStorage.getItem("s_toplam_giris")) || 0;
 toplamGiris += 1;
 localStorage.setItem("s_toplam_giris", toplamGiris);
 
-// 3. KURAL: TOPLAM ARAMA verisini yükle
 let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
 
-// Sayaçları kutulara yazdır
 document.getElementById("sayacKisi").innerText = toplamKisi;
 document.getElementById("sayacGiris").innerText = toplamGiris;
 document.getElementById("sayacArama").innerText = toplamArama + " ARAMA";
@@ -3843,18 +3836,15 @@ function bul(){
 let arananSozcuk = document.getElementById("ara").value.trim().toUpperCase('tr-TR');
 if(arananSozcuk === "") { abeceDokum(); return; }
 
-// Umami Raporlama Tetikleyicisi
 if (typeof umami !== 'undefined') {
 umami.track('arama', { sozcuk: arananSozcuk });
 }
 
-// Kural 3: Her kelime arandığında Toplam Arama sayısını 1 artırır
 let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
 toplamArama += 1;
 localStorage.setItem("s_toplam_arama", toplamArama);
 document.getElementById("sayacArama").innerText = toplamArama + " ARAMA";
 
-// Kural 4: Kelime listesini hafızaya kaydeder ve lideri hesaplar
 let aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
 aramaGecmisi[arananSozcuk] = (aramaGecmisi[arananSozcuk] || 0) + 1;
 localStorage.setItem("s_arama_gecmisi", JSON.stringify(aramaGecmisi));
@@ -3889,9 +3879,9 @@ enCokKelime = kelime;
 }
 
 if (enYuksekSkor > 0) {
-document.getElementById("sayacEnCok").innerText = enCokKelime + " (" + enYuksekSkor + ")";
+document.getElementById("sayacEnCok").innerText = "(" + enCokKelime + ")";
 } else {
-document.getElementById("sayacEnCok").innerText = "YALIN";
+document.getElementById("sayacEnCok").innerText = "(YALIN)";
 }
 }
 
@@ -3942,6 +3932,7 @@ baslat();
 </script>
 </body>
 </html>
+ 
 
  
 
