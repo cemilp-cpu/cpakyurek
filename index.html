@@ -3806,7 +3806,7 @@ let sozluk = [
 function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
-// Kelime sayısını yukarıdaki yeni yerine (sarı alana) üfler
+// Kelime sayısını sarı alandaki en güncel yerine (k3 satırına) yerleştirir
 if(document.getElementById("toplam")) {
 document.getElementById("toplam").innerText = sozluk.length;
 }
@@ -3939,7 +3939,7 @@ baslat();
 </script>
 </body>
 </html>
- 
+
 
  
 
