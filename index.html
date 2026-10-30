@@ -11,12 +11,13 @@
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 .kutu { width: 100%; max-width: 650px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
-.k1,.k2,.k3 { padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; font-size: 15px; line-height: 1.4; background: #ffeb38; }
-/* Yan yana 4 kutulu, iri yazılı ve tam okunaklı siyah bant tasarımı */
-.sayaclar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; text-transform: uppercase; }
-.sayaclar div { flex: 1; text-align: center; padding: 12px 1px; border-right: 2px solid #555; line-height: 1.4; box-sizing: border-box; }
+/* Sarı panodaki yazılar ve rakamlar 1 tık daha büyük yapıldı */
+.k1,.k2,.k3 { padding: 14px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; font-size: 15px; line-height: 1.5; background: #ffeb38; }
+/* Siyah bölgede tam 4 adet yan yana geniş ve okunaklı sayaç kutusu */
+.sayaclar { display: flex; background: #333; color: #fff; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+.sayaclar div { flex: 1; text-align: center; padding: 12px 2px; border-right: 2px solid #555; line-height: 1.4; box-sizing: border-box; }
 .sayaclar div:last-child { border-right: none; }
-.sayaclar span { color: #ffffff; font-size: 20px; display: block; font-weight: bold; margin-top: 4px; }
+.sayaclar span { color: #ffffff; font-size: 22px; display: block; font-weight: bold; margin-top: 4px; }
 .ic { background: #fff; padding: 20px; }
 input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; }
 .btns { display: flex; gap: 6px; margin-top: 10px; }
@@ -32,17 +33,21 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 </head>
 <body>
 <div class="kutu">
-<!-- 3 Satırlı Sarı Başlık Pano Düzeni -->
+<!-- 1. Satır Aynen Kaldı -->
 <div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
-<div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
-<div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
 
-<!-- Yan Yana 4 Kutulu Sayaç Bandı - En Çok Aranan Kısmı İrileştirildi -->
+<!-- 2. Satır: Uzun olan başlık satırı buraya geldi -->
+<div class="k2">HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR .......... 29 EKİM 2026</div>
+
+<!-- 3. Satır: Boyu kısa olan "SÖZCÜKLÜKTÜR" metni buraya indi ve TOPLAM SÖZCÜK kırmızı sayacı tam istediğiniz gibi buraya kuruldu -->
+<div class="k3">Bu bir sözlük değil. SÖZCÜKLÜKTÜR. (TOPLAM SÖZCÜK SAYISI: <span id="toplam" style="color:red; font-size:20px; font-weight:bolder;">0</span>)</div>
+
+<!-- Siyah Bölgede Yan Yana Duran Tam 4 Adet Sayaç Kutusu -->
 <div class="sayaclar">
-<div>SÖZCÜK SAYISI<br><span id="toplam" style="color:#ffcc00;">0</span></div>
 <div>TOPLAM KİŞİ<br><span id="sayacKisi">0</span></div>
 <div>TOPLAM GİRİŞ<br><span id="sayacGiris">0</span></div>
-<div>ARAMA / EN ÇOK<br><span id="sayacArama" style="font-size:18px; display:block; margin-top:4px;">0 ARAMA</span><span id="sayacEnCok" style="font-size:12px; color:#ffcc00; font-weight:bold; display:block; margin-top:2px;">EN ÇOK: YALIN</span></div>
+<div>TOPLAM ARAMA<br><span id="sayacArama">0</span></div>
+<div>EN ÇOK ARANAN<br><span id="sayacEnCok" style="font-size:16px; color:#ffcc00; display:block; margin-top:4px;">YALIN</span></div>
 </div>
 
 <div class="ic">
