@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -12,10 +12,10 @@
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 .kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
 .k1,.k2,.k3 { background: #ffeb38; padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; }
-.sayaclar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; }
+.sayaclar { display: flex; background: #333; color: #fff; font-size: 10px; font-weight: bold; }
 .sayaclar div { flex: 1; text-align: center; padding: 8px 2px; border-right: 1px solid #555; }
 .sayaclar div:last-child { border-right: none; }
-.sayaclar span { color: #ffffff; font-size: 18px; display: block; font-weight: bold; }
+.sayaclar span { color: #ffffff; font-size: 16px; display: block; font-weight: bold; }
 .ic { background: #fff; padding: 20px; }
 input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; }
 .btns { display: flex; gap: 6px; margin-top: 10px; }
@@ -35,12 +35,12 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
 
-<!-- Gelişmiş 4'lü Sayaç Bandı Tasarımı -->
+<!-- Eksiksiz 4'lü Dengeli Sayaç Bandı -->
 <div class="sayaclar">
-<div>TOPLAM KİŞİ<br><span id="sayacKisi">0</span></div>
-<div>TOPLAM GİRİŞ<br><span id="sayacGiris">0</span></div>
-<div>TOPLAM ARAMA<br><span id="sayacArama">0</span></div>
-<div>EN ÇOK ARANAN<br><span id="sayacEnCok" style="font-size:13px; margin-top:4px;">YALIN</span></div>
+<div>SÖZCÜK<br><span id="toplam">0</span></div>
+<div>KİŞİ<br><span id="sayacKisi">0</span></div>
+<div>GİRİŞ<br><span id="sayacGiris">0</span></div>
+<div>ARAMA / EN ÇOK<br><span id="sayacArama" style="font-size:12px;">0</span><span id="sayacEnCok" style="font-size:10px; color:#ffcc00; font-weight:normal;">YALIN</span></div>
 </div>
 
 <div class="ic">
@@ -64,6 +64,8 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <script>
 let sozluk = [
 
+	
+ 
 { A: "@" , B: "iyi a" },
 { A: "ab" , B: "su" },
 { A: "abdal" , B: "varsıllığı önemsemez" },
@@ -3797,6 +3799,10 @@ let sozluk = [
 function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
+// Toplam sözcük sayısını birinci kutuya basar
+if(document.getElementById("toplam")) {
+document.getElementById("toplam").innerText = sozluk.length;
+}
 document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
@@ -3805,7 +3811,7 @@ gelişmişSayaçMotoru();
 
 // Taban puanları tamamen 0 (sıfır) yapılmış akıllı istatistik motoru
 function gelişmişSayaçMotoru() {
-// 1. KURAL: TOPLAM KİŞİ (Farklı Ziyaretçi) - Sıfırdan başlar
+// 1. KURAL: KİŞİ (Farklı Ziyaretçi) - Sıfırdan başlar
 let yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
 let toplamKisi = parseInt(localStorage.getItem("s_toplam_kisi")) || 0;
 
@@ -3815,7 +3821,7 @@ localStorage.setItem("s_eski_ziyaretci", "evet");
 localStorage.setItem("s_toplam_kisi", toplamKisi);
 }
 
-// 2. KURAL: TOPLAM GİRİŞ (Her yenilemede artar) - Sıfırdan başlar
+// 2. KURAL: GİRİŞ (Her yenilemede artar) - Sıfırdan başlar
 let toplamGiris = parseInt(localStorage.getItem("s_toplam_giris")) || 0;
 toplamGiris += 1;
 localStorage.setItem("s_toplam_giris", toplamGiris);
@@ -3826,7 +3832,7 @@ let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
 // Sayaçları kutulara yazdır
 document.getElementById("sayacKisi").innerText = toplamKisi;
 document.getElementById("sayacGiris").innerText = toplamGiris;
-document.getElementById("sayacArama").innerText = toplamArama;
+document.getElementById("sayacArama").innerText = toplamArama + " ARAMA";
 
 enCokArananıYazdır();
 }
@@ -3842,9 +3848,9 @@ umami.track('arama', { sozcuk: arananSozcuk });
 
 // Kural 3: Her kelime arandığında Toplam Arama sayısını 1 artırır
 let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
-topramaArama = toplamArama + 1;
-localStorage.setItem("s_toplam_arama", topramaArama);
-document.getElementById("sayacArama").innerText = topramaArama;
+toplamArama += 1;
+localStorage.setItem("s_toplam_arama", toplamArama);
+document.getElementById("sayacArama").innerText = toplamArama + " ARAMA";
 
 // Kural 4: Kelime listesini hafızaya kaydeder ve lideri hesaplar
 let aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
