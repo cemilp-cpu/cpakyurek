@@ -5,7 +5,7 @@
 <title>YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER</title>
 
 <!-- Umami Cloud Canlı Sayaç İzleme İmgesi -->
-<script defer src="https://cloud.umami.is/script.js" data-website-id="215f6c6e-ac5f-4ca7-b82b-5b41294e9822"></script>
+<script defer src="https://umami.is" data-website-id="215f6c6e-ac5f-4ca7-b82b-5b41294e9822"></script>
 
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
@@ -34,8 +34,8 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
 <div class="sayaclar">
 <div>TOPLAM SÖZCÜK<br><span id="toplam">0</span></div>
-<div>TOPLAM GEZEN<br><span id="toplamGezen">...</span></div>
-<div>BUGÜN GEZEN<br><span id="bugunGezen">...</span></div>
+<div>TOPLAM GEZEN<br><span id="toplamGezen">Yükleniyor...</span></div>
+<div>BUGÜN GEZEN<br><span id="bugunGezen">Yükleniyor...</span></div>
 <div>EN ÇOK SORULAN<br><span id="cokSorulan" style="font-size:13px;">UMAMİ'DE</span></div>
 </div>
 <div class="ic">
@@ -3788,6 +3788,7 @@ let sozluk = [
 
  
 ];
+
 function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
@@ -3795,6 +3796,7 @@ document.getElementById("toplam").innerText = sozluk.length;
 document.getElementById("ara").focus();
 abeceOlustur();
 abeceDokum();
+umamiVerileriniCek();
 }
 
 function bul(){
@@ -3862,8 +3864,34 @@ html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
 
+// Umami Bulutundan Paylaşım Linki Üzerinden Canlı Ziyaret Verisi Çeken Yapı
+async function umamiVerileriniCek() {
+const shareId = "qeTt2tfW9Zw1CS9u";
+const websiteId = "215f6c6e-ac5f-4ca7-b82b-5b41294e9822";
+
+const simdi = Date.now();
+const bugunBaslangic = new Date().setHours(0,0,0,0);
+const tumZamanBaslangic = new Date("2026-01-01").getTime();
+
+try {
+// Bugün gezenleri çek
+const bugunRes = await fetch(`https://umami.is{shareId}/stats?startAt=${bugunBaslangic}&endAt=${simdi}`);
+const bugunData = await bugunRes.json();
+document.getElementById("bugunGezen").innerText = bugunData.pageviews.value || 0;
+
+// Toplam gezenleri çek
+const toplamRes = await fetch(`https://umami.is{shareId}/stats?startAt=${tumZamanBaslangic}&endAt=${simdi}`);
+const toplamData = await toplamRes.json();
+document.getElementById("toplamGezen").innerText = toplamData.pageviews.value || 0;
+
+} catch (error) {
+console.error("Sayaç verileri yüklenemedi:", error);
+document.getElementById("toplamGezen").innerText = "—";
+document.getElementById("bugunGezen").innerText = "—";
+}
+}
+
 baslat();
 </script>
 </body>
 </html>
-
