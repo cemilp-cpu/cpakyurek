@@ -10,14 +10,13 @@
 
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-.kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
-/* Sarı panodaki yazılar 1 tık daha büyük (15px) ve daha belirgin yapıldı */
-.k1,.k2,.k3 { padding: 14px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; font-size: 15px; line-height: 1.5; background: #ffeb38; }
-/* İrileşen ve Rahatlayan Siyah Bant Tasarımı */
-.sayaclar { display: flex; background: #333; color: #fff; font-size: 13px; font-weight: bold; text-transform: uppercase; }
-.sayaclar div { flex: 1; text-align: center; padding: 12px 2px; border-right: 2px solid #555; line-height: 1.4; }
+.kutu { width: 100%; max-width: 650px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
+.k1,.k2,.k3 { padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; font-size: 15px; line-height: 1.4; background: #ffeb38; }
+/* Yan yana 4 kutulu, iri yazılı ve tam okunaklı siyah bant tasarımı */
+.sayaclar { display: flex; background: #333; color: #fff; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+.sayaclar div { flex: 1; text-align: center; padding: 12px 1px; border-right: 2px solid #555; line-height: 1.4; box-sizing: border-box; }
 .sayaclar div:last-child { border-right: none; }
-.sayaclar span { color: #ffffff; font-size: 22px; display: block; font-weight: bold; margin-top: 4px; }
+.sayaclar span { color: #ffffff; font-size: 20px; display: block; font-weight: bold; margin-top: 4px; }
 .ic { background: #fff; padding: 20px; }
 input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 2px solid #000; box-sizing: border-box; }
 .btns { display: flex; gap: 6px; margin-top: 10px; }
@@ -33,19 +32,17 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 </head>
 <body>
 <div class="kutu">
+<!-- 3 Satırlı Sarı Başlık Pano Düzeni -->
 <div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
-
-<!-- Tam İstediğiniz Gibi: 2. Satırda Artık Sadece Bu Yazı Var -->
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
+<div class="k3">HER YABANCI SÖZCÜĞE KARŞILIK, YALIN TÜRKÇE KARŞILIK SÖZCÜK VARDIR <B> .......... 29 EKİM 2026</B></div>
 
-<!-- Tam İstediğiniz Gibi: 3. Satıra İndi ve Sayı Alanı (1 tık daha iri: 20px) Baş tarafa alındı -->
-<div class="k3">TOPLAM SÖZCÜK SAYISI: <span id="toplam" style="color:red; font-size:20px; font-weight:bolder;">0</span> .......... HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE VARDIR .......... 29 EKİM 2026</div>
-
-<!-- Okunabilirliği yüksek 3'lü Sayaç Bandı -->
+<!-- Yan Yana 4 Kutulu Sayaç Bandı - En Çok Aranan Kısmı İrileştirildi -->
 <div class="sayaclar">
+<div>SÖZCÜK SAYISI<br><span id="toplam" style="color:#ffcc00;">0</span></div>
 <div>TOPLAM KİŞİ<br><span id="sayacKisi">0</span></div>
 <div>TOPLAM GİRİŞ<br><span id="sayacGiris">0</span></div>
-<div>ARAMA / EN ÇOK<br><span id="sayacArama" style="font-size:18px; display:block; margin-top:4px;">0 ARAMA</span><span id="sayacEnCok" style="font-size:11px; color:#ffcc00; font-weight:bold; display:block; margin-top:2px;">(YALIN)</span></div>
+<div>ARAMA / EN ÇOK<br><span id="sayacArama" style="font-size:18px; display:block; margin-top:4px;">0 ARAMA</span><span id="sayacEnCok" style="font-size:12px; color:#ffcc00; font-weight:bold; display:block; margin-top:2px;">EN ÇOK: YALIN</span></div>
 </div>
 
 <div class="ic">
@@ -68,6 +65,8 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 
 <script>
 let sozluk = [
+
+
 
 
 
