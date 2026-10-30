@@ -11,10 +11,8 @@
 <style>
 body { background: #dcdcdc; font-family: Arial; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 .kutu { width: 100%; max-width: 600px; margin: 10px auto; border: 3px solid #000; border-radius: 8px; background: #fff; display: flex; flex-direction: column; }
-.k1,.k2,.k3 { padding: 12px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; }
-.k1 { background: #ffeb38; }
-.k2 { background: #ffeb38; }
-.k3 { background: #ffeb38; }
+/* Sarı panodaki yazılar 1 tık daha büyük (15px) ve daha belirgin yapıldı */
+.k1,.k2,.k3 { padding: 14px; text-align: center; font-weight: bold; border-bottom: 2px solid #000; font-size: 15px; line-height: 1.5; background: #ffeb38; }
 /* İrileşen ve Rahatlayan Siyah Bant Tasarımı */
 .sayaclar { display: flex; background: #333; color: #fff; font-size: 13px; font-weight: bold; text-transform: uppercase; }
 .sayaclar div { flex: 1; text-align: center; padding: 12px 2px; border-right: 2px solid #555; line-height: 1.4; }
@@ -37,11 +35,11 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 <div class="kutu">
 <div class="k1">YABANCI KÖKENLİ SÖZCÜKLERE, YALIN TÜRKÇE SÖZCÜKLER ÖNERİLMEKTEDİR.</div>
 
-<!-- Tam İstediğiniz Gibi: SÖZCÜKLÜKTÜR satırı şimdi tam 2. satırda yer alıyor -->
+<!-- Tam İstediğiniz Gibi: 2. Satırda Artık Sadece Bu Yazı Var -->
 <div class="k2">Bu bir sözlük değil. SÖZCÜKLÜKTÜR.</div>
 
-<!-- Tam İstediğiniz Gibi: TOPLAM SÖZCÜK satırı kırmızı sayısıyla birlikte 3. satıra indi -->
-<div class="k3">TOPLAM SÖZCÜK SAYISI: <span id="toplam" style="color:red; font-size:18px;">0</span> .......... HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE VARDIR .......... 29 EKİM 2026</div>
+<!-- Tam İstediğiniz Gibi: 3. Satıra İndi ve Sayı Alanı (1 tık daha iri: 20px) Baş tarafa alındı -->
+<div class="k3">TOPLAM SÖZCÜK SAYISI: <span id="toplam" style="color:red; font-size:20px; font-weight:bolder;">0</span> .......... HER YABANCI SÖZCÜĞE KARŞILIK YALIN TÜRKÇE VARDIR .......... 29 EKİM 2026</div>
 
 <!-- Okunabilirliği yüksek 3'lü Sayaç Bandı -->
 <div class="sayaclar">
@@ -70,6 +68,7 @@ input { width: 100%; padding: 14px; font-size: 20px; font-weight: bold; border: 
 
 <script>
 let sozluk = [
+
 
 
 
