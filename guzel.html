@@ -26,13 +26,11 @@ h1{margin:0 0 5px;font-size:28px}
 <div class="kutu"><div class="icAlan">
 <h1><span class="yildiz">★</span><span class="baslikYazi">GÜZEL SÖZCÜKLÜK</span></h1>
 <div style="font-size:10px;letter-spacing:4px;margin-bottom:8px">*****</div>
-
 <div class="sayaçlar">
 <div class="sayaç" id="toplamSozcuk">TOPLAM SÖZCÜK: 0</div>
 <div class="sayaç" id="bugunGezilen">BUGÜN GEZİLEN: 0</div>
 <div class="sayaç" id="toplamGezilen">TOPLAM GEZİLEN: 0</div>
 </div>
-
 <input id="girdi" placeholder="Bir sözcük yazın...">
 <div class="dugmeler">
 <button class="dugme" onclick="bul()">BUL</button>
@@ -40,27 +38,23 @@ h1{margin:0 0 5px;font-size:28px}
 <button class="dugme" onclick="sesliSor()">SESLİ SOR</button>
 <button class="dugme" onclick="tumuKopyala()">TÜMÜNÜ KOPYALA</button>
 </div>
-
 <div id="sonuç"></div>
-
 <div id="onerikutu">
 <div style="font-weight:bold;margin-bottom:6px">Öneriniz:</div>
 <input id="onerigirdi" placeholder="Yalın Türkçe karşılığı...">
 <div class="dugmeler"><button class="dugme" onclick="oneriGonder()">ÖNERİYİ GÖNDER</button></div>
 </div>
-
 <div id="havuzAlani" style="display:none;margin-top:12px;padding:8px;border:2px dashed #000;background:#fff;border-radius:8px;text-align:left">
 <h4>HAVUZ (Yönetici)</h4><div id="liste"></div>
 <div class="dugmeler"><button class="dugme" onclick="havuzKapa()">KAPAT</button></div>
 </div>
-
 </div></div>
 <footer style="text-align:center;font-size:11px;margin-top:10px">Cemil Pakyürek — Yalın Türkçe Sözcüklük</footer>
-
 <script>
 let temel=[
+{ A:"fallow",B:"izle"},
 { A:"atom",B:"ögecik"},
-{ A:"mikrofon",B:"eksiciklendirici"},
+{ A:"mikrofon",B:"ses alıcısı"},
 { A: "open" , B: "aç" },
 { A: "door" , B: "kapı" },
 { A: "sit down" , B: "otur" },
@@ -72,23 +66,25 @@ let temel=[
 { A: "come" , B: "gel" },
 { A: "here" , B: "bura" },
 { A: "edit" , B: "düzelt" },
-{ A: "go" , B: "gel" },
+{ A: "go" , B: "git" },
 { A: "outside" , B: "dışarıya" },
 { A: "walk " , B: "yürü" },
 { A: "slowly" , B: "yavaşça" },
 { A: "wait" , B: "bekle" },
 { A: "fallow" , B: "izle" },
 { A: "eat" , B: "ye" },
-{ A: "food" , B: "beslen" },
+{ A: "food" , B: "beslm" },
 { A: "cut" , B: "kes" },
 { A: "bfead" , B: "ekmek" },
 { A: "run" , B: "koş" },
 { A: "fast" , B: "hızlı" },
 { A: "watch" , B: "bak" },
+{ A: "ring" , B: "çınla" },
+{ A: "drink" , B: "iç" },
 { A: "road" , B: "yol" },
 { A: "taste" , B: "tad" },
 { A: "soak" , B: "ıslat" },
-{ A: "fermant" , B: "mayala" },
+{ A: "termant" , B: "mayala" },
 { A: "thaw" , B: "çözdür" },
 { A: "crush" , B: "ez" },
 { A: "crack" , B: "çatlat" },
@@ -97,13 +93,12 @@ let temel=[
 { A: "carwe" , B: "oy" },
 { A: "brew" , B: "demle" },
 
-{ A:"bilgisayar",B:"bilgi işler"}
-
-
+{A:"bilgisayar",B:"bilgi işler"}
 ];
+// NOT: Cemil Bey, buraya GitHub'daki 38 sözcüğünüzü ekleyin. Örnek 4 tane koydum, siz kendi listenizi yapıştırın.
+
 function tumu(){let ek=JSON.parse(localStorage.getItem("ek")||"[]");return temel.concat(ek);}
 function kucult(s){return s.toLocaleLowerCase("tr-TR").trim();}
-
 (function(){
 let bugunStr=new Date().toLocaleDateString("tr-TR");
 let toplam=parseInt(localStorage.getItem("toplamGezilen")||"0")+1;
@@ -116,22 +111,17 @@ document.getElementById("toplamGezilen").textContent="TOPLAM GEZİLEN: "+toplam;
 document.getElementById("bugunGezilen").textContent="BUGÜN GEZİLEN: "+bugunSay;
 document.getElementById("toplamSozcuk").textContent="TOPLAM SÖZCÜK: "+tumu().length;
 })();
-
 function konus(m){
 speechSynthesis.cancel();
 let temiz=m.replaceAll("→"," karşılık ").replaceAll("\n"," . ");
 let u=new SpeechSynthesisUtterance(temiz);
-u.lang="tr-TR";
-u.rate=0.45;
-u.pitch=1.1;
-u.volume=1;
+u.lang="tr-TR"; u.rate=0.45; u.pitch=1.1; u.volume=1;
 let sesler=speechSynthesis.getVoices();
 let turk=sesler.find(v=>v.lang.toLowerCase()==="tr-tr")||sesler.find(v=>v.name.toLowerCase().includes("filiz"))||sesler.find(v=>v.lang.toLowerCase().includes("tr"));
 if(turk){u.voice=turk;}
 speechSynthesis.speak(u);
 }
 window.speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices();};
-
 function bul(){
 let a=kucult(document.getElementById("girdi").value);
 if(!a){konus("Sözcük yazmadınız");document.getElementById("sonuç").textContent="Sözcük yazmadınız";return;}
@@ -140,8 +130,7 @@ tumu().forEach(o=>{if(kucult(o.A)===a){b.push(o.A+" → "+o.B);}if(kucult(o.B)==
 let yanit;
 if(b.length){yanit=b.join("\n");document.getElementById("onerikutu").style.display="none";}
 else{yanit="Bulunamadı: "+a+"\n\nÖneriniz varsa yazınız, söyleyiniz.";document.getElementById("onerikutu").style.display="block";}
-document.getElementById("sonuç").textContent=yanit;
-konus(yanit);
+document.getElementById("sonuç").textContent=yanit;konus(yanit);
 }
 function baskaSor(){document.getElementById("girdi").value="";document.getElementById("sonuç").textContent="";document.getElementById("onerikutu").style.display="none";document.getElementById("girdi").focus();}
 function tumuKopyala(){let t=tumu().map(o=>o.A+" → "+o.B).join("\n");navigator.clipboard.writeText(t).then(function(){document.getElementById("sonuç").textContent="Tümü kopyalandı";konus("Tümü kopyalandı");});}
@@ -154,49 +143,32 @@ havuz.push({aranan:aranan,oneri:oneri});
 localStorage.setItem("havuz",JSON.stringify(havuz));
 document.getElementById("sonuç").textContent="Öneriniz alındı: "+aranan+" → "+oneri;
 konus("Öneriniz alındı, teşekkürler");
-document.getElementById("onerigirdi").value="";
-document.getElementById("onerikutu").style.display="none";
-listele();
+document.getElementById("onerigirdi").value="";document.getElementById("onerikutu").style.display="none";listele();
 }
-
 let micIzniVar=localStorage.getItem("micIzni")==="evet";
 function sesliSor(){mikrofonAc();}
 function mikrofonAc(){
 if(navigator.mediaDevices){
 navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
-localStorage.setItem("micIzni","evet");
-micIzniVar=true;
-s.getTracks().forEach(function(t){t.stop();});
-dinle();
+localStorage.setItem("micIzni","evet");micIzniVar=true;
+s.getTracks().forEach(function(t){t.stop();});dinle();
 }).catch(function(){
-document.getElementById("sonuç").textContent="Mikrofon izni vermediniz";
-konus("Mikrofon izni vermediniz");
+document.getElementById("sonuç").textContent="Mikrofon izni vermediniz";konus("Mikrofon izni vermediniz");
 });
 } else {dinle();}
 }
 function dinle(){
 const T=window.SpeechRecognition||window.webkitSpeechRecognition;
 if(!T){document.getElementById("sonuç").textContent="Bu aygıt sesliyi desteklemiyor, Chrome kullanın";return;}
-const rec=new T();
-rec.lang="tr-TR";
-rec.interimResults=false;
-rec.continuous=false;
-document.getElementById("sonuç").textContent="Dinliyorum...";
-konus("Dinliyorum");
-rec.start();
+const rec=new T();rec.lang="tr-TR";rec.interimResults=false;rec.continuous=false;
+document.getElementById("sonuç").textContent="Dinliyorum...";konus("Dinliyorum");rec.start();
 rec.onresult=function(e){
 let metin=e.results[0][0].transcript.trim();
 if(!metin){document.getElementById("sonuç").textContent="Anlamadım, tekrarla";konus("Anlamadım, tekrarla");setTimeout(dinle,1200);return;}
-document.getElementById("girdi").value=metin;
-bul();
+document.getElementById("girdi").value=metin;bul();
 };
-rec.onerror=function(){
-document.getElementById("sonuç").textContent="Anlamadım, tekrarla";
-konus("Anlamadım, tekrarla");
-setTimeout(dinle,1200);
-};
+rec.onerror=function(){document.getElementById("sonuç").textContent="Anlamadım, tekrarla";konus("Anlamadım, tekrarla");setTimeout(dinle,1200);};
 }
-
 function listele(){let h=JSON.parse(localStorage.getItem("havuz")||"[]");document.getElementById("liste").innerHTML=h.map(function(x,i){return '<div style="margin:6px 0">'+x.aranan+' → '+x.oneri+' <button class="kucukBtn" style="background:green" onclick="onay('+i+')">Onayla</button><button class="kucukBtn" style="background:red" onclick="sil('+i+')">Sil</button></div>';}).join("")||"Havuz boş";}
 function onay(i){let h=JSON.parse(localStorage.getItem("havuz")||"[]");let k=h[i];let ek=JSON.parse(localStorage.getItem("ek")||"[]");ek.push({A:k.aranan,B:k.oneri});localStorage.setItem("ek",JSON.stringify(ek));h.splice(i,1);localStorage.setItem("havuz",JSON.stringify(h));document.getElementById("toplamSozcuk").textContent="TOPLAM SÖZCÜK: "+tumu().length;listele();konus("Onaylandı");}
 function sil(i){let h=JSON.parse(localStorage.getItem("havuz")||"[]");h.splice(i,1);localStorage.setItem("havuz",JSON.stringify(h));listele();}
@@ -214,3 +186,4 @@ if(alan.style.display==="none"||alan.style.display===""){havuzAc();}else{havuzKa
 </script>
 </body>
 </html>
+
