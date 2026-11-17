@@ -5333,127 +5333,56 @@ let sozluk = [
 					
 ];
 
-var VARSAYILAN_HIZ = "ORTA";
-var HIZ_SURELERI = {
-YAVAS: 42,
-ORTA: 26,
-HIZLI: 14
-};
-
-function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
-
-function baslat(){
-if(document.getElementById("toplam")) {
-document.getElementById("toplam").innerText = sozluk.length;
-}
-if(document.getElementById("ara")) {
-document.getElementById("ara").focus();
-}
-var kayitliHiz = localStorage.getItem("s_yuruyen_hiz") || VARSAYILAN_HIZ;
-hizAyarla(kayitliHiz);
-gunlukYuruyenYazi();
-abeceOlustur();
-abeceDokum();
-gelismisSayacMotoru();
+function oneriFormuAc(aranan) {
+var kel = (aranan || "").trim().toLocaleUpperCase('tr-TR');
+var html =
+"<div style='background:#fff; border:2px solid #0d7a0d; border-radius:6px; padding:10px; text-align:left;'>" +
+"<div style='font-size:19px; font-weight:900; color:#0d7a0d; margin-bottom:6px; text-align:center;'>YÖNETİCİYE SÖZCÜK BİLDİR / ÖNER</div>" +
+"<label style='font-size:15px; font-weight:900; display:block; margin-bottom:2px;'>Dışarılı (Yabancı) Sözcük:</label>" +
+"<input type='text' id='oneriDisarili' value='" + kel + "' oninput='this.value=this.value.toLocaleUpperCase(\"tr-TR\")' style='width:100%; padding:6px 8px; font-size:18px; font-weight:900; border:2px solid #333; margin-bottom:6px; box-sizing:border-box;'>" +
+"<label style='font-size:15px; font-weight:900; display:block; margin-bottom:2px;'>Yalın Türkçe Karşılık Öneriniz:</label>" +
+"<input type='text' id='oneriYalin' placeholder='ÖNERİNİZİ YAZIN (İSTEĞE BAĞLI)' oninput='this.value=this.value.toLocaleUpperCase(\"tr-TR\")' style='width:100%; padding:6px 8px; font-size:18px; font-weight:900; border:2px solid #333; margin-bottom:6px; box-sizing:border-box;'>" +
+"<label style='font-size:15px; font-weight:900; display:block; margin-bottom:2px;'>Adınız / Notunuz:</label>" +
+"<input type='text' id='oneriNot' placeholder='ADINIZ VE KISA NOTUNUZ' style='width:100%; padding:6px 8px; font-size:16px; font-weight:bold; border:2px solid #333; margin-bottom:8px; box-sizing:border-box;'>" +
+"<div style='display:flex; gap:6px;'>" +
+"<button type='button' onclick='oneriGonder(\"gmail\")' style='flex:2; padding:9px; background:#0d7a0d; color:#fff; font-size:16px; font-weight:900; border:none; border-radius:4px; cursor:pointer;'>GMAİL İLE GÖNDER</button>" +
+"<button type='button' onclick='oneriGonder(\"kopyala\")' style='flex:2; padding:9px; background:#222; color:#ffcc00; font-size:16px; font-weight:900; border:none; border-radius:4px; cursor:pointer;'>METNİ KOPYALA</button>" +
+"<button type='button' onclick='abeceDokum()' style='flex:1; padding:9px; background:#b30000; color:#fff; font-size:16px; font-weight:900; border:none; border-radius:4px; cursor:pointer;'>İPTAL</button>" +
+"<" + "/div>" +
+"<div id='oneriDurum' style='margin-top:6px; font-size:15px; font-weight:900; color:#0d7a0d; text-align:center;'><" + "/div>" +
+"<" + "/div>";
+document.getElementById("sonuc").innerHTML = html;
 }
 
-function hizAyarla(seviye) {
-if (!HIZ_SURELERI[seviye]) { seviye = VARSAYILAN_HIZ; }
-localStorage.setItem("s_yuruyen_hiz", seviye);
+function oneriGonder(yontem) {
+var disarili = document.getElementById("oneriDisarili").value.trim().toLocaleUpperCase('tr-TR');
+var yalin = document.getElementById("oneriYalin").value.trim().toLocaleUpperCase('tr-TR');
+var notBilgi = document.getElementById("oneriNot").value.trim();
 
-var metin = document.getElementById("yuruyenYazi");
-if (metin) {
-metin.style.animationDuration = HIZ_SURELERI[seviye] + "s";
+if (!disarili && !yalin) {
+document.getElementById("oneriDurum").innerHTML = "<span style='color:#b30000;'>Lütfen en az bir sözcük yazınız.</span>";
+return;
 }
 
-var butonlar = ["YAVAS", "ORTA", "HIZLI"];
-for (var i = 0; i < butonlar.length; i++) {
-var btn = document.getElementById("btn-" + butonlar[i]);
-if (btn) {
-if (butonlar[i] === seviye) {
-btn.classList.add("aktif");
+var konu = "Sözcüklük Öneri / Bildirim: " + (disarili || yalin);
+var govde = "Sayın Cemil Pakyürek,\n\n" +
+"Dışarılı Sözcük: " + (disarili || "-") + "\n" +
+"Yalın Türkçe Önerisi: " + (yalin || "-") + "\n" +
+"Gönderen / Not: " + (notBilgi || "-");
+
+if (yontem === "gmail") {
+var gmailUrl = "https://google.com" + encodeURIComponent(konu) + "&body=" + encodeURIComponent(govde);
+window.open(gmailUrl, "_blank");
+document.getElementById("oneriDurum").innerHTML = "Gmail penceresi yeni sekmede açıldı. Açılmadıysa 'METNİ KOPYALA' tuşunu kullanabilirsiniz.";
 } else {
-btn.classList.remove("aktif");
+var tamMetin = "Alıcı: cemilp@gmail.com\nKonu: " + konu + "\n\n" + govde;
+if (navigator.clipboard) {
+navigator.clipboard.writeText(tamMetin);
+}
+document.getElementById("oneriDurum").innerHTML = "Öneri metni kopyalandı! E-posta veya WhatsApp (0532.3719749) ile yapıştırıp gönderebilirsiniz.";
 }
 }
-}
-}
 
-function gunlukYuruyenYazi() {
-var alan = document.getElementById("yuruyenYazi");
-if (!alan || sozluk.length === 0) return;
-
-var bugun = new Date();
-var tohum = bugun.getFullYear() * 10000 + (bugun.getMonth() + 1) * 100 + bugun.getDate();
-
-function sahteRastgele(s) {
-var x = Math.sin(s) * 10000;
-return x - Math.floor(x);
-}
-
-var kopya = sozluk.slice();
-for (var i = kopya.length - 1; i > 0; i--) {
-var j = Math.floor(sahteRastgele(tohum + i) * (i + 1));
-var gecici = kopya[i];
-kopya[i] = kopya[j];
-kopya[j] = gecici;
-}
-
-var secilenler = kopya.slice(0, Math.min(5, kopya.length));
-var parcalar = [];
-for (var k = 0; k < secilenler.length; k++) {
-parcalar.push("★ Dışarılısı: " + secilenler[k].A.toLocaleUpperCase('tr-TR') + " ➔ Yalın Türkçesi: " + secilenler[k].B.toLocaleUpperCase('tr-TR'));
-}
-
-alan.innerText = "GÜNÜN 5 ANIMSATICISI: " + parcalar.join(" | ");
-}
-
-function gelismisSayacMotoru() {
-var yerelKisi = parseInt(localStorage.getItem("s_toplam_kisi")) || 1;
-var yerelGiris = (parseInt(localStorage.getItem("s_toplam_giris")) || 0) + 1;
-var yerelArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
-
-localStorage.setItem("s_toplam_giris", yerelGiris);
-
-if(document.getElementById("sayacKisi")) document.getElementById("sayacKisi").innerText = yerelKisi;
-if(document.getElementById("sayacGiris")) document.getElementById("sayacGiris").innerText = yerelGiris;
-if(document.getElementById("sayacArama")) document.getElementById("sayacArama").innerText = yerelArama;
-
-fetch('https://counterapi.dev')
-.then(function(res) { return res.json(); })
-.then(function(data) {
-if(document.getElementById("sayacGiris") && data.count) {
-document.getElementById("sayacGiris").innerText = data.count;
-}
-})
-.catch(function() {});
-
-var yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
-var kisiUrl = !yeniKisiMi
-? 'https://counterapi.dev'
-: 'https://counterapi.dev';
-
-fetch(kisiUrl)
-.then(function(res) { return res.json(); })
-.then(function(data) {
-if (!yeniKisiMi) { localStorage.setItem("s_eski_ziyaretci", "evet"); }
-if(document.getElementById("sayacKisi") && data.count) {
-document.getElementById("sayacKisi").innerText = data.count;
-}
-})
-.catch(function() {});
-
-fetch('https://counterapi.dev')
-.then(function(res) { return res.json(); })
-.then(function(data) {
-if(document.getElementById("sayacArama") && data.count) {
-document.getElementById("sayacArama").innerText = data.count;
-}
-})
-.catch(function() {});
-
-enCokArananiYazdir();
-}
 function bul(){
 var araKutusu = document.getElementById("ara");
 if(!araKutusu) return;
@@ -5504,13 +5433,11 @@ html += "<li style='margin-bottom:5px;'><b style='font-weight:900;'>Dışarılı
 html += "</ol><" + "/div>";
 document.getElementById("sonuc").innerHTML = html;
 } else {
-var konu = encodeURIComponent("Sözcüklük - Bulunamayan Sözcük Bildirimi: " + arananSozcuk);
-var icerik = encodeURIComponent("Sayın Cemil Pakyürek,\n\nSözcüklükte '" + arananSozcuk + "' sözcüğünü aradım ancak bulamadım. Eklenmesini / değerlendirilmesini rica ederim.");
 document.getElementById("sonuc").innerHTML =
 "<div style='text-align:center;'>" +
 "<span style='color:#b30000; font-size:22px; font-weight:900;'>\"" + arananSozcuk + "\" SÖZCÜKLÜKTE BULUNAMADI.</span><br>" +
 "<span style='font-size:17px; font-weight:bold; color:#222;'>Bu sözcüğü yöneticiye iletmek veya öneride bulunmak için tıklayın:</span><br>" +
-"<a class='yonetici-btn' href='mailto:cemilp@://gmail.com" + konu + "&body=" + icerik + "'>YÖNETİCİYE YÖNELT / ÖNER</a>" +
+"<button type='button' class='yonetici-btn' onclick='oneriFormuAc(\"" + arananSozcuk + "\")'>YÖNETİCİYE YÖNELT / ÖNER</button>" +
 "<" + "/div>";
 }
 }
@@ -5547,13 +5474,7 @@ function sil(){ baska(); }
 function oner(){
 var araKutusu = document.getElementById("ara");
 var yazili = araKutusu ? araKutusu.value.trim().toLocaleUpperCase('tr-TR') : "";
-var konu = yazili
-? encodeURIComponent("Sözcüklük - Yeni Sözcük Önerisi: " + yazili)
-: encodeURIComponent("Sözcüklük - Yeni Sözcük Önerisi");
-var icerik = yazili
-? encodeURIComponent("Sayın Cemil Pakyürek,\n\n'" + yazili + "' sözcüğü için yalın Türkçe karşılık önerim:\n\nDışarılı Sözcük: " + yazili + "\nYalın Türkçe Önerisi: ")
-: encodeURIComponent("Sayın Cemil Pakyürek,\n\nSözcüklük için yeni sözcük önerim aşağıdadır:\n\nDışarılı Sözcük: \nYalın Türkçe Önerisi: ");
-window.location.href = "mailto:cemilp@://gmail.com" + konu + "&body=" + icerik;
+oneriFormuAc(yazili);
 }
 
 function abeceOlustur(){
@@ -5596,7 +5517,6 @@ baslat();
 </script>
 </body>
 </html>
-
 
 
  
