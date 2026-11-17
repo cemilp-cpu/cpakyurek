@@ -5317,7 +5317,18 @@ gelismisSayacMotoru();
 }
 
 function gelismisSayacMotoru() {
-// 1. Ortak Giriş Sayacı (Tüm dünyadan giren her ziyareti 1 artırır)
+// Önce tarayıcıdaki mevcut sayıları yükle (0 görünmesini önler)
+var yerelKisi = parseInt(localStorage.getItem("s_toplam_kisi")) || 1;
+var yerelGiris = (parseInt(localStorage.getItem("s_toplam_giris")) || 0) + 1;
+var yerelArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
+
+localStorage.setItem("s_toplam_giris", yerelGiris);
+
+if(document.getElementById("sayacKisi")) document.getElementById("sayacKisi").innerText = yerelKisi;
+if(document.getElementById("sayacGiris")) document.getElementById("sayacGiris").innerText = yerelGiris;
+if(document.getElementById("sayacArama")) document.getElementById("sayacArama").innerText = yerelArama;
+
+// Bulut Ortak Giriş Sayacı
 fetch('https://counterapi.dev')
 .then(function(res) { return res.json(); })
 .then(function(data) {
@@ -5327,7 +5338,7 @@ document.getElementById("sayacGiris").innerText = data.count;
 })
 .catch(function() {});
 
-// 2. Ortak Tekil Kişi Sayacı (Yeni ziyaretçiyi buluta kaydeder)
+// Bulut Ortak Tekil Kişi Sayacı
 var yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
 var kisiUrl = !yeniKisiMi
 ? 'https://counterapi.dev'
@@ -5343,12 +5354,12 @@ document.getElementById("sayacKisi").innerText = data.count;
 })
 .catch(function() {});
 
-// 3. Ortak Toplam Arama Sayacını İlk Açılışta Ekrana Yazdırır
+// Bulut Ortak Arama Sayacı
 fetch('https://counterapi.dev')
 .then(function(res) { return res.json(); })
 .then(function(data) {
-if(document.getElementById("sayacArama")) {
-document.getElementById("sayacArama").innerText = data.count || 0;
+if(document.getElementById("sayacArama") && data.count) {
+document.getElementById("sayacArama").innerText = data.count;
 }
 })
 .catch(function() {});
@@ -5367,7 +5378,12 @@ if (typeof umami !== 'undefined') {
 try { umami.track('arama', { sozcuk: arananSozcuk }); } catch(e) {}
 }
 
-// Ortak Arama Sayacını Bulut Sunucuda 1 Artırır
+// Yerel arama sayacını artır
+var yerelArama = (parseInt(localStorage.getItem("s_toplam_arama")) || 0) + 1;
+localStorage.setItem("s_toplam_arama", yerelArama);
+if(document.getElementById("sayacArama")) document.getElementById("sayacArama").innerText = yerelArama;
+
+// Bulut arama sayacını artır
 fetch('https://counterapi.dev/up')
 .then(function(res) { return res.json(); })
 .then(function(data) {
@@ -5377,7 +5393,6 @@ document.getElementById("sayacArama").innerText = data.count;
 })
 .catch(function() {});
 
-// Tarayıcı İçi En Çok Aranan Takibi
 var aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
 aramaGecmisi[arananSozcuk] = (aramaGecmisi[arananSozcuk] || 0) + 1;
 localStorage.setItem("s_arama_gecmisi", JSON.stringify(aramaGecmisi));
