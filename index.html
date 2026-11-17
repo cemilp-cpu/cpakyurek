@@ -5305,136 +5305,171 @@ let sozluk = [
 function duzenle(k){ return k.toLocaleLowerCase('tr-TR').trim(); }
 
 function baslat(){
-// Toplam kelime sayısını alttaki 1. siyah kutunun içine (id="toplam") gönderir
 if(document.getElementById("toplam")) {
 document.getElementById("toplam").innerText = sozluk.length;
 }
+if(document.getElementById("ara")) {
 document.getElementById("ara").focus();
+}
 abeceOlustur();
 abeceDokum();
-gelişmişSayaçMotoru();
+gelismisSayacMotoru();
 }
 
-function gelişmişSayaçMotoru() {
-let yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
-let toplamKisi = parseInt(localStorage.getItem("s_toplam_kisi")) || 0;
-
-if (!yeniKisiMi) {
-toplamKisi += 1;
-localStorage.setItem("s_eski_ziyaretci", "evet");
-localStorage.setItem("s_toplam_kisi", toplamKisi);
+function gelismisSayacMotoru() {
+// 1. Ortak Giriş Sayacı (Tüm dünyadan giren her ziyareti 1 artırır)
+fetch('https://counterapi.dev')
+.then(function(res) { return res.json(); })
+.then(function(data) {
+if(document.getElementById("sayacGiris") && data.count) {
+document.getElementById("sayacGiris").innerText = data.count;
 }
+})
+.catch(function() {});
 
-let toplamGiris = parseInt(localStorage.getItem("s_toplam_giris")) || 0;
-toplamGiris += 1;
-localStorage.setItem("s_toplam_giris", toplamGiris);
+// 2. Ortak Tekil Kişi Sayacı (Yeni ziyaretçiyi buluta kaydeder)
+var yeniKisiMi = localStorage.getItem("s_eski_ziyaretci");
+var kisiUrl = !yeniKisiMi
+? 'https://counterapi.dev'
+: 'https://counterapi.dev';
 
-let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
+fetch(kisiUrl)
+.then(function(res) { return res.json(); })
+.then(function(data) {
+if (!yeniKisiMi) { localStorage.setItem("s_eski_ziyaretci", "evet"); }
+if(document.getElementById("sayacKisi") && data.count) {
+document.getElementById("sayacKisi").innerText = data.count;
+}
+})
+.catch(function() {});
 
-document.getElementById("sayacKisi").innerText = toplamKisi;
-document.getElementById("sayacGiris").innerText = toplamGiris;
-document.getElementById("sayacArama").innerText = toplamArama;
+// 3. Ortak Toplam Arama Sayacını İlk Açılışta Ekrana Yazdırır
+fetch('https://counterapi.dev')
+.then(function(res) { return res.json(); })
+.then(function(data) {
+if(document.getElementById("sayacArama")) {
+document.getElementById("sayacArama").innerText = data.count || 0;
+}
+})
+.catch(function() {});
 
-enCokArananıYazdır();
+enCokArananiYazdir();
 }
 
 function bul(){
-let arananSozcuk = document.getElementById("ara").value.trim().toUpperCase('tr-TR');
+var araKutusu = document.getElementById("ara");
+if(!araKutusu) return;
+
+var arananSozcuk = araKutusu.value.trim().toUpperCase('tr-TR');
 if(arananSozcuk === "") { abeceDokum(); return; }
 
 if (typeof umami !== 'undefined') {
-umami.track('arama', { sozcuk: arananSozcuk });
+try { umami.track('arama', { sozcuk: arananSozcuk }); } catch(e) {}
 }
 
-let toplamArama = parseInt(localStorage.getItem("s_toplam_arama")) || 0;
-toplamArama += 1;
-localStorage.setItem("s_toplam_arama", toplamArama);
-document.getElementById("sayacArama").innerText = toplamArama;
+// Ortak Arama Sayacını Bulut Sunucuda 1 Artırır
+fetch('https://counterapi.dev/up')
+.then(function(res) { return res.json(); })
+.then(function(data) {
+if(document.getElementById("sayacArama") && data.count) {
+document.getElementById("sayacArama").innerText = data.count;
+}
+})
+.catch(function() {});
 
-let aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
+// Tarayıcı İçi En Çok Aranan Takibi
+var aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
 aramaGecmisi[arananSozcuk] = (aramaGecmisi[arananSozcuk] || 0) + 1;
 localStorage.setItem("s_arama_gecmisi", JSON.stringify(aramaGecmisi));
 
-enCokArananıYazdır();
+enCokArananiYazdir();
 
-let g = duzenle(document.getElementById("ara").value);
-let eslesenler = sozluk.filter(item => duzenle(item.A) === g || duzenle(item.B) === g);
+var g = duzenle(araKutusu.value);
+var eslesenler = sozluk.filter(function(item) {
+return duzenle(item.A) === g || duzenle(item.B) === g;
+});
 
 if(eslesenler.length > 0){
-let html = `<div style='max-height:220px; overflow-y:auto; font-size:16px; font-weight:normal; text-align:left; margin-top:5px;'><b>BULUNAN YANITLAR (${eslesenler.length}):</b><br><ol style='margin:5px 0 0 20px; padding:0;'>`;
-for(let i=0; i<eslesenler.length; i++){
-html += `<li style='margin-bottom:6px;'><b>YABAN:</b> ${eslesenler[i].A.toUpperCase()} = <b>YALIN:</b> ${eslesenler[i].B.toUpperCase()}</li>`;
+var html = "<div style='max-height:220px; overflow-y:auto; font-size:16px; font-weight:normal; text-align:left; margin-top:5px;'><b>BULUNAN YANITLAR (" + eslesenler.length + "):</b><br><ol style='margin:5px 0 0 20px; padding:0;'>";
+for(var i = 0; i < eslesenler.length; i++){
+html += "<li style='margin-bottom:6px;'><b>YABAN:</b> " + eslesenler[i].A.toUpperCase() + " = <b>YALIN:</b> " + eslesenler[i].B.toUpperCase() + "</li>";
 }
-html += `</ol></div>`;
+html += "</ol></div>";
 document.getElementById("sonuc").innerHTML = html;
 } else {
-document.getElementById("sonuc").innerHTML = `<span style="color:red">BULUNAMADI</span>`;
+document.getElementById("sonuc").innerHTML = "<span style='color:red'>BULUNAMADI</span>";
 }
 }
 
-function enCokArananıYazdır() {
-let aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
-let enCokKelime = "YALIN";
-let enYuksekSkor = 0;
+function enCokArananiYazdir() {
+var aramaGecmisi = JSON.parse(localStorage.getItem("s_arama_gecmisi")) || {};
+var enCokKelime = "YALIN";
+var enYuksekSkor = 0;
 
-for (let kelime in aramaGecmisi) {
+for (var kelime in aramaGecmisi) {
 if (aramaGecmisi[kelime] > enYuksekSkor) {
 enYuksekSkor = aramaGecmisi[kelime];
 enCokKelime = kelime;
 }
 }
 
+if (document.getElementById("sayacEnCok")) {
 if (enYuksekSkor > 0) {
 document.getElementById("sayacEnCok").innerText = enCokKelime + " (" + enYuksekSkor + ")";
 } else {
 document.getElementById("sayacEnCok").innerText = "YALIN";
 }
 }
+}
 
 function baska(){
-document.getElementById("ara").value="";
+document.getElementById("ara").value = "";
 abeceDokum();
 document.getElementById("ara").focus();
 }
 
-function sil(){baska();}
-function oner(){window.location.href=`mailto:cemilp@gmail.com`;}
+function sil(){ baska(); }
+function oner(){ window.location.href = "mailto:cemilp@gmail.com"; }
 
 function abeceOlustur(){
-let harfler="ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
-let html="";
-for(let i=0;i<harfler.length;i++){
-html+=`<span class="abece-tusu" onclick="harfDöküm('${harfler[i]}')">${harfler[i]}</span>`;
+var harfler = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+var html = "";
+for(var i = 0; i < harfler.length; i++){
+html += "<span class='abece-tusu' onclick='harfDokum(\"" + harfler[i] + "\")'>" + harfler[i] + "</span>";
 }
-document.getElementById("harfler").innerHTML=html;
+if(document.getElementById("harfler")) {
+document.getElementById("harfler").innerHTML = html;
+}
 }
 
-function harfDöküm(harf){
-let html=`<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>${harf} HARFİ DÖKÜMÜ:</b><br>`;
-let bulundu=false;
-for(let i=0;i<sozluk.length;i++){
+function harfDokum(harf){
+var html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>" + harf + " HARFİ DÖKÜMÜ:</b><br>";
+var bulundu = false;
+for(var i = 0; i < sozluk.length; i++){
 if(sozluk[i].A.trim().toUpperCase('tr-TR').startsWith(harf)){
-html+=`• <b>${sozluk[i].A}</b> = ${sozluk[i].B}<br>`;
-bulundu=true;
+html += "• <b>" + sozluk[i].A + "</b> = " + sozluk[i].B + "<br>";
+bulundu = true;
 }
 }
-if(!bulundu) html+="<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
-html+="</div>";
-document.getElementById("sonuc").innerHTML=html;
+if(!bulundu) html += "<span style='color:red;'>Bu harfle başlayan sözcük bulunamadı.</span>";
+html += "</div>";
+document.getElementById("sonuc").innerHTML = html;
 document.getElementById("ara").focus();
 }
 
 function abeceDokum(){
-let sirali = [...sozluk].sort((x, y) => x.A.localeCompare(y.A, 'tr'));
-let html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLÜK (ABECESEL):</b><br>";
-for(let i=0; i<sirali.length; i++){
-html += `• <b>${sirali[i].A}</b> = ${sirali[i].B}<br>`;
+var sirali = sozluk.slice().sort(function(x, y) { return x.A.localeCompare(y.A, 'tr'); });
+var html = "<div style='max-height:220px; overflow-y:auto; font-size:14px; font-weight:normal; text-align:left; margin-top:5px;'><b>TÜM SÖZCÜKLÜK (ABECESEL):</b><br>";
+for(var i = 0; i < sirali.length; i++){
+html += "• <b>" + sirali[i].A + "</b> = " + sirali[i].B + "<br>";
 }
 html += "</div>";
 document.getElementById("sonuc").innerHTML = html;
 }
 
 baslat();
+
+
 </script>
 </body>
 </html>
