@@ -1,4 +1,5 @@
-var sozluk = [
+
+	var sozluk = [
 
 { A: "jurisdiction" , B: "yargı yetkisi" },
 { A: "jurnal" , B: "gizli bilgiyi sızdırma" },
@@ -5273,7 +5274,7 @@ var sozluk = [
 { A: "termistör" , B: "sıcaklığa bağlı direnç" },
 { A: "üretra" , B: "çiş kanalı" },
 { A: "ürolog" , B: "üreme kuramı bilen" },
-{ A: "varistör" , B: "gerilime bağlı direnç" }.
+{ A: "varistör" , B: "gerilime bağlı direnç" },
 
 
 { A: "stajiyer" , B: "kılgıcı" },
