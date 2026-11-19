@@ -4983,7 +4983,35 @@ var sozluk = [
 { A: "muharebe" , B: "savaş" },
 { A: "mütareke" , B: "ateş kes" },
 { A: "mücadele" , B: "çabalanan" },
-{ A: "cedele" , B: "çaba" }
+{ A: "cedele" , B: "çaba" },
+
+{ A: "atom grup" , B: "ögecik kümesi" },
+{ A: "atom periyodu" , B: "ögecik dönemi" },
+{ A: "ctrl h" , B: "bul değiştiri açar" },
+{ A: "ctrl s" , B: "belleğe yazdır" },
+{ A: "element" , B: "ögecik" },
+{ A: "freeze panes" , B: "bölmeleri dondur" },
+{ A: "grup ölçütü" , B: "değerlik eksicik sayısı" },
+{ A: "inner transitiun metals" , B: "iç geçiş metaller" },
+{ A: "kaydet" , B: "belleğe yazdır" },
+{ A: "kod editoru " , B: "buyruk düzenleyici" },
+{ A: "metaloids" , B: "yarı metaller" },
+{ A: "periyot" , B: "yatay sıra" },
+{ A: "periyot ölçütü" , B: "dönem ölçütü" },
+{ A: "protect sheet" , B: "yazıtlığı koru" },
+{ A: "proton sayısı" , B: "artıcık sayısı" },
+{ A: "review" , B: "gözden geçir" },
+{ A: "sayfayı koru" , B: "yazıtlığı koru" },
+{ A: "space" , B: "boşluk" },
+{ A: "tahmin" , B: "kestirme" },
+{ A: "transition metals" , B: "geçiş metalleri" },
+{ A: "unmerge cells" , B: "gözenekleri çöz" },
+{ A: "unprotect sheet" , B: "yazıtlığı koruma" },
+{ A: "walker" , B: "yürütücü" }
+
+
+
+
 	
 
 
