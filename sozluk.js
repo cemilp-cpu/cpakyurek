@@ -4966,8 +4966,25 @@ var sozluk = [
 { A: "zone", B: "bölge" },
 { A: "zoom in", B: "yakınlaşma" },
 { A: "zoom out", B: "uzaklaşma" },
-{ A: "zoom", B: "yakınlaşma" }
+{ A: "zoom", B: "yakınlaşma" },
 
+{ A: "property" , B: "edinilen" },
+{ A: "mülk" , B: "edinilen" },
+{ A: "menkul" , B: "taşınabilir" },
+{ A: "gayrimenkul" , B: "taşınamaz" },
+{ A: "customer service" , B: "satınalıcı sunum" },
+{ A: "müşteri" , B: "satın alan" },
+{ A: "service" , B: "sunum" },
+{ A: "reprezentative" , B: "yetkilendirilmiş sözcü" },
+{ A: "temsilci" , B: "yetkilendirilmiş sözcü" },
+{ A: "harb" , B: "cenk" },
+{ A: "muharebe" , B: "cenk" },
+{ A: "harb" , B: "savaş" },
+{ A: "muharebe" , B: "savaş" },
+{ A: "mütareke" , B: "ateş kes" },
+{ A: "mücadele" , B: "çabalanan" },
+{ A: "cedele" , B: "çaba" }
+	
 
 
 	];
