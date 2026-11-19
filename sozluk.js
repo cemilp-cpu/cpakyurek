@@ -5063,8 +5063,30 @@ var sozluk = [
 { A: "vscode" , B: "görsel beğeni yaratma buyruğu" },
 { A: "vulnerability assessment" , B: "güvenlik açığı değerlendirmesi" },
 { A: "wage" , B: "aşlık" },
-{ A: "zafiyet" , B: "korunamama" }
+{ A: "zafiyet" , B: "korunamama" },
 
+
+
+{ A: "harmonic distortion present at current level" , B: "Akım Seviyesinde Mevcut Harmonik Distorsiyonu" },
+{ A: "ai" , B: "öngörüleri geliştirilmiş araç" },
+{ A: "artficial intelligent" , B: "öngörüleri geliştirilmiş araç" },
+{ A: "batch" , B: "toplu" },
+{ A: "tensor processing unit)" , B: "gerdirici işlem birimi" },
+{ A: "total harmonic distortion of voltage" , B: "gerilimim toplam uyum bozulması" },
+{ A: "touch" , B: "dokun" },
+{ A: "traceability" , B: "İzlenebilirlik" },
+{ A: "trade policy" , B: "alım satım güç bende olsun isterliği" },
+{ A: "trademark" , B: "alım satım tanıtıcısı" },
+{ A: "traditional interview" , B: "geleneksel sorulara yanıtlar" },
+{ A: "traffic flow map" , B: "taşıt kişi devinirlik çizelgesi" },
+{ A: "traffic lane markings" , B: "yol çizgileri" },
+{ A: "traffic volume" , B: "taşıt birey yoğunluğu" },
+{ A: "training data" , B: "eğitim verisi" },
+{ A: "yapay zeka" , B: "öngörüleri geliştirilmiş araç" }
+
+
+
+	
 
 
 
