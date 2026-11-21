@@ -5203,6 +5203,7 @@ var sozluk = [
 { A: "user experience " , B: "kullanıcı deneyimi" },
 { A: "user interface  " , B: "kullanıcı arayüzü" },
 { A: "user story" , B: "kullanıcı öyküsü" },
+{ A: "thinkpad" , B: "düşünyaz" },	
 { A: "utility " , B: "yararlı" },
 { A: "ux" , B: "kullanıcı deneyimi" },
 { A: "vacation" , B: "tatil" }
