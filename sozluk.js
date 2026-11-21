@@ -5126,10 +5126,33 @@ var sozluk = [
 { A: "video" , B: "akargör" },
 { A: "video export" , B: "akargör dışa aktarma" },
 { A: "video game" , B: "akargör oyunu" },
-{ A: "yabancı" , B: "dışarılı" }
+{ A: "yabancı" , B: "dışarılı" },
 
 
 	
+{ A: "agreements" , B: "sözleşmeler" },
+{ A: "beam" , B: "ışın" },
+{ A: "bela" , B: "denetlenemez sorun" },
+{ A: "casting" , B: "dönüştürme" },
+{ A: "dert" , B: "sorun" },
+{ A: "transaction" , B: "işlem" },
+{ A: "invariance" , B: "değişmezlik" },
+{ A: "learning" , B: "öğrenme" },
+{ A: "tiporaf" , B: "imgetür" },
+{ A: "training set" , B: "eğitim kümesi" },
+{ A: "transcend" , B: "aşmak" },
+{ A: "transfer of technology  " , B: "kurgulama biliminin taşınması" },
+{ A: "transition" , B: "geçiş" },
+{ A: "transmit" , B: "iletim" },
+{ A: "transparency" , B: "ışık geçirgenliği" },
+{ A: "transverse" , B: "enleme" },
+{ A: "triangular" , B: "üçgen" },
+{ A: "trigger" , B: "tetikleyici" },
+{ A: "trouble" , B: "güçlük" },
+{ A: "true negative" , B: "olumsuz doğru" },
+{ A: "true positive" , B: "olumlu doğru" },
+{ A: "tween" , B: "ara bağlama" },
+{ A: "two factor authentication" , B: "iki etmenli kimlik doğrulama" }
 
 
 
