@@ -5206,7 +5206,25 @@ var sozluk = [
 { A: "thinkpad" , B: "düşünyaz" },	
 { A: "utility " , B: "yararlı" },
 { A: "ux" , B: "kullanıcı deneyimi" },
-{ A: "vacation" , B: "tatil" }
+{ A: "vacation" , B: "tatil" },
+
+
+{ A: "dert" , B: "bedensel bozukluk" },
+{ A: "invariance" , B: "değişmezlik" },
+{ A: "iterasyon" , B: "yineleme" },
+{ A: "şeffaflık" , B: "saydamlık" },
+{ A: "transaction" , B: "işlem" },
+{ A: "transcend" , B: "aşmak" },
+{ A: "transition" , B: "geçiş" },
+{ A: "triangular" , B: "üçgen" },
+{ A: "trigger" , B: "tetikleyici" },
+{ A: "trouble" , B: "güçlük" },
+{ A: "true" , B: "doğru" },
+{ A: "true negative" , B: "olumsuz doğru" },
+{ A: "true positive" , B: "olumlu doğru" },
+{ A: "turn up" , B: "sesi aç" },
+{ A: "vacation" , B: "tatil" },
+{ A: "value iteration" , B: "değer yineleme" }
 
 
 	
