@@ -5224,8 +5224,44 @@ var sozluk = [
 { A: "true positive" , B: "olumlu doğru" },
 { A: "turn up" , B: "sesi aç" },
 { A: "vacation" , B: "tatil" },
-{ A: "value iteration" , B: "değer yineleme" }
+{ A: "value iteration" , B: "değer yineleme" },
 
+
+
+{ A: "user behavior" , B: "kullanıcı davranışı" },
+{ A: "İnkar Edilemez" , B: "söylemedim denilemez" },
+{ A: "kullanılan kapasite" , B: "kullanılan sığa" },
+{ A: "maskeyi kullan" , B: "yüzgizleri kullan" },
+{ A: "nuboxing" , B: "kutundan çıkarma" },
+{ A: "sabit maliyet" , B: "değişmez edinim" },
+{ A: "search" , B: "araştırma" },
+{ A: "tipografi" , B: "yazı biçimleme" },
+{ A: "type casting" , B: "tür dönüştürme" },
+{ A: "ui" , B: "kullanıcı arayüzü" },
+{ A: "unary" , B: "tekli" },
+{ A: "undeniable" , B: "söylemedim denilemez" },
+{ A: "underfitting" , B: "yetersiz uydurma" },
+{ A: "undifferentiated " , B: "farklılaştırılmamış " },
+{ A: "uniform cost " , B: "değişmez edinim" },
+{ A: "uninstall" , B: "kaldırma" },
+{ A: "union" , B: "birlik" },
+{ A: "unit root" , B: "birim kök" },
+{ A: "unity setup" , B: "birim ayarları" },
+{ A: "univariate" , B: "tek değişkenli" },
+{ A: "unlink" , B: "bağlantıyı koparma" },
+{ A: "unmanned" , B: "tanımlayabilensiz" },
+{ A: "unplanned downtime" , B: "öngörlmemiş kesinti" },
+{ A: "unprecedented" , B: "eşi benzeri görülmemiş" },
+{ A: "unstructured data" , B: "yapılandırılmamış veri" },
+{ A: "update" , B: " güncelleme" },
+{ A: "upload" , B: "yüklemek" },
+{ A: "upscale" , B: "çözünürlük artırma" },
+{ A: "upstream" , B: "kaynak" },
+{ A: "urgency" , B: "bekletilemezlik" },
+{ A: "usability" , B: "kullanılabilirlik" },
+{ A: "use mask" , B: "yüzgizleri kullan" },
+{ A: "used capacity" , B: "kullanılan sığa" }
+	
 
 	
 
