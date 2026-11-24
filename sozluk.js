@@ -5262,7 +5262,38 @@ var sozluk = [
 { A: "urgency" , B: "bekletilemezlik" },
 { A: "usability" , B: "kullanılabilirlik" },
 { A: "use mask" , B: "yüzgizleri kullan" },
-{ A: "used capacity" , B: "kullanılan sığa" }
+{ A: "used capacity" , B: "kullanılan sığa" },
+
+
+
+{ A: "used capacity" , B: "kullanılan sığa" },
+{ A: "alkol" , B: "ögecik8ögecik1 bileşikçikli" },
+{ A: "diyabet" , B: "kanda akamazlıklar" },
+{ A: "gliserol" , B: "üç ögecik6  üç ögecik1 üç ögecik8 bileşicikliği" },
+{ A: "grup" , B: "öbek" },
+{ A: "hardware description language" , B: "donanım tanımlama dili" },
+{ A: "hdl" , B: "yüksek yoğunluklu yağ canlıcık yapıtaşı küreciği" },
+{ A: "hdl" , B: "donanım tanımlama dili" },
+{ A: "hidroksil  " , B: "ögecik8ögecik1 bileşikçiüi" },
+{ A: "inorganik molekül" , B: "ögecik6 içeriksiz bileşikcik" },
+{ A: "kalori" , B: "birgram suyu 1 derece arttıran ısı" },
+{ A: "kapsül" , B: "kapçık" },
+{ A: "kolesterol" , B: "yüksek yoğunluklu yağ canlıcık yapıtaşı küreciği" },
+{ A: "laughing out loud" , B: "yüksek sesle gülmek" },
+{ A: "ldl" , B: "alçak yoğunluklu taşıyıcı kapçıklar" },
+{ A: "ldl" , B: "yüksek sesle gülmek" },
+{ A: "lipid" , B: "suda çözülmez organik bileşikcikler" },
+{ A: "lipo protein" , B: "taşıyıcı kapçıklar" },
+{ A: "low density lipoprotein" , B: "alçak yoğunluklu taşıyıcı kapçıklar" },
+{ A: "obozite" , B: "şişmanlık" },
+{ A: "organik molekül" , B: "ögecik6içerikli bileşicik" },
+{ A: "periyot" , B: "dönem" },
+{ A: "poliol" , B: "şekeraz düşüncebozmaz" },
+{ A: "safra" , B: "yağ özümsetici" },
+{ A: "şeker alkolü" , B: "şekeraz düşüncebozmaz" },
+{ A: "tab" , B: "sekme" },
+{ A: "triglliserit" , B: "temel yağ saklağı" },
+{ A: "xlsx" , B: "yoğun işlev araç içeren" },
 	
 
 	
