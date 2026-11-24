@@ -5256,7 +5256,7 @@ var sozluk = [
 { A: "update" , B: " güncelleme" },
 { A: "upload" , B: "yüklemek" },
 { A: "upscale" , B: "çözünürlük artırma" },
-{ A: "upstream" , B:makromakro"kaynak" },
+{ A: "upstream" , B: "kaynak" },
 { A: "macro" , B: "yoğun işlev aracı" },
 { A: "makro" , B: "yoğun işlev aracı" },	
 { A: "urgency" , B: "bekletilemezlik" },
