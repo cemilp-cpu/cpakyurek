@@ -5293,9 +5293,39 @@ var sozluk = [
 { A: "şeker alkolü" , B: "şekeraz düşüncebozmaz" },
 { A: "tab" , B: "sekme" },
 { A: "triglliserit" , B: "temel yağ saklağı" },
-{ A: "xlsx" , B: "yoğun işlev araç içeren" },
+{ A: "xlsx" , B: "yoğun işlev araç içeren" },-
 	
-
+{ A: "edit" , B: "düzenle" },
+{ A: "ctrl shift b" , B: "yerimi çubuğunun altı açılır" },
+{ A: "klavye" , B: "imgetık" },
+{ A: "datacleanup" , B: "veri temizle" },
+{ A: "api counterapi dev" , B: "bulut sunucu" },
+{ A: "https" , B: "güvenilir sanalyöre" },
+{ A: "cors" , B: "iki analyöre veri denetçi" },
+{ A: "pading" , B: "kenar çizi ile alan arası boşluk" },
+{ A: "margin" , B: "kenar çizgi le komşu kutular arası boşluk" },
+{ A: "font size" , B: "yazı türü boyutu" },
+{ A: "tuday's date" , B: "günün tarihi" },
+{ A: "data cleanup" , B: "veri temizleme" },
+{ A: "data hasheadwer row" , B: "verilerde üst bilgi sırası var" },
+{ A: "format" , B: "biçim" },
+{ A: "conditional formating" , B: "koşullu biçimlendirme" },
+{ A: "custom formula" , B: "özel sesadlı anlatım" },
+{ A: "formül" , B: "sesadlı anlatım" },
+{ A: "google sheets" , B: "e tablolar" },
+{ A: "unique" , B: "tekillik" },
+{ A: "add rule" , B: "kural ekle" },
+{ A: "criteria" , B: "ölçütler" },
+{ A: "countif" , B: "eğersay" },
+{ A: "advanced options" , B: "gelişmiş seçenekler" },
+{ A: "reject input" , B: "girişi yazma" },
+{ A: "reject" , B: "çıkart" },
+{ A: "chrome" , B: "tarayıcı" },
+{ A: "apply to range" , B: "aralığa uygula" },
+{ A: "kompact mod" , B: "daraltılmış görünüm" },
+{ A: "ctrl shift f" , B: "daraltımıi görünüm açar" },
+{ A: "touchpad" , B: "dokunmat'k y]zey" },
+{ A: "shift  ↑ veya ↓" , B: "satır seçme" }
 	
 
 
