@@ -5327,7 +5327,7 @@ var sozluk = [
 { A: "apply to range" , B: "aralığa uygula" },
 { A: "kompact mod" , B: "daraltılmış görünüm" },
 { A: "ctrl shift f" , B: "daraltımıi görünüm açar" },
-{ A: "touchpad" , B: "dokunmat'k y]zey" },
+{ A: "touchpad" , B: "dokunmatik yüzey" },
 { A: "shift  ↑ veya ↓" , B: "satır seçme" }
 	
 
