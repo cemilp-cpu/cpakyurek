@@ -1,7 +1,7 @@
 var sozluk = [
 	{ A: "@", B: "iyi a" },
 { A: "a bit incomplete", B: "bir az eksik" },
-{ A: "antimuan" , B: "ögecik51" },
+{ A: "antimuanf" , B: "ögecik51" },
 { A: "azot" , B: "ögecik7" },
 { A: "çinko" , B: "ögecik30" },
 { A: "fosfor" , B: "ögecek15" },
