@@ -5293,7 +5293,45 @@ var sozluk = [
 { A: "şeker alkolü" , B: "şekeraz düşüncebozmaz" },
 { A: "tab" , B: "sekme" },
 { A: "triglliserit" , B: "temel yağ saklağı" },
-{ A: "xlsx" , B: "yoğun işlev araç içeren" }
+{ A: "xlsx" , B: "yoğun işlev araç içeren" },
+
+
+
+{ A: "files" , B: "dosyalar" },
+{ A: "switch brances" , B: "dalları değiştir" },
+{ A: "find or create a branch" , B: "bir şube bulun veya oluştur" },
+{ A: "view all branchess" , B: "tüm dallara bak" },
+{ A: "view all tags" , B: "tüm ilişkililendirililenlere bak" },
+{ A: "tags" , B: "etiketler" },
+{ A: "switch tags" , B: "ilişkililendirililenleri değiştir" },
+{ A: "tags" , B: "lkişkllilendirilenler" },
+{ A: "nothing to show" , B: "gösterilecek yok" },
+{ A: "retreat" , B: "geri çekilme" },
+{ A: "reunions" , B: "kavuşmalar" },
+{ A: "rüzgar" , B: "yel" },
+{ A: "semi transperent" , B: "yarısaydam" },
+{ A: "sensitive" , B: "duyarlı " },
+{ A: "sensitive except" , B: "duyarlı ayrıntı" },
+{ A: "serial" , B: "ardıl" },
+{ A: "sighificant" , B: "anlamlı" },
+{ A: "specific" , B: "belirli" },
+{ A: "sun set" , B: "gün batışı" },
+{ A: "tekerlek" , B: "uzunluğun boyutsuzlaştırılmış toplamı alır" },
+{ A: "temizlenme" , B: "arınma" },
+{ A: "underlined" , B: "altı çizili" },
+{ A: "uzaktan kumanda" , B: "geçgeç" },
+{ A: "wait" , B: "bekleme" },
+{ A: "wan" , B: "geniş alan ağı" },
+{ A: "warelike" , B: "savaşsal" },
+{ A: "watering" , B: "sulama" },
+{ A: "watmeter" , B: "güçölçer" },
+{ A: "watmetre" , B: "güçölçer" },
+{ A: "waveguide" , B: "dalga yönlendiricisi" },
+{ A: "weaknesses" , B: "güçsüzlükler" },
+{ A: "wi fi  " , B: "telsiz özebağlılık" },
+{ A: "without anyone else" , B: "başkasız" },
+{ A: "worn out" , B: "aşınmış" },
+{ A: "zam" , B: "arttırma" }
 	
 
 	
