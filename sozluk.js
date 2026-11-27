@@ -5384,9 +5384,23 @@ var sozluk = [
 { A: "termistör" , B: "sıcaklığa bağlı direnç" },
 { A: "üretra" , B: "çiş kanalı" },
 { A: "ürolog" , B: "üreme kuramı bilen" },
-{ A: "varistör" , B: "gerilime bağlı direnç" },	
+{ A: "varistör" , B: "gerilime bağlı direnç" },
 
 	
+{ A: "varistör" , B: "gerilime bağlı direnç" },
+{ A: "ctrl shift aşağı ok" , B: "gözenek altını belirler" },
+{ A: "diyabet" , B: "bedende şeker dengesizliği" },
+{ A: "hasar" , B: "bozulma" },
+{ A: "hasarlı" , B: "bozulan" },
+{ A: "hidrasyon" , B: "sulanma" },
+{ A: "hipoglisemi" , B: "düşük şeker" },
+{ A: "insülin direnci" , B: "geçirgenlik direnci" },
+{ A: "intermittent fasting" , B: "16 8aralıklı açlık" },
+{ A: "konsantrasyon" , B: "yoğunlaşma" },
+{ A: "oruç" , B: "16s açlık" },
+{ A: "otofaji" , B: "canlıcık yenilenme" },
+{ A: "tansiyon" , B: "kan basıncı" },
+{ A: "yüksek protein" , B: "yüksek canlıcık yapıtaşı" }
 
 
 	
