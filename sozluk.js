@@ -5400,8 +5400,31 @@ var sozluk = [
 { A: "oruç" , B: "16s açlık" },
 { A: "otofaji" , B: "canlıcık yenilenme" },
 { A: "tansiyon" , B: "kan basıncı" },
-{ A: "yüksek protein" , B: "yüksek canlıcık yapıtaşı" }
+{ A: "yüksek protein" , B: "yüksek canlıcık yapıtaşı" },
 
+
+
+{ A: "yüksek protein" , B: "yüksek canlıcık yapıtaşı" },
+{ A: "manzara" , B: "görüleceklik" },
+{ A: "foto diyod" , B: "ışıkla geçirginleşen tekyönlü iletken" },
+{ A: "fovea" , B: "görmeye dönüştüren" },
+{ A: "intifa hakkı" , B: "kullanma yararlanma hakkı" },
+{ A: "intifa hakkı" , B: "kullanma hakkı" },
+{ A: "intifa hakkı" , B: "yararlanma hakkı" },
+{ A: "makula" , B: "görmeye dönüştüren" },
+{ A: "normal oct" , B: "tanımlı eşevreli kesit gösterim" },
+{ A: "nöro sensorial retina" , B: "sinir duyusal ağ tabaka " },
+{ A: "opto kuplör" , B: "ışık açkısı" },
+{ A: "pageviews" , B: "yazıtlığa bakanlar" },
+{ A: "ped" , B: "verim artırıcı umar" },
+{ A: "retina pigment epiteli" , B: "ağtabaka renk canlıcık örtüsü" },
+{ A: "schottky diyod" , B: "metal bileşenli tek yönlü iletken" },
+{ A: "subretinal fluid" , B: "ağ tabakaları arası sıvı" },
+{ A: "üstad" , B: "bilim beğeni oluşturan önder" },
+{ A: "visitors" , B: "gezenler" },
+{ A: "visits" , B: "gezinmeler" },
+{ A: "wet amd" , B: "ıslak yaşa bağlı görmeye dönüştüren bozulma" }
+	
 
 	
 
