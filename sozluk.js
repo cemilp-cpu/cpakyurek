@@ -5423,7 +5423,35 @@ var sozluk = [
 { A: "üstad" , B: "bilim beğeni oluşturan önder" },
 { A: "visitors" , B: "gezenler" },
 { A: "visits" , B: "gezinmeler" },
-{ A: "wet amd" , B: "ıslak yaşa bağlı görmeye dönüştüren bozulma" }
+{ A: "wet amd" , B: "ıslak yaşa bağlı görmeye dönüştüren bozulma" },
+
+
+{ A: "muris muvazası" , B: "bırakıtçının sandırılanı" },
+{ A: "bedel" , B: "karşılık" },
+{ A: "çıplak mülkiyet" , B: "getirisiz edinmişlik" },
+{ A: "döner semaye" , B: "döner yatırm" },
+{ A: "feragat" , B: "bırakmalar" },
+{ A: "harç" , B: "kamu payı ödemesi" },
+{ A: "hibe" , B: "bağış" },
+{ A: "hukuki" , B: "haklılıksal" },
+{ A: "hukuki risk" , B: "yasal kötüleşme" },
+{ A: "imza" , B: "yazılı onay" },
+{ A: "interaktif" , B: "etkileşım " },
+{ A: "interaktif vergi dairesi" , B: "çevrimiçi vergi kaynagı" },
+{ A: "intraretinal cystoid space" , B: "ağ katman içi sul kesesi" },
+{ A: "ipka" , B: "yerinde bırakma" },
+{ A: "mülkiyet" , B: "edinmişlik" },
+{ A: "planlama" , B: "öngörme" },
+{ A: "resmi" , B: "yasalbiçim" },
+{ A: "resmi senet" , B: "yasal biçimde belge" },
+{ A: "rıza" , B: "olur" },
+{ A: "risk" , B: "kötüleşme" },
+{ A: "sms" , B: "kısa ileti düzeneği" },
+{ A: "veraset" , B: "kalıtsallar" }
+
+
+
+
 	
 
 	
